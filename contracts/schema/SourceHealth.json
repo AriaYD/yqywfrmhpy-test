@@ -1,0 +1,110 @@
+{
+  "$defs": {
+    "SourceKind": {
+      "enum": [
+        "opportunity_source",
+        "education_connector",
+        "policy_source"
+      ],
+      "title": "SourceKind",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/SourceHealth.json",
+  "additionalProperties": false,
+  "description": "Spec §6.11 的八项运维指标。**不展示任何原文或学生数据。**",
+  "properties": {
+    "broken_link_rate": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Broken Link Rate",
+      "type": "number"
+    },
+    "checked_at": {
+      "format": "date-time",
+      "title": "Checked At",
+      "type": "string"
+    },
+    "deadline_consistency_issues": {
+      "minimum": 0,
+      "title": "Deadline Consistency Issues",
+      "type": "integer"
+    },
+    "duplicate_conflict_signals": {
+      "minimum": 0,
+      "title": "Duplicate Conflict Signals",
+      "type": "integer"
+    },
+    "fetch_auth_status": {
+      "default": "unknown",
+      "enum": [
+        "ok",
+        "rate_limited",
+        "auth_expired",
+        "unreachable",
+        "unknown"
+      ],
+      "title": "Fetch Auth Status",
+      "type": "string"
+    },
+    "freshness_hours": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Freshness Hours"
+    },
+    "kind": {
+      "$ref": "#/components/schemas/SourceKind"
+    },
+    "last_successful_sync": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Successful Sync"
+    },
+    "parse_success_rate": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Parse Success Rate",
+      "type": "number"
+    },
+    "schema_coverage_rate": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Schema Coverage Rate",
+      "type": "number"
+    },
+    "source_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Source Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "source_id",
+    "kind",
+    "parse_success_rate",
+    "broken_link_rate",
+    "deadline_consistency_issues",
+    "schema_coverage_rate",
+    "duplicate_conflict_signals",
+    "checked_at"
+  ],
+  "title": "SourceHealth",
+  "type": "object"
+}

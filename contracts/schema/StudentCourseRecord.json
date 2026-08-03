@@ -1,0 +1,105 @@
+{
+  "$defs": {
+    "CourseStatus": {
+      "enum": [
+        "planned",
+        "enrolled",
+        "completed",
+        "dropped",
+        "waitlisted"
+      ],
+      "title": "CourseStatus",
+      "type": "string"
+    },
+    "RecordSource": {
+      "enum": [
+        "sis",
+        "lms",
+        "student_reported",
+        "degree_audit"
+      ],
+      "title": "RecordSource",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/StudentCourseRecord.json",
+  "additionalProperties": false,
+  "properties": {
+    "course_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Course Id",
+      "type": "string"
+    },
+    "credits": {
+      "minimum": 0,
+      "title": "Credits",
+      "type": "number"
+    },
+    "grade": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "仅在学生授权 SIS_RECORDS 时填充；未授权时为 None 而非 'N/A'",
+      "title": "Grade"
+    },
+    "grade_scope": {
+      "default": "not_released",
+      "enum": [
+        "letter",
+        "pass_fail",
+        "audit",
+        "not_released",
+        "withheld"
+      ],
+      "title": "Grade Scope",
+      "type": "string"
+    },
+    "record_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Record Id",
+      "type": "string"
+    },
+    "source": {
+      "$ref": "#/components/schemas/RecordSource"
+    },
+    "status": {
+      "$ref": "#/components/schemas/CourseStatus"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "term": {
+      "pattern": "^\\d{4}-\\d{2}_(FALL|WINTER|SPRING|SUMMER)$",
+      "title": "Term",
+      "type": "string"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "record_id",
+    "student_id",
+    "course_id",
+    "term",
+    "status",
+    "credits",
+    "source",
+    "updated_at"
+  ],
+  "title": "StudentCourseRecord",
+  "type": "object"
+}

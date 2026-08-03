@@ -1,0 +1,45 @@
+{
+  "$id": "https://campuspath.invalid/schema/CapacityBudget.json",
+  "additionalProperties": false,
+  "description": "路径版本对容量的承诺。超出即 B1 违规，除非 ``explicit_overload_warning``。",
+  "properties": {
+    "discretionary_capacity_hours": {
+      "title": "Discretionary Capacity Hours",
+      "type": "number"
+    },
+    "explicit_overload_warning": {
+      "default": false,
+      "title": "Explicit Overload Warning",
+      "type": "boolean"
+    },
+    "period_end": {
+      "format": "date",
+      "title": "Period End",
+      "type": "string"
+    },
+    "period_start": {
+      "format": "date",
+      "title": "Period Start",
+      "type": "string"
+    },
+    "planned_hours": {
+      "minimum": 0,
+      "title": "Planned Hours",
+      "type": "number"
+    },
+    "reserved_buffer_hours": {
+      "minimum": 0,
+      "title": "Reserved Buffer Hours",
+      "type": "number"
+    }
+  },
+  "required": [
+    "period_start",
+    "period_end",
+    "discretionary_capacity_hours",
+    "planned_hours",
+    "reserved_buffer_hours"
+  ],
+  "title": "CapacityBudget",
+  "type": "object"
+}

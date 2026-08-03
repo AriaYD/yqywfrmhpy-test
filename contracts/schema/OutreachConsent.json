@@ -1,0 +1,85 @@
+{
+  "$defs": {
+    "OutreachPurpose": {
+      "enum": [
+        "non_urgent_wellbeing_checkin"
+      ],
+      "title": "OutreachPurpose",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/OutreachConsent.json",
+  "additionalProperties": false,
+  "description": "Spec §14.2。没有有效同意就没有任何个体信息离开学生侧（B13）。",
+  "properties": {
+    "consent_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Consent Id",
+      "type": "string"
+    },
+    "expires_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expires At"
+    },
+    "granted_at": {
+      "format": "date-time",
+      "title": "Granted At",
+      "type": "string"
+    },
+    "purpose": {
+      "$ref": "#/components/schemas/OutreachPurpose",
+      "default": "non_urgent_wellbeing_checkin"
+    },
+    "recipient_role": {
+      "const": "counseling_wellbeing_queue",
+      "title": "Recipient Role",
+      "type": "string"
+    },
+    "revoked_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Revoked At"
+    },
+    "scope": {
+      "enum": [
+        "single_request",
+        "standing_opt_in"
+      ],
+      "title": "Scope",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "consent_id",
+    "student_id",
+    "scope",
+    "recipient_role",
+    "granted_at"
+  ],
+  "title": "OutreachConsent",
+  "type": "object"
+}

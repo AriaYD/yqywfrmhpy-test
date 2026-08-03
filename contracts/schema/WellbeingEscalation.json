@@ -1,0 +1,122 @@
+{
+  "$defs": {
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/WellbeingEscalation.json",
+  "additionalProperties": false,
+  "description": "升级判定：什么时候提示做量表。全部确定性阈值，口径写死在字段里。\n\n2026-08-02 用户裁定换用「睡眠-负荷平衡」计数模型（工程化简化，依据：\nATUS 时间使用调查的 3.5h 生理固定成本、WHO/ILO 每周 55h 过劳阈值、\nScarcity 时间贫困的 15–20% 缓冲共识；**非医疗建议**）：\n\n* 合格日 = 当天有效睡眠 <7h **且** 学习工作（忙+课程）时长 >11h；\n* ``warning``：滚动 14 天内合格日 ≥10 → 温和弹窗提醒调整作息；\n* ``assessment``：滚动 28 天内合格日 ≥20 → 弹窗引导完成 ISI+PSS-10，\n  完成（``last_assessment_at`` 晚于触发窗口起点）后弹窗解除；\n  分流沿用 §16.8：初级 → 联系辅导员；PSS>20 或 ISI 中度及以上 →\n  引导预约心理咨询室。学生也可随时**主动**发起评估。\n\n睡眠只看学生**显式声明**的窗口与侵入它的安排——未声明不推断（§16.8.2）。",
+  "properties": {
+    "data_coverage_days": {
+      "description": "有数据可判的天数，如实报告",
+      "minimum": 0,
+      "title": "Data Coverage Days",
+      "type": "integer"
+    },
+    "declared_sleep_hours": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "学生声明的睡眠窗口时长；None=未声明（不推断）",
+      "title": "Declared Sleep Hours"
+    },
+    "last_assessment_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Assessment At"
+    },
+    "overload_now": {
+      "default": false,
+      "title": "Overload Now",
+      "type": "boolean"
+    },
+    "qualifying_days_14": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Qualifying Days 14",
+      "type": "integer"
+    },
+    "qualifying_days_28": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Qualifying Days 28",
+      "type": "integer"
+    },
+    "reasons": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/LocalizedText"
+      },
+      "title": "Reasons",
+      "type": "array"
+    },
+    "refused_or_deferred_30d": {
+      "minimum": 0,
+      "title": "Refused Or Deferred 30D",
+      "type": "integer"
+    },
+    "sleep_deficit_consecutive_days": {
+      "minimum": 0,
+      "title": "Sleep Deficit Consecutive Days",
+      "type": "integer"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "tier": {
+      "enum": [
+        "none",
+        "warning",
+        "assessment"
+      ],
+      "title": "Tier",
+      "type": "string"
+    }
+  },
+  "required": [
+    "student_id",
+    "sleep_deficit_consecutive_days",
+    "data_coverage_days",
+    "refused_or_deferred_30d",
+    "tier"
+  ],
+  "title": "WellbeingEscalation",
+  "type": "object"
+}

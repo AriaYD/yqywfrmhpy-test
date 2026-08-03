@@ -1,0 +1,103 @@
+{
+  "$defs": {
+    "Visibility": {
+      "enum": [
+        "private",
+        "shared_with_advisor",
+        "institution_visible"
+      ],
+      "title": "Visibility",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/Note.json",
+  "additionalProperties": false,
+  "description": "学生或 Agent 的上下文说明。``text`` 是原文，永不进入聚合通路（B4）。",
+  "properties": {
+    "author": {
+      "enum": [
+        "student",
+        "agent"
+      ],
+      "title": "Author",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "linked_entities": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Linked Entities",
+      "type": "array"
+    },
+    "note_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Note Id",
+      "type": "string"
+    },
+    "object_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Object Ref"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "text": {
+      "anyOf": [
+        {
+          "maxLength": 20000,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Text"
+    },
+    "updated_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Updated At"
+    },
+    "visibility": {
+      "$ref": "#/components/schemas/Visibility",
+      "default": "private"
+    }
+  },
+  "required": [
+    "note_id",
+    "student_id",
+    "author",
+    "created_at"
+  ],
+  "title": "Note",
+  "type": "object"
+}

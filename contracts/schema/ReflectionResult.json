@@ -1,0 +1,351 @@
+{
+  "$defs": {
+    "EnergyCost": {
+      "enum": [
+        "low",
+        "moderate",
+        "high",
+        "draining"
+      ],
+      "title": "EnergyCost",
+      "type": "string"
+    },
+    "KeyTakeaway": {
+      "additionalProperties": false,
+      "description": "Spec §14.4：``author`` 恒为 student——系统不替学生总结\"你学到了什么\"。",
+      "properties": {
+        "author": {
+          "const": "student",
+          "default": "student",
+          "title": "Author",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "linked_goal_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Linked Goal Id"
+        },
+        "linked_skill_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Linked Skill Id"
+        },
+        "remember_flag": {
+          "default": false,
+          "title": "Remember Flag",
+          "type": "boolean"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "tags": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Tags",
+          "type": "array"
+        },
+        "takeaway_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Takeaway Id",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/components/schemas/TakeawayType"
+        }
+      },
+      "required": [
+        "takeaway_id",
+        "student_id",
+        "text",
+        "type",
+        "created_at"
+      ],
+      "title": "KeyTakeaway",
+      "type": "object"
+    },
+    "Reflection": {
+      "additionalProperties": false,
+      "description": "学生私有。``private_text`` 永远不离开 Student Private Vault。",
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "energy_cost": {
+          "$ref": "#/components/schemas/EnergyCost",
+          "default": "moderate"
+        },
+        "fit_tag": {
+          "anyOf": [
+            {
+              "maxLength": 40,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fit Tag"
+        },
+        "goal_delta": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Goal Delta",
+          "type": "array"
+        },
+        "next_action": {
+          "anyOf": [
+            {
+              "maxLength": 1000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Next Action"
+        },
+        "personal_learning": {
+          "anyOf": [
+            {
+              "maxLength": 5000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Personal Learning"
+        },
+        "preference_delta": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Preference Delta",
+          "type": "array"
+        },
+        "private_text": {
+          "anyOf": [
+            {
+              "maxLength": 20000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "学生原文。类型层保证它没有任何通往 Aggregation 的路径（B4）",
+          "title": "Private Text"
+        },
+        "profile_candidate_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Profile Candidate Ids",
+          "type": "array"
+        },
+        "rating_content_depth": {
+          "anyOf": [
+            {
+              "maximum": 5,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rating Content Depth"
+        },
+        "rating_expectation_match": {
+          "anyOf": [
+            {
+              "maximum": 5,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rating Expectation Match"
+        },
+        "rating_organization": {
+          "anyOf": [
+            {
+              "maximum": 5,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rating Organization"
+        },
+        "rating_practical_value": {
+          "anyOf": [
+            {
+              "maximum": 5,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rating Practical Value"
+        },
+        "reflection_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Reflection Id",
+          "type": "string"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "subject_id": {
+          "description": "被反思的行动 / 活动 / 课程",
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Subject Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reflection_id",
+        "student_id",
+        "subject_id",
+        "created_at"
+      ],
+      "title": "Reflection",
+      "type": "object"
+    },
+    "TakeawayType": {
+      "enum": [
+        "concept",
+        "method",
+        "tool",
+        "domain_fact",
+        "self_insight",
+        "contact"
+      ],
+      "title": "TakeawayType",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/ReflectionResult.json",
+  "additionalProperties": false,
+  "description": "A1 的一次 Reflection Skill 运行结果（Spec §9）。三类产出各自独立。",
+  "properties": {
+    "profile_proposal_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Profile Proposal Ids",
+      "type": "array"
+    },
+    "quality_feedback_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "指向结构化质量反馈的 id；原文不随之传出（§8.9.2）",
+      "title": "Quality Feedback Id"
+    },
+    "reflection": {
+      "$ref": "#/components/schemas/Reflection"
+    },
+    "result_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Result Id",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "takeaways": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/KeyTakeaway"
+      },
+      "title": "Takeaways",
+      "type": "array"
+    }
+  },
+  "required": [
+    "result_id",
+    "student_id",
+    "reflection"
+  ],
+  "title": "ReflectionResult",
+  "type": "object"
+}

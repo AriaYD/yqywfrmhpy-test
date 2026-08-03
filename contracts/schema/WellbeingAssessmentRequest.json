@@ -1,0 +1,38 @@
+{
+  "$id": "https://campuspath.invalid/schema/WellbeingAssessmentRequest.json",
+  "additionalProperties": false,
+  "description": "R5-E（2026-08-01）：ISI + PSS-10 标准化自评作答。\n\n原始作答提交，反向计分在 wellbeing 服务里做（零 LLM，纯算术）。",
+  "properties": {
+    "isi_answers": {
+      "items": {
+        "type": "integer"
+      },
+      "maxItems": 7,
+      "minItems": 7,
+      "title": "Isi Answers",
+      "type": "array"
+    },
+    "pss10_answers": {
+      "items": {
+        "type": "integer"
+      },
+      "maxItems": 10,
+      "minItems": 10,
+      "title": "Pss10 Answers",
+      "type": "array"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "student_id",
+    "isi_answers",
+    "pss10_answers"
+  ],
+  "title": "WellbeingAssessmentRequest",
+  "type": "object"
+}

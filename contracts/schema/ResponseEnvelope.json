@@ -1,0 +1,197 @@
+{
+  "$defs": {
+    "ClarificationRequest": {
+      "additionalProperties": false,
+      "description": "A0 决定何时询问学生。选项化提问优于开放式，便于评测与降低延迟。",
+      "properties": {
+        "blocking": {
+          "default": true,
+          "title": "Blocking",
+          "type": "boolean"
+        },
+        "field_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field Path"
+        },
+        "options": {
+          "default": [],
+          "items": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "title": "Options",
+          "type": "array"
+        },
+        "question": {
+          "$ref": "#/components/schemas/LocalizedText"
+        },
+        "request_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "request_id",
+        "question"
+      ],
+      "title": "ClarificationRequest",
+      "type": "object"
+    },
+    "IntentId": {
+      "description": "确定性路由表的键。命中即不调用 LLM 编排，这是 T9 延迟达标的主要来源。",
+      "enum": [
+        "onboard",
+        "update_profile",
+        "set_goal",
+        "view_gap_map",
+        "plan_courses",
+        "find_opportunities",
+        "build_pathway",
+        "approve_actions",
+        "reflect",
+        "replan",
+        "browse_plaza",
+        "explain_why_not_recommended"
+      ],
+      "title": "IntentId",
+      "type": "string"
+    },
+    "Locale": {
+      "description": "UI 双语要求（Plan §2）。契约层只承载 locale 标签，不承载文案。",
+      "enum": [
+        "zh-Hans",
+        "en"
+      ],
+      "title": "Locale",
+      "type": "string"
+    },
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/ResponseEnvelope.json",
+  "additionalProperties": false,
+  "description": "所有面向学生的 Agent 响应的统一外壳。\n\n``synthetic_data_notice`` 恒为 True：D1 要求全站标记 `Synthetic / Demo Data`，\n做成类型上不可关闭，比在每个页面模板里记得加一行可靠。",
+  "properties": {
+    "clarification": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/ClarificationRequest"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "envelope_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Envelope Id",
+      "type": "string"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "intent": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/IntentId"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "latency_ms": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Latency Ms"
+    },
+    "locale": {
+      "$ref": "#/components/schemas/Locale"
+    },
+    "payload": {
+      "additionalProperties": true,
+      "description": "按 payload_type 对应 openapi.py 路由表里的响应模型。``extra=\"forbid\"`` 伸不进 dict 内部，字段名扫描也看不见里面，所以由下面的 validator 递归拦截禁用键",
+      "title": "Payload",
+      "type": "object"
+    },
+    "payload_type": {
+      "title": "Payload Type",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "synthetic_data_notice": {
+      "const": true,
+      "default": true,
+      "title": "Synthetic Data Notice",
+      "type": "boolean"
+    },
+    "trace_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Trace Id"
+    }
+  },
+  "required": [
+    "envelope_id",
+    "student_id",
+    "locale",
+    "payload_type",
+    "generated_at"
+  ],
+  "title": "ResponseEnvelope",
+  "type": "object"
+}

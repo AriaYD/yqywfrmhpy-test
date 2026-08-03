@@ -1,0 +1,171 @@
+{
+  "$defs": {
+    "CalendarProviderId": {
+      "enum": [
+        "google",
+        "outlook",
+        "fixture"
+      ],
+      "title": "CalendarProviderId",
+      "type": "string"
+    },
+    "CalendarWriteDraft": {
+      "additionalProperties": false,
+      "description": "要写回日历的事件内容。**由 CampusPath 生成**，学生预览后才落地。\n\n``event_title`` 在边界扫描中被显式豁免（见 tests/test_boundary_guards.py）：\nB5 禁止的是\"读取并保存学生原有事件的标题\"，不是\"我们创建的事件有名字\"。",
+      "properties": {
+        "event_title": {
+          "maxLength": 200,
+          "title": "Event Title",
+          "type": "string"
+        },
+        "reminder_minutes_before": {
+          "anyOf": [
+            {
+              "maximum": 10080,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reminder Minutes Before"
+        },
+        "span": {
+          "$ref": "#/components/schemas/TimeRange"
+        }
+      },
+      "required": [
+        "event_title",
+        "span"
+      ],
+      "title": "CalendarWriteDraft",
+      "type": "object"
+    },
+    "TimeRange": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "format": "date-time",
+          "title": "End",
+          "type": "string"
+        },
+        "start": {
+          "format": "date-time",
+          "title": "Start",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "TimeRange",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/CalendarAction.json",
+  "additionalProperties": false,
+  "description": "Action & Consent Service 的写入动作。幂等键防重复写。",
+  "properties": {
+    "action": {
+      "enum": [
+        "create",
+        "update",
+        "delete"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "action_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Action Id",
+      "type": "string"
+    },
+    "approval_receipt_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Approval Receipt Id"
+    },
+    "draft": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/CalendarWriteDraft"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "external_event_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "External Event Id"
+    },
+    "failure_reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Reason"
+    },
+    "idempotency_key": {
+      "minLength": 8,
+      "title": "Idempotency Key",
+      "type": "string"
+    },
+    "provider": {
+      "$ref": "#/components/schemas/CalendarProviderId"
+    },
+    "result": {
+      "default": "pending",
+      "enum": [
+        "pending",
+        "succeeded",
+        "failed",
+        "skipped"
+      ],
+      "title": "Result",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "action_id",
+    "student_id",
+    "provider",
+    "action",
+    "idempotency_key"
+  ],
+  "title": "CalendarAction",
+  "type": "object"
+}

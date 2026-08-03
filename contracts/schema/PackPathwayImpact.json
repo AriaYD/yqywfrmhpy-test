@@ -1,0 +1,46 @@
+{
+  "$id": "https://campuspath.invalid/schema/PackPathwayImpact.json",
+  "additionalProperties": false,
+  "properties": {
+    "impact_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Impact Id",
+      "type": "string"
+    },
+    "impact_type": {
+      "enum": [
+        "add_preparation_action",
+        "add_confirmation"
+      ],
+      "title": "Impact Type",
+      "type": "string"
+    },
+    "pathway_segment_id": {
+      "maxLength": 80,
+      "title": "Pathway Segment Id",
+      "type": "string"
+    },
+    "rule_ids": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Rule Ids",
+      "type": "array"
+    },
+    "summary": {
+      "maxLength": 500,
+      "title": "Summary",
+      "type": "string"
+    }
+  },
+  "required": [
+    "impact_id",
+    "pathway_segment_id",
+    "impact_type",
+    "summary"
+  ],
+  "title": "PackPathwayImpact",
+  "type": "object"
+}

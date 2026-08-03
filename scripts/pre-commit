@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+# ═══════════════════════════════════════════════════════════
+# CampusPath pre-commit hook —— 密钥与禁用路径拦截
+#
+# 安装：bash scripts/install-hooks.sh
+# 绕过（仅在确认误报时）：git commit --no-verify
+#   —— 但发现误报的正确做法是【修这个检查器】，不是长期绕过
+#
+# 检查【暂存内容】而非工作区：只有真正要进历史的东西才拦。
+# ═══════════════════════════════════════════════════════════
+set -uo pipefail
+
+RED='\033[31m'; YEL='\033[33m'; GRN='\033[32m'; NC='\033[0m'
+BLOCKED=0
+block() { printf "${RED}✗ %s${NC}\n" "$1"; BLOCKED=1; }
+
+STAGED=$(git diff --cached --name-only --diff-filter=ACMR)
+[ -z "$STAGED" ] && exit 0
+
+# ── 1. 按文件名拦截 ──────────────────────────────────────
+while IFS= read -r f; do
+  [ -z "$f" ] && continue
+  case "$f" in
+    .env.example) continue ;;
+    .env|.env.*) block "禁止提交 $f —— 环境变量文件只能留在本地" ;;
+    *-key.json|*-credentials.json|service-account*.json|client_secret*.json|*.pem|*.p12|*.key)
+      block "禁止提交 $f —— 凭据文件" ;;
+    application_default_credentials.json) block "禁止提交 $f —— gcloud ADC 凭据" ;;
+  esac
+done <<< "$STAGED"
+
+# ── 2. 按内容拦截密钥（扫全部文件的新增行）───────────────
+DIFF=$(git diff --cached --diff-filter=ACMR -U0 | grep '^+' | grep -v '^+++' || true)
+
+if [ -n "$DIFF" ]; then
+  # grep 前的 -- ：模式可能以 - 开头（如私钥头），否则被当成选项
+  check() {
+    local pattern="${1:-}" label="${2:-未命名}" hit
+    [ -z "$pattern" ] && return 0
+    hit=$(echo "$DIFF" | grep -iE -- "$pattern" | head -3 || true)
+    if [ -n "$hit" ]; then
+      block "疑似 $label："
+      echo "$hit" | sed 's/^/    /' | cut -c1-110
+    fi
+  }
+
+  check 'AIza[0-9A-Za-z_-]{35}'                            "Google API Key"
+  check 'ya29\.[0-9A-Za-z_-]{50,}'                         "Google OAuth token"
+  check 'cfut_[0-9A-Za-z]{30,}'                            "Cloudflare API token"
+  check 'gh[pousr]_[0-9A-Za-z]{36}'                        "GitHub token"
+  check 'sk-[a-zA-Z0-9]{32,}'                              "OpenAI 风格密钥"
+  check '[-]{5}BEGIN [A-Z ]*PRIVATE KEY[-]{5}'             "私钥"
+  check '"private_key"[[:space:]]*:'                       "服务账号 JSON 私钥"
+  check '"type"[[:space:]]*:[[:space:]]*"service_account"' "服务账号 JSON"
+
+  # 赋值型密钥：KEY=<24位以上实值>，排除占位符与环境变量引用
+  ASSIGN=$(echo "$DIFF" \
+    | grep -iE '(api[_-]?key|secret|password|passwd|token|client[_-]?secret)[[:space:]]*[=:][[:space:]]*["'"'"']?[A-Za-z0-9/+_-]{24,}' \
+    | grep -vE '\$\{|\$[A-Z_]+|process\.env|os\.environ|getenv|<[^>]+>|xxx|XXX|your[_-]|placeholder|example|\.\.\.|REPLACE|TODO' \
+    | head -3 || true)
+  if [ -n "$ASSIGN" ]; then
+    block "疑似硬编码密钥赋值："
+    echo "$ASSIGN" | sed 's/^/    /' | cut -c1-110
+  fi
+fi
+
+# ── 3. AI Studio 路径：只查暂存的代码文件 ──────────────────
+# 判定逻辑在 scripts/check_ai_studio.py（含 --self-test）。
+# 放这里的只有"挑出要查哪些文件"，因为真正的判断需要邻近上下文，shell 做不了：
+# 现行的 google-genai SDK 两种后端都支持，`vertexai=True` 与 `api_key=` 是天壤之别。
+CODE_FILES=$(echo "$STAGED" | grep -iE '\.(py|ts|tsx|js|jsx|mjs|cjs|json|toml|ya?ml|sh|ipynb)$' || true)
+if [ -n "$CODE_FILES" ]; then
+  PYBIN=".venv/bin/python"; [ -x "$PYBIN" ] || PYBIN="python3"
+  # 查【暂存内容】而非工作区：把暂存版本落到临时目录再扫。
+  TMPDIR_SCAN=$(mktemp -d)
+  trap 'rm -rf "$TMPDIR_SCAN"' EXIT
+  SCAN_LIST=""
+  while IFS= read -r f; do
+    [ -z "$f" ] && continue
+    mkdir -p "$TMPDIR_SCAN/$(dirname "$f")"
+    git show ":$f" > "$TMPDIR_SCAN/$f" 2>/dev/null || continue
+    SCAN_LIST="$SCAN_LIST $TMPDIR_SCAN/$f"
+  done <<< "$CODE_FILES"
+  if [ -n "$SCAN_LIST" ]; then
+    # shellcheck disable=SC2086
+    AIS=$("$PYBIN" scripts/check_ai_studio.py $SCAN_LIST 2>&1 || true)
+    if [ -n "$AIS" ]; then
+      block "AI Studio 路径（赠金不覆盖，会直扣信用卡，见 CLAUDE.md）："
+      echo "$AIS" | sed "s|$TMPDIR_SCAN/||" | sed 's/^/    /'
+    fi
+  fi
+fi
+
+# ── 结果 ─────────────────────────────────────────────────
+if [ "$BLOCKED" -eq 1 ]; then
+  echo
+  printf "${RED}提交已阻止。${NC}\n"
+  echo "若确认是误报：优先修 scripts/pre-commit，临时绕过用 git commit --no-verify"
+  exit 1
+fi
+
+printf "${GRN}✓ pre-commit 检查通过${NC}\n"
+exit 0

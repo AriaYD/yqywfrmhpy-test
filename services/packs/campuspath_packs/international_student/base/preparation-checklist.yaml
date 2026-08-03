@@ -1,0 +1,37 @@
+{
+  "preparation_items": [
+    {
+      "preparation_action_id": "PREP-BASE-DOC-001",
+      "category": "documents",
+      "title": "Confirm current permission documents",
+      "description": "Record the permission category and expiry date, and confirm which evidence the relevant authority requests before relying on a work or internship pathway.",
+      "recommended_lead_time_days": 30,
+      "trigger_conditions": [],
+      "mandatory": false,
+      "mandatory_source_id": null,
+      "source_ids": []
+    },
+    {
+      "preparation_action_id": "PREP-BASE-LANG-001",
+      "category": "language",
+      "title": "Check opportunity-specific language expectations",
+      "description": "Compare existing language evidence with the institution or employer posting. The Pack does not impose a universal examination or score.",
+      "recommended_lead_time_days": null,
+      "trigger_conditions": [],
+      "mandatory": false,
+      "mandatory_source_id": null,
+      "source_ids": []
+    },
+    {
+      "preparation_action_id": "PREP-BASE-JOB-001",
+      "category": "job_search",
+      "title": "Confirm employer acceptance and support",
+      "description": "Use the Opportunity record to confirm international-applicant acceptance, sponsorship, location, hours, duration, and deadline.",
+      "recommended_lead_time_days": null,
+      "trigger_conditions": [],
+      "mandatory": false,
+      "mandatory_source_id": null,
+      "source_ids": []
+    }
+  ]
+}

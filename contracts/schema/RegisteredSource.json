@@ -1,0 +1,223 @@
+{
+  "$defs": {
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    },
+    "SourceCategory": {
+      "description": "源注册表的业务分类（2026-08-02，来自 HKUST 资源地图转录）。",
+      "enum": [
+        "admin_department",
+        "school_academic",
+        "central_calendar",
+        "career_internship",
+        "entrepreneurship",
+        "research_urop",
+        "exchange_cross_uni",
+        "club_alumni",
+        "policy",
+        "education_system"
+      ],
+      "title": "SourceCategory",
+      "type": "string"
+    },
+    "SourceKind": {
+      "enum": [
+        "opportunity_source",
+        "education_connector",
+        "policy_source"
+      ],
+      "title": "SourceKind",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/RegisteredSource.json",
+  "additionalProperties": false,
+  "description": "官方信息源注册表条目（2026-08-02 用户裁定 C）。\n\n真实抓取回路的单一事实来源：console 源列表、变更检测、\n直发广场白名单判定都从这里读。**mock 源与真实源同表登记、\n`is_real_fetch` 显式区分**——界面与 Spec 都要如实标注（用户裁定 D）。",
+  "properties": {
+    "category": {
+      "$ref": "#/components/schemas/SourceCategory"
+    },
+    "content_hash": {
+      "anyOf": [
+        {
+          "maxLength": 64,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Hash"
+    },
+    "entry_type": {
+      "default": "event_list",
+      "enum": [
+        "directory",
+        "event_list",
+        "program_hub",
+        "policy_page"
+      ],
+      "title": "Entry Type",
+      "type": "string"
+    },
+    "extraction_depth": {
+      "default": "change_monitor",
+      "enum": [
+        "full_chain",
+        "change_monitor"
+      ],
+      "title": "Extraction Depth",
+      "type": "string"
+    },
+    "is_real_fetch": {
+      "default": true,
+      "title": "Is Real Fetch",
+      "type": "boolean"
+    },
+    "kind": {
+      "$ref": "#/components/schemas/SourceKind"
+    },
+    "last_changed_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Changed At"
+    },
+    "last_checked_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Checked At"
+    },
+    "last_extracted_count": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Extracted Count"
+    },
+    "last_fetch_status": {
+      "default": "unknown",
+      "enum": [
+        "ok",
+        "unreachable",
+        "unknown"
+      ],
+      "title": "Last Fetch Status",
+      "type": "string"
+    },
+    "name": {
+      "$ref": "#/components/schemas/LocalizedText"
+    },
+    "opportunity_bearing": {
+      "default": false,
+      "title": "Opportunity Bearing",
+      "type": "boolean"
+    },
+    "policy_audience": {
+      "anyOf": [
+        {
+          "enum": [
+            "intl",
+            "all"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Policy Audience"
+    },
+    "priority": {
+      "default": "p2",
+      "enum": [
+        "p0",
+        "p1",
+        "p2"
+      ],
+      "title": "Priority",
+      "type": "string"
+    },
+    "render": {
+      "default": "static",
+      "enum": [
+        "static",
+        "js"
+      ],
+      "title": "Render",
+      "type": "string"
+    },
+    "source_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Source Id",
+      "type": "string"
+    },
+    "status": {
+      "default": "active",
+      "enum": [
+        "active",
+        "paused"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "url": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Url",
+      "type": "string"
+    }
+  },
+  "required": [
+    "source_id",
+    "name",
+    "url",
+    "kind",
+    "category"
+  ],
+  "title": "RegisteredSource",
+  "type": "object"
+}

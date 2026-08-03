@@ -1,0 +1,96 @@
+{
+  "$defs": {
+    "CalendarDetailLevel": {
+      "description": "采集层级。**两级，学生各自授权，默认只有第一级。**\n\n产品上的取舍：只知道忙/闲的系统只能说\"你没空了\"；知道标题才说得出\n\"这个周三的例会也许可以缺一次\"。后者是学生明确要的能力，所以它是\n一个**可选的第二级授权**，而不是默认打开、也不是永远不做。\n\n``AvailabilityBlock.title`` 只在 :attr:`EVENT_TITLES` 下才允许有值，\n由 ``_title_requires_grant`` 在类型层强制——\n\"没授权却带了标题\"因此构造不出来，不靠调用方记得过滤。",
+      "enum": [
+        "free_busy_only",
+        "event_titles"
+      ],
+      "title": "CalendarDetailLevel",
+      "type": "string"
+    },
+    "CalendarProviderId": {
+      "enum": [
+        "google",
+        "outlook",
+        "fixture"
+      ],
+      "title": "CalendarProviderId",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/CalendarConnection.json",
+  "additionalProperties": false,
+  "description": "学生的日历授权状态。**没有 token 字段，这是有意的。**",
+  "properties": {
+    "connection_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Connection Id",
+      "type": "string"
+    },
+    "detail_level": {
+      "$ref": "#/components/schemas/CalendarDetailLevel",
+      "default": "free_busy_only"
+    },
+    "last_sync": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Sync"
+    },
+    "provider": {
+      "$ref": "#/components/schemas/CalendarProviderId"
+    },
+    "revoked_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Revoked At"
+    },
+    "scopes": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Scopes",
+      "type": "array"
+    },
+    "selected_calendar_refs": {
+      "default": [],
+      "description": "日历的不透明 id，不含日历显示名",
+      "items": {
+        "type": "string"
+      },
+      "title": "Selected Calendar Refs",
+      "type": "array"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "connection_id",
+    "student_id",
+    "provider"
+  ],
+  "title": "CalendarConnection",
+  "type": "object"
+}

@@ -1,0 +1,68 @@
+{
+  "$defs": {
+    "MemoryType": {
+      "enum": [
+        "decision",
+        "preference",
+        "experience",
+        "rejection",
+        "energy_pattern",
+        "contact",
+        "domain_fact"
+      ],
+      "title": "MemoryType",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/MemoryRecallQuery.json",
+  "additionalProperties": false,
+  "description": "按当前任务召回最小上下文，**不把完整人生记录塞进每次 Prompt**（Spec §8.6）。",
+  "properties": {
+    "as_of": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "As Of"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "task_context": {
+      "maxLength": 1000,
+      "minLength": 1,
+      "title": "Task Context",
+      "type": "string"
+    },
+    "top_k": {
+      "default": 5,
+      "maximum": 20,
+      "minimum": 1,
+      "title": "Top K",
+      "type": "integer"
+    },
+    "types": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/MemoryType"
+      },
+      "title": "Types",
+      "type": "array"
+    }
+  },
+  "required": [
+    "student_id",
+    "task_context"
+  ],
+  "title": "MemoryRecallQuery",
+  "type": "object"
+}

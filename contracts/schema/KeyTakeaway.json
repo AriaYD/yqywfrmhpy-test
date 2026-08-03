@@ -1,0 +1,103 @@
+{
+  "$defs": {
+    "TakeawayType": {
+      "enum": [
+        "concept",
+        "method",
+        "tool",
+        "domain_fact",
+        "self_insight",
+        "contact"
+      ],
+      "title": "TakeawayType",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/KeyTakeaway.json",
+  "additionalProperties": false,
+  "description": "Spec §14.4：``author`` 恒为 student——系统不替学生总结\"你学到了什么\"。",
+  "properties": {
+    "author": {
+      "const": "student",
+      "default": "student",
+      "title": "Author",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "linked_goal_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Linked Goal Id"
+    },
+    "linked_skill_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Linked Skill Id"
+    },
+    "remember_flag": {
+      "default": false,
+      "title": "Remember Flag",
+      "type": "boolean"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "tags": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Tags",
+      "type": "array"
+    },
+    "takeaway_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Takeaway Id",
+      "type": "string"
+    },
+    "text": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Text",
+      "type": "string"
+    },
+    "type": {
+      "$ref": "#/components/schemas/TakeawayType"
+    }
+  },
+  "required": [
+    "takeaway_id",
+    "student_id",
+    "text",
+    "type",
+    "created_at"
+  ],
+  "title": "KeyTakeaway",
+  "type": "object"
+}

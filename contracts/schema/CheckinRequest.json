@@ -1,0 +1,23 @@
+{
+  "$id": "https://campuspath.invalid/schema/CheckinRequest.json",
+  "additionalProperties": false,
+  "properties": {
+    "opportunity_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Opportunity Id",
+      "type": "string"
+    },
+    "token": {
+      "pattern": "^chk_[0-9a-f]{32}$",
+      "title": "Token",
+      "type": "string"
+    }
+  },
+  "required": [
+    "opportunity_id",
+    "token"
+  ],
+  "title": "CheckinRequest",
+  "type": "object"
+}

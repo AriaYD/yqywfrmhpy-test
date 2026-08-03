@@ -1,0 +1,150 @@
+{
+  "pack_status": {
+    "installed": true,
+    "applicable": true,
+    "consented": true,
+    "current": false
+  },
+  "eligibility_state": "needs_confirmation",
+  "headline_key": "additional_confirmation_needed",
+  "headline": "Additional confirmation is needed",
+  "jurisdiction": "HK-SAR",
+  "pack_version": "0.1.0",
+  "last_verified_at": "2026-08-01",
+  "applicable_pack_ids": [
+    "international-student-base",
+    "international-student-hk",
+    "international-student-hkust"
+  ],
+  "applicable_rule_ids": [
+    "HK-GRAD-IANG-001"
+  ],
+  "constraints": [
+    "Confirm graduation status, timing, and current IANG requirements with Immigration Department."
+  ],
+  "missing_information": [],
+  "required_evidence": [
+    "actual_graduation_date",
+    "offer_or_employment_plan",
+    "permission_expiry_date"
+  ],
+  "preparation_actions": [
+    {
+      "preparation_action_id": "PREP-HK-GRAD-001",
+      "category": "timeline",
+      "title": "Plan the graduate-employment transition",
+      "description": "Track graduation evidence, current permission expiry, offer timing, and the latest IANG requirements with the Immigration Department.",
+      "recommended_lead_time_days": 60,
+      "trigger_conditions": [
+        {
+          "field": "goal_type",
+          "operator": "equals",
+          "value": "graduate_employment"
+        }
+      ],
+      "mandatory": false,
+      "mandatory_source_id": null,
+      "source_ids": [
+        "HK-IMMD-IANG",
+        "HK-IMMD-IANG-FAQ"
+      ]
+    }
+  ],
+  "support_items": [
+    {
+      "support_item_id": "HKUST-SUPPORT-CAREER-001",
+      "category": "career_service",
+      "title": "HKUST Career Center",
+      "provider": "HKUST Career Center",
+      "eligibility_summary": "Career guidance and employment information for non-local students; service scope and booking requirements should be confirmed.",
+      "application_required": false,
+      "deadline": null,
+      "source_ids": [
+        "HKUST-CAREER-NONLOCAL"
+      ],
+      "last_verified_at": "2026-08-01",
+      "review_at": "2026-09-01"
+    },
+    {
+      "support_item_id": "HKUST-SUPPORT-FA-001",
+      "category": "financial_support",
+      "title": "HKUST Scholarships and Financial Aid Office",
+      "provider": "HKUST Scholarships and Financial Aid Office",
+      "eligibility_summary": "Official source for current scholarship and financial-aid opportunities; availability and eligibility must be confirmed.",
+      "application_required": true,
+      "deadline": null,
+      "source_ids": [
+        "HKUST-SFAO"
+      ],
+      "last_verified_at": "2026-08-01",
+      "review_at": "2026-09-01"
+    },
+    {
+      "support_item_id": "HKUST-SUPPORT-SCHOLARSHIP-001",
+      "category": "scholarship",
+      "title": "International qualifications scholarships",
+      "provider": "HKUST",
+      "eligibility_summary": "Official scholarship information for eligible international qualifications applicants; verify intake, eligibility, and deadline.",
+      "application_required": true,
+      "deadline": null,
+      "source_ids": [
+        "HKUST-INTL-SCHOLARSHIPS"
+      ],
+      "last_verified_at": "2026-08-01",
+      "review_at": "2026-09-01"
+    }
+  ],
+  "source_ids": [
+    "HK-IMMD-IANG",
+    "HK-IMMD-IANG-FAQ",
+    "HKUST-CAREER-NONLOCAL",
+    "HKUST-INTL-SCHOLARSHIPS",
+    "HKUST-SFAO"
+  ],
+  "source_links": [
+    {
+      "source_id": "HK-IMMD-IANG",
+      "title": "Immigration Arrangements for Non-local Graduates",
+      "url": "https://www.immd.gov.hk/eng/services/visas/IANG.html",
+      "last_checked_at": "2026-08-01T00:00:00Z"
+    },
+    {
+      "source_id": "HK-IMMD-IANG-FAQ",
+      "title": "IANG Frequently Asked Questions",
+      "url": "https://www.immd.gov.hk/eng/faq/non-local-graduates-return-employment-arrangement.html",
+      "last_checked_at": "2026-08-01T00:00:00Z"
+    },
+    {
+      "source_id": "HKUST-CAREER-NONLOCAL",
+      "title": "Employment information for non-local students",
+      "url": "https://career.hkust.edu.hk/web/page.php?tid=38",
+      "last_checked_at": "2026-08-01T00:00:00Z"
+    },
+    {
+      "source_id": "HKUST-INTL-SCHOLARSHIPS",
+      "title": "International qualifications scholarships",
+      "url": "https://join.hkust.edu.hk/intlscholarships",
+      "last_checked_at": "2026-08-01T00:00:00Z"
+    },
+    {
+      "source_id": "HKUST-SFAO",
+      "title": "Scholarships and Financial Aid Office",
+      "url": "https://sfao.hkust.edu.hk/page.php?i=3",
+      "last_checked_at": "2026-08-01T00:00:00Z"
+    }
+  ],
+  "pathway_impacts": [
+    {
+      "impact_id": "IMPACT-001",
+      "rule_ids": [
+        "HK-GRAD-IANG-001"
+      ],
+      "pathway_segment_id": "current-goal",
+      "impact_type": "add_preparation_action",
+      "summary": "A non-local graduate may explore the IANG route, subject to the official route conditions and application timing."
+    }
+  ],
+  "validation_id": "VAL-CF93EA25026623AC806C",
+  "review_required": true,
+  "evaluated_at": "2026-08-01T00:00:00Z"
+}

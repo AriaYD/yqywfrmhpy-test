@@ -1,0 +1,172 @@
+{
+  "$defs": {
+    "ImpactLevel": {
+      "description": "Spec §8.2.4：高影响推断不直接写入 Canonical Profile。",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "title": "ImpactLevel",
+      "type": "string"
+    },
+    "ProposalStatus": {
+      "enum": [
+        "pending",
+        "edited",
+        "confirmed",
+        "rejected"
+      ],
+      "title": "ProposalStatus",
+      "type": "string"
+    },
+    "ProposedChange": {
+      "additionalProperties": false,
+      "properties": {
+        "entity_type": {
+          "enum": [
+            "experience",
+            "project",
+            "achievement",
+            "skill",
+            "interest",
+            "goal",
+            "constraint",
+            "energy_profile",
+            "education",
+            "certificate",
+            "language",
+            "honor"
+          ],
+          "title": "Entity Type",
+          "type": "string"
+        },
+        "field_path": {
+          "title": "Field Path",
+          "type": "string"
+        },
+        "new_value": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "New Value"
+        },
+        "old_value": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Old Value"
+        },
+        "operation": {
+          "enum": [
+            "add",
+            "update",
+            "remove"
+          ],
+          "title": "Operation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "entity_type",
+        "operation",
+        "field_path"
+      ],
+      "title": "ProposedChange",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/ProfileUpdateProposal.json",
+  "additionalProperties": false,
+  "description": "A1 的输出。``status`` 只能由学生动作推进，Agent 不得自行置为 confirmed。",
+  "properties": {
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "decided_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Decided At"
+    },
+    "evidence_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "impact": {
+      "$ref": "#/components/schemas/ImpactLevel",
+      "default": "low"
+    },
+    "proposal_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Proposal Id",
+      "type": "string"
+    },
+    "proposed_changes": {
+      "items": {
+        "$ref": "#/components/schemas/ProposedChange"
+      },
+      "minItems": 1,
+      "title": "Proposed Changes",
+      "type": "array"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "title": "Reason",
+      "type": "string"
+    },
+    "source_event_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Source Event Ids",
+      "type": "array"
+    },
+    "status": {
+      "$ref": "#/components/schemas/ProposalStatus",
+      "default": "pending"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "proposal_id",
+    "student_id",
+    "proposed_changes",
+    "reason",
+    "created_at"
+  ],
+  "title": "ProfileUpdateProposal",
+  "type": "object"
+}

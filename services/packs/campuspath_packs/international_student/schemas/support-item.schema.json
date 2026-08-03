@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://campuspath.example/schemas/support-item.schema.json",
+  "title": "SupportItem",
+  "type": "object",
+  "required": ["support_item_id", "category", "title", "provider", "eligibility_summary", "application_required", "deadline", "source_ids", "last_verified_at", "review_at"],
+  "properties": {
+    "support_item_id": {"type": "string", "pattern": "^[A-Z0-9-]+$"},
+    "category": {"enum": ["scholarship", "career_service", "internship_scheme", "advising", "financial_support"]},
+    "title": {"type": "string", "minLength": 1},
+    "provider": {"type": "string", "minLength": 1},
+    "eligibility_summary": {"type": "string", "minLength": 1},
+    "application_required": {"type": "boolean"},
+    "deadline": {"type": ["string", "null"]},
+    "source_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "last_verified_at": {"type": "string", "format": "date"},
+    "review_at": {"type": "string", "format": "date"}
+  },
+  "additionalProperties": false
+}
+

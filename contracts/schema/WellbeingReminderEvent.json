@@ -1,0 +1,119 @@
+{
+  "$defs": {
+    "Locale": {
+      "description": "UI 双语要求（Plan §2）。契约层只承载 locale 标签，不承载文案。",
+      "enum": [
+        "zh-Hans",
+        "en"
+      ],
+      "title": "Locale",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/WellbeingReminderEvent.json",
+  "additionalProperties": false,
+  "description": "两次提醒状态机的一条记录（Spec §14.2、§16.8.3）。",
+  "properties": {
+    "delivered_at": {
+      "format": "date-time",
+      "title": "Delivered At",
+      "type": "string"
+    },
+    "locale": {
+      "$ref": "#/components/schemas/Locale"
+    },
+    "low_load_mode": {
+      "default": false,
+      "title": "Low Load Mode",
+      "type": "boolean"
+    },
+    "reevaluate_after": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "第 1 次提醒后 24–72 小时再评估（Spec §16.8.3）",
+      "title": "Reevaluate After"
+    },
+    "reminder_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Reminder Id",
+      "type": "string"
+    },
+    "reminder_number": {
+      "enum": [
+        1,
+        2
+      ],
+      "title": "Reminder Number",
+      "type": "integer"
+    },
+    "signal_ids": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Signal Ids",
+      "type": "array"
+    },
+    "snoozed_until": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Snoozed Until"
+    },
+    "student_action": {
+      "default": "none",
+      "enum": [
+        "none",
+        "acknowledged",
+        "switched_low_load",
+        "removed_tasks",
+        "snoozed",
+        "requested_contact",
+        "muted"
+      ],
+      "title": "Student Action",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "template_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Template Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "reminder_id",
+    "student_id",
+    "signal_ids",
+    "reminder_number",
+    "template_id",
+    "locale",
+    "delivered_at"
+  ],
+  "title": "WellbeingReminderEvent",
+  "type": "object"
+}

@@ -1,0 +1,242 @@
+{
+  "$defs": {
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    },
+    "ReportGroupRow": {
+      "additionalProperties": false,
+      "properties": {
+        "activities_n": {
+          "minimum": 0,
+          "title": "Activities N",
+          "type": "integer"
+        },
+        "attend_count": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Attend Count"
+        },
+        "avg_overall": {
+          "anyOf": [
+            {
+              "maximum": 5,
+              "minimum": 1,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Avg Overall"
+        },
+        "favorable_rate": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Favorable Rate"
+        },
+        "feedback_n": {
+          "minimum": 0,
+          "title": "Feedback N",
+          "type": "integer"
+        },
+        "key": {
+          "maxLength": 120,
+          "title": "Key",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/LocalizedText"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "verified_n": {
+          "minimum": 0,
+          "title": "Verified N",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "key",
+        "activities_n",
+        "feedback_n",
+        "verified_n"
+      ],
+      "title": "ReportGroupRow",
+      "type": "object"
+    },
+    "ReportPeriod": {
+      "enum": [
+        "weekly",
+        "monthly",
+        "term",
+        "year"
+      ],
+      "title": "ReportPeriod",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/QualityReport.json",
+  "additionalProperties": false,
+  "description": "周期性活动反馈报告（模板见 docs/quality-report-template.md）。\n\n统计全部确定性；`narrative` 是唯一的模型产物（输入只有本报告的\n聚合 JSON——无任何个体数据），无模型后端时为 None 并在 data_notes 注明。",
+  "properties": {
+    "activities_total": {
+      "minimum": 0,
+      "title": "Activities Total",
+      "type": "integer"
+    },
+    "attend_total": {
+      "minimum": 0,
+      "title": "Attend Total",
+      "type": "integer"
+    },
+    "by_organizer": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/ReportGroupRow"
+      },
+      "title": "By Organizer",
+      "type": "array"
+    },
+    "by_school": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/ReportGroupRow"
+      },
+      "title": "By School",
+      "type": "array"
+    },
+    "by_type": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/ReportGroupRow"
+      },
+      "title": "By Type",
+      "type": "array"
+    },
+    "coverage_gaps": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/LocalizedText"
+      },
+      "title": "Coverage Gaps",
+      "type": "array"
+    },
+    "data_notes": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/LocalizedText"
+      },
+      "title": "Data Notes",
+      "type": "array"
+    },
+    "feedback_total": {
+      "minimum": 0,
+      "title": "Feedback Total",
+      "type": "integer"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "narrative": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/LocalizedText"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "period": {
+      "$ref": "#/components/schemas/ReportPeriod"
+    },
+    "report_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Report Id",
+      "type": "string"
+    },
+    "top_activities": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/ReportGroupRow"
+      },
+      "title": "Top Activities",
+      "type": "array"
+    },
+    "verified_total": {
+      "minimum": 0,
+      "title": "Verified Total",
+      "type": "integer"
+    },
+    "window_end": {
+      "format": "date",
+      "title": "Window End",
+      "type": "string"
+    },
+    "window_start": {
+      "format": "date",
+      "title": "Window Start",
+      "type": "string"
+    }
+  },
+  "required": [
+    "report_id",
+    "period",
+    "window_start",
+    "window_end",
+    "generated_at",
+    "activities_total",
+    "feedback_total",
+    "verified_total",
+    "attend_total"
+  ],
+  "title": "QualityReport",
+  "type": "object"
+}

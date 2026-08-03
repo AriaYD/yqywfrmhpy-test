@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://campuspath.example/schemas/question.schema.json",
+  "title": "ProfileQuestion",
+  "type": "object",
+  "required": ["field", "prompt", "required"],
+  "properties": {
+    "field": {"type": "string", "minLength": 1},
+    "prompt": {"type": "string", "minLength": 1},
+    "required": {"type": "boolean"}
+  },
+  "additionalProperties": false
+}

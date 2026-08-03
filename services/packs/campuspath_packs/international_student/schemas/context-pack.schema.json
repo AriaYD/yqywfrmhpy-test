@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://campuspath.example/schemas/context-pack.schema.json",
+  "title": "ContextPackManifest",
+  "type": "object",
+  "required": ["pack_id", "pack_type", "version", "status", "jurisdiction", "applicability", "required_student_fields", "effective_from", "effective_until", "review_at", "default_uncertainty_policy", "consent_required", "owner", "reviewer"],
+  "properties": {
+    "pack_id": {"type": "string", "minLength": 1},
+    "pack_type": {"const": "context"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "status": {"enum": ["draft", "active", "review_required", "retired"]},
+    "jurisdiction": {"type": ["string", "null"]},
+    "institution": {"type": ["string", "null"]},
+    "applicability": {
+      "type": "object",
+      "required": ["student_cohort", "programme_levels", "study_modes", "goal_types"],
+      "properties": {
+        "student_cohort": {"const": "international"},
+        "programme_levels": {"type": "array", "items": {"type": "string"}},
+        "study_modes": {"type": "array", "items": {"type": "string"}},
+        "goal_types": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "required_student_fields": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "rules_file": {"type": ["string", "null"]},
+    "sources_file": {"type": ["string", "null"]},
+    "effective_from": {"type": "string", "format": "date"},
+    "effective_until": {"type": ["string", "null"], "format": "date"},
+    "review_at": {"type": "string", "format": "date"},
+    "default_uncertainty_policy": {"const": "needs_confirmation"},
+    "consent_required": {"const": true},
+    "owner": {"type": "string", "minLength": 1},
+    "reviewer": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

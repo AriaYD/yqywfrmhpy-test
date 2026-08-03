@@ -1,0 +1,8 @@
+{
+  "preparation_items": [
+    {"preparation_action_id":"PREP-CN-WORK-001","category":"work_authorization","title":"Confirm work-study approval and local conditions","description":"Ask the host institution and competent local authority about approval, residence-permit annotation, location, hours, duration, and evidence before any work-study activity.","recommended_lead_time_days":30,"trigger_conditions":[{"field":"goal_type","operator":"in","value":["internship","part_time_work"]}],"mandatory":false,"mandatory_source_id":null,"source_ids":["CN-MOE-WORKSTUDY","CN-MOE-ADMISSION"]},
+    {"preparation_action_id":"PREP-CN-GRAD-001","category":"timeline","title":"Prepare a local graduate-employment check","description":"Collect graduation evidence and employer sponsorship information, then verify the intended city's current work-permit and residence requirements.","recommended_lead_time_days":60,"trigger_conditions":[{"field":"goal_type","operator":"equals","value":"graduate_employment"}],"mandatory":false,"mandatory_source_id":null,"source_ids":["CN-SC-FOREIGN-EMPLOYMENT","CN-NIA-GUIDE"]},
+    {"preparation_action_id":"PREP-CN-LOCAL-001","category":"documents","title":"Identify the competent local authority","description":"Record the exact city/province and employer so a future local overlay or official authority can confirm the applicable route.","recommended_lead_time_days":30,"trigger_conditions":[],"mandatory":false,"mandatory_source_id":null,"source_ids":["CN-SC-FOREIGN-EMPLOYMENT","CN-NIA-GUIDE"]}
+  ]
+}
+

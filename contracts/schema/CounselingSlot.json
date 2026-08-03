@@ -1,0 +1,34 @@
+{
+  "$id": "https://campuspath.invalid/schema/CounselingSlot.json",
+  "additionalProperties": false,
+  "properties": {
+    "booked": {
+      "default": false,
+      "title": "Booked",
+      "type": "boolean"
+    },
+    "end": {
+      "format": "date-time",
+      "title": "End",
+      "type": "string"
+    },
+    "slot_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Slot Id",
+      "type": "string"
+    },
+    "start": {
+      "format": "date-time",
+      "title": "Start",
+      "type": "string"
+    }
+  },
+  "required": [
+    "slot_id",
+    "start",
+    "end"
+  ],
+  "title": "CounselingSlot",
+  "type": "object"
+}

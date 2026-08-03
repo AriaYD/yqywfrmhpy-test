@@ -1,0 +1,72 @@
+# ═══════════════════════════════════════════════════════════
+# 敏感信息 —— 绝不提交
+# ═══════════════════════════════════════════════════════════
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*-key.json
+*-credentials.json
+service-account*.json
+client_secret*.json
+gha-creds-*.json
+secrets/
+credentials/
+
+# gcloud / GCP 本地凭据
+.gcloud/
+application_default_credentials.json
+
+# ═══════════════════════════════════════════════════════════
+# 构建产物与依赖
+# ═══════════════════════════════════════════════════════════
+node_modules/
+.next/
+dist/
+build/
+out/
+*.tsbuildinfo
+
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# ═══════════════════════════════════════════════════════════
+# 本地数据与临时文件
+# ═══════════════════════════════════════════════════════════
+*.log
+.DS_Store
+.idea/
+.vscode/
+tmp/
+scratch/
+
+# Moodle 沙箱本地数据卷
+moodle-data/
+moodledata/
+*.sql.gz
+
+# 生成的合成数据（由 seed 脚本可复现，不入库）
+seed/generated/
+eval/results/
+
+# 抓取的 HTML 缓存不入库（体积大、可重抓）
+seed/raw/hkust_catalog/_cache/
+
+# 但**解析后的课程目录快照要入库**：Gold Label 与它绑定，
+# 而学校随时可能改课程页面。不冻结这份快照，Seed 就不是可复现的
+# （Spec §11.5「评委每次看到一致情景」）。公开课程数据，无学生信息。
+!seed/raw/
+!seed/raw/hkust_catalog/
+!seed/raw/hkust_catalog/courses.json
+!seed/raw/hkust_catalog/subjects.json
+
+# 评测产物：每次跑都会重生成，且 report.md 带时间戳
+eval/results/
+seed/raw/hkust_programs/_cache/

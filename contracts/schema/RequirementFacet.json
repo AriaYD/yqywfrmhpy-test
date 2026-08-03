@@ -1,0 +1,127 @@
+{
+  "$defs": {
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    },
+    "RequirementCategory": {
+      "description": "出域时 ``MetricTuple.uncovered_requirement_categories`` 只携带这一层。\n\n它必须足够粗，粗到无法反推是哪位学生——所以是枚举而不是自由文本。",
+      "enum": [
+        "coursework",
+        "technical_skill",
+        "research_experience",
+        "industry_experience",
+        "project_portfolio",
+        "teamwork_evidence",
+        "communication",
+        "credential",
+        "language",
+        "network",
+        "eligibility_status"
+      ],
+      "title": "RequirementCategory",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/RequirementFacet.json",
+  "additionalProperties": false,
+  "description": "目标拆解的一个条目（2026-07-31 用户需求 D）。\n\n三层分类来自用户裁定的口径（对齐招聘/猎头看人的通行维度）：\n\n* ``hard`` —— 学分课程、证书语言、可验证项目/实习/研究经历；\n* ``soft`` —— 表达沟通、领导力协作、人脉等个人素质，**必须写明取证来源**\n  （俱乐部职务、黑客松、leadership 课程……），不许凭空断言；\n* ``constraint`` —— 地域/国籍/工作授权等外部硬约束，\n  International Student Context Pack 加载后展开更多。",
+  "properties": {
+    "category": {
+      "$ref": "#/components/schemas/RequirementCategory"
+    },
+    "description": {
+      "$ref": "#/components/schemas/LocalizedText"
+    },
+    "evidence_refs": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 8,
+      "title": "Evidence Refs",
+      "type": "array"
+    },
+    "evidence_sources": {
+      "default": [],
+      "description": "从学生的哪些经历/活动取证（soft 项必填的理由所在）",
+      "items": {
+        "$ref": "#/components/schemas/LocalizedText"
+      },
+      "title": "Evidence Sources",
+      "type": "array"
+    },
+    "kind": {
+      "enum": [
+        "hard",
+        "soft",
+        "constraint"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "market_note": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/LocalizedText"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "origin": {
+      "default": "compiled",
+      "enum": [
+        "compiled",
+        "ai_live"
+      ],
+      "title": "Origin",
+      "type": "string"
+    },
+    "priority": {
+      "default": "standard",
+      "enum": [
+        "core",
+        "standard"
+      ],
+      "title": "Priority",
+      "type": "string"
+    },
+    "resource_channels": {
+      "default": [],
+      "description": "建议的资源渠道（OpportunityType 值）",
+      "items": {
+        "type": "string"
+      },
+      "title": "Resource Channels",
+      "type": "array"
+    }
+  },
+  "required": [
+    "category",
+    "kind",
+    "description"
+  ],
+  "title": "RequirementFacet",
+  "type": "object"
+}

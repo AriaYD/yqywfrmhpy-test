@@ -1,0 +1,317 @@
+{
+  "$defs": {
+    "DivergencePoint": {
+      "additionalProperties": false,
+      "description": "G3：两条路开始要求不同投入的时点，也是学生必须做选择的时点。",
+      "properties": {
+        "at_term": {
+          "pattern": "^\\d{4}-\\d{2}_(FALL|WINTER|SPRING|SUMMER)$",
+          "title": "At Term",
+          "type": "string"
+        },
+        "candidate_only_requirement_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Candidate Only Requirement Ids",
+          "type": "array"
+        },
+        "description": {
+          "$ref": "#/components/schemas/LocalizedText"
+        },
+        "primary_only_requirement_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Primary Only Requirement Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "at_term",
+        "description"
+      ],
+      "title": "DivergencePoint",
+      "type": "object"
+    },
+    "Gap": {
+      "additionalProperties": false,
+      "properties": {
+        "estimated_reach_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Estimated Reach Date"
+        },
+        "estimated_reach_term": {
+          "anyOf": [
+            {
+              "pattern": "^\\d{4}-\\d{2}_(FALL|WINTER|SPRING|SUMMER)$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Estimated Reach Term"
+        },
+        "evidence_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "gap_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Gap Id",
+          "type": "string"
+        },
+        "gap_level": {
+          "$ref": "#/components/schemas/GapLevel"
+        },
+        "goal_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Goal Id",
+          "type": "string"
+        },
+        "priority": {
+          "description": "1 最高。由 A3 给出优先级，不是取舍分数",
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Priority",
+          "type": "integer"
+        },
+        "requirement_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Requirement Id",
+          "type": "string"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "uncertainty": {
+          "$ref": "#/components/schemas/Uncertainty",
+          "default": "none"
+        }
+      },
+      "required": [
+        "gap_id",
+        "student_id",
+        "requirement_id",
+        "goal_id",
+        "gap_level",
+        "priority"
+      ],
+      "title": "Gap",
+      "type": "object"
+    },
+    "GapLevel": {
+      "enum": [
+        "missing",
+        "partial",
+        "satisfied",
+        "unknown"
+      ],
+      "title": "GapLevel",
+      "type": "string"
+    },
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    },
+    "RequirementCategory": {
+      "description": "出域时 ``MetricTuple.uncovered_requirement_categories`` 只携带这一层。\n\n它必须足够粗，粗到无法反推是哪位学生——所以是枚举而不是自由文本。",
+      "enum": [
+        "coursework",
+        "technical_skill",
+        "research_experience",
+        "industry_experience",
+        "project_portfolio",
+        "teamwork_evidence",
+        "communication",
+        "credential",
+        "language",
+        "network",
+        "eligibility_status"
+      ],
+      "title": "RequirementCategory",
+      "type": "string"
+    },
+    "SharedGap": {
+      "additionalProperties": false,
+      "description": "G3：主目标与候选目标共同需要的缺口——学生做这件事两条路都不亏。",
+      "properties": {
+        "category": {
+          "$ref": "#/components/schemas/RequirementCategory"
+        },
+        "description": {
+          "$ref": "#/components/schemas/LocalizedText"
+        },
+        "requirement_ids_candidate": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Requirement Ids Candidate",
+          "type": "array"
+        },
+        "requirement_ids_primary": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Requirement Ids Primary",
+          "type": "array"
+        }
+      },
+      "required": [
+        "requirement_ids_primary",
+        "requirement_ids_candidate",
+        "category",
+        "description"
+      ],
+      "title": "SharedGap",
+      "type": "object"
+    },
+    "Uncertainty": {
+      "description": "字段级不确定性。``NEEDS_CONFIRMATION`` 永远不能被当成淘汰依据（Spec §16.2）。",
+      "enum": [
+        "none",
+        "low_confidence",
+        "missing_source_field",
+        "conflicting_sources",
+        "needs_confirmation"
+      ],
+      "title": "Uncertainty",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/DynamicGapMap.json",
+  "additionalProperties": false,
+  "description": "A3 输出。同时覆盖主目标与候选目标（G3）。",
+  "properties": {
+    "candidate_goal_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Candidate Goal Id"
+    },
+    "divergence_points": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/DivergencePoint"
+      },
+      "title": "Divergence Points",
+      "type": "array"
+    },
+    "gaps": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/Gap"
+      },
+      "title": "Gaps",
+      "type": "array"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "map_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Map Id",
+      "type": "string"
+    },
+    "primary_goal_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Primary Goal Id",
+      "type": "string"
+    },
+    "shared_gaps": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/SharedGap"
+      },
+      "title": "Shared Gaps",
+      "type": "array"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "unknowns": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/LocalizedText"
+      },
+      "title": "Unknowns",
+      "type": "array"
+    }
+  },
+  "required": [
+    "map_id",
+    "student_id",
+    "generated_at",
+    "primary_goal_id"
+  ],
+  "title": "DynamicGapMap",
+  "type": "object"
+}

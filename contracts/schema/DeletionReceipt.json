@@ -1,0 +1,36 @@
+{
+  "$id": "https://campuspath.invalid/schema/DeletionReceipt.json",
+  "additionalProperties": false,
+  "description": "「删除我的数据」的回执。Demo 环境立即生效（进程内数据即刻清除）。",
+  "properties": {
+    "effect": {
+      "const": "immediate",
+      "default": "immediate",
+      "title": "Effect",
+      "type": "string"
+    },
+    "requested_at": {
+      "format": "date-time",
+      "title": "Requested At",
+      "type": "string"
+    },
+    "scope": {
+      "const": "all_personal_data",
+      "default": "all_personal_data",
+      "title": "Scope",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "student_id",
+    "requested_at"
+  ],
+  "title": "DeletionReceipt",
+  "type": "object"
+}

@@ -1,0 +1,74 @@
+{
+  "$defs": {
+    "VgaMonthPoint": {
+      "additionalProperties": false,
+      "description": "北极星指标 VGA 的单月桶（Spec §17.1：VGA / Active Student / Month）。",
+      "properties": {
+        "count": {
+          "minimum": 0,
+          "title": "Count",
+          "type": "integer"
+        },
+        "month": {
+          "pattern": "^\\d{4}-(0[1-9]|1[0-2])$",
+          "title": "Month",
+          "type": "string"
+        }
+      },
+      "required": [
+        "month",
+        "count"
+      ],
+      "title": "VgaMonthPoint",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/VgaSummary.json",
+  "additionalProperties": false,
+  "description": "北极星指标 VGA 汇总（2026-08-04 落地）：纯派生视图，从 Event Store\n（ActionEvent.verified_growth=True 且 result=succeeded）逐月聚合。\n0 是事实不是缺数据——months 可为空，端点不许因此 404。",
+  "properties": {
+    "computed_at": {
+      "format": "date-time",
+      "title": "Computed At",
+      "type": "string"
+    },
+    "current_month": {
+      "pattern": "^\\d{4}-(0[1-9]|1[0-2])$",
+      "title": "Current Month",
+      "type": "string"
+    },
+    "current_month_count": {
+      "minimum": 0,
+      "title": "Current Month Count",
+      "type": "integer"
+    },
+    "months": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/VgaMonthPoint"
+      },
+      "title": "Months",
+      "type": "array"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "total_count": {
+      "minimum": 0,
+      "title": "Total Count",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "student_id",
+    "current_month",
+    "current_month_count",
+    "total_count",
+    "computed_at"
+  ],
+  "title": "VgaSummary",
+  "type": "object"
+}

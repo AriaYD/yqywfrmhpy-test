@@ -1,0 +1,40 @@
+{
+  "$id": "https://campuspath.invalid/schema/LanguageSkill.json",
+  "additionalProperties": false,
+  "description": "语言：流利程度由学生自填；有考级也一并填。",
+  "properties": {
+    "certification": {
+      "anyOf": [
+        {
+          "maxLength": 200,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "考级情况（如 IELTS 7.0），可空",
+      "title": "Certification"
+    },
+    "language": {
+      "maxLength": 60,
+      "minLength": 1,
+      "title": "Language",
+      "type": "string"
+    },
+    "proficiency": {
+      "description": "入门/初级/流利/接近母语等，学生自评",
+      "maxLength": 60,
+      "minLength": 1,
+      "title": "Proficiency",
+      "type": "string"
+    }
+  },
+  "required": [
+    "language",
+    "proficiency"
+  ],
+  "title": "LanguageSkill",
+  "type": "object"
+}

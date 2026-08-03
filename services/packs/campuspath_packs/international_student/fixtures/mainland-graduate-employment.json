@@ -1,0 +1,18 @@
+{
+  "student_cohort": "international",
+  "study_jurisdiction": "CN-MAINLAND",
+  "intended_work_jurisdiction": "CN-MAINLAND",
+  "institution": "Example University",
+  "programme_level": "postgraduate_taught",
+  "study_mode": "full_time",
+  "permission_category": "study_residence_permit",
+  "permission_expiry_date": "2026-10-31",
+  "actual_graduation_date": "2026-07-15",
+  "goal_type": "graduate_employment",
+  "intended_start_date": "2026-09-01",
+  "offer_or_employment_plan": true,
+  "opportunity_location": "Shanghai",
+  "employer_sponsorship": true,
+  "local_overlay_confirmed": true,
+  "consent_context_pack": true
+}

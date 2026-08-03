@@ -1,0 +1,153 @@
+{
+  "$defs": {
+    "AgentCall": {
+      "additionalProperties": false,
+      "properties": {
+        "agent": {
+          "$ref": "#/components/schemas/AgentId"
+        },
+        "call_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Call Id",
+          "type": "string"
+        },
+        "depends_on": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Depends On",
+          "type": "array"
+        },
+        "parallel_group": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "同一组内的调用可并行（A1/A2/A3），用于 WP11 延迟优化",
+          "title": "Parallel Group"
+        },
+        "tool_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tool Name"
+        }
+      },
+      "required": [
+        "call_id",
+        "agent"
+      ],
+      "title": "AgentCall",
+      "type": "object"
+    },
+    "AgentId": {
+      "description": "6 个语义 Agent（Spec §8.1）。数量固定，新增需改 Spec。",
+      "enum": [
+        "A0",
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5"
+      ],
+      "title": "AgentId",
+      "type": "string"
+    },
+    "IntentId": {
+      "description": "确定性路由表的键。命中即不调用 LLM 编排，这是 T9 延迟达标的主要来源。",
+      "enum": [
+        "onboard",
+        "update_profile",
+        "set_goal",
+        "view_gap_map",
+        "plan_courses",
+        "find_opportunities",
+        "build_pathway",
+        "approve_actions",
+        "reflect",
+        "replan",
+        "browse_plaza",
+        "explain_why_not_recommended"
+      ],
+      "title": "IntentId",
+      "type": "string"
+    },
+    "WorkflowKind": {
+      "description": "A0 的两条路径（Spec §8.1 A0 行）。已知意图走确定性路由表，不进 LLM。",
+      "enum": [
+        "deterministic_route",
+        "llm_composed"
+      ],
+      "title": "WorkflowKind",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/WorkflowPlan.json",
+  "additionalProperties": false,
+  "description": "A0 的编排结果。``SequentialAgent`` 表达固定流水线的顺序确定性。",
+  "properties": {
+    "calls": {
+      "items": {
+        "$ref": "#/components/schemas/AgentCall"
+      },
+      "minItems": 1,
+      "title": "Calls",
+      "type": "array"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "intent": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/IntentId"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "kind": {
+      "$ref": "#/components/schemas/WorkflowKind"
+    },
+    "plan_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "plan_id",
+    "student_id",
+    "kind",
+    "calls",
+    "created_at"
+  ],
+  "title": "WorkflowPlan",
+  "type": "object"
+}

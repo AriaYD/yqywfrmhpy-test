@@ -1,0 +1,18 @@
+{
+  "questions": [
+    {"field": "study_jurisdiction", "prompt": "Where are you currently studying?", "required": true},
+    {"field": "intended_work_jurisdiction", "prompt": "Where will the activity take place?", "required": true},
+    {"field": "institution", "prompt": "Which institution and campus do you attend?", "required": false},
+    {"field": "programme_level", "prompt": "What is your programme level?", "required": true},
+    {"field": "study_mode", "prompt": "Are you studying full-time or part-time?", "required": true},
+    {"field": "permission_category", "prompt": "What is your current immigration or permission category?", "required": true},
+    {"field": "permission_expiry_date", "prompt": "When does the current permission expire?", "required": true},
+    {"field": "expected_graduation_date", "prompt": "When do you expect to graduate?", "required": false},
+    {"field": "goal_type", "prompt": "Is your goal an internship, part-time work, or graduate employment?", "required": true},
+    {"field": "intended_start_date", "prompt": "When should the activity start?", "required": true},
+    {"field": "school_approval", "prompt": "Do you have any required school approval?", "required": false},
+    {"field": "employer_sponsorship", "prompt": "Does the employer provide required sponsorship or permit support?", "required": false},
+    {"field": "consent_context_pack", "prompt": "Do you consent to applying this Context Pack?", "required": true}
+  ]
+}
+

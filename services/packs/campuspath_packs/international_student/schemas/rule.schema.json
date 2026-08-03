@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://campuspath.example/schemas/rule.schema.json",
+  "title": "RuleRecord",
+  "type": "object",
+  "required": ["rule_id", "version", "status", "jurisdiction", "topic", "summary", "conditions", "decision_effect", "constraints", "required_evidence", "preparation_action_ids", "support_item_ids", "source_ids", "effective_from", "effective_until", "last_verified_at", "review_at", "uncertainty_policy", "reviewer"],
+  "properties": {
+    "rule_id": {"type": "string", "pattern": "^[A-Z0-9-]+$"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "status": {"enum": ["verified", "draft", "review_required", "retired"]},
+    "jurisdiction": {"type": "string"},
+    "institution": {"type": ["string", "null"]},
+    "topic": {"type": "string"},
+    "summary": {"type": "string", "minLength": 1},
+    "conditions": {"type": "array", "items": {"$ref": "#/$defs/condition"}},
+    "decision_effect": {"enum": ["eligible_now", "future_eligible", "needs_confirmation", "ineligible_current_cycle"]},
+    "constraints": {"type": "array", "items": {"type": "string"}},
+    "required_evidence": {"type": "array", "items": {"type": "string"}},
+    "preparation_action_ids": {"type": "array", "items": {"type": "string"}},
+    "support_item_ids": {"type": "array", "items": {"type": "string"}},
+    "source_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "effective_from": {"type": ["string", "null"], "format": "date"},
+    "effective_until": {"type": ["string", "null"], "format": "date"},
+    "last_verified_at": {"type": "string", "format": "date"},
+    "review_at": {"type": "string", "format": "date"},
+    "uncertainty_policy": {"const": "needs_confirmation"},
+    "reviewer": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "condition": {
+      "type": "object",
+      "required": ["field", "operator", "value"],
+      "properties": {
+        "field": {"type": "string"},
+        "operator": {"enum": ["equals", "in", "exists", "not_equals"]},
+        "value": {}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,38 @@
+{
+  "$id": "https://campuspath.invalid/schema/SourceIngestRequest.json",
+  "additionalProperties": false,
+  "description": "外部源摄入请求（R7-D）。``raw_content`` 是**不可信数据**：\n它只会作为数据块进入 A4 的模型调用，永不拼进 system prompt（§8.9.1）。",
+  "properties": {
+    "raw_content": {
+      "maxLength": 20000,
+      "minLength": 1,
+      "title": "Raw Content",
+      "type": "string"
+    },
+    "source_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Source Id",
+      "type": "string"
+    },
+    "source_url": {
+      "anyOf": [
+        {
+          "maxLength": 500,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Url"
+    }
+  },
+  "required": [
+    "source_id",
+    "raw_content"
+  ],
+  "title": "SourceIngestRequest",
+  "type": "object"
+}

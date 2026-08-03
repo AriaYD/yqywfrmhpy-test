@@ -1,0 +1,25 @@
+{
+  "pack_id": "international-student-base",
+  "pack_type": "context",
+  "version": "0.1.0",
+  "status": "draft",
+  "jurisdiction": null,
+  "institution": null,
+  "applicability": {
+    "student_cohort": "international",
+    "programme_levels": ["undergraduate", "postgraduate_taught", "postgraduate_research"],
+    "study_modes": ["full_time", "part_time"],
+    "goal_types": ["internship", "part_time_work", "graduate_employment"]
+  },
+  "required_student_fields": ["student_cohort", "study_jurisdiction", "intended_work_jurisdiction", "programme_level", "study_mode", "goal_type", "consent_context_pack"],
+  "rules_file": null,
+  "sources_file": null,
+  "effective_from": "2026-08-01",
+  "effective_until": null,
+  "review_at": "2026-09-01",
+  "default_uncertainty_policy": "needs_confirmation",
+  "consent_required": true,
+  "owner": "CampusPath context-pack owner",
+  "reviewer": "Policy reviewer required"
+}
+

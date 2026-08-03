@@ -1,0 +1,2084 @@
+<title>CampusPath — 动态校园成长路径 Agent 系统 V4.1</title>
+
+<style>
+/* ============================================================
+   CampusPath V4.1 — 交互式项目说明
+   视觉方向：校园寻路系统（wayfinding）+ Apple 材质与排版纪律
+   图表统一呈现为「示意图纸」面板（两种主题下均为浅底）
+   ============================================================ */
+
+:root {
+  /* 中性色带极轻微的蓝偏，来自 HKUST 深蓝方向，而非纯灰 */
+  --ground:        #F6F7F9;
+  --surface:       #FFFFFF;
+  --surface-2:     #EFF1F5;
+  --line:          #DCE0E7;
+  --line-strong:   #C3C9D4;
+  --ink:           #0B1A2B;
+  --ink-2:         #3D4A5C;
+  --ink-3:         #6B7788;
+
+  /* 路线蓝：寻路系统的主线色 */
+  --route:         #0A5FD6;
+  --route-soft:    #E4EDFB;
+  /* 学校金：只用于「官方 / 已核验」语义，用量极少 */
+  --gold:          #A8801A;
+  --gold-soft:     #F7F0DC;
+
+  /* 语义色，与强调色分开 —— 四态资格与 Guardrail 用 */
+  --ok:            #17794B;
+  --ok-soft:       #E1F2E9;
+  --warn:          #A65B00;
+  --warn-soft:     #FBEEDC;
+  --crit:          #B4232B;
+  --crit-soft:     #FAE6E7;
+  --mute-soft:     #E9ECF1;
+
+  /* 图纸面板：两种主题下都是浅底，像一张示意图纸 */
+  --paper:         #F1F2F0;
+  --paper-line:    #D2D5D2;
+
+  --shadow-1: 0 1px 2px rgba(11,26,43,.06), 0 4px 12px rgba(11,26,43,.05);
+  --shadow-2: 0 2px 6px rgba(11,26,43,.08), 0 16px 40px rgba(11,26,43,.10);
+
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+
+  --ease: cubic-bezier(.32,.72,0,1);
+  --maxw: 1180px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground:      #0C1219;
+    --surface:     #141C26;
+    --surface-2:   #1B2531;
+    --line:        #26313F;
+    --line-strong: #384556;
+    --ink:         #EAEEF4;
+    --ink-2:       #AFBACA;
+    --ink-3:       #7C8899;
+    --route:       #5B9DFF;
+    --route-soft:  #16273F;
+    --gold:        #D9B45E;
+    --gold-soft:   #2A2415;
+    --ok:          #52C08A;
+    --ok-soft:     #12271D;
+    --warn:        #E0A14A;
+    --warn-soft:   #2B2115;
+    --crit:        #F0757D;
+    --crit-soft:   #2C1618;
+    --mute-soft:   #1E2732;
+    --shadow-1: 0 1px 2px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+    --shadow-2: 0 2px 6px rgba(0,0,0,.5), 0 16px 40px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"] {
+  --ground:#0C1219; --surface:#141C26; --surface-2:#1B2531;
+  --line:#26313F; --line-strong:#384556; --ink:#EAEEF4; --ink-2:#AFBACA; --ink-3:#7C8899;
+  --route:#5B9DFF; --route-soft:#16273F; --gold:#D9B45E; --gold-soft:#2A2415;
+  --ok:#52C08A; --ok-soft:#12271D; --warn:#E0A14A; --warn-soft:#2B2115;
+  --crit:#F0757D; --crit-soft:#2C1618; --mute-soft:#1E2732;
+  --shadow-1: 0 1px 2px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+  --shadow-2: 0 2px 6px rgba(0,0,0,.5), 0 16px 40px rgba(0,0,0,.45);
+}
+:root[data-theme="light"] {
+  --ground:#F6F7F9; --surface:#FFFFFF; --surface-2:#EFF1F5;
+  --line:#DCE0E7; --line-strong:#C3C9D4; --ink:#0B1A2B; --ink-2:#3D4A5C; --ink-3:#6B7788;
+  --route:#0A5FD6; --route-soft:#E4EDFB; --gold:#A8801A; --gold-soft:#F7F0DC;
+  --ok:#17794B; --ok-soft:#E1F2E9; --warn:#A65B00; --warn-soft:#FBEEDC;
+  --crit:#B4232B; --crit-soft:#FAE6E7; --mute-soft:#E9ECF1;
+  --shadow-1: 0 1px 2px rgba(11,26,43,.06), 0 4px 12px rgba(11,26,43,.05);
+  --shadow-2: 0 2px 6px rgba(11,26,43,.08), 0 16px 40px rgba(11,26,43,.10);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------- 排版尺度：字距随字号变化 ---------- */
+h1, h2, h3, h4 { text-wrap: balance; margin: 0; font-weight: 640; }
+h1 { font-size: clamp(2rem, 4.4vw, 3.1rem); line-height: 1.06; letter-spacing: -.028em; }
+h2 { font-size: clamp(1.45rem, 2.4vw, 1.95rem); line-height: 1.16; letter-spacing: -.021em; }
+h3 { font-size: 1.16rem; line-height: 1.3; letter-spacing: -.012em; }
+h4 { font-size: .97rem; line-height: 1.35; letter-spacing: -.005em; }
+p  { margin: 0; }
+
+code, .mono { font-family: var(--mono); font-size: .87em; font-variant-numeric: tabular-nums; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: .69rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ---------- 顶部导航：Apple 半透明材质 ---------- */
+.chrome {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--ground) 72%, transparent);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+}
+.chrome-in {
+  max-width: var(--maxw); margin: 0 auto;
+  padding: 0 24px;
+  display: flex; align-items: center; gap: 22px;
+  min-height: 56px;
+}
+.brand { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
+.brand-mark {
+  width: 22px; height: 22px; flex-shrink: 0;
+}
+.brand-name { font-weight: 660; letter-spacing: -.018em; font-size: .97rem; }
+.brand-ver {
+  font-family: var(--mono); font-size: .66rem; color: var(--route);
+  background: var(--route-soft); padding: 2px 6px; border-radius: 5px;
+  letter-spacing: .02em;
+}
+
+.tabs { display: flex; gap: 2px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  appearance: none; border: 0; background: transparent; cursor: pointer;
+  font: inherit; font-size: .855rem; font-weight: 520;
+  color: var(--ink-3); padding: 7px 13px; border-radius: 8px;
+  white-space: nowrap;
+  transition: color .18s var(--ease), background .18s var(--ease);
+}
+.tab:hover { color: var(--ink); background: var(--surface-2); }
+.tab[aria-selected="true"] { color: var(--route); background: var(--route-soft); }
+.tab:focus-visible { outline: 2px solid var(--route); outline-offset: 2px; }
+
+/* ---------- 页面骨架 ---------- */
+main { max-width: var(--maxw); margin: 0 auto; padding: 0 24px 120px; }
+.page { display: none; }
+.page[data-active="true"] { display: block; animation: enter .42s var(--ease); }
+@keyframes enter { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: none; } }
+
+section { padding: 52px 0 0; }
+section + section { border-top: 1px solid var(--line); margin-top: 52px; }
+.sec-head { display: flex; flex-direction: column; gap: 9px; margin-bottom: 26px; }
+.sec-note { color: var(--ink-2); font-size: .95rem; max-width: 68ch; }
+
+/* ---------- 首屏 ---------- */
+.hero { padding: 68px 0 8px; }
+.hero-grid { display: grid; gap: 34px; grid-template-columns: 1.35fr .95fr; align-items: start; }
+@media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
+.hero h1 { margin: 14px 0 0; }
+.hero-sub { color: var(--ink-2); font-size: 1.06rem; margin-top: 16px; max-width: 60ch; }
+
+/* 定位卡：原文引用，禁止改写 */
+.quote {
+  background: var(--surface); border: 1px solid var(--line);
+  border-left: 3px solid var(--route);
+  border-radius: 4px 12px 12px 4px;
+  padding: 20px 22px; box-shadow: var(--shadow-1);
+}
+.quote-label {
+  font-family: var(--mono); font-size: .66rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--route); margin-bottom: 9px;
+}
+.quote-text { font-size: 1.03rem; line-height: 1.62; font-weight: 500; letter-spacing: -.008em; }
+.quote-src { margin-top: 11px; font-family: var(--mono); font-size: .69rem; color: var(--ink-3); }
+
+/* ---------- 通用卡片 ---------- */
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 13px; padding: 20px; box-shadow: var(--shadow-1);
+}
+.grid { display: grid; gap: 14px; }
+.g2 { grid-template-columns: repeat(2, 1fr); }
+.g3 { grid-template-columns: repeat(3, 1fr); }
+.g4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 940px) { .g3, .g4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .g2, .g3, .g4 { grid-template-columns: 1fr; } }
+
+.stat { display: flex; flex-direction: column; gap: 5px; }
+.stat-n {
+  font-size: 1.85rem; font-weight: 660; letter-spacing: -.03em;
+  font-variant-numeric: tabular-nums; line-height: 1;
+}
+.stat-l { font-size: .8rem; color: var(--ink-3); }
+
+/* ---------- 图纸面板：两种主题下均为浅底示意图 ---------- */
+.schematic {
+  background: var(--paper);
+  border: 1px solid var(--paper-line);
+  border-radius: 12px;
+  padding: 8px 8px 4px;
+  overflow-x: auto;
+  position: relative;
+  box-shadow: var(--shadow-1);
+}
+.schematic pre.mermaid {
+  margin: 0; background: transparent; min-width: 620px;
+  display: flex; justify-content: center;
+}
+
+/* 放大按钮：贴在图纸右上角 */
+.zoom-btn {
+  position: absolute; top: 9px; right: 10px; z-index: 3;
+  appearance: none; cursor: pointer; font: inherit;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: .68rem; font-weight: 660;
+  letter-spacing: .04em; color: #3C4551;
+  background: rgba(255,255,255,.82);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1px solid #C4C8C4; border-radius: 8px;
+  padding: 5px 9px;
+  transition: transform .1s ease-out, background .18s var(--ease), border-color .18s var(--ease);
+}
+.zoom-btn:hover { background: #fff; border-color: #8A93A2; }
+.zoom-btn:active { transform: scale(.96); }
+.zoom-btn:focus-visible { outline: 2px solid var(--route); outline-offset: 2px; }
+.zoom-btn svg { width: 13px; height: 13px; }
+
+/* ---------- 放大浮层 ---------- */
+.lightbox {
+  position: fixed; inset: 0; z-index: 200;
+  display: none; flex-direction: column;
+  background: rgba(9,14,20,.62);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+.lightbox[data-open="true"] { display: flex; animation: lbIn .3s var(--ease); }
+@keyframes lbIn { from { opacity: 0; } to { opacity: 1; } }
+
+.lb-bar {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 12px 16px; color: #fff; flex-shrink: 0;
+}
+.lb-title { font-size: .9rem; font-weight: 600; letter-spacing: -.01em; margin-right: auto; }
+.lb-btn {
+  appearance: none; cursor: pointer; font: inherit;
+  font-family: var(--mono); font-size: .74rem; font-weight: 660;
+  color: #fff; background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.24); border-radius: 8px;
+  padding: 5px 11px; min-width: 36px;
+  transition: background .16s var(--ease), transform .1s ease-out;
+}
+.lb-btn:hover { background: rgba(255,255,255,.26); }
+.lb-btn:active { transform: scale(.95); }
+.lb-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.lb-zoom { font-variant-numeric: tabular-nums; min-width: 52px; text-align: center; opacity: .85; font-family: var(--mono); font-size: .74rem; }
+
+.lb-stage {
+  flex: 1; overflow: hidden; position: relative;
+  margin: 0 12px 12px; border-radius: 12px;
+  background: var(--paper);
+  cursor: grab; touch-action: none;
+}
+.lb-stage.dragging { cursor: grabbing; }
+.lb-canvas { position: absolute; top: 0; left: 0; transform-origin: 0 0; }
+.lb-canvas svg { max-width: none !important; height: auto; display: block; }
+.lb-hint {
+  position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+  font-family: var(--mono); font-size: .64rem; color: #6B7280;
+  background: rgba(255,255,255,.8); padding: 4px 10px; border-radius: 6px;
+  pointer-events: none;
+}
+
+/* ---------- F 码内联链接（含 mermaid 图内） ---------- */
+.fcode {
+  cursor: pointer;
+  color: #0A5FD6;
+  border-bottom: 1px dashed currentColor;
+  font-weight: 700;
+  transition: background .14s var(--ease);
+  border-radius: 3px;
+  padding: 0 1px;
+}
+.fcode:hover { background: rgba(10,95,214,.13); }
+.fcode:focus-visible { outline: 2px solid #0A5FD6; outline-offset: 1px; }
+
+/* 可点击的 F 徽标 */
+button.pill { appearance: none; border: 0; cursor: pointer; font: inherit; font-family: var(--mono); font-size: .7rem; font-weight: 600; letter-spacing: .02em; }
+button.pill:hover { filter: brightness(.94); }
+button.pill:focus-visible { outline: 2px solid var(--route); outline-offset: 2px; }
+:root[data-theme="dark"] button.pill:hover, .pill { }
+
+/* ---------- 功能说明抽屉 ---------- */
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 300;
+  width: min(430px, 100vw);
+  background: var(--surface);
+  border-left: 1px solid var(--line);
+  box-shadow: -8px 0 40px rgba(0,0,0,.22);
+  transform: translateX(102%);
+  transition: transform .42s var(--ease);
+  display: flex; flex-direction: column;
+  visibility: hidden;
+}
+.drawer[data-open="true"] { transform: none; visibility: visible; }
+.dr-top {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 18px 18px 14px; border-bottom: 1px solid var(--line); flex-shrink: 0;
+}
+.dr-idx {
+  font-family: var(--mono); font-size: 1.5rem; font-weight: 700; line-height: 1;
+  color: var(--route); font-variant-numeric: tabular-nums;
+}
+.dr-heads { flex: 1; min-width: 0; }
+.dr-code { font-family: var(--mono); font-size: .72rem; font-weight: 660; color: var(--ink-3); letter-spacing: .04em; }
+.dr-zh { font-size: 1.02rem; font-weight: 640; letter-spacing: -.014em; margin-top: 2px; line-height: 1.25; }
+.dr-en { font-size: .78rem; color: var(--ink-3); margin-top: 2px; }
+.dr-x {
+  appearance: none; border: 1px solid var(--line-strong); background: var(--surface-2);
+  color: var(--ink-2); cursor: pointer; width: 28px; height: 28px; border-radius: 8px;
+  font-size: 1rem; line-height: 1; flex-shrink: 0;
+  transition: background .16s var(--ease), transform .1s ease-out;
+}
+.dr-x:hover { background: var(--line); }
+.dr-x:active { transform: scale(.93); }
+.dr-x:focus-visible { outline: 2px solid var(--route); outline-offset: 2px; }
+.dr-body { padding: 16px 18px 28px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+.dr-sec { display: flex; flex-direction: column; gap: 5px; }
+.dr-k {
+  font-family: var(--mono); font-size: .63rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+.dr-v { font-size: .89rem; color: var(--ink-2); line-height: 1.6; }
+.dr-v b { color: var(--ink); font-weight: 620; }
+.dr-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.dr-foot {
+  border-top: 1px solid var(--line); padding-top: 13px;
+  font-size: .78rem; color: var(--ink-3); line-height: 1.5;
+}
+.dr-jump {
+  appearance: none; cursor: pointer; font: inherit; font-size: .8rem; font-weight: 560;
+  color: var(--route); background: var(--route-soft);
+  border: 1px solid color-mix(in srgb, var(--route) 30%, transparent);
+  border-radius: 8px; padding: 8px 12px; text-align: left;
+  transition: background .16s var(--ease);
+}
+.dr-jump:hover { background: color-mix(in srgb, var(--route) 18%, transparent); }
+.dr-jump:focus-visible { outline: 2px solid var(--route); outline-offset: 2px; }
+
+.dr-scrim {
+  position: fixed; inset: 0; z-index: 290;
+  background: rgba(9,14,20,.28);
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s var(--ease);
+}
+.dr-scrim[data-open="true"] { opacity: 1; pointer-events: auto; }
+@media (max-width: 520px) {
+  .drawer { width: 100vw; }
+}
+.fig-cap {
+  margin-top: 10px; font-size: .82rem; color: var(--ink-3);
+  display: flex; gap: 8px; align-items: baseline;
+}
+.fig-cap b { color: var(--ink-2); font-family: var(--mono); font-size: .72rem; font-weight: 600; flex-shrink: 0; }
+
+/* ---------- 徽标 / 标签 ---------- */
+.pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--mono); font-size: .7rem; font-weight: 600;
+  padding: 3px 8px; border-radius: 6px; white-space: nowrap;
+  letter-spacing: .02em;
+}
+.p-route { background: var(--route-soft); color: var(--route); }
+.p-ok    { background: var(--ok-soft);    color: var(--ok); }
+.p-warn  { background: var(--warn-soft);  color: var(--warn); }
+.p-crit  { background: var(--crit-soft);  color: var(--crit); }
+.p-gold  { background: var(--gold-soft);  color: var(--gold); }
+.p-mute  { background: var(--mute-soft);  color: var(--ink-3); }
+
+/* ---------- 功能浏览器 ---------- */
+.toolbar {
+  display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+  margin-bottom: 18px; padding: 12px; background: var(--surface-2);
+  border: 1px solid var(--line); border-radius: 11px;
+}
+.search {
+  flex: 1 1 190px; min-width: 150px;
+  appearance: none; font: inherit; font-size: .88rem;
+  padding: 7px 11px; border-radius: 8px;
+  border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink);
+}
+.search:focus-visible { outline: 2px solid var(--route); outline-offset: 1px; border-color: var(--route); }
+.chip {
+  appearance: none; cursor: pointer; font: inherit;
+  font-family: var(--mono); font-size: .73rem; font-weight: 600;
+  padding: 5px 10px; border-radius: 7px;
+  border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-2);
+  transition: all .16s var(--ease);
+}
+.chip:hover { border-color: var(--route); color: var(--route); }
+.chip[aria-pressed="true"] { background: var(--route); border-color: var(--route); color: #fff; }
+.chip:focus-visible { outline: 2px solid var(--route); outline-offset: 2px; }
+
+.fn-list { display: flex; flex-direction: column; gap: 7px; }
+.fn {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 11px;
+  overflow: hidden; transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+}
+.fn:hover { border-color: var(--line-strong); }
+.fn[data-open="true"] { border-color: var(--route); box-shadow: var(--shadow-2); }
+.fn-btn {
+  width: 100%; appearance: none; border: 0; background: transparent; cursor: pointer;
+  font: inherit; color: inherit; text-align: left;
+  display: grid; grid-template-columns: 34px 62px 1fr auto; gap: 13px;
+  align-items: center; padding: 13px 16px;
+}
+@media (max-width: 720px) {
+  .fn-btn { grid-template-columns: 30px 1fr; grid-template-areas: "n t" "n c"; row-gap: 6px; }
+  .fn-idx { grid-area: n; } .fn-title { grid-area: t; } .fn-meta { grid-area: c; justify-self: start; }
+  .fn-code { display: none; }
+}
+.fn-btn:focus-visible { outline: 2px solid var(--route); outline-offset: -2px; }
+.fn-idx {
+  font-family: var(--mono); font-size: 1.02rem; font-weight: 660;
+  color: var(--ink-3); font-variant-numeric: tabular-nums;
+}
+.fn[data-open="true"] .fn-idx { color: var(--route); }
+.fn-code { font-family: var(--mono); font-size: .76rem; font-weight: 660; color: var(--route); }
+.fn-title { font-weight: 560; font-size: .95rem; letter-spacing: -.008em; }
+.fn-title span { display: block; font-weight: 400; font-size: .78rem; color: var(--ink-3); margin-top: 1px; }
+.fn-meta { display: flex; gap: 6px; align-items: center; }
+.fn-body {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows .38s var(--ease);
+}
+.fn[data-open="true"] .fn-body { grid-template-rows: 1fr; }
+.fn-body > div { overflow: hidden; }
+.fn-inner { padding: 0 16px 16px 16px; border-top: 1px solid var(--line); padding-top: 14px; margin: 0 16px; }
+.fn-row { display: grid; grid-template-columns: 96px 1fr; gap: 12px; padding: 6px 0; font-size: .87rem; }
+@media (max-width: 620px) { .fn-row { grid-template-columns: 1fr; gap: 3px; } }
+.fn-k { color: var(--ink-3); font-size: .78rem; padding-top: 2px; }
+.fn-v { color: var(--ink-2); }
+.arrow-refs { display: flex; gap: 5px; flex-wrap: wrap; }
+.aref {
+  appearance: none; border: 1px solid var(--route); background: var(--route-soft);
+  color: var(--route); font-family: var(--mono); font-size: .7rem; font-weight: 660;
+  padding: 2px 7px; border-radius: 5px; cursor: pointer;
+  transition: background .16s var(--ease);
+}
+.aref:hover { background: var(--route); color: #fff; }
+.aref:focus-visible { outline: 2px solid var(--route); outline-offset: 2px; }
+
+/* ---------- Agent 卡 ---------- */
+.agent {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 13px;
+  padding: 17px 18px; display: flex; flex-direction: column; gap: 11px;
+  transition: border-color .2s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.agent:hover { border-color: var(--line-strong); transform: translateY(-2px); box-shadow: var(--shadow-2); }
+.agent-top { display: flex; align-items: center; gap: 10px; }
+.agent-id {
+  font-family: var(--mono); font-size: .95rem; font-weight: 700; color: #fff;
+  background: var(--route); width: 32px; height: 32px; border-radius: 8px;
+  display: grid; place-items: center; flex-shrink: 0; letter-spacing: -.02em;
+}
+.agent[data-rt="ops"] .agent-id { background: var(--gold); }
+.agent-name { font-weight: 620; font-size: .96rem; letter-spacing: -.012em; line-height: 1.25; }
+.agent-rt { font-family: var(--mono); font-size: .66rem; color: var(--ink-3); }
+.agent-resp { font-size: .875rem; color: var(--ink-2); line-height: 1.55; }
+.io { display: flex; flex-direction: column; gap: 7px; border-top: 1px solid var(--line); padding-top: 11px; }
+.io-r { display: grid; grid-template-columns: 40px 1fr; gap: 9px; font-size: .8rem; }
+.io-k { font-family: var(--mono); font-size: .66rem; font-weight: 660; color: var(--ink-3); padding-top: 2px; }
+.io-v { color: var(--ink-2); line-height: 1.45; }
+.agent-fns { display: flex; gap: 4px; flex-wrap: wrap; }
+
+/* ---------- 箭头注释 ---------- */
+.arrows { display: flex; flex-direction: column; gap: 6px; }
+.arw {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+  padding: 11px 14px; scroll-margin-top: 76px;
+  transition: border-color .3s var(--ease), background .3s var(--ease);
+}
+.arw.flash { border-color: var(--route); background: var(--route-soft); }
+.arw-h { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.arw-id {
+  font-family: var(--mono); font-size: .78rem; font-weight: 700; color: var(--route);
+  min-width: 30px;
+}
+.arw-path { font-size: .84rem; font-weight: 560; color: var(--ink); }
+.arw-d { margin-top: 5px; font-size: .845rem; color: var(--ink-2); line-height: 1.55; padding-left: 40px; }
+@media (max-width: 620px) { .arw-d { padding-left: 0; } }
+
+/* ---------- 表格 ---------- */
+.tw { overflow-x: auto; border: 1px solid var(--line); border-radius: 11px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 540px; font-size: .865rem; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th {
+  font-size: .7rem; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--ink-3); font-weight: 620; background: var(--surface-2);
+  position: sticky; top: 0;
+}
+tr:last-child td { border-bottom: 0; }
+td.num { font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: .8rem; }
+
+/* ---------- 列表 ---------- */
+.blist { display: flex; flex-direction: column; gap: 9px; margin: 0; padding: 0; list-style: none; }
+.blist li { display: grid; grid-template-columns: 20px 1fr; gap: 10px; font-size: .9rem; color: var(--ink-2); line-height: 1.55; }
+.blist .n {
+  font-family: var(--mono); font-size: .74rem; font-weight: 660; color: var(--route);
+  padding-top: 3px; font-variant-numeric: tabular-nums;
+}
+.blist .x { color: var(--crit); font-weight: 700; padding-top: 1px; }
+
+/* ---------- 闭环链 ---------- */
+.loop {
+  display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+  font-family: var(--mono); font-size: .76rem;
+}
+.loop span {
+  background: var(--surface); border: 1px solid var(--line-strong);
+  padding: 5px 9px; border-radius: 6px; color: var(--ink-2);
+}
+.loop i { color: var(--route); font-style: normal; font-weight: 700; }
+
+/* ---------- 人群卡 ---------- */
+.mode { display: flex; flex-direction: column; gap: 8px; }
+.mode-n {
+  font-family: var(--mono); font-size: .7rem; font-weight: 660;
+  color: var(--route); letter-spacing: .04em;
+}
+.mode-t { font-weight: 600; font-size: .95rem; letter-spacing: -.01em; }
+.mode-d { font-size: .84rem; color: var(--ink-2); line-height: 1.5; }
+.mode-k { font-size: .8rem; color: var(--ink-3); border-top: 1px solid var(--line); padding-top: 8px; }
+
+/* 当前 MVP 标记 */
+.mode.mvp { border-color: var(--route); }
+.mode.mvp::after {
+  content: "MVP Study Case";
+  font-family: var(--mono); font-size: .6rem; letter-spacing: .1em;
+  color: var(--route); background: var(--route-soft);
+  padding: 3px 7px; border-radius: 5px; align-self: flex-start;
+}
+
+.callout {
+  border-radius: 11px; padding: 15px 17px; font-size: .885rem; line-height: 1.6;
+  border: 1px solid;
+}
+.c-crit { background: var(--crit-soft); border-color: color-mix(in srgb, var(--crit) 32%, transparent); color: var(--ink); }
+.c-ok   { background: var(--ok-soft);   border-color: color-mix(in srgb, var(--ok) 32%, transparent);   color: var(--ink); }
+.c-route{ background: var(--route-soft);border-color: color-mix(in srgb, var(--route) 32%, transparent);color: var(--ink); }
+.callout b { font-weight: 640; }
+
+footer {
+  border-top: 1px solid var(--line); margin-top: 60px; padding: 26px 0 0;
+  font-size: .8rem; color: var(--ink-3); display: flex; gap: 16px; flex-wrap: wrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+</style>
+
+<header class="chrome">
+  <div class="chrome-in">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 20 L4 12 Q4 7 9 7 L15 7 Q20 7 20 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="4" cy="20" r="2.4" fill="currentColor"/>
+        <circle cx="20" cy="12" r="2.4" fill="none" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      <span class="brand-name">CampusPath</span>
+      <span class="brand-ver">V4.1</span>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="章节">
+      <button class="tab" role="tab" data-go="overview"  aria-selected="true">项目背景</button>
+      <button class="tab" role="tab" data-go="functions" aria-selected="false">功能清单</button>
+      <button class="tab" role="tab" data-go="agents"    aria-selected="false">Agent 架构</button>
+      <button class="tab" role="tab" data-go="workflow"  aria-selected="false">Workflow</button>
+      <button class="tab" role="tab" data-go="tech"      aria-selected="false">技术实现</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ══════════════════════════ 第一页：项目背景 ══════════════════════════ -->
+<div class="page" id="overview" data-active="true">
+
+  <div class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">HKUST × Google Hackathon · Gemini Enterprise for Higher Education</div>
+        <h1>把学生想成为的人，<br>倒推成今天能走的一步。</h1>
+        <p class="hero-sub">
+          CampusPath 是一套从入学陪伴到毕业的长期 AI Agent 系统。它连接学生授权的成长档案、教务系统、
+          LMS、课程目录、个人日历与校内外机会，把碎片化的资源组织成多时间尺度、可执行、
+          随变化实时校准且不过载的校园成长路径。
+        </p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="quote">
+          <div class="quote-label">一句话定位（原文引用）</div>
+          <div class="quote-text">持续整合校内外可信资源与学生真实反馈，把学生想成为的人动态倒推成当下可执行、并随变化实时校准的校园成长路径。</div>
+          <div class="quote-src">Spec V4.1 · 文档标题区</div>
+        </div>
+        <div class="grid g2">
+          <div class="card stat"><div class="stat-n">27</div><div class="stat-l">编号功能 F01–F27</div></div>
+          <div class="card stat"><div class="stat-n">6</div><div class="stat-l">语义 Agent A0–A5</div></div>
+          <div class="card stat"><div class="stat-n">2</div><div class="stat-l">Agent Runtime</div></div>
+          <div class="card stat"><div class="stat-n">9</div><div class="stat-l">确定性服务（零 LLM）</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">01 · 为什么要做这个项目</div>
+      <h2>真实问题不是「没有资源」，而是资源无法变成路径</h2>
+      <p class="sec-note">
+        大学里的课程、比赛、实验室、交换、讲座、社团、创业支持和职业机会很多，但高度碎片化。
+        学生一边完成繁重学业，一边还要长期搜索、验证、判断、规划和追踪这些资源，认知成本非常高。
+        很多机会并非学生能力不足而错过，而是因为发现太晚、无法判断资格、不知道如何组合，或计划与现实精力不匹配。
+      </p>
+    </div>
+
+    <h3 style="margin-bottom:14px;">本项目要降低的六类长期成本</h3>
+    <div class="grid g3">
+      <div class="card mode"><div class="mode-n">COST 1</div><div class="mode-t">发现成本</div><div class="mode-d">不知道有哪些可信机会</div></div>
+      <div class="card mode"><div class="mode-n">COST 2</div><div class="mode-t">理解成本</div><div class="mode-d">看到了，却不知道具体资格与价值</div></div>
+      <div class="card mode"><div class="mode-n">COST 3</div><div class="mode-t">规划成本</div><div class="mode-d">不知道课程、经历和机会如何形成有依赖关系的路径</div></div>
+      <div class="card mode"><div class="mode-n">COST 4</div><div class="mode-t">执行成本</div><div class="mode-d">收藏很多，但没有转成行动、材料和日历</div></div>
+      <div class="card mode"><div class="mode-n">COST 5</div><div class="mode-t">纠偏成本</div><div class="mode-d">做完没有沉淀，系统下次仍重复安排无效或不适合的事情</div></div>
+      <div class="card mode"><div class="mode-n">COST 6</div><div class="mode-t">容量管理成本</div><div class="mode-d">不知道课程、生活和成长任务如何排进真实日历，容易冲突、过载或挤压休息</div></div>
+    </div>
+
+    <div class="callout c-route" style="margin-top:18px;">
+      <b>为什么不能只做一次职业规划：</b>
+      学生的能力、目标、精力和外部机会都在变化。大一时暂时不符合的实习，大三可能正好合格；原本感兴趣的方向，
+      经过一次实践可能发现并不适合。因此真正有用的产品不是给出一张静态路线图，
+      而是建立一个能够持续感知、记忆、验证和重规划的成长系统。
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">02 · 项目目的与最终产品定位</div>
+      <h2>一个校园成长操作系统，不是又一个职位聚合网站</h2>
+    </div>
+
+    <div class="quote" style="margin-bottom:22px;">
+      <div class="quote-label">最终产品定位（原文引用）</div>
+      <div class="quote-text">一个由 Gemini Enterprise 驱动、以学生自主选择为中心的动态校园成长操作系统：把长期方向转化为近期行动，把真实行动转化为证据与记忆，再用这些新证据持续校准下一阶段路径。</div>
+      <div class="quote-src">Spec V4.1 · §2.1</div>
+    </div>
+
+    <h3 style="margin-bottom:12px;">系统的核心闭环</h3>
+    <div class="card" style="overflow-x:auto;">
+      <div class="loop">
+        <span>Profile + Education + Calendar/Capacity State</span><i>→</i>
+        <span>Goal</span><i>→</i><span>Requirement</span><i>→</i><span>Gap</span><i>→</i>
+        <span>Course &amp; Opportunity</span><i>→</i><span>Constraint-safe Plan</span><i>→</i>
+        <span>Consent-based Action</span><i>→</i><span>Reflection &amp; Evidence</span><i>→</i>
+        <span>Confirmed Profile/Memory Update</span><i>→</i><span>Replan</span>
+      </div>
+    </div>
+
+    <h3 style="margin:26px 0 12px;">双边价值：学生得到什么，学校得到什么</h3>
+    <p class="sec-note" style="margin-bottom:14px;">
+      命题是 Gemini Enterprise for <b>Higher Education</b>，实际部署与付费方是大学。因此产品必须同时成立两个价值主张。
+    </p>
+    <div class="grid g2">
+      <div class="card mode">
+        <div class="mode-n">FOR STUDENTS</div>
+        <div class="mode-t">把长期方向倒推成当下可执行、且不挤压生活的路径</div>
+        <div class="mode-d">每一条建议都说明补什么差距、形成什么证据、为什么是现在。</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">FOR THE UNIVERSITY</div>
+        <div class="mode-t">让已投入巨大成本的资源变成可测量、可改进、可归因的成长资产</div>
+        <div class="mode-d">并第一次让学校看到「我们的资源池覆盖不了学生的哪些真实需求」。</div>
+      </div>
+    </div>
+
+    <div class="callout c-ok" style="margin-top:16px;">
+      <b>关于「学校资源」的口径：</b>
+      凡是因为学生的在校身份而能够获得的机会，都算学校资源。校友内推、企业来校招聘、合作方名额、跨校联盟活动，
+      本质上都是学校品牌与关系网带来的，不因为主办方在校外就不算。因此本产品<b>不区分校内 / 校外资源</b>，
+      只区分学生<b>是否发现、是否够格、是否用上</b>。
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">03 · 项目针对的人群</div>
+      <h2>五类目标导向人群，不是五种身份标签</h2>
+      <p class="sec-note">
+        这五类是按学生「想走向哪里」划分的目标导向人群，不是按本科、硕士、博士或国籍划分，也不是给学生永久贴标签。
+        一个学生可以同时拥有两个候选方向，并随着实践改变权重。
+      </p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card mode mvp">
+        <div class="mode-n">MODE 1</div>
+        <div class="mode-t">就业与职业发展</div>
+        <div class="mode-d">进入目标企业、行业、岗位或公共服务领域</div>
+        <div class="mode-k">系统重点：岗位要求、技能证据、项目、实习、作品、人脉与招聘节奏</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">MODE 2</div>
+        <div class="mode-t">学术与深造</div>
+        <div class="mode-d">读研、读博、进入研究领域、寻找导师</div>
+        <div class="mode-k">系统重点：课程基础、研究方法、实验室、论文阅读、科研经历、推荐信与申请时间线</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">MODE 3</div>
+        <div class="mode-t">创业与创新</div>
+        <div class="mode-d">创办项目、验证需求、加入孵化器或组建团队</div>
+        <div class="mode-k">系统重点：问题发现、技术/商业能力、比赛、原型、用户验证、导师、资金与团队</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">MODE 4</div>
+        <div class="mode-t">兴趣与个人成长</div>
+        <div class="mode-d">艺术、体育、语言、公益、创作或其他长期兴趣</div>
+        <div class="mode-k">系统重点：能力成长、社群、作品、体验质量与可持续投入，不强迫职业化</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">MODE 5</div>
+        <div class="mode-t">探索与方向未定</div>
+        <div class="mode-d">暂时迷茫，希望通过实践逐步认识自己</div>
+        <div class="mode-k">系统重点：低成本、多样化的探索实验；用实际体验更新兴趣与目标信心</div>
+      </div>
+      <div class="card mode" style="border-style:dashed;">
+        <div class="mode-n">横向约束，不是第六类人</div>
+        <div class="mode-t">Context Pack</div>
+        <div class="mode-d">国际身份、经济条件、照护责任、健康与精力、通勤、语言、无障碍需求</div>
+        <div class="mode-k">作为每一种发展模式都必须尊重的个人约束注入，而不是复制一套新的 Agent</div>
+      </div>
+    </div>
+
+    <h3 style="margin:28px 0 12px;">使用周期与 MVP 范围</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>学生阶段</th><th>典型使用起点</th><th>规划跨度示例</th><th>MVP</th></tr></thead>
+        <tbody>
+          <tr><td>本科生</td><td>大一入学或更晚加入</td><td>覆盖四年本科、暑期与毕业衔接；若中途加入则从当前学期开始补建历史 Profile</td><td><span class="pill p-route">主体人群</span></td></tr>
+          <tr><td>研究生</td><td>入学、转方向或求职/申博准备期</td><td>覆盖课程、研究、实习、论文与下一阶段申请；具体年限按学校培养方案</td><td><span class="pill p-mute">产品范围内</span></td></tr>
+          <tr><td>博士生</td><td>入学、资格考前后或研究方向调整时</td><td>可跨多年覆盖研究、会议、合作、教学、资助与学术/产业发展</td><td><span class="pill p-mute">产品范围内</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout c-route" style="margin-top:16px;">
+      <b>Career Path Pack — 目标模型是可插拔的，不是复制 Agent：</b>
+      不同发展路径的差异只在「要走这条路需要什么要求、什么证据、什么时间线」，不在 Agent 结构。
+      因此抽象成与 Context Pack 同构的版本化规则包。<br>
+      MVP 内置且仅内置 <code>undergrad-direct-employment</code>；<code>phd-to-industry</code>（博士毕业后进入产业）
+      已在接口层预留 —— <b>若该 Pack 未交付，MVP 不受影响，前端不显示该 Pack，任何材料也不宣称支持该路径。</b>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">04 · 边界</div>
+      <h2>本产品不是什么</h2>
+      <p class="sec-note">明确的否定项与功能清单同等重要 —— 它们决定了哪些实现路径从一开始就被排除。</p>
+    </div>
+    <div class="grid g2">
+      <div class="card">
+        <ul class="blist">
+          <li><span class="x">×</span><span>不是保证进入某家公司或学校的「成功预测器」</span></li>
+          <li><span class="x">×</span><span>不是替学生做不可逆人生决定的自动决策系统</span></li>
+          <li><span class="x">×</span><span>不是用活动数量、忙碌程度或简历长度衡量成长的系统</span></li>
+          <li><span class="x">×</span><span>不是未经授权抓取个人或平台数据的监控工具</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <ul class="blist">
+          <li><span class="x">×</span><span>不是学校用来查看学生私人想法或控制学生选择的工具</span></li>
+          <li><span class="x">×</span><span>不是医疗器械、心理诊断工具或自杀风险预测系统</span></li>
+          <li><span class="x">×</span><span>不是仅凭日历空档、作息安排或运动时长就向学校报告学生的监控系统</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════ 第二页：功能清单 ══════════════════════════ -->
+<div class="page" id="functions">
+  <section style="padding-top:44px;">
+    <div class="sec-head">
+      <div class="eyebrow">05 · F01–F27 完整功能清单</div>
+      <h2>27 项功能，逐条标注实现位置</h2>
+      <p class="sec-note">
+        这是 V4.1 的唯一功能编号基线。交互网页、流程图和测试均引用这些编号，避免同一功能在不同页面使用不同名称。
+        <b>点击任意一条展开</b>，可以看到该功能由哪个 Agent 或哪个确定性服务实现、经过主架构图上的哪几条信息流。
+        点击信息流编号（<span class="mono" style="color:var(--route);">E1</span> 等）会跳转到 Workflow 页对应的箭头注释。
+      </p>
+      <div class="callout c-route" style="margin-top:4px;">
+        本页之外，<b>流程图内与箭头注释里的 F 编号都可以直接点击</b> —— 会在右侧弹出该功能的说明，不需要切回本页查。
+        流程图右上角还有「放大」按钮，可以全屏缩放平移看清每个字。
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <input class="search" id="fnSearch" type="search" placeholder="搜索功能名称、编号或实现位置…" aria-label="搜索功能">
+      <button class="chip" data-filter="all" aria-pressed="true">全部 27</button>
+      <button class="chip" data-filter="agent" aria-pressed="false">Agent 实现</button>
+      <button class="chip" data-filter="det" aria-pressed="false">确定性服务</button>
+      <button class="chip" data-filter="nollm" aria-pressed="false">零 LLM 路径</button>
+      <button class="chip" data-filter="changed" aria-pressed="false">V4.1 有变更</button>
+    </div>
+
+    <div class="fn-list" id="fnList"></div>
+    <p id="fnEmpty" style="display:none;color:var(--ink-3);font-size:.88rem;padding:26px 0;text-align:center;">
+      没有匹配的功能。
+    </p>
+  </section>
+</div>
+
+<!-- ══════════════════════════ 第三页：Agent 架构 ══════════════════════════ -->
+<div class="page" id="agents">
+  <section style="padding-top:44px;">
+    <div class="sec-head">
+      <div class="eyebrow">06 · Agent 体系</div>
+      <h2>6 个语义 Agent、2 个 Runtime、9 个确定性服务</h2>
+      <p class="sec-note">
+        设计原则：不要把每个函数都包装成 Agent。需要独立目标、语义判断、工具或状态的模块才使用 Agent；
+        日期比较、资格规则、去重、容量校验和评分等可重复逻辑尽量由确定性代码完成。
+      </p>
+    </div>
+
+    <div class="callout c-ok" style="margin-bottom:22px;">
+      <b>V4.1 的核心架构原则：A5 是系统中唯一做取舍（trade-off）的 Agent。</b>
+      A1 / A2 / A3 / A4 只负责把事实与候选整理清楚，不做排序。这让「为什么推荐这个」只有一个解释来源，
+      也让每个 Agent 的输出契约可以独立评测。
+    </div>
+
+    <h3 style="margin-bottom:14px;">各 Agent 的职责、输入与输出</h3>
+    <div class="grid g2" id="agentGrid"></div>
+
+    <h3 style="margin:34px 0 14px;">完整 Agent 信息架构图</h3>
+    <p class="sec-note" style="margin-bottom:14px;">
+      箭头编号 <span class="mono" style="color:var(--route)">E1–E31</span> 与 Workflow 页的注释表一一对应；
+      方括号内是该信息流实现的功能编号。
+    </p>
+    <div class="schematic">
+      <pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'htmlLabels':true},'themeVariables':{'fontFamily':'ui-monospace, SFMono-Regular, Menlo, monospace','fontSize':'12px','primaryColor':'#FFFFFF','primaryTextColor':'#0B1A2B','primaryBorderColor':'#8A93A2','lineColor':'#5C6675','clusterBkg':'#E4E7E4','clusterBorder':'#B6BBB6','edgeLabelBackground':'#F1F2F0'}}}%%
+flowchart TB
+    U["学生 Web App<br/>目标 · Resume · 授权 · 确认 · 反馈"]
+    CP["Pack Registry<br/>Context Pack · Career Path Pack"]
+
+    subgraph SR["Student Path Runtime"]
+      A0["A0 Orchestrator<br/>确定性路由 + LLM 编排兜底"]
+      A1["A1 Student Context &amp; Growth"]
+      A2["A2 Academic Agent"]
+      A3["A3 Goal &amp; Gap"]
+      A5["A5 Pathway Decision<br/>S1 Plan A/B/C 并行<br/>S2 约束修复循环"]
+    end
+
+    subgraph OR["Opportunity Operations Runtime"]
+      A4["A4 Opportunity Intelligence<br/>S3 多源隔离并行抽取"]
+    end
+
+    subgraph DET["确定性服务平面 · 零 LLM"]
+      RULE["Rules &amp; Constraint Engine<br/>+ Wellbeing 五信号阈值"]
+      CAP["Capacity &amp; Calendar Service"]
+      COMP["Wellbeing Reminder Composer<br/>固定模板"]
+      ACT["Action &amp; Consent Service"]
+      MON["Event Monitor &amp; Replan"]
+      PUBS["Publishing / Review / Audit"]
+      AGG["Aggregation Service"]
+      STATE["Student State &amp; Memory"]
+    end
+
+    CONN["Connector &amp; Catalog Layer"]
+    CAT["Opportunity Catalog"]
+    PLAZA["资讯广场"]
+    WELL["Counseling / Wellbeing 队列<br/>与 Career Center 隔离"]
+    SRC["外部来源 / Publisher 投稿"]
+
+    U -->|"E1 Intent + ConsentState [F01,F13]"| A0
+    CP -->|"E2 适用规则包 [F27]"| A0
+    A0 -->|"E3 Profile / Reflection task [F02,F14-F17]"| A1
+    A0 -->|"E4 Academic task [F04,F05]"| A2
+    A0 -->|"E5 Goal task [F03,F08]"| A3
+    CONN -->|"E6 SIS/LMS/Catalog/Timetable [F04]"| A2
+    CONN -->|"E7 free/busy + Protected Block [F06]"| CAP
+    A1 -->|"E8 已确认上下文 + Evidence"| A5
+    A2 -->|"E9 AcademicState + 候选课程标注 [F05]"| A5
+    A3 -->|"E10 RequirementGraph + GapMap [F08]"| A5
+    CAP -->|"E11 CapacitySnapshot + 自报数据 [F07]"| RULE
+    CAP -->|"E12 AvailabilityBlock + 冲突 [F06]"| A5
+    RULE -->|"E13 WellbeingCapacitySignal [F07]"| COMP
+    A5 <-->|"E14 硬约束 ↔ validation_id [F05,F07,F11,F27]"| RULE
+    CAT -->|"E15 候选集 + Provenance [F10,F11]"| A5
+    A5 -->|"E16 MatchResult / Pathway / 排程预览 [F11,F12]"| U
+    U -->|"E17 ConsentReceipt [F13]"| ACT
+    ACT -->|"E18 ActionEvent [F18]"| MON
+    ACT -->|"E19 行动结果 + Evidence 请求 [F14-F16]"| A1
+    COMP -->|"E20 模板化两次提醒 [F07]"| U
+    COMP -->|"E21 OutreachRequest 需有效同意 [F07]"| ACT
+    ACT -->|"E22 白名单字段邮件 [F07]"| WELL
+    A1 -->|"E23 ProfileUpdateProposal [F02,F16,F17]"| STATE
+    STATE -->|"E24 任务相关最小召回 [F17]"| A1
+    A1 -->|"E25 仅结构化质量反馈 [F23]"| AGG
+    MON -->|"E26 ReplanTrigger + AffectedScope [F18]"| A0
+    SRC -->|"E27 原始内容 作为数据 [F09,F20]"| A4
+    A4 -->|"E28 Draft + Provenance [F09,F21]"| PUBS
+    PUBS -->|"E29 已审批资源 [F10,F19-F21]"| CAT
+    CAT -->|"E30 公共目录 [F10]"| PLAZA
+    AGG -->|"E31 质量置信度 [F23]"| A5
+    STATE -->|"E32 去标识 MetricTuple [F23]"| AGG
+    AGG -->|"E33 ResourceCoverageAggregate [F23]"| CCI["Career Center Insights<br/>仅全局聚合 · 不可下钻个体"]
+      </pre>
+    </div>
+    <div class="fig-cap"><b>图 1</b><span>完整 Agent 信息架构。Student Path Runtime 与 Opportunity Operations Runtime 分离部署；确定性服务平面上的九个模块全部不含 LLM 调用。点击图中的 F 编号可查看该功能说明。</span></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">07 · 运行时与服务边界</div>
+      <h2>为什么是 2 个 Runtime，以及什么被排除在 Agent 之外</h2>
+    </div>
+
+    <div class="grid g2" style="margin-bottom:22px;">
+      <div class="card mode">
+        <div class="mode-n">RUNTIME 1</div>
+        <div class="mode-t">Student Path Runtime</div>
+        <div class="mode-d">A0 · A1 · A2 · A3 · A5</div>
+        <div class="mode-k">共享学生请求链、Schema、任务相关上下文和低延迟交互；仍通过 Connector Scope 隔离凭据</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">RUNTIME 2</div>
+        <div class="mode-t">Opportunity Operations Runtime</div>
+        <div class="mode-d">A4</div>
+        <div class="mode-k">后台异步处理外部不可信内容，运行频率、扩缩容、安全和审核责任与学生实时路径不同</div>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom:12px;">九个确定性服务（零 LLM）</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>服务</th><th>职责</th><th>零 LLM 保证</th></tr></thead>
+        <tbody>
+          <tr><td><b>Student State &amp; Memory</b></td><td>Canonical Profile、Event Store、Evidence Index、Private Vault、Memory Provider</td><td><span class="pill p-ok">是</span></td></tr>
+          <tr><td><b>Rules &amp; Constraint Engine</b></td><td>资格四态、日期、先修、学分、容量、保护区块、Pack 规则、Wellbeing 五类信号阈值判定</td><td><span class="pill p-ok">代码级断言</span></td></tr>
+          <tr><td><b>Capacity &amp; Calendar Service</b></td><td>free/busy 拉取、五类 AvailabilityBlock 分类、Discretionary Capacity 计算、冲突检测</td><td><span class="pill p-ok">代码级断言</span></td></tr>
+          <tr><td><b>Wellbeing Reminder Composer</b></td><td>六项必含内容的固定模板；两次提醒状态机；outreach 邮件白名单字段模板</td><td><span class="pill p-ok">代码级断言</span></td></tr>
+          <tr><td><b>Action &amp; Consent Service</b></td><td>预览、授权、幂等写入、任务/日历动作、提醒投递、最小化 outreach 请求</td><td><span class="pill p-ok">是</span></td></tr>
+          <tr><td><b>Event Monitor &amp; Replan</b></td><td>订阅变化、定时检查、去抖、影响范围计算和重规划任务</td><td><span class="pill p-ok">是</span></td></tr>
+          <tr><td><b>Publishing / Review / Audit</b></td><td>Publisher RBAC、状态机、人工批准、版本、撤下、审计</td><td><span class="pill p-ok">是</span></td></tr>
+          <tr><td><b>Aggregation Service</b></td><td>匿名聚合两类输入：活动质量反馈 + 资源利用率 <code>MetricTuple</code>。样本阈值、小样本单元抑制、届次/系列分层、时间衰减、置信区间。<b>输入类型上只接受结构化数据与去标识元组</b></td><td><span class="pill p-ok">是</span></td></tr>
+          <tr><td><b>Connector &amp; Catalog Layer</b></td><td>SIS/LMS/Calendar/Opportunity Provider、统一 Adapter、Catalog 查询与 Source Health</td><td><span class="pill p-ok">是</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig-cap"><b>注</b><span>「代码级断言」表示该模块在构建期禁止 import 任何模型 SDK，由 CI 检查强制，而不是靠开发纪律。</span></div>
+
+    <h3 style="margin:30px 0 12px;">ADK Workflow Agent 的三处使用</h3>
+    <p class="sec-note" style="margin-bottom:14px;">
+      这些都是 Agent <b>内部</b>的工作流构件，不是新的部署单元：Agent 总数仍为 6，Runtime 仍为 2，
+      Registry 与 Gateway 的治理对象数量不变。
+    </p>
+    <div class="grid g3">
+      <div class="card mode">
+        <div class="mode-n">S1 · ParallelAgent</div>
+        <div class="mode-t">A5 内部：Plan A/B/C 并行生成</div>
+        <div class="mode-d">Balanced / Ambitious / Low-load 在三套不同强度约束下并行生成，每套方案获得独立且专注的推理，耗时不叠加。</div>
+        <div class="mode-k">实现 F12</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">S2 · LoopAgent</div>
+        <div class="mode-t">A5 内部：约束修复循环</div>
+        <div class="mode-d">生成计划 → Rules 校验 → 违反容量、保护区块或先修则带着违规原因重生成（最多 3 轮）。</div>
+        <div class="mode-k">使 Capacity Violation = 0 与 Protected Block Violation = 0 成为循环不变式而非期望值</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">S3 · ParallelAgent</div>
+        <div class="mode-t">A4 内部：多源隔离抽取</div>
+        <div class="mode-d">多个来源并行抽取，且每个来源的不可信内容被隔离在独立子上下文中 —— 一个来源的注入无法污染另一个来源。</div>
+        <div class="mode-k">实现 F09，同时是安全措施</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">08 · Agent 安全契约</div>
+      <h2>把隐私从「提示词写得小心」提升为「架构上做不到」</h2>
+      <p class="sec-note">以下四条不是设计建议，而是部署契约：每一条都有对应的自动化测试，测试不通过则构建失败。</p>
+    </div>
+    <div class="grid g2">
+      <div class="card mode">
+        <div class="mode-n">§8.9.1</div>
+        <div class="mode-t">A4 不可信内容隔离</div>
+        <div class="mode-d">
+          ① 外部文本一律以 user-role 数据块传入并加边界标记，永不拼接进 system prompt；<br>
+          ② 工具白名单只有 <code>read_source</code> 与 <code>emit_opportunity_draft</code> —— 没有学生数据读取、没有发布权、没有出网写；<br>
+          ③ 输出必须通过确定性 Schema 闸门后才进审核队列，失败即丢弃，不回喂给 LLM 重试。
+        </div>
+        <div class="mode-k">威胁模型结论：即使 A4 被完全劫持，攻击者能造成的最大影响是「提交一条会被人工审核拒绝的草稿」</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">§8.9.2</div>
+        <div class="mode-t">A1 输出类型边界</div>
+        <div class="mode-d">
+          A1 同时接触学生最私密的 Reflection 原文与最终流向校方的质量信号。
+          它向 Aggregation Service 的输出<b>只能是结构化 EventQualityFeedback</b>，接口类型上不接受自由文本；
+          且 A1 没有任何写入聚合数据域的工具权限。
+        </div>
+        <div class="mode-k">Private Reflection Exposure = 0 由数据类型边界 + 工具权限边界共同保证</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">§8.9.3</div>
+        <div class="mode-t">A5 的 validation_id 强制绑定</div>
+        <div class="mode-d">
+          Rules 每次校验返回一个 <code>validation_id</code>；A5 输出的<b>每一个 PlanItem、每一条资格结论</b>必须携带对应 ID；
+          API 层拒绝任何缺失或伪造的输出。
+        </div>
+        <div class="mode-k">保证资格、先修、截止、容量、保护区块的判定不可能被模型输出覆盖</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">§8.9.4</div>
+        <div class="mode-t">Wellbeing 链路零 LLM</div>
+        <div class="mode-d">
+          五类信号判定、提醒文案、outreach 邮件内容全部由确定性代码与固定模板生成。
+          理由：这五类判定是纯阈值比较，不存在语义判断，引入 LLM 不增加能力、只增加幻觉风险 ——
+          而这是全产品风险最高的数据类别。
+        </div>
+        <div class="mode-k">唯一允许的 LLM 是 A5 生成低负荷替代计划，且仍受 validation_id 约束</div>
+      </div>
+    </div>
+
+    <h3 style="margin:30px 0 12px;">Wellbeing 路径：全链零 LLM</h3>
+    <div class="schematic">
+      <pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'htmlLabels':true},'themeVariables':{'fontFamily':'ui-monospace, SFMono-Regular, Menlo, monospace','fontSize':'12px','primaryColor':'#FFFFFF','primaryTextColor':'#0B1A2B','primaryBorderColor':'#8A93A2','lineColor':'#5C6675','edgeLabelBackground':'#F1F2F0'}}}%%
+flowchart TD
+    S1["学生显式设置<br/>睡眠保护窗口 · 恢复偏好 · 强度模式<br/>不得从空白日历反推"] --> A
+    S2["学生自报<br/>睡眠 / 运动打卡<br/>标记 self-reported 与覆盖天数"] --> A
+    S3["Capacity &amp; Calendar Service<br/>CapacitySnapshot"] --> A
+    A["Rules &amp; Constraint Engine<br/>五类阈值判定 + 数据覆盖与排除条件校验<br/>零 LLM"] --> C{"能否靠自动重排消除？"}
+    C -->|是| D["A5 LoopAgent 生成 Low-load 计划<br/>不发送提醒"]
+    C -->|否| E["Composer 第 1 次提醒<br/>固定模板六槽位"]
+    E --> F["24–72 小时后或计划变更时重评估"]
+    F --> G{"信号持续且学生未处理？"}
+    G -->|否| H["关闭或继续观察"]
+    G -->|是| I["Composer 第 2 次提醒<br/>低负荷模式 + 支持选项"]
+    I --> J{"学生主动请求联系<br/>或已有有效 opt-in？"}
+    J -->|否| K["不向学校发送任何个体信息<br/>继续学生侧保护"]
+    J -->|是| L["Action &amp; Consent 生成最小 outreach<br/>白名单字段模板"]
+    L --> M["Counseling / Wellbeing 人工队列<br/>Career Center 不可见"]
+    CR["学生明确自述即时危险"] --> N["A0 唯一动作：不等待两次提醒<br/>触发学校预配置 Crisis Safety Protocol<br/>官方紧急资源 + 真人处置"]
+      </pre>
+    </div>
+    <div class="fig-cap"><b>图 2</b><span>这条链路上唯一的 LLM 是 A5 生成 Low-load 计划，其输出仍受 Rules 的 validation_id 约束。判定、提醒文案、outreach 邮件三个环节全部为确定性代码与固定模板。</span></div>
+
+    <div class="callout c-crit" style="margin-top:18px;">
+      <b>系统可以说什么，不能说什么：</b>
+      日历没有留出 7 小时睡眠窗口 → 可以说「计划可能挤压了建议睡眠机会」，<b>不能</b>说「你实际只睡了 X 小时」。
+      连续超载、反复延期或拒绝计划 → 可以说「当前计划强度可能不合适」，<b>不能</b>说「你有自杀风险」。
+      成人参考线（7 小时睡眠、每周 150–300 分钟中等强度活动）只用于形成一般健康提示，
+      不是抑郁或自杀风险阈值，也不能单独触发学校报警。
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════ 第四页：Workflow ══════════════════════════ -->
+<div class="page" id="workflow">
+  <section style="padding-top:44px;">
+    <div class="sec-head">
+      <div class="eyebrow">09 · 学生端 Workflow</div>
+      <h2>从目标到行动，再回到目标</h2>
+      <p class="sec-note">
+        学生端的每一次交互都走这条链。方括号内标注该信息流实现的功能编号；
+        课程、资格、日期、容量、RBAC、Wellbeing 阈值一律由确定性规则校验，Agent 只负责目标理解、语义抽取、解释、冲突识别和方案比较。
+      </p>
+    </div>
+    <div class="schematic">
+      <pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'htmlLabels':true},'themeVariables':{'fontFamily':'ui-monospace, SFMono-Regular, Menlo, monospace','fontSize':'12px','primaryColor':'#FFFFFF','primaryTextColor':'#0B1A2B','primaryBorderColor':'#8A93A2','lineColor':'#5C6675','edgeLabelBackground':'#F1F2F0'}}}%%
+flowchart TD
+    U["学生：目标 / Resume / 授权 / 反馈"] -->|"Intent + ConsentState → WorkflowPlan [F01,F03,F13]"| A0["A0 Orchestrator<br/>确定性路由 + LLM 编排兜底"]
+    A0 -->|"Profile / outcome task [F02,F14-F17]"| A1["A1 Student Context &amp; Growth"]
+    A0 -->|"Academic task [F04,F05]"| A2["A2 Academic Agent"]
+    A0 -->|"Goal context [F03,F08]"| A3["A3 Goal &amp; Gap"]
+    CALP["Calendar Provider"] -->|"free/busy + Protected Block [F06]"| CAP["Capacity &amp; Calendar Service<br/>零 LLM · Token 不外流"]
+    A1 -->|"Confirmed context + evidence"| A5["A5 Pathway Decision<br/>S1 Plan A/B/C · S2 约束修复"]
+    A2 -->|"AcademicState + AnnotatedCourseCandidate"| A5
+    A3 -->|"RequirementGraph + prioritized gaps"| A5
+    CAP -->|"CapacitySnapshot + AvailabilityBlock [F06]"| A5
+    CAP -->|"容量 + 自报数据 [F07]"| RULE["Rules &amp; Constraint Engine<br/>含 Wellbeing 五信号阈值"]
+    CAT["Approved Opportunity Catalog"] -->|"Candidates + provenance [F10,F11]"| A5
+    A5 <-->|"Rules request ↔ validated constraints + validation_id [F05-F07,F11,F27]"| RULE
+    RULE -->|"WellbeingCapacitySignal [F07]"| COMP["Wellbeing Reminder Composer<br/>固定模板 · 零 LLM"]
+    COMP -->|"最多两次提醒 / 低负荷选项 [F07]"| C
+    A5 -->|"Plan A/B/C + schedule draft [F12]"| C{"学生确认？"}
+    C -->|"修改 / 拒绝"| A0
+    C -->|"Consent receipt [F13]"| ACT["Action &amp; Consent Service"]
+    ACT -->|"Action result + Evidence request"| EVT["Event Timeline"]
+    EVT -->|"Reflection / Profile / Memory [F14-F17]"| A1
+    A1 -->|"仅结构化 EventQualityFeedback [F23]"| AGG["Aggregation Service"]
+    EVT -->|"Affected change [F18]"| MON["Event Monitor"]
+    MON -->|"Replan scope"| A0
+      </pre>
+    </div>
+    <div class="fig-cap"><b>图 3</b><span>学生端 Workflow。注意 Calendar Provider 的 Token 与原始事件字段止步于 Capacity &amp; Calendar Service，不进入任何 Agent 上下文。</span></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">10 · 校方与 Career Center Workflow</div>
+      <h2>资源如何进入资讯广场与匹配池</h2>
+      <p class="sec-note">
+        Career Center 自有且已核验的资源可由官方 Publisher 直接发布；受授权学生发布的内容必须人工审核。
+        A4 只给审核建议，<b>没有发布批准权</b> —— 发布策略的分流由确定性代码决定。
+      </p>
+    </div>
+    <div class="schematic">
+      <pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'htmlLabels':true},'themeVariables':{'fontFamily':'ui-monospace, SFMono-Regular, Menlo, monospace','fontSize':'12px','primaryColor':'#FFFFFF','primaryTextColor':'#0B1A2B','primaryBorderColor':'#8A93A2','lineColor':'#5C6675','edgeLabelBackground':'#F1F2F0'}}}%%
+flowchart TD
+    ADMIN["Career Center Admin"] -->|"P1 PublisherRoleGrant<br/>组织 · 分类 · 期限 · 是否可直发 [F19]"| PORTAL["Publisher Portal"]
+    PUBR["Publisher<br/>官方 · 教授 · 实验室 · 受授权学生"] -->|"P2 Draft + 来源证据 [F20]"| PORTAL
+    SRC["公开 / 获授权外部来源"] -->|"P3 原始内容<br/>作为数据块，非指令 [F09]"| A4["A4 Opportunity Intelligence"]
+    PORTAL -->|"P4 Submitted version"| A4
+    A4 -->|"P5 标准化字段 + Provenance + 审核建议"| GATE["Schema 闸门 · 确定性<br/>必填 / 日期 / URL 白名单 / 去重 / 敏感内容"]
+    GATE -->|"P6 ValidationIssue [F21]"| REV{"发布策略判定<br/>确定性，非 A4 决定"}
+    REV -->|"P7 官方且已核验 → 直发"| SERVICE["Publishing / Review / Audit"]
+    REV -->|"P8 受授权学生 → 强制人工审核"| HUMAN["Reviewer / Curator"]
+    HUMAN -->|"P9 退回修改 / 驳回 + 原因"| PORTAL
+    HUMAN -->|"P10 批准"| SERVICE
+    SERVICE -->|"P11 Published record [F10]"| CAT["Opportunity Catalog"]
+    CAT -->|"P12 公共目录"| PLAZA["学生资讯广场"]
+    CAT -->|"P13 候选集 [F11]"| A5["A5 Pathway Decision"]
+    AGG["Aggregation Service"] -->|"P14 达阈值的匿名趋势 [F23]"| CURATOR["Curator / 资源负责人"]
+    CURATOR -->|"P15 更正 / 复核 / 撤下"| SERVICE
+    HEALTH["Connector telemetry"] -->|"P16 同步 / 解析 / Freshness / 断链 [F22]"| OPS["IT / Content Ops"]
+      </pre>
+    </div>
+    <div class="fig-cap"><b>图 4</b><span>校方与 Career Center Workflow。发布状态机为 Draft → Submitted → Auto-checked → In Review → Changes Requested / Rejected / Approved → Published → Updated / Expired / Withdrawn / Archived。</span></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">11 · 两端之间的信息传递</div>
+      <h2>学生端与校方端通过受控数据产品连接，不直接互读数据库</h2>
+    </div>
+    <div class="schematic">
+      <pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'htmlLabels':true},'themeVariables':{'fontFamily':'ui-monospace, SFMono-Regular, Menlo, monospace','fontSize':'12px','primaryColor':'#FFFFFF','primaryTextColor':'#0B1A2B','primaryBorderColor':'#8A93A2','lineColor':'#5C6675','edgeLabelBackground':'#F1F2F0'}}}%%
+flowchart LR
+    CC["校方端<br/>发布 · 审核 · 来源运维"] -->|"① Approved Opportunity + Provenance<br/>[F09,F10,F19-F22]"| CAT["Opportunity Catalog<br/>受控数据产品"]
+    CAT -->|"② 可浏览公共目录 [F10]"| PLAZA["学生端：资讯广场"]
+    CAT -->|"③ 候选集 [F11,F12]"| A5["A5 匹配与路径"]
+    STU["学生端<br/>行动与反馈"] -->|"④ 仅匿名、达样本阈值的质量信号 [F14,F23]"| INS["校方端：质量改进洞察"]
+    STU -->|"⑤ 去标识 MetricTuple → 匿名聚合 [F23]"| COVER["校方端：资源覆盖洞察<br/>曝光断层榜 · 供给缺口榜"]
+    COVER -->|"⑥ 资源采购与分发调整"| CAT
+    INS -->|"⑦ 更正 / 复核 / 撤下决定"| CAT
+    STU -.->|"⑧ 仅经同意的最小 non-urgent outreach [F07]"| WELL["Counseling / Wellbeing<br/>与 Career Center 完全隔离"]
+    VAULT["学生 Private Vault<br/>Reflection 原文 · 私人笔记 · 日历详情 · wellbeing"] -.->|"✕ 无任何路径通向校方"| CC
+      </pre>
+    </div>
+    <div class="fig-cap"><b>图 5</b><span>两端信息传递。⑤ 的个体计算在学生数据域内完成，元组离开该域时已无 student_id；虚线 ⑧ 只在学生主动请求或有效 opt-in 时才存在；最下方的 ✕ 表示学生私人数据域没有任何通向校方端的路径。</span></div>
+
+    <div class="grid g2" style="margin-top:18px;">
+      <div class="card">
+        <ul class="blist">
+          <li><span class="n">1</span><span>Career Center / Publisher → <code>Opportunity Catalog</code> → 学生资讯广场与 A5</span></li>
+          <li><span class="n">2</span><span>学生个体 Reflection 默认只进入 Student Private Vault</span></li>
+          <li><span class="n">3</span><span>只有匿名、达到样本阈值的活动质量信号进入 Career Center Insights</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <ul class="blist">
+          <li><span class="n">4</span><span>学生 wellbeing 信号不进入 Career Center</span></li>
+          <li><span class="n">5</span><span>只有有效同意下的最小 non-urgent outreach 进入独立 Counseling / Wellbeing 队列</span></li>
+          <li><span class="n">6</span><span>Context Pack 由获授权管理员安装，学生端只读取与本人目标适用的版本</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">12 · 箭头信息流注释</div>
+      <h2>E1–E33：每条箭头传输什么、实现哪个功能</h2>
+      <p class="sec-note">
+        对应「Agent 架构」页的图 1。每行末尾的 <span class="mono" style="color:var(--ink-3)">F</span> 编号可以点击，
+        会在右侧弹出该功能的完整说明，不需要切回功能清单页。
+        从功能清单页点击 <span class="mono" style="color:var(--route)">E</span> 编号则会跳到这里并高亮对应行。
+      </p>
+    </div>
+    <div class="arrows" id="arrowList"></div>
+  </section>
+</div>
+
+<!-- ══════════════════════════ 第五页：技术实现 ══════════════════════════ -->
+<div class="page" id="tech">
+  <section style="padding-top:44px;">
+    <div class="sec-head">
+      <div class="eyebrow">13 · 四层产品形态</div>
+      <h2>混合架构：不替换学校现有系统，成为它们之间的编排层</h2>
+    </div>
+    <div class="grid g4">
+      <div class="card mode"><div class="mode-n">LAYER 1</div><div class="mode-t">体验与角色层</div><div class="mode-d">学生 Web App、Publisher Portal、Career Center Console 与受治理的管理入口</div></div>
+      <div class="card mode"><div class="mode-n">LAYER 2</div><div class="mode-t">6-Agent / 2-Runtime 语义层</div><div class="mode-d">请求编排、学生上下文、学业、目标与差距、机会理解、路径决策</div></div>
+      <div class="card mode"><div class="mode-n">LAYER 3</div><div class="mode-t">确定性服务平面</div><div class="mode-d">状态与记忆、规则与约束、容量、Wellbeing、Action 与同意、事件监测、发布审核、聚合、连接器</div></div>
+      <div class="card mode"><div class="mode-n">LAYER 4</div><div class="mode-t">校内系统与资源连接层</div><div class="mode-d">通过 API、原生连接器或 BYO-MCP 连接 SIS、Degree Audit、Moodle、课程目录、Career Center、日历与机会源</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">14 · Google 生态组件</div>
+      <h2>每个组件在系统中的具体角色</h2>
+      <p class="sec-note">模型版本属于可替换配置；产品价值不依赖某个特定型号的模型。</p>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>组件</th><th>在 CampusPath 中的角色</th></tr></thead>
+        <tbody>
+          <tr><td><b>可配置的 Gemini 模型层</b></td><td>按任务配置稳定的通用模型与低成本模型；具体型号是可替换部署配置，不作为产品能力前提</td></tr>
+          <tr><td><b>ADK</b></td><td>Agent、工具、顺序/并行/循环工作流、Callback、Session、Memory 与评测</td></tr>
+          <tr><td><b>Agent Runtime</b></td><td>托管与运行 ADK Agent；提供可扩展运行环境（本项目两个 Runtime）</td></tr>
+          <tr><td><b>Memory Bank</b></td><td>跨会话持久记忆、提炼与语义检索</td></tr>
+          <tr><td><b>Agent Registry</b></td><td>登记 Agent、MCP、工具、端点、版本和元数据</td></tr>
+          <tr><td><b>Agent Gateway</b></td><td>Agent / 工具通信入口，执行身份、IAM、语义策略与审计</td></tr>
+          <tr><td><b>BYO-MCP</b></td><td>统一连接 Moodle、Mock/真实 SIS、课程目录、校内资源与自定义系统</td></tr>
+          <tr><td><b>Workspace APIs</b></td><td>Google Calendar 的 free/busy 与事件动作，以及 Drive、Gmail 等分项授权能力</td></tr>
+          <tr><td><b>Cloud Run</b></td><td>学生 App API、Provider Adapter、自定义 MCP 与定时任务</td></tr>
+          <tr><td><b>Firestore / Cloud Storage</b></td><td>Profile、教育记录、容量快照、机会、发布审核、计划与事件；私人附件与可验证成果</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">15 · Synthetic Campus Sandbox</div>
+      <h2>主办方不提供 Sample Data，测试校园必须自建</h2>
+      <p class="sec-note">
+        主办方已明确：数据需要参赛者自行 mock，并建议利用开源 e-learning 系统（如 Moodle），
+        在 Google Cloud 上自行部署一份用于交互。因此这不是自选的额外工作量，而是命题条件下的必要建设。
+        所有界面必须明确标记 <code>Synthetic / Demo Data</code>，不能与真实学生或真实成绩混合。
+      </p>
+    </div>
+
+    <div class="schematic">
+      <pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'htmlLabels':true},'themeVariables':{'fontFamily':'ui-monospace, SFMono-Regular, Menlo, monospace','fontSize':'12px','primaryColor':'#FFFFFF','primaryTextColor':'#0B1A2B','primaryBorderColor':'#8A93A2','lineColor':'#5C6675','edgeLabelBackground':'#F1F2F0'}}}%%
+flowchart TD
+    S["固定 Seed 与 Data Dictionary"] --> M["Moodle Sandbox<br/>Google Cloud · Web Services 开启"]
+    S --> E["Mock SIS / Degree Audit / Course API"]
+    S --> O["Mock Opportunity / Publisher API"]
+    S --> C["Calendar Fixtures 或测试账号"]
+    M --> A["BYO-MCP / Provider Adapters"]
+    E --> A
+    O --> A
+    C --> A
+    A --> D["学生端与 Career Center Demo"]
+    S --> G["Gold Set 与失败样本"]
+    D --> V["自动评测与人工验收"]
+    G --> V
+      </pre>
+    </div>
+    <div class="fig-cap"><b>图 6</b><span>Synthetic Campus 流程。Seed 可重复运行，保证评委每次看到一致情景。</span></div>
+
+    <h3 style="margin:26px 0 12px;">必须设计的失败样本（节选）</h3>
+    <div class="grid g2">
+      <div class="card">
+        <ul class="blist">
+          <li><span class="n">01</span><span>已过期但页面仍在线</span></li>
+          <li><span class="n">02</span><span>大一当前不合格、大三可达的实习</span></li>
+          <li><span class="n">03</span><span>两个来源描述同一机会但截止日期冲突</span></li>
+          <li><span class="n">04</span><span>宣传很好、真实反馈持续很差</span></li>
+          <li><span class="n">05</span><span>活动本身优质，但对某个学生过于基础</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <ul class="blist">
+          <li><span class="n">06</span><span>已满足职业目标但会导致毕业学分不足的选课组合</span></li>
+          <li><span class="n">07</span><span>日历看似有空档，但属于睡眠、用餐、通勤或恢复保护时间</span></li>
+          <li><span class="n">08</span><span>Resume 提取错误、证书已过期或学生拒绝写入 Profile</span></li>
+          <li><span class="n">09</span><span>受授权学生试图直接发布或越权代表其他社团</span></li>
+          <li><span class="n">10</span><span>活动取消但资讯广场仍显示</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">16 · 量化指标</div>
+      <h2>北极星指标与资源利用率刻度</h2>
+    </div>
+
+    <div class="card" style="margin-bottom:18px;">
+      <div class="quote-label" style="color:var(--gold);">北极星指标</div>
+      <div class="quote-text" style="margin-bottom:6px;">Verified Growth Actions (VGA) / Active Student / Month</div>
+      <p style="font-size:.88rem;color:var(--ink-2);">
+        学生真实完成，且通过证据或 Reflection 证明产生技能、知识、作品、研究、人脉、机会推进或目标澄清价值的行动数量。
+        <b>VGA 不奖励点击、收藏、报名或忙碌本身。</b>
+      </p>
+    </div>
+
+    <h3 style="margin-bottom:12px;">资源利用率指标</h3>
+    <p class="sec-note" style="margin-bottom:14px;">
+      VGA 衡量的是「学生做成了多少有效行动」，但产品定位还包含「学校资源被充分利用」。这一层需要独立刻度，
+      否则该主张在评分中无法被检验。
+    </p>
+    <div class="tw" style="margin-bottom:18px;">
+      <table>
+        <thead><tr><th>指标</th><th>定义</th><th>证明什么</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Eligible Opportunity<br>Discovery Rate</b></td>
+            <td>一学期内学生处于 <code>Eligible now</code> 的资源中，学生实际看到过的比例</td>
+            <td>量化「发现成本」：有多少机会不是学生不够格，而是根本没被看见</td>
+          </tr>
+          <tr>
+            <td><b>Discovered-to-<br>Action Rate</b></td>
+            <td>已看到且当时合格的资源中，转化为收藏 / 报名 / 加入路径 / 完成行动的比例</td>
+            <td>量化「执行成本」：系统是否把发现变成了行动，而不只是撑大收藏夹</td>
+          </tr>
+          <tr>
+            <td><b>Gap Coverage by<br>Available Resources</b></td>
+            <td>学生 Gap Map 中的缺口，能被资源池里至少一条资源覆盖的比例</td>
+            <td>反向输出给学校的资源供给洞察 —— 一个学校今天拿不到的管理输入</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin:26px 0 12px;">这三项指标如何传导到校方</h3>
+    <p class="sec-note" style="margin-bottom:14px;">
+      这三项指标<b>必须</b>到达 Career Center，否则它们只是团队自评的数字，产生不了学校侧的管理价值。
+      但传导方式受与活动质量反馈完全相同的隐私纪律约束：<b>传的是全局聚合结论，不是任何学生的个体数据。</b>
+      对应主架构图的 <span class="mono" style="color:var(--route)">E32 / E33</span> 两条信息流。
+    </p>
+
+    <div class="grid g3" style="margin-bottom:16px;">
+      <div class="card mode">
+        <div class="mode-n">STAGE 1 · 个体计算</div>
+        <div class="mode-t">在学生私有数据域内完成</div>
+        <div class="mode-d">用该学生的四态资格结果、曝光记录、ActionEvent 与 Gap Map，算出一条<b>去标识的指标元组</b> <code>MetricTuple</code>。</div>
+        <div class="mode-k">原始曝光与行动记录永不离开学生数据域；元组离开时已无 student_id</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">STAGE 2 · 匿名聚合</div>
+        <div class="mode-t">Aggregation Service（确定性，零 LLM）</div>
+        <div class="mode-d">对 <code>MetricTuple[]</code> 执行最小样本阈值、小样本单元抑制，产出 <code>ResourceCoverageAggregate</code>。</div>
+        <div class="mode-k">禁止低于阈值的交叉下钻，防止多重筛选把单元格缩到可识别规模</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">STAGE 3 · 校方呈现</div>
+        <div class="mode-t">Career Center Insights</div>
+        <div class="mode-d">全局与分组趋势视图。校方只能看到聚合结论，界面与后端都<b>不提供任何反查个体的入口</b>。</div>
+        <div class="mode-k">与 §6.7 的 Equity &amp; Reach Insights 合流</div>
+      </div>
+    </div>
+
+    <h4 style="margin:0 0 10px;">MetricTuple 离开学生数据域时携带什么</h4>
+    <div class="grid g2" style="margin-bottom:16px;">
+      <div class="card">
+        <div class="dr-k" style="margin-bottom:8px;color:var(--ok);">携带</div>
+        <ul class="blist">
+          <li><span class="n">✓</span><span>period、粗粒度 cohort_dims（学院 / 年级 / 发展模式）</span></li>
+          <li><span class="n">✓</span><span>eligible_count、seen_count、acted_count</span></li>
+          <li><span class="n">✓</span><span>gap_total、gap_covered</span></li>
+          <li><span class="n">✓</span><span>未覆盖缺口所属的<b>要求类别</b>（如「用户研究实践」），不是缺口原文</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="dr-k" style="margin-bottom:8px;color:var(--crit);">明确不携带</div>
+        <ul class="blist">
+          <li><span class="x">×</span><span>student_id、姓名、学号</span></li>
+          <li><span class="x">×</span><span>Profile 字段、目标原文、具体缺口描述</span></li>
+          <li><span class="x">×</span><span>Reflection 原文、私人笔记</span></li>
+          <li><span class="x">×</span><span>日历数据、以及任何 wellbeing 字段</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="margin:0 0 10px;">校方最终看到什么</h4>
+    <div class="tw" style="margin-bottom:16px;">
+      <table>
+        <thead><tr><th>视图</th><th>内容</th><th>学校可以据此做什么</th></tr></thead>
+        <tbody>
+          <tr><td><b>全局利用率</b></td><td>三项指标的全校数值与趋势</td><td>判断资源触达效率是否在改善</td></tr>
+          <tr><td><b>曝光断层榜</b></td><td>「合格人数多、但实际看到的人少」的资源排序</td><td>定位分发问题 —— 不是资源不好，是没送到</td></tr>
+          <tr><td><b>供给缺口榜</b></td><td>出现频次最高、但资源池覆盖不了的要求类别</td><td>资源采购与项目设计的直接输入</td></tr>
+          <tr><td><b>分组对比</b></td><td>按学院 / 年级 / 发展模式的差异，每格样本量达标才显示</td><td>发现某些群体系统性地接触不到资源</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout c-crit">
+      <b>硬性边界：</b>
+      ① 任何视图的最小单元格样本量低于阈值即显示 <code>Insufficient evidence</code> 并抑制该格，不显示看似精确的数字；
+      ② 校方界面不提供「查看构成该数字的学生」入口，后端也不提供该查询；
+      ③ 分组维度可组合的层数受限，防止通过多重筛选反推个体；
+      ④ 本通路不携带任何 wellbeing 字段；
+      ⑤ 与 F26 团队评测口径是两条独立管线，不共用输出。
+    </div>
+
+    <h3 style="margin-bottom:12px;">信任与负荷 Guardrail（全部必须为 0）</h3>
+    <div class="grid g3">
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Capacity Violation（未警告的超载计划）</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Protected Block Violation</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Private Reflection Exposure</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Calendar Detail Over-collection</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Unconfirmed Profile Write</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Wellbeing False Escalation</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Unauthorized Publication</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Unbacked Plan Item（缺 validation_id）</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Metric Re-identification（低于阈值仍显数值 / 可下钻个体）</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">MetricTuple Field Leakage（携带 student_id 或 wellbeing 字段）</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--route);">P50 &lt; 3s</div><div class="stat-l">常见交互延迟（重规划 P95 &lt; 12s）</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">17 · 延迟预算</div>
+      <h2>延迟是设计约束，不是事后优化</h2>
+      <p class="sec-note">
+        多 Agent 链路若全部串行，单次交互可能达到 20–45 秒，这对交互式 Web App 与限时 Demo 都不可接受。
+      </p>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>措施</th><th>说明</th><th>效果</th></tr></thead>
+        <tbody>
+          <tr><td><b>A0 确定性路由</b></td><td>已知意图直接分发，不经 LLM 编排</td><td>覆盖约 90% 请求，省 1 次 LLM 往返</td></tr>
+          <tr><td><b>A1 / A2 / A3 并行</b></td><td>三者之间无依赖，用 ADK <code>ParallelAgent</code> 同时发起</td><td>3 次串行 → 1 次并行</td></tr>
+          <tr><td><b>RequirementGraph 缓存</b></td><td>目标不变则不重算</td><td>常态省去 A3</td></tr>
+          <tr><td><b>确定性服务零 LLM</b></td><td>Capacity / Rules / Composer 三者</td><td>这些环节延迟为毫秒级</td></tr>
+          <tr><td><b>会话预热</b></td><td>学生进入应用时后台预跑至 Gap Map</td><td>交互时通常只剩 A5 一跳</td></tr>
+          <tr><td><b>流式渲染</b></td><td>先返回结构化结果骨架，解释文字后到</td><td>感知延迟减半</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">18 · 与命题评分点的对应</div>
+      <h2>Gemini Enterprise for Higher Education</h2>
+    </div>
+    <div class="grid g2">
+      <div class="card mode">
+        <div class="mode-n">APPLICATION NOVELTY</div>
+        <div class="mode-t">同一个持续闭环</div>
+        <div class="mode-d">把长期目标、先修依赖、动态资格、个人精力、机会质量、真实行动和长期记忆放进同一个持续闭环，而不是一次性测评或职位聚合。</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">REAL-WORLD VIABILITY</div>
+        <div class="mode-t">混合架构 + 双边价值</div>
+        <div class="mode-d">独立学生应用 + Gemini Enterprise Agent + Moodle / Workspace / Career Center / BYO-MCP；学校无需替换任何现有系统。Gap Coverage 指标给出学校侧的资源规划洞察。</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">QUANTIFIABLE IMPACT</div>
+        <div class="mode-t">可复现的 Gold Set 评测</div>
+        <div class="mode-d">测量发现时间、四态资格准确率、课程约束满足率、计划可执行性、行动转化、重复低价值推荐、重规划质量，以及三项资源利用率指标。</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">ECOSYSTEM EXECUTION</div>
+        <div class="mode-t">ADK 全套 Workflow Agent</div>
+        <div class="mode-d">ADK 多 Agent、Sequential / Parallel / Loop 三种 Workflow Agent、Agent Runtime、Memory Bank、Registry、Gateway、Workspace API、Cloud Run 与自建 MCP。</div>
+      </div>
+    </div>
+
+    <div class="callout c-ok" style="margin-top:20px;">
+      <b>最强的安全叙事：我们在最敏感的地方主动不用 AI。</b>
+      Wellbeing 全链零 LLM、A4 不可信内容三条隔离契约、私人原文与校方数据之间的类型级边界 ——
+      这是一个可以直接讲给评委听的威胁模型，而不是一句「我们很注意隐私」。
+    </div>
+  </section>
+
+  <footer>
+    <span>CampusPath V4.1 · 交互式项目说明</span>
+    <span>内容严格依据 <code>CampusPath_Complete_Product_Spec_V4.1_2026-07-28.md</code></span>
+    <span>定位、目的与人群段落为原文引用，未作改写</span>
+  </footer>
+</div>
+
+</main>
+
+<!-- ══════════ 图纸放大浮层 ══════════ -->
+<div class="lightbox" id="lightbox" data-open="false" role="dialog" aria-modal="true" aria-label="放大查看示意图">
+  <div class="lb-bar">
+    <span class="lb-title" id="lbTitle">示意图</span>
+    <button class="lb-btn" id="lbOut"  type="button" aria-label="缩小">−</button>
+    <span class="lb-zoom" id="lbZoom">100%</span>
+    <button class="lb-btn" id="lbIn"   type="button" aria-label="放大">+</button>
+    <button class="lb-btn" id="lb100" type="button">原始尺寸</button>
+    <button class="lb-btn" id="lbFit"  type="button">整图</button>
+    <button class="lb-btn" id="lbClose" type="button" aria-label="关闭">关闭 ✕</button>
+  </div>
+  <div class="lb-stage" id="lbStage">
+    <div class="lb-canvas" id="lbCanvas"></div>
+    <div class="lb-hint">滚轮缩放 · 拖拽平移 · 点击图中 F 编号查看功能说明 · Esc 关闭</div>
+  </div>
+</div>
+
+<!-- ══════════ 功能说明抽屉 ══════════ -->
+<div class="dr-scrim" id="drScrim" data-open="false"></div>
+<aside class="drawer" id="drawer" data-open="false" role="dialog" aria-modal="false" aria-label="功能说明">
+  <div class="dr-top">
+    <div class="dr-idx" id="drIdx">01</div>
+    <div class="dr-heads">
+      <div class="dr-code" id="drCode">F01</div>
+      <div class="dr-zh" id="drZh"></div>
+      <div class="dr-en" id="drEn"></div>
+    </div>
+    <button class="dr-x" id="drClose" type="button" aria-label="关闭">✕</button>
+  </div>
+  <div class="dr-body">
+    <div class="dr-sec">
+      <div class="dr-k">功能说明</div>
+      <div class="dr-v" id="drDesc"></div>
+    </div>
+    <div class="dr-sec">
+      <div class="dr-k">实现位置</div>
+      <div class="dr-v" id="drWhere"></div>
+    </div>
+    <div class="dr-sec">
+      <div class="dr-k">主要角色</div>
+      <div class="dr-v" id="drRole"></div>
+    </div>
+    <div class="dr-sec">
+      <div class="dr-k">经过的信息流</div>
+      <div class="arrow-refs" id="drFlows"></div>
+    </div>
+    <div class="dr-foot">
+      内容取自「功能清单」页的同一份数据，来源为 Spec V4.1 §23 功能基线。
+      点击上方 E 编号可跳转到该信息流的完整注释。
+    </div>
+  </div>
+</aside>
+
+<script>
+/* ============================================================
+   数据：全部来自 Spec V4.1，不添加规格外内容
+   ============================================================ */
+
+const AGENTS = [
+  { id:'A0', name:'CampusPath Orchestrator', rt:'Student Path Runtime',
+    resp:'已知意图走确定性路由表；未命中时用 LLM 生成最小必要工作流；加载适用 Context Pack / Career Path Pack；调用相关 Agent；整合证据；决定何时询问学生；即时危险自述时只触发 Crisis Safety Protocol。',
+    in:'用户请求（结构化 UI 事件或自由文本）、ConsentState、Event Monitor 的 ReplanScope、Pack 元数据',
+    out:'WorkflowPlan、AgentCall、ResponseEnvelope、ClarificationRequest',
+    fns:['F01','F13','F18','F27'] },
+  { id:'A1', name:'Student Context & Growth Agent', rt:'Student Path Runtime',
+    resp:'管理完整 Profile、Evidence、Reflection、Key Takeaway、活动个人价值、记忆候选与冲突。所有高影响写入只提建议，不写入；只输出结构化质量反馈，不参与匿名聚合。',
+    in:'学生输入、Resume/证书文件引用、Evidence、ActionEvent 结果、Reflection 作答、Memory Recall',
+    out:'StudentContextView、ProfileUpdateProposal（pending）、ReflectionResult、KeyTakeaway、MemoryProposal、结构化 EventQualityFeedback',
+    fns:['F02','F14','F15','F16','F17','F23'] },
+  { id:'A2', name:'Academic Agent', rt:'Student Path Runtime',
+    resp:'合并 SIS/LMS/Degree/Catalog 的学业事实；解析培养方案规则歧义；课程描述到 skill_tag 的映射；标注候选课程的先修、冲突与负荷。不排序、不持有 Calendar Token、不接触 wellbeing 数据。',
+    in:'Education MCP 返回的 SIS 记录、Degree Audit 规则、LMS 负荷、Course Catalog、Timetable',
+    out:'AcademicState、DegreeProgress、AnnotatedCourseCandidate（无分数）、DataUncertainty',
+    fns:['F04','F05'] },
+  { id:'A3', name:'Goal & Gap Agent', rt:'Student Path Runtime',
+    resp:'澄清目标、生成 Requirement Graph、比较当前证据、识别优先缺口与依赖、未知项与预计可达时间；支持主目标 + 候选目标的共享缺口与分叉点分析。',
+    in:'主目标与候选目标、A1 已确认证据、A2 学业状态、Context Pack / Career Path Pack 要求',
+    out:'RequirementGraph（可缓存）、DynamicGapMap、GoalReview',
+    fns:['F03','F08','F27'] },
+  { id:'A4', name:'Opportunity Intelligence Agent', rt:'Opportunity Operations Runtime', ops:true,
+    resp:'理解外部与投稿机会，抽取、标准化、记录来源、风险提示与审核建议。没有发布批准权、没有学生数据访问权、没有出网写权限；外部内容一律作为数据传入而非指令。',
+    in:'原始来源内容（作为 user-role 数据块）、PublicationSubmission、来源策略、Schema',
+    out:'OpportunityDraft、Provenance、ReviewSuggestion、ValidationIssue',
+    fns:['F09','F20','F21'] },
+  { id:'A5', name:'Pathway Decision Agent', rt:'Student Path Runtime',
+    resp:'系统中唯一做取舍（trade-off）的 Agent。在规则引擎返回的资格、先修、期限、容量和 Pack 约束下完成资格解释、机会匹配、课程方案排序、多时间尺度路径与 Plan A/B/C。',
+    in:'A1 上下文、A2 学业事实与课程候选、A3 缺口、CapacitySnapshot、WellbeingCapacitySignal、Approved Catalog、Rules 校验结果、质量聚合',
+    out:'EligibilityExplanation、MatchResult、CoursePlan（Balanced/Ambitious/Low-load）、PathwayVersion、ScheduleProposal',
+    fns:['F05','F11','F12','F13'] }
+];
+
+const ARROWS = [
+  ['E1','学生 → A0','`Intent`（结构化 UI 事件或自由文本）+ `ConsentState`（各数据源授权范围、日历细节级别、wellbeing 提醒偏好、outreach 同意）',['F01','F13']],
+  ['E2','Pack Registry → A0','`ContextPackManifest` / `CareerPathPack`；仅在已安装、适用且学生同意时加载',['F27']],
+  ['E3','A0 → A1','`ProfileTask`：Resume 文件引用 / ActionEvent 结果 / Reflection 触发 / Memory 查询范围',['F02','F14','F15','F16','F17']],
+  ['E4','A0 → A2','`AcademicTask`：student_id、term、待解析的 requirement_group、课程候选范围',['F04','F05']],
+  ['E5','A0 → A3','`GoalTask`：主目标与候选目标定义、变更触发原因、Pack 附加 requirement',['F03','F08']],
+  ['E6','Connector → A2','SIS 已修/在修记录、Degree Audit 规则、LMS 作业与完成状态、Course Catalog、Timetable',['F04']],
+  ['E7','Connector → Capacity Service','free/busy 时间段（默认不含标题、参与人、备注）+ 学生设定的 Protected Block',['F06']],
+  ['E8','A1 → A5','`StudentContextView`：已确认技能/经历/项目/证书 + Evidence 引用 + 相关 Memory 片段 + 已拒绝方向',['F11']],
+  ['E9','A2 → A5','`AcademicState` + `DegreeProgress` + `AnnotatedCourseCandidate[]`（先修状态、冲突标记、负荷、skill_tags，**无分数**）',['F05']],
+  ['E10','A3 → A5','`RequirementGraph` + `DynamicGapMap`（缺口、优先级、置信度、可达时间、未知项）',['F08']],
+  ['E11','Capacity Service → Rules','`CapacitySnapshot` + 学生自报睡眠/运动数据 + Protected Window',['F07']],
+  ['E12','Capacity Service → A5','`CapacitySnapshot` + `AvailabilityBlock[]` + `ConflictReport`',['F06']],
+  ['E13','Rules → Composer','`WellbeingCapacitySignal[]`（signal_type、observation_source、data_coverage、reference_line、severity、`non_diagnostic=true`）',['F07']],
+  ['E14','A5 ↔ Rules','去：候选机会规则字段、课程组合、排程草案；回：`EligibilityState`（四态）、`ConstraintValidation`（含 `validation_id`）',['F05','F07','F11','F27']],
+  ['E15','Catalog → A5','已审核 `Opportunity[]` + `Provenance`（来源、抓取时间、发布时间、解析器版本、证据片段、置信度）+ freshness',['F10','F11']],
+  ['E16','A5 → 学生','`MatchResult`（四态资格、推荐理由、缺什么、何时可达、投入、来源、风险）、`PathwayVersion`、`Plan A/B/C`、`ScheduleProposal` 预览',['F11','F12']],
+  ['E17','学生 → Action & Consent','`ConsentReceipt`（同意范围、时间、被授权动作）+ 修改后的 PlanItem。**无此箭头则任何写入不得发生**',['F13']],
+  ['E18','Action & Consent → Event Monitor','`ActionEvent`、`CalendarAction`（external_event_id）',['F18']],
+  ['E19','Action & Consent → A1','行动完成结果 + Evidence 收集请求，触发 Reflection 三轨',['F14','F15','F16']],
+  ['E20','Composer → 学生','模板化提醒六槽位：观察内容 / 数据来源与覆盖 / **明示未作医学判断** / 可执行选项 / 支持选项 / 同意状态。最多两次',['F07']],
+  ['E21','Composer → Action & Consent','`WellbeingOutreachRequest`，**仅**在学生主动请求或有效 opt-in 时产生',['F07']],
+  ['E22','Action & Consent → Wellbeing 队列','白名单字段邮件：内部标识、学生请求被联系、触发类别、时间、同意凭证、回执链接。**不含**课程/日历标题、Profile、Reflection、诊断措辞',['F07']],
+  ['E23','A1 → State & Memory','`ProfileUpdateProposal`（pending）→ 学生确认后写入 Canonical Profile + `ProfileChangeEvent`；`MemoryProposal`',['F02','F16','F17']],
+  ['E24','State & Memory → A1','与当前任务相关的最小 Memory 召回片段 + Evidence 引用',['F17']],
+  ['E25','A1 → Aggregation','**仅**结构化 `EventQualityFeedback`；Reflection 原文在类型层面无法通过此路径',['F23']],
+  ['E26','Event Monitor → A0','`ReplanTrigger` + `AffectedScope`（只标记受影响片段，不推翻全局）',['F18']],
+  ['E27','外部来源 / 投稿 → A4','原始内容，作为 user-role 数据块传入并加边界标记',['F09','F20']],
+  ['E28','A4 → Publishing','`OpportunityDraft` + `Provenance` + `ReviewSuggestion` + `ValidationIssue`，经 Schema 闸门后',['F09','F21']],
+  ['E29','Publishing → Catalog','审批通过的 `Opportunity`（含 publication_status、版本、审计引用）',['F10','F19','F20','F21']],
+  ['E30','Catalog → 资讯广场','全部审核通过资源 + 分类/标签/来源/更新时间/官方状态；**不依赖 AI 排序决定可见性**',['F10']],
+  ['E31','Aggregation → A5','`EventQualityAggregate`（达样本阈值的 quality_confidence、届次/系列/人群分层）',['F23','F11']],
+  ['E32','Student State → Aggregation','`MetricTuple`：period、粗粒度 cohort_dims、eligible/seen/acted 计数、gap_total/gap_covered、未覆盖的要求**类别**。**个体计算在学生数据域内完成，元组离开该域时已无 student_id**；不含 Profile、目标原文、Reflection、日历或任何 wellbeing 字段',['F23']],
+  ['E33','Aggregation → Career Center Insights','`ResourceCoverageAggregate`：三项资源利用率指标的全局与分组数值、曝光断层榜、供给缺口榜。**小样本单元抑制，无个体下钻入口**',['F23']]
+];
+
+/* 功能清单：code, 中文名, 英文名, 说明, 实现位置, 角色, 箭头, 标签 */
+const FUNCTIONS = [
+  ['F01','Onboarding, Consent & Privacy','入门、授权与隐私','建立专业、年级、目标模式、数据授权、日历细节范围、容量偏好、wellbeing 提醒和 outreach 同意','A0 + Action & Consent + IAM','Student',['E1'],['agent']],
+  ['F02','Complete Growth Profile','完整成长档案','导入 Resume / 历史经历，维护技能、项目、研究、实习、证书、奖项、社团、志愿、Evidence/Note 与确认历史','A1 + Student State & Memory','Student',['E3','E23','E24'],['agent','det']],
+  ['F03','Goal Studio','目标工作台','创建与比较就业、学术、创业、兴趣和探索目标；支持 1 主目标 + 1 候选目标并显示共享缺口与分叉点','A3','Student',['E5'],['agent','changed']],
+  ['F04','Education Record Import','教育记录导入','从 SIS / Degree Audit / LMS 导入已修、在修、培养方案、完成状态和负荷','A2 + Connector Layer','Student',['E4','E6'],['agent','det']],
+  ['F05','Course & Degree Planning','课程与学位规划','同时满足毕业、先修、开课、目标、证据与时间约束的课程建议与替代方案','A2（事实与候选标注）+ Rules（硬约束）+ A5（唯一排序者）','Student',['E4','E9','E14'],['agent','det','changed']],
+  ['F06','Calendar & Capacity','日历与容量','free/busy 优先；生成 Busy/Free/Protected/Buffer/Flexible、容量和冲突；确认后写专用日历','Capacity & Calendar Service（零 LLM）+ Calendar Provider + Action & Consent','Student',['E7','E12'],['det','nollm','changed']],
+  ['F07','Wellbeing Capacity Guardrail','身心容量护栏','检查睡眠机会、运动机会、恢复区块、缓冲和持续过载；最多两次提醒、低负荷重排及经同意的 non-urgent outreach','Rules（阈值判定）+ Wellbeing Reminder Composer（模板）+ A5（仅 Low-load 重排）+ Action & Consent + Event Monitor','Student / Wellbeing',['E11','E13','E20','E21','E22'],['det','nollm','changed']],
+  ['F08','Dynamic Gap Map','动态差距图','将目标要求与已确认事实/证据比较，显示优先缺口、依赖、未知项、置信度与可达时间','A3','Student',['E5','E10'],['agent']],
+  ['F09','Opportunity Ingestion & Provenance','机会采集与来源溯源','从官方/授权来源抽取、标准化、去重、版本化、记录来源和异常','A4（S3 多源隔离并行 + 安全契约）+ Connector Layer','System / Content Ops',['E27','E28'],['agent','changed']],
+  ['F10','Information Plaza & Catalog','资讯广场与目录','展示全部审核通过资源，支持搜索、分类、标签、来源、更新时间和自主发现','Publishing Service + Catalog','Student / Career Center',['E15','E29','E30'],['det']],
+  ['F11','Eligibility & Personalized Matching','资格与个性化匹配','四态资格、目标对齐、缺口价值、工作量、偏好、质量和来源可信度；显示解释','A5 + Rules（validation_id 强制绑定）','Student',['E8','E14','E15','E16','E31'],['agent','det','changed']],
+  ['F12','Dynamic Pathway & Timeline','动态路径与时间线','近期、4–12 周、学期/学年、剩余周期、Plan A/B/C、版本差异与 GrowthTrajectory 成长曲线','A5（S1 并行生成 Plan A/B/C、S2 约束修复循环）','Student',['E16'],['agent','changed']],
+  ['F13','Action Center & Consent','行动中心与同意','收藏、报名入口、材料清单、预览、任务/日历写入、状态、替代方案和幂等审计','A0 / A5 + Action & Consent','Student',['E1','E17'],['agent','det']],
+  ['F14','Personal Reflection','个人反思','以短问题引导个人学习、兴趣、目标、能量和下一步；原文默认私有','A1','Student',['E19'],['agent']],
+  ['F15','My Key Takeaways & Notes','我的关键收获与笔记','学生自主记录知识、方法、联系人、问题和灵感；可选择记忆或仅私人保存','A1 + Private Vault','Student',['E3','E19'],['agent','det']],
+  ['F16','Evidence Portfolio & Profile Update','证据档案与档案更新','结果/证书/作品进入 Evidence，A1 提议 Profile 更新，学生确认后写入且保留变更史','A1 + Student State & Memory','Student',['E19','E23'],['agent','det']],
+  ['F17','Long-term Memory Control','长期记忆控制','跨会话召回、来源、置信度、冲突、过期、纠正、锁定、忘记、导出','A1 Memory Curation Skill + Memory Platform','Student',['E23','E24'],['agent','det']],
+  ['F18','Event Monitoring & Replanning','事件监测与重规划','监控课程、日历、机会、截止、行动、反馈、负荷与来源变化，只重算受影响路径','Event Monitor + A0 + A5','Student / System',['E18','E26'],['agent','det']],
+  ['F19','Publisher Authorization','发布者授权','组织 / 类别 / 期限 / 直发范围、授予、撤销和审计','Publishing Service + IAM','Career Center Admin',['E29'],['det']],
+  ['F20','Publisher Portal','发布者工作台','草稿、字段补全、预览、提交、修改、状态和版本','Publisher Portal + A4','Publisher',['E27'],['agent','det']],
+  ['F21','Publication Review & Moderation','发布审核与内容治理','自动校验、A4 审核建议、人工批准/退回/驳回、发布、撤下和审计','A4（只给建议）+ Publishing Service（确定性策略分流）','Reviewer / Curator',['E28','E29'],['agent','det','changed']],
+  ['F22','Source & Connector Health','来源与连接器健康','机会源与教育/身份连接器分域监控同步、认证、解析、Freshness、链接和 Schema','Connector Layer + Observability','IT / Content Ops',[],['det']],
+  ['F23','Quality & Outcome Insights','质量与成效洞察','个人即时适配、届次/系列/群体聚合、样本阈值、时间衰减、复核与整改','A1（仅结构化采集）+ Aggregation Service（独占聚合）','Student / Curator',['E25','E31'],['agent','det','changed']],
+  ['F24','Agent Governance','Agent 治理','Registry、Gateway、IAM、策略、Prompt/Skill/Tool 版本、Trace、评测与审计','Gemini Enterprise Agent Platform','Security Admin',[],['det']],
+  ['F25','Synthetic Campus Sandbox','合成校园沙箱','Moodle、Mock SIS/Degree/Course/Calendar/Opportunity/Publisher、失败样本与可重复 Seed','Connector Layer + Test Environment','Team / Evaluator',[],['det']],
+  ['F26','Evaluation & KPI','评测与关键指标','Gold Set、资格准确率、课程约束、计划可执行、重规划、记忆、发布、隐私、wellbeing Guardrail、资源利用率与延迟','Evaluation Harness','Team / Evaluator',[],['det','changed']],
+  ['F27','Context Pack & Career Path Pack Interface','规则包与路径包接口','安装并版本化横向约束与目标模型；International Student 与 phd-to-industry 都是计划中的 Pack，不是独立 Agent','A0 / A3 / A5 + Rules','Student / Admin',['E2','E14'],['agent','det','changed']]
+];
+
+/* ============================================================
+   渲染
+   ============================================================ */
+
+const md = s => s
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+  .replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')
+  .replace(/`(.+?)`/g,'<code>$1</code>');
+
+/* 功能编号 → 数据行 */
+const FN_MAP = Object.fromEntries(FUNCTIONS.map((f, i) => [f[0], { row: f, n: i + 1 }]));
+
+/* 可点击的 F 徽标 */
+const fBtn = f => FN_MAP[f]
+  ? `<button class="pill p-mute" data-fcode="${f}" title="查看 ${f} 功能说明">${f}</button>`
+  : `<span class="pill p-mute">${f}</span>`;
+
+/* --- Agent 卡 --- */
+document.getElementById('agentGrid').innerHTML = AGENTS.map(a => `
+  <article class="agent" ${a.ops ? 'data-rt="ops"' : ''}>
+    <div class="agent-top">
+      <div class="agent-id">${a.id}</div>
+      <div>
+        <div class="agent-name">${a.name}</div>
+        <div class="agent-rt">${a.rt}</div>
+      </div>
+    </div>
+    <p class="agent-resp">${a.resp}</p>
+    <div class="io">
+      <div class="io-r"><div class="io-k">IN</div><div class="io-v">${a.in}</div></div>
+      <div class="io-r"><div class="io-k">OUT</div><div class="io-v">${a.out}</div></div>
+    </div>
+    <div class="agent-fns">${a.fns.map(fBtn).join('')}</div>
+  </article>
+`).join('');
+
+/* --- 箭头注释 --- */
+document.getElementById('arrowList').innerHTML = ARROWS.map(([id, path, data, fns]) => `
+  <div class="arw" id="arw-${id}">
+    <div class="arw-h">
+      <span class="arw-id">${id}</span>
+      <span class="arw-path">${md(path)}</span>
+      ${fns.map(fBtn).join('')}
+    </div>
+    <p class="arw-d">${md(data)}</p>
+  </div>
+`).join('');
+
+/* --- 功能清单 --- */
+const fnList = document.getElementById('fnList');
+const fnEmpty = document.getElementById('fnEmpty');
+
+function tagPills(tags) {
+  const map = {
+    nollm:   ['p-ok',   '零 LLM'],
+    changed: ['p-warn', 'V4.1 变更'],
+  };
+  return tags.filter(t => map[t]).map(t => `<span class="pill ${map[t][0]}">${map[t][1]}</span>`).join('');
+}
+
+function renderFns(items) {
+  fnEmpty.style.display = items.length ? 'none' : 'block';
+  fnList.innerHTML = items.map(([code, en, zh, desc, where, role, arrows, tags], i) => {
+    const n = FUNCTIONS.findIndex(f => f[0] === code) + 1;
+    return `
+    <article class="fn" data-open="false" data-code="${code}">
+      <button class="fn-btn" aria-expanded="false">
+        <span class="fn-idx">${String(n).padStart(2,'0')}</span>
+        <span class="fn-code">${code}</span>
+        <span class="fn-title">${zh}<span>${en}</span></span>
+        <span class="fn-meta">${tagPills(tags)}</span>
+      </button>
+      <div class="fn-body"><div><div class="fn-inner">
+        <div class="fn-row"><div class="fn-k">功能说明</div><div class="fn-v">${desc}</div></div>
+        <div class="fn-row"><div class="fn-k">实现位置</div><div class="fn-v"><b>${where}</b></div></div>
+        <div class="fn-row"><div class="fn-k">主要角色</div><div class="fn-v">${role}</div></div>
+        <div class="fn-row"><div class="fn-k">信息流</div><div class="fn-v">${
+          arrows.length
+            ? `<div class="arrow-refs">${arrows.map(a => `<button class="aref" data-jump="${a}">${a}</button>`).join('')}</div>`
+            : '<span style="color:var(--ink-3);">不经过主架构图的信息流（属治理、沙箱或评测层）</span>'
+        }</div></div>
+      </div></div></div>
+    </article>`;
+  }).join('');
+}
+
+renderFns(FUNCTIONS);
+
+/* 展开 / 收起 */
+fnList.addEventListener('click', e => {
+  const jump = e.target.closest('[data-jump]');
+  if (jump) {
+    e.stopPropagation();
+    goto('workflow');
+    const id = jump.dataset.jump;
+    requestAnimationFrame(() => {
+      const el = document.getElementById('arw-' + id);
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.querySelectorAll('.arw.flash').forEach(n => n.classList.remove('flash'));
+      el.classList.add('flash');
+      setTimeout(() => el.classList.remove('flash'), 2600);
+    });
+    return;
+  }
+  const btn = e.target.closest('.fn-btn');
+  if (!btn) return;
+  const card = btn.closest('.fn');
+  const open = card.dataset.open === 'true';
+  card.dataset.open = open ? 'false' : 'true';
+  btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+});
+
+/* 搜索与筛选 */
+let activeFilter = 'all';
+const search = document.getElementById('fnSearch');
+
+function applyFilters() {
+  const q = search.value.trim().toLowerCase();
+  const items = FUNCTIONS.filter(f => {
+    const tagOk = activeFilter === 'all' || f[7].includes(activeFilter);
+    if (!tagOk) return false;
+    if (!q) return true;
+    return (f[0] + f[1] + f[2] + f[3] + f[4] + f[5]).toLowerCase().includes(q);
+  });
+  renderFns(items);
+}
+
+search.addEventListener('input', applyFilters);
+
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', 'false'));
+    chip.setAttribute('aria-pressed', 'true');
+    activeFilter = chip.dataset.filter;
+    applyFilters();
+  });
+});
+
+/* --- 分页导航 --- */
+function goto(id) {
+  document.querySelectorAll('.page').forEach(p => p.dataset.active = String(p.id === id));
+  document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.go === id)));
+  if (location.hash.slice(1) !== id) history.replaceState(null, '', '#' + id);
+}
+
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    goto(t.dataset.go);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+const initial = location.hash.slice(1);
+if (initial && document.getElementById(initial)) goto(initial);
+
+/* ============================================================
+   图纸放大浮层
+   ============================================================ */
+
+const lb       = document.getElementById('lightbox');
+const lbStage  = document.getElementById('lbStage');
+const lbCanvas = document.getElementById('lbCanvas');
+const lbTitle  = document.getElementById('lbTitle');
+const lbZoom   = document.getElementById('lbZoom');
+
+let scale = 1, tx = 0, ty = 0, natW = 0, natH = 0;
+
+function applyTransform() {
+  lbCanvas.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+  lbZoom.textContent = Math.round(scale * 100) + '%';
+}
+
+/* 「适应」：把整张图缩进舞台 */
+function fitToStage() {
+  const r = lbStage.getBoundingClientRect();
+  if (!natW || !natH) return;
+  scale = Math.min((r.width - 40) / natW, (r.height - 40) / natH);
+  scale = Math.max(0.1, Math.min(scale, 4));
+  tx = (r.width  - natW * scale) / 2;
+  ty = (r.height - natH * scale) / 2;
+  applyTransform();
+}
+
+/* 默认视图：100% 原始尺寸 —— 大图缩到「适应」反而更看不清，
+   所以打开时直接给原始尺寸，文字清晰，靠拖拽浏览。 */
+function actualSize() {
+  const r = lbStage.getBoundingClientRect();
+  if (!natW || !natH) return;
+  scale = 1;
+  tx = natW < r.width  ? (r.width  - natW) / 2 : 20;
+  ty = natH < r.height ? (r.height - natH) / 2 : 20;
+  applyTransform();
+}
+
+function zoomAt(factor, cx, cy) {
+  const next = Math.max(0.2, Math.min(scale * factor, 8));
+  const r = lbStage.getBoundingClientRect();
+  const px = (cx ?? r.width / 2)  - tx;
+  const py = (cy ?? r.height / 2) - ty;
+  tx -= px * (next / scale - 1);
+  ty -= py * (next / scale - 1);
+  scale = next;
+  applyTransform();
+}
+
+function openZoom(schematic) {
+  // 只取图纸本身的 SVG —— 放大按钮的图标也是 SVG，不能选错
+  const svg = schematic.querySelector('pre.mermaid svg') || schematic.querySelector('.mermaid svg');
+  if (!svg) return;
+
+  lbTitle.textContent = schematic.dataset.figTitle || '示意图';
+
+  const clone = svg.cloneNode(true);
+  clone.removeAttribute('style');
+  clone.style.maxWidth = 'none';
+
+  // 取原始尺寸：优先 viewBox，其次 getBBox 后的渲染尺寸
+  const vb = svg.getAttribute('viewBox');
+  if (vb) {
+    const p = vb.split(/[\s,]+/).map(Number);
+    natW = p[2]; natH = p[3];
+  } else {
+    const r = svg.getBoundingClientRect();
+    natW = r.width; natH = r.height;
+  }
+  clone.setAttribute('width',  natW);
+  clone.setAttribute('height', natH);
+
+  lbCanvas.innerHTML = '';
+  lbCanvas.appendChild(clone);
+  lb.dataset.open = 'true';
+  document.body.style.overflow = 'hidden';
+  requestAnimationFrame(actualSize);
+}
+
+function closeZoom() {
+  lb.dataset.open = 'false';
+  lbCanvas.innerHTML = '';
+  if (drawer.dataset.open !== 'true') document.body.style.overflow = '';
+}
+
+document.getElementById('lbClose').addEventListener('click', closeZoom);
+document.getElementById('lbIn').addEventListener('click',  () => zoomAt(1.3));
+document.getElementById('lbOut').addEventListener('click', () => zoomAt(1 / 1.3));
+document.getElementById('lbFit').addEventListener('click', fitToStage);
+document.getElementById('lb100').addEventListener('click', actualSize);
+
+lbStage.addEventListener('wheel', e => {
+  e.preventDefault();
+  const r = lbStage.getBoundingClientRect();
+  zoomAt(e.deltaY < 0 ? 1.12 : 1 / 1.12, e.clientX - r.left, e.clientY - r.top);
+}, { passive: false });
+
+let dragging = false, lastX = 0, lastY = 0;
+lbStage.addEventListener('pointerdown', e => {
+  if (e.target.closest('.fcode')) return;      // 点 F 码不触发拖拽
+  dragging = true; lastX = e.clientX; lastY = e.clientY;
+  lbStage.setPointerCapture(e.pointerId);
+  lbStage.classList.add('dragging');
+});
+lbStage.addEventListener('pointermove', e => {
+  if (!dragging) return;
+  tx += e.clientX - lastX; ty += e.clientY - lastY;
+  lastX = e.clientX; lastY = e.clientY;
+  applyTransform();
+});
+['pointerup','pointercancel'].forEach(ev =>
+  lbStage.addEventListener(ev, () => { dragging = false; lbStage.classList.remove('dragging'); })
+);
+
+/* ============================================================
+   功能说明抽屉
+   ============================================================ */
+
+const drawer = document.getElementById('drawer');
+const scrim  = document.getElementById('drScrim');
+
+function openFn(code) {
+  const hit = FN_MAP[code];
+  if (!hit) return;
+  const [c, en, zh, desc, where, role, arrows] = hit.row;
+
+  document.getElementById('drIdx').textContent  = String(hit.n).padStart(2, '0');
+  document.getElementById('drCode').textContent = c;
+  document.getElementById('drZh').textContent   = zh;
+  document.getElementById('drEn').textContent   = en;
+
+  document.getElementById('drDesc').textContent  = desc;
+  document.getElementById('drWhere').innerHTML   = '<b>' + where + '</b>';
+  document.getElementById('drRole').textContent  = role;
+
+  document.getElementById('drFlows').innerHTML = arrows.length
+    ? arrows.map(a => `<button class="aref" data-jump="${a}">${a}</button>`).join('')
+    : '<span style="color:var(--ink-3);font-size:.85rem;">不经过主架构图的信息流（属治理、沙箱或评测层）</span>';
+
+  drawer.dataset.open = 'true';
+  scrim.dataset.open  = 'true';
+  document.body.style.overflow = 'hidden';
+  document.getElementById('drClose').focus();
+}
+
+function closeFn() {
+  drawer.dataset.open = 'false';
+  scrim.dataset.open  = 'false';
+  if (lb.dataset.open !== 'true') document.body.style.overflow = '';
+}
+
+document.getElementById('drClose').addEventListener('click', closeFn);
+scrim.addEventListener('click', closeFn);
+
+/* 抽屉里的 E 编号跳转：关掉浮层与抽屉，再跳 */
+document.getElementById('drFlows').addEventListener('click', e => {
+  const b = e.target.closest('[data-jump]');
+  if (!b) return;
+  closeFn(); closeZoom();
+  jumpToArrow(b.dataset.jump);
+});
+
+function jumpToArrow(id) {
+  goto('workflow');
+  requestAnimationFrame(() => {
+    const el = document.getElementById('arw-' + id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.querySelectorAll('.arw.flash').forEach(n => n.classList.remove('flash'));
+    el.classList.add('flash');
+    setTimeout(() => el.classList.remove('flash'), 2600);
+  });
+}
+
+/* 全局委托：任何带 data-fcode 的元素（含 mermaid 图内、含浮层里的克隆） */
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-fcode]');
+  if (!t) return;
+  e.preventDefault(); e.stopPropagation();
+  openFn(t.dataset.fcode);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (drawer.dataset.open === 'true') { closeFn(); return; }
+    if (lb.dataset.open === 'true') closeZoom();
+    return;
+  }
+  if (e.key === 'Enter' || e.key === ' ') {
+    const t = e.target.closest && e.target.closest('[data-fcode]');
+    if (t) { e.preventDefault(); openFn(t.dataset.fcode); }
+  }
+});
+
+/* ============================================================
+   图纸增强：注入放大按钮 + 把图内 F 编号变成可点击链接
+   ============================================================ */
+
+const FIG_TITLES = [
+  '图 1 · 完整 Agent 信息架构',
+  '图 2 · Wellbeing 路径：全链零 LLM',
+  '图 3 · 学生端 Workflow',
+  '图 4 · 校方与 Career Center Workflow',
+  '图 5 · 两端之间的信息传递',
+  '图 6 · Synthetic Campus 流程'
+];
+
+const ZOOM_ICON =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' +
+  '<path d="M3 9V5a2 2 0 0 1 2-2h4M15 3h4a2 2 0 0 1 2 2v4M21 15v4a2 2 0 0 1-2 2h-4M9 21H5a2 2 0 0 1-2-2v-4"/></svg>';
+
+document.querySelectorAll('.schematic').forEach((sch, i) => {
+  sch.dataset.figTitle = FIG_TITLES[i] || '示意图';
+  const b = document.createElement('button');
+  b.className = 'zoom-btn';
+  b.type = 'button';
+  b.innerHTML = ZOOM_ICON + '<span>放大</span>';
+  b.setAttribute('aria-label', '放大查看' + sch.dataset.figTitle);
+  b.addEventListener('click', ev => { ev.stopPropagation(); openZoom(sch); });
+  sch.appendChild(b);
+});
+
+/* 把渲染后的 SVG 里的 F 编号变成可点击链接。
+   mermaid 的边标签用 foreignObject + HTML，因此可以安全替换 innerHTML。 */
+const XHTML = 'http://www.w3.org/1999/xhtml';
+
+function linkifyF(root) {
+  root.querySelectorAll('foreignObject span, foreignObject div, foreignObject p').forEach(el => {
+    if (el.dataset.fLinked === '1') return;
+    if (el.children.length) return;                 // 只处理纯文本叶子节点
+    if (el.namespaceURI !== XHTML) return;          // 不碰 SVG 原生 text
+    const txt = el.textContent;
+    if (!/F\d{2}/.test(txt)) return;
+    el.innerHTML = txt
+      .replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m]))
+      .replace(/F(\d{2})/g, (m, d) => {
+        const code = 'F' + d;
+        return FN_MAP[code]
+          ? `<a class="fcode" data-fcode="${code}" role="button" tabindex="0" title="查看 ${code} 功能说明">${code}</a>`
+          : m;
+      });
+    el.dataset.fLinked = '1';
+  });
+}
+
+/* mermaid 是异步渲染的：用 MutationObserver 捕捉 SVG 出现，另加一个有上限的轮询兜底 */
+document.querySelectorAll('.schematic').forEach(sch => {
+  const run = () => { const svg = sch.querySelector('svg'); if (svg) linkifyF(svg); };
+  new MutationObserver(run).observe(sch, { childList: true, subtree: true });
+  run();
+});
+
+let sweeps = 0;
+const sweep = setInterval(() => {
+  document.querySelectorAll('.schematic svg').forEach(linkifyF);
+  if (++sweeps > 30) clearInterval(sweep);   // 最多兜底 30 秒
+}, 1000);
+</script>

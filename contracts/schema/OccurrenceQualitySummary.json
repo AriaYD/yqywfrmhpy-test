@@ -1,0 +1,179 @@
+{
+  "$defs": {
+    "DimensionAggregate": {
+      "additionalProperties": false,
+      "properties": {
+        "ci_high": {
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Ci High",
+          "type": "number"
+        },
+        "ci_low": {
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Ci Low",
+          "type": "number"
+        },
+        "dimension": {
+          "$ref": "#/components/schemas/QualityDimension"
+        },
+        "weighted_score": {
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Weighted Score",
+          "type": "number"
+        }
+      },
+      "required": [
+        "dimension",
+        "weighted_score",
+        "ci_low",
+        "ci_high"
+      ],
+      "title": "DimensionAggregate",
+      "type": "object"
+    },
+    "FitShare": {
+      "additionalProperties": false,
+      "description": "契合标签在已验证反馈中的占比（2026-08-04 用户裁定上呈现层）。\n\n契合是**个人判断**（§17.4 Personal-vs-Global Separation），不折进\n质量分——但它的**分布**是给主办方的有效信号（\"40% 说太基础\" =\n受众标注要改）。以独立字段出域、前端独立分区展示，隔离不破。",
+      "properties": {
+        "fit": {
+          "$ref": "#/components/schemas/FitTag"
+        },
+        "share": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Share",
+          "type": "number"
+        }
+      },
+      "required": [
+        "fit",
+        "share"
+      ],
+      "title": "FitShare",
+      "type": "object"
+    },
+    "FitTag": {
+      "description": "区分\"活动不好\"与\"对我不合适\"（Spec §17.4 Personal-vs-Global Separation）。",
+      "enum": [
+        "too_basic_for_me",
+        "too_advanced_for_me",
+        "wrong_format_for_me",
+        "schedule_mismatch",
+        "good_fit"
+      ],
+      "title": "FitTag",
+      "type": "string"
+    },
+    "QualityDimension": {
+      "description": "固定维度。新增维度要改 Spec，不能由前端随手加一个自由文本问题。",
+      "enum": [
+        "content_depth",
+        "organization",
+        "practical_value",
+        "networking_value",
+        "expectation_match"
+      ],
+      "title": "QualityDimension",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/OccurrenceQualitySummary.json",
+  "additionalProperties": false,
+  "description": "plaza-admin 活动卡上的实时统计行。低于样本阈值时分数字段为 None、\n逐维与契合分布为空（前端显示 Insufficient evidence，不显示假精确）。",
+  "properties": {
+    "attend_count": {
+      "minimum": 0,
+      "title": "Attend Count",
+      "type": "integer"
+    },
+    "avg_overall": {
+      "anyOf": [
+        {
+          "maximum": 5,
+          "minimum": 1,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Avg Overall"
+    },
+    "dimensions": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/DimensionAggregate"
+      },
+      "title": "Dimensions",
+      "type": "array"
+    },
+    "favorable_rate": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Favorable Rate"
+    },
+    "feedback_n": {
+      "minimum": 0,
+      "title": "Feedback N",
+      "type": "integer"
+    },
+    "fit_distribution": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/FitShare"
+      },
+      "title": "Fit Distribution",
+      "type": "array"
+    },
+    "opportunity_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Opportunity Id",
+      "type": "string"
+    },
+    "stats_frozen": {
+      "default": false,
+      "title": "Stats Frozen",
+      "type": "boolean"
+    },
+    "stats_until": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Stats Until"
+    },
+    "verified_n": {
+      "minimum": 0,
+      "title": "Verified N",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "opportunity_id",
+    "feedback_n",
+    "verified_n",
+    "attend_count"
+  ],
+  "title": "OccurrenceQualitySummary",
+  "type": "object"
+}

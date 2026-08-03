@@ -1,0 +1,93 @@
+{
+  "$defs": {
+    "IntensityMode": {
+      "description": "学生选择的计划强度（Spec §16.7）。",
+      "enum": [
+        "gentle",
+        "balanced",
+        "sprint"
+      ],
+      "title": "IntensityMode",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/EnergyProfile.json",
+  "additionalProperties": false,
+  "description": "Spec §16.7。全部由学生显式设置，**不得从空白日历反推**（§16.8.2）。",
+  "properties": {
+    "max_parallel_commitments": {
+      "default": 2,
+      "maximum": 10,
+      "minimum": 1,
+      "title": "Max Parallel Commitments",
+      "type": "integer"
+    },
+    "min_buffer_ratio": {
+      "default": 0.2,
+      "description": "未安排缓冲下限，默认 20%（Spec §16.8）",
+      "maximum": 0.6,
+      "minimum": 0.0,
+      "title": "Min Buffer Ratio",
+      "type": "number"
+    },
+    "preferred_intensity": {
+      "$ref": "#/components/schemas/IntensityMode",
+      "default": "balanced"
+    },
+    "recovery_preference_defined": {
+      "default": false,
+      "description": "Spec §16.8.2：未定义恢复偏好时 recovery_absent 信号不得触发",
+      "title": "Recovery Preference Defined",
+      "type": "boolean"
+    },
+    "sleep_window_end": {
+      "anyOf": [
+        {
+          "pattern": "^\\d{2}:\\d{2}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Sleep Window End"
+    },
+    "sleep_window_start": {
+      "anyOf": [
+        {
+          "pattern": "^\\d{2}:\\d{2}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "学生显式设置的睡眠保护窗口起点；None 表示未设置，此时 sleep_opportunity 信号不得触发",
+      "title": "Sleep Window Start"
+    },
+    "social_preference": {
+      "default": "mixed",
+      "enum": [
+        "solo",
+        "small_group",
+        "large_group",
+        "mixed"
+      ],
+      "title": "Social Preference",
+      "type": "string"
+    },
+    "weekly_discretionary_hours": {
+      "maximum": 80,
+      "minimum": 0,
+      "title": "Weekly Discretionary Hours",
+      "type": "number"
+    }
+  },
+  "required": [
+    "weekly_discretionary_hours"
+  ],
+  "title": "EnergyProfile",
+  "type": "object"
+}

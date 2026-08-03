@@ -1,0 +1,81 @@
+{
+  "$id": "https://campuspath.invalid/schema/ProgramRequirementGroup.json",
+  "additionalProperties": false,
+  "description": "专业课程要求组（真实 HKUST ugprog/PDF 抓取，2026-07-31 用户需求 C/K）。\n\n抓不到的数字字段是 ``None``，**不编造**；``has_or_logic`` 表示组内课程\n存在择一逻辑（精确语义以 ``source_url`` 的官方 PDF 为准，D6.5：\n冲突时以来源原文为准）。",
+  "properties": {
+    "course_codes": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Course Codes",
+      "type": "array"
+    },
+    "courses_required": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Courses Required"
+    },
+    "credits_required": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Credits Required"
+    },
+    "estimated_credits_sum": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Estimated Credits Sum"
+    },
+    "group_name": {
+      "title": "Group Name",
+      "type": "string"
+    },
+    "has_or_logic": {
+      "default": false,
+      "title": "Has Or Logic",
+      "type": "boolean"
+    },
+    "source_url": {
+      "title": "Source Url",
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "required",
+        "elective",
+        "school_requirement",
+        "other"
+      ],
+      "title": "Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "group_name",
+    "type",
+    "source_url"
+  ],
+  "title": "ProgramRequirementGroup",
+  "type": "object"
+}

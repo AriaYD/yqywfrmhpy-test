@@ -1,0 +1,487 @@
+{
+  "$defs": {
+    "ConsentRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "expires_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expires At"
+        },
+        "granted": {
+          "title": "Granted",
+          "type": "boolean"
+        },
+        "granted_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Granted At"
+        },
+        "receipt_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "同意回执，用于审计（B13）",
+          "title": "Receipt Id"
+        },
+        "revoked_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Revoked At"
+        },
+        "scope": {
+          "$ref": "#/components/schemas/ConsentScope"
+        }
+      },
+      "required": [
+        "scope",
+        "granted"
+      ],
+      "title": "ConsentRecord",
+      "type": "object"
+    },
+    "ConsentScope": {
+      "description": "Spec §13：每一类数据的读取都要有独立同意，不做打包授权。",
+      "enum": [
+        "sis_records",
+        "lms_records",
+        "calendar_freebusy",
+        "calendar_event_titles",
+        "calendar_write",
+        "self_reported_wellbeing",
+        "wellbeing_outreach",
+        "anonymous_aggregation",
+        "memory_retention",
+        "context_pack"
+      ],
+      "title": "ConsentScope",
+      "type": "string"
+    },
+    "DevelopmentMode": {
+      "additionalProperties": false,
+      "description": "Spec §14.3。学生可以同时属于多种模式，权重之和不强制为 1。",
+      "properties": {
+        "confidence": {
+          "default": 0.5,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "mode": {
+          "$ref": "#/components/schemas/DevelopmentModeType"
+        },
+        "weight": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "mode",
+        "weight"
+      ],
+      "title": "DevelopmentMode",
+      "type": "object"
+    },
+    "DevelopmentModeType": {
+      "enum": [
+        "employment",
+        "academia",
+        "entrepreneurship",
+        "personal_interest",
+        "exploration"
+      ],
+      "title": "DevelopmentModeType",
+      "type": "string"
+    },
+    "EnergyProfile": {
+      "additionalProperties": false,
+      "description": "Spec §16.7。全部由学生显式设置，**不得从空白日历反推**（§16.8.2）。",
+      "properties": {
+        "max_parallel_commitments": {
+          "default": 2,
+          "maximum": 10,
+          "minimum": 1,
+          "title": "Max Parallel Commitments",
+          "type": "integer"
+        },
+        "min_buffer_ratio": {
+          "default": 0.2,
+          "description": "未安排缓冲下限，默认 20%（Spec §16.8）",
+          "maximum": 0.6,
+          "minimum": 0.0,
+          "title": "Min Buffer Ratio",
+          "type": "number"
+        },
+        "preferred_intensity": {
+          "$ref": "#/components/schemas/IntensityMode",
+          "default": "balanced"
+        },
+        "recovery_preference_defined": {
+          "default": false,
+          "description": "Spec §16.8.2：未定义恢复偏好时 recovery_absent 信号不得触发",
+          "title": "Recovery Preference Defined",
+          "type": "boolean"
+        },
+        "sleep_window_end": {
+          "anyOf": [
+            {
+              "pattern": "^\\d{2}:\\d{2}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sleep Window End"
+        },
+        "sleep_window_start": {
+          "anyOf": [
+            {
+              "pattern": "^\\d{2}:\\d{2}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "学生显式设置的睡眠保护窗口起点；None 表示未设置，此时 sleep_opportunity 信号不得触发",
+          "title": "Sleep Window Start"
+        },
+        "social_preference": {
+          "default": "mixed",
+          "enum": [
+            "solo",
+            "small_group",
+            "large_group",
+            "mixed"
+          ],
+          "title": "Social Preference",
+          "type": "string"
+        },
+        "weekly_discretionary_hours": {
+          "maximum": 80,
+          "minimum": 0,
+          "title": "Weekly Discretionary Hours",
+          "type": "number"
+        }
+      },
+      "required": [
+        "weekly_discretionary_hours"
+      ],
+      "title": "EnergyProfile",
+      "type": "object"
+    },
+    "IntensityMode": {
+      "description": "学生选择的计划强度（Spec §16.7）。",
+      "enum": [
+        "gentle",
+        "balanced",
+        "sprint"
+      ],
+      "title": "IntensityMode",
+      "type": "string"
+    },
+    "InternationalStudentContext": {
+      "additionalProperties": false,
+      "description": "结构化国际学生上下文（用户裁定 F，2026-08-02：**不是**一个布尔开关）。\n\n存在即视为「我是国际生」已勾选；字段对齐 vendored Pack 的\nbase/questions.yaml（integration-contract：这些字段归 Student Profile 所有，\n政策规则归 Pack 所有）。institution / programme_level / expected_graduation\n不重复存——求值时从 StudentProfile 本体派生，一份事实一个出处。",
+      "properties": {
+        "employer_sponsorship_expected": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Employer Sponsorship Expected"
+        },
+        "intended_start_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Intended Start Date"
+        },
+        "intended_work_jurisdiction": {
+          "enum": [
+            "HK-SAR",
+            "CN-MAINLAND",
+            "other"
+          ],
+          "title": "Intended Work Jurisdiction",
+          "type": "string"
+        },
+        "language_evidence": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Language Evidence",
+          "type": "array"
+        },
+        "permission_category": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Permission Category",
+          "type": "string"
+        },
+        "permission_expiry_date": {
+          "format": "date",
+          "title": "Permission Expiry Date",
+          "type": "string"
+        },
+        "school_approval": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "School Approval"
+        },
+        "study_jurisdiction": {
+          "enum": [
+            "HK-SAR",
+            "CN-MAINLAND",
+            "other"
+          ],
+          "title": "Study Jurisdiction",
+          "type": "string"
+        },
+        "study_mode": {
+          "default": "full_time",
+          "enum": [
+            "full_time",
+            "part_time"
+          ],
+          "title": "Study Mode",
+          "type": "string"
+        },
+        "target_cities": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Target Cities",
+          "type": "array"
+        },
+        "updated_at": {
+          "format": "date-time",
+          "title": "Updated At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "study_jurisdiction",
+        "intended_work_jurisdiction",
+        "permission_category",
+        "permission_expiry_date",
+        "updated_at"
+      ],
+      "title": "InternationalStudentContext",
+      "type": "object"
+    },
+    "StudentConstraint": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "maxLength": 500,
+          "title": "Description",
+          "type": "string"
+        },
+        "hard": {
+          "default": false,
+          "description": "hard=True 时进入 Rules 硬约束",
+          "title": "Hard",
+          "type": "boolean"
+        },
+        "kind": {
+          "enum": [
+            "commute",
+            "caregiving",
+            "financial",
+            "accessibility",
+            "visa",
+            "other"
+          ],
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "description"
+      ],
+      "title": "StudentConstraint",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/StudentProfile.json",
+  "additionalProperties": false,
+  "description": "L0 Canonical Profile（Spec §8.4）。只保存当前有效状态，历史在 Event Store。",
+  "properties": {
+    "candidate_goal_share": {
+      "default": 0.2,
+      "maximum": 0.5,
+      "minimum": 0.0,
+      "title": "Candidate Goal Share",
+      "type": "number"
+    },
+    "consent": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/ConsentRecord"
+      },
+      "title": "Consent",
+      "type": "array"
+    },
+    "constraints": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/StudentConstraint"
+      },
+      "title": "Constraints",
+      "type": "array"
+    },
+    "development_modes": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/DevelopmentMode"
+      },
+      "title": "Development Modes",
+      "type": "array"
+    },
+    "energy_profile": {
+      "$ref": "#/components/schemas/EnergyProfile"
+    },
+    "expected_graduation": {
+      "format": "date",
+      "title": "Expected Graduation",
+      "type": "string"
+    },
+    "institution": {
+      "title": "Institution",
+      "type": "string"
+    },
+    "interests": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Interests",
+      "type": "array"
+    },
+    "intl_context": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/InternationalStudentContext"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "level": {
+      "enum": [
+        "undergraduate",
+        "postgraduate_taught",
+        "postgraduate_research"
+      ],
+      "title": "Level",
+      "type": "string"
+    },
+    "program_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Program Id",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    },
+    "version": {
+      "description": "每次确认写入 +1，与 ProfileChangeEvent 对应",
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "year": {
+      "maximum": 8,
+      "minimum": 1,
+      "title": "Year",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "student_id",
+    "institution",
+    "program_id",
+    "level",
+    "year",
+    "expected_graduation",
+    "energy_profile",
+    "version",
+    "updated_at"
+  ],
+  "title": "StudentProfile",
+  "type": "object"
+}

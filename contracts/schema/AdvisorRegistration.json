@@ -1,0 +1,25 @@
+{
+  "$id": "https://campuspath.invalid/schema/AdvisorRegistration.json",
+  "additionalProperties": false,
+  "description": "R8-1：Advisor 自助注册。学校聘请的顾问人员流动，名录不写死——\n新顾问注册后自动获得未来 10 个工作日的标准时段库存。",
+  "properties": {
+    "focus": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Focus",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "focus"
+  ],
+  "title": "AdvisorRegistration",
+  "type": "object"
+}

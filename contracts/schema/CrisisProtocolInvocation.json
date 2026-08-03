@@ -1,0 +1,77 @@
+{
+  "$defs": {
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/CrisisProtocolInvocation.json",
+  "additionalProperties": false,
+  "description": "Spec §16.8.5：学生明确自述即时危险时 A0 的**唯一**动作。\n\n不走两次提醒，也不发普通邮件。系统只展示学校预配置的官方资源，\n后续处置交给受训人员——契约层不承载任何评估或分级字段。",
+  "properties": {
+    "handoff_recorded": {
+      "default": false,
+      "title": "Handoff Recorded",
+      "type": "boolean"
+    },
+    "invocation_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Invocation Id",
+      "type": "string"
+    },
+    "invoked_at": {
+      "format": "date-time",
+      "title": "Invoked At",
+      "type": "string"
+    },
+    "protocol_ref": {
+      "description": "学校预配置的 Crisis Safety Protocol id",
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Protocol Ref",
+      "type": "string"
+    },
+    "resources_shown": {
+      "items": {
+        "$ref": "#/components/schemas/LocalizedText"
+      },
+      "minItems": 1,
+      "title": "Resources Shown",
+      "type": "array"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "invocation_id",
+    "student_id",
+    "invoked_at",
+    "protocol_ref",
+    "resources_shown"
+  ],
+  "title": "CrisisProtocolInvocation",
+  "type": "object"
+}

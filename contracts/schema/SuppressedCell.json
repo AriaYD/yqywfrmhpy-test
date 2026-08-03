@@ -1,0 +1,31 @@
+{
+  "$id": "https://campuspath.invalid/schema/SuppressedCell.json",
+  "additionalProperties": false,
+  "description": "被抑制的单元格。**记录被抑制这件事本身，但不记录被抑制的数值。**",
+  "properties": {
+    "cell_key": {
+      "title": "Cell Key",
+      "type": "string"
+    },
+    "n": {
+      "minimum": 0,
+      "title": "N",
+      "type": "integer"
+    },
+    "reason": {
+      "default": "below_min_cell_n",
+      "enum": [
+        "below_min_cell_n",
+        "too_many_dimensions"
+      ],
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "cell_key",
+    "n"
+  ],
+  "title": "SuppressedCell",
+  "type": "object"
+}

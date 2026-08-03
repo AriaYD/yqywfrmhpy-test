@@ -1,0 +1,42 @@
+{
+  "$defs": {
+    "DevelopmentModeType": {
+      "enum": [
+        "employment",
+        "academia",
+        "entrepreneurship",
+        "personal_interest",
+        "exploration"
+      ],
+      "title": "DevelopmentModeType",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/DevelopmentMode.json",
+  "additionalProperties": false,
+  "description": "Spec §14.3。学生可以同时属于多种模式，权重之和不强制为 1。",
+  "properties": {
+    "confidence": {
+      "default": 0.5,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "mode": {
+      "$ref": "#/components/schemas/DevelopmentModeType"
+    },
+    "weight": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Weight",
+      "type": "number"
+    }
+  },
+  "required": [
+    "mode",
+    "weight"
+  ],
+  "title": "DevelopmentMode",
+  "type": "object"
+}

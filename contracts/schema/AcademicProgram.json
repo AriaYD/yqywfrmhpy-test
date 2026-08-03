@@ -1,0 +1,136 @@
+{
+  "$defs": {
+    "Provenance": {
+      "additionalProperties": false,
+      "description": "Spec §14.3。任何进入 Catalog 的事实都必须能回溯到这里。",
+      "properties": {
+        "confidence": {
+          "default": 1.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "evidence_snippet": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "支撑该结论的原文片段，用于 Unsupported Key Claim 复核（T8）",
+          "title": "Evidence Snippet"
+        },
+        "parser_version": {
+          "title": "Parser Version",
+          "type": "string"
+        },
+        "published_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Published At"
+        },
+        "retrieved_at": {
+          "format": "date-time",
+          "title": "Retrieved At",
+          "type": "string"
+        },
+        "source": {
+          "description": "来源系统或站点标识",
+          "title": "Source",
+          "type": "string"
+        },
+        "source_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "官方页面 URL",
+          "title": "Source Url"
+        }
+      },
+      "required": [
+        "source",
+        "retrieved_at",
+        "parser_version"
+      ],
+      "title": "Provenance",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/AcademicProgram.json",
+  "additionalProperties": false,
+  "properties": {
+    "catalog_year": {
+      "pattern": "^\\d{4}-\\d{2}$",
+      "title": "Catalog Year",
+      "type": "string"
+    },
+    "degree": {
+      "title": "Degree",
+      "type": "string"
+    },
+    "major": {
+      "title": "Major",
+      "type": "string"
+    },
+    "policy_source": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/Provenance"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "program_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Program Id",
+      "type": "string"
+    },
+    "requirement_group_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Requirement Group Ids",
+      "type": "array"
+    },
+    "total_credits": {
+      "exclusiveMinimum": 0,
+      "title": "Total Credits",
+      "type": "number"
+    }
+  },
+  "required": [
+    "program_id",
+    "degree",
+    "major",
+    "catalog_year",
+    "total_credits"
+  ],
+  "title": "AcademicProgram",
+  "type": "object"
+}

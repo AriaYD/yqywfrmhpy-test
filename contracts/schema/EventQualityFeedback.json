@@ -1,0 +1,171 @@
+{
+  "$defs": {
+    "CohortDims": {
+      "additionalProperties": false,
+      "description": "粗粒度分组维度。**只有这三项**——细到专业方向以下就可能反查到个人。\n\n三个字段都是**受约束类型**，不是自由文本。此前 ``school`` 与\n``development_mode`` 是裸 ``str``，于是\n``school=\"ENGG/COMP/AI-track/2024-intake/GPA3.7-3.8\"`` 完全合法——\n§17.1.2 要求\"仅粗粒度分组、不含专业方向以下的细分\"，\n而把细分塞进一个字符串既绕过了这条，也绕过了维度层数限制。",
+      "properties": {
+        "development_mode": {
+          "$ref": "#/components/schemas/DevelopmentModeType",
+          "description": "用枚举而非自由文本。枚举本来就存在，此前只是没接上"
+        },
+        "school": {
+          "description": "学院代码，例如 'ENGG'。限制成短代码，塞不下更细的分层",
+          "pattern": "^[A-Z]{2,6}$",
+          "title": "School",
+          "type": "string"
+        },
+        "year_level": {
+          "maximum": 8,
+          "minimum": 1,
+          "title": "Year Level",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "school",
+        "year_level",
+        "development_mode"
+      ],
+      "title": "CohortDims",
+      "type": "object"
+    },
+    "DevelopmentModeType": {
+      "enum": [
+        "employment",
+        "academia",
+        "entrepreneurship",
+        "personal_interest",
+        "exploration"
+      ],
+      "title": "DevelopmentModeType",
+      "type": "string"
+    },
+    "DimensionRating": {
+      "additionalProperties": false,
+      "properties": {
+        "dimension": {
+          "$ref": "#/components/schemas/QualityDimension"
+        },
+        "rating": {
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Rating",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "dimension",
+        "rating"
+      ],
+      "title": "DimensionRating",
+      "type": "object"
+    },
+    "FitTag": {
+      "description": "区分\"活动不好\"与\"对我不合适\"（Spec §17.4 Personal-vs-Global Separation）。",
+      "enum": [
+        "too_basic_for_me",
+        "too_advanced_for_me",
+        "wrong_format_for_me",
+        "schedule_mismatch",
+        "good_fit"
+      ],
+      "title": "FitTag",
+      "type": "string"
+    },
+    "QualityDimension": {
+      "description": "固定维度。新增维度要改 Spec，不能由前端随手加一个自由文本问题。",
+      "enum": [
+        "content_depth",
+        "organization",
+        "practical_value",
+        "networking_value",
+        "expectation_match"
+      ],
+      "title": "QualityDimension",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/EventQualityFeedback.json",
+  "additionalProperties": false,
+  "description": "A1 → Aggregation Service 的唯一载荷（Spec §8.9.2）。\n\n**没有 student_id，没有自由文本。** 这两条由字段列表 + ``extra=\"forbid\"``\n+ ``tests/test_boundary_guards.py`` 的字段名扫描三重保证。",
+  "properties": {
+    "cohort_dims": {
+      "$ref": "#/components/schemas/CohortDims"
+    },
+    "dimensions": {
+      "items": {
+        "$ref": "#/components/schemas/DimensionRating"
+      },
+      "minItems": 1,
+      "title": "Dimensions",
+      "type": "array"
+    },
+    "feedback_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Feedback Id",
+      "type": "string"
+    },
+    "fit_tags": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/FitTag"
+      },
+      "title": "Fit Tags",
+      "type": "array"
+    },
+    "occurrence_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Occurrence Id",
+      "type": "string"
+    },
+    "series_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Series Id"
+    },
+    "submitted_at": {
+      "format": "date-time",
+      "title": "Submitted At",
+      "type": "string"
+    },
+    "verification_ref": {
+      "anyOf": [
+        {
+          "pattern": "^ver_[0-9a-f]{16,64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "出勤验证的**不透明**凭据。刻意不叫 evidence_id——指向学生 Evidence 的 id 会把聚合域重新连回个人。改名只是把字段从扫描器眼前挪走；正则才让「不透明」这件事可校验：EV-STUDENT-S001-transcript 这种串现在会被拒",
+      "title": "Verification Ref"
+    },
+    "verified_attendance": {
+      "title": "Verified Attendance",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "feedback_id",
+    "occurrence_id",
+    "verified_attendance",
+    "dimensions",
+    "cohort_dims",
+    "submitted_at"
+  ],
+  "title": "EventQualityFeedback",
+  "type": "object"
+}

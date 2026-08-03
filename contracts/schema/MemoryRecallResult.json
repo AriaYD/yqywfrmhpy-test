@@ -1,0 +1,258 @@
+{
+  "$defs": {
+    "MemoryEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "authority": {
+          "const": "advisory",
+          "default": "advisory",
+          "description": "记忆永远不是权威事实——权威在结构化数据库（Spec §8.4）",
+          "title": "Authority",
+          "type": "string"
+        },
+        "confidence": {
+          "default": 0.5,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "content": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Content",
+          "type": "string"
+        },
+        "memory_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Memory Id",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/components/schemas/MemoryOrigin"
+        },
+        "review_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Review At"
+        },
+        "source_event_id": {
+          "description": "Spec §8.6：每条记忆都要能回溯到一个事件。无来源的记忆不许写入",
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Source Event Id",
+          "type": "string"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "student_locked": {
+          "default": false,
+          "description": "学生锁定后系统不得修改或覆盖该条",
+          "title": "Student Locked",
+          "type": "boolean"
+        },
+        "superseded_by": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Superseded By"
+        },
+        "supersedes": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "用 supersedes 表达更新，不静默覆盖",
+          "title": "Supersedes"
+        },
+        "type": {
+          "$ref": "#/components/schemas/MemoryType"
+        },
+        "valid_from": {
+          "format": "date-time",
+          "title": "Valid From",
+          "type": "string"
+        },
+        "visibility": {
+          "$ref": "#/components/schemas/Visibility",
+          "default": "private"
+        }
+      },
+      "required": [
+        "memory_id",
+        "student_id",
+        "type",
+        "origin",
+        "content",
+        "source_event_id",
+        "valid_from"
+      ],
+      "title": "MemoryEntry",
+      "type": "object"
+    },
+    "MemoryOrigin": {
+      "description": "Spec §8.6：必须区分\"学生原话\"/\"系统推断\"/\"外部事实\"。",
+      "enum": [
+        "student_statement",
+        "system_inference",
+        "external_fact"
+      ],
+      "title": "MemoryOrigin",
+      "type": "string"
+    },
+    "MemoryRecallQuery": {
+      "additionalProperties": false,
+      "description": "按当前任务召回最小上下文，**不把完整人生记录塞进每次 Prompt**（Spec §8.6）。",
+      "properties": {
+        "as_of": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "As Of"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "task_context": {
+          "maxLength": 1000,
+          "minLength": 1,
+          "title": "Task Context",
+          "type": "string"
+        },
+        "top_k": {
+          "default": 5,
+          "maximum": 20,
+          "minimum": 1,
+          "title": "Top K",
+          "type": "integer"
+        },
+        "types": {
+          "default": [],
+          "items": {
+            "$ref": "#/components/schemas/MemoryType"
+          },
+          "title": "Types",
+          "type": "array"
+        }
+      },
+      "required": [
+        "student_id",
+        "task_context"
+      ],
+      "title": "MemoryRecallQuery",
+      "type": "object"
+    },
+    "MemoryType": {
+      "enum": [
+        "decision",
+        "preference",
+        "experience",
+        "rejection",
+        "energy_pattern",
+        "contact",
+        "domain_fact"
+      ],
+      "title": "MemoryType",
+      "type": "string"
+    },
+    "RecalledMemory": {
+      "additionalProperties": false,
+      "properties": {
+        "entry": {
+          "$ref": "#/components/schemas/MemoryEntry"
+        },
+        "relevance": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Relevance",
+          "type": "number"
+        },
+        "stale": {
+          "default": false,
+          "description": "已过 review_at 或被 supersede；用于 Stale Memory Use Rate",
+          "title": "Stale",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "entry",
+        "relevance"
+      ],
+      "title": "RecalledMemory",
+      "type": "object"
+    },
+    "Visibility": {
+      "enum": [
+        "private",
+        "shared_with_advisor",
+        "institution_visible"
+      ],
+      "title": "Visibility",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/MemoryRecallResult.json",
+  "additionalProperties": false,
+  "properties": {
+    "query": {
+      "$ref": "#/components/schemas/MemoryRecallQuery"
+    },
+    "recalled": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/RecalledMemory"
+      },
+      "title": "Recalled",
+      "type": "array"
+    },
+    "retrieved_at": {
+      "format": "date-time",
+      "title": "Retrieved At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "query",
+    "retrieved_at"
+  ],
+  "title": "MemoryRecallResult",
+  "type": "object"
+}

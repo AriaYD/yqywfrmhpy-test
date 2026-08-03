@@ -1,0 +1,41 @@
+{
+  "$id": "https://campuspath.invalid/schema/AdvisorSummary.json",
+  "additionalProperties": false,
+  "description": "Advisor 会后写给学生的几条关键建议。",
+  "properties": {
+    "booking_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Booking Id",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "key_advice": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 5,
+      "minItems": 1,
+      "title": "Key Advice",
+      "type": "array"
+    },
+    "summary_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Summary Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "summary_id",
+    "booking_id",
+    "key_advice",
+    "created_at"
+  ],
+  "title": "AdvisorSummary",
+  "type": "object"
+}

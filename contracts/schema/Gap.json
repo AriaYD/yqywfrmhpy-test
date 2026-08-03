@@ -1,0 +1,114 @@
+{
+  "$defs": {
+    "GapLevel": {
+      "enum": [
+        "missing",
+        "partial",
+        "satisfied",
+        "unknown"
+      ],
+      "title": "GapLevel",
+      "type": "string"
+    },
+    "Uncertainty": {
+      "description": "字段级不确定性。``NEEDS_CONFIRMATION`` 永远不能被当成淘汰依据（Spec §16.2）。",
+      "enum": [
+        "none",
+        "low_confidence",
+        "missing_source_field",
+        "conflicting_sources",
+        "needs_confirmation"
+      ],
+      "title": "Uncertainty",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/Gap.json",
+  "additionalProperties": false,
+  "properties": {
+    "estimated_reach_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Estimated Reach Date"
+    },
+    "estimated_reach_term": {
+      "anyOf": [
+        {
+          "pattern": "^\\d{4}-\\d{2}_(FALL|WINTER|SPRING|SUMMER)$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Estimated Reach Term"
+    },
+    "evidence_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "gap_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Gap Id",
+      "type": "string"
+    },
+    "gap_level": {
+      "$ref": "#/components/schemas/GapLevel"
+    },
+    "goal_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Goal Id",
+      "type": "string"
+    },
+    "priority": {
+      "description": "1 最高。由 A3 给出优先级，不是取舍分数",
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Priority",
+      "type": "integer"
+    },
+    "requirement_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Requirement Id",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "uncertainty": {
+      "$ref": "#/components/schemas/Uncertainty",
+      "default": "none"
+    }
+  },
+  "required": [
+    "gap_id",
+    "student_id",
+    "requirement_id",
+    "goal_id",
+    "gap_level",
+    "priority"
+  ],
+  "title": "Gap",
+  "type": "object"
+}

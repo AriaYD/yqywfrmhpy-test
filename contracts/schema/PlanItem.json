@@ -1,0 +1,170 @@
+{
+  "$defs": {
+    "DateRange": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        },
+        "start": {
+          "format": "date",
+          "title": "Start",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start"
+      ],
+      "title": "DateRange",
+      "type": "object"
+    },
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    },
+    "PlanItemKind": {
+      "enum": [
+        "course",
+        "opportunity",
+        "action",
+        "milestone"
+      ],
+      "title": "PlanItemKind",
+      "type": "string"
+    },
+    "PlanItemStatus": {
+      "enum": [
+        "proposed",
+        "accepted",
+        "in_progress",
+        "completed",
+        "skipped",
+        "blocked"
+      ],
+      "title": "PlanItemStatus",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/PlanItem.json",
+  "additionalProperties": false,
+  "description": "A5 输出的最小单元。**每一个都必须携带 validation_id**（Spec §8.9.3）。",
+  "properties": {
+    "assumptions": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/LocalizedText"
+      },
+      "title": "Assumptions",
+      "type": "array"
+    },
+    "date_range": {
+      "$ref": "#/components/schemas/DateRange"
+    },
+    "dependencies": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Dependencies",
+      "type": "array"
+    },
+    "fallback": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/LocalizedText"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Spec §16.4：任何计划项都要标明失败后的 fallback"
+    },
+    "kind": {
+      "$ref": "#/components/schemas/PlanItemKind"
+    },
+    "milestone": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Milestone"
+    },
+    "plan_item_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Plan Item Id",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/components/schemas/PlanItemStatus",
+      "default": "proposed"
+    },
+    "subject_id": {
+      "description": "course_id / opportunity_id / action_id",
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Subject Id",
+      "type": "string"
+    },
+    "title": {
+      "$ref": "#/components/schemas/LocalizedText"
+    },
+    "validation_id": {
+      "pattern": "^val_[0-9a-f]{32}$",
+      "title": "Validation Id",
+      "type": "string"
+    },
+    "workload_hours": {
+      "default": 0.0,
+      "minimum": 0,
+      "title": "Workload Hours",
+      "type": "number"
+    }
+  },
+  "required": [
+    "plan_item_id",
+    "kind",
+    "subject_id",
+    "title",
+    "date_range",
+    "validation_id"
+  ],
+  "title": "PlanItem",
+  "type": "object"
+}

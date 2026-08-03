@@ -1,0 +1,64 @@
+{
+  "$id": "https://campuspath.invalid/schema/ProposedChange.json",
+  "additionalProperties": false,
+  "properties": {
+    "entity_type": {
+      "enum": [
+        "experience",
+        "project",
+        "achievement",
+        "skill",
+        "interest",
+        "goal",
+        "constraint",
+        "energy_profile",
+        "education",
+        "certificate",
+        "language",
+        "honor"
+      ],
+      "title": "Entity Type",
+      "type": "string"
+    },
+    "field_path": {
+      "title": "Field Path",
+      "type": "string"
+    },
+    "new_value": {
+      "anyOf": [
+        {},
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "New Value"
+    },
+    "old_value": {
+      "anyOf": [
+        {},
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Old Value"
+    },
+    "operation": {
+      "enum": [
+        "add",
+        "update",
+        "remove"
+      ],
+      "title": "Operation",
+      "type": "string"
+    }
+  },
+  "required": [
+    "entity_type",
+    "operation",
+    "field_path"
+  ],
+  "title": "ProposedChange",
+  "type": "object"
+}

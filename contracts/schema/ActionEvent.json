@@ -1,0 +1,113 @@
+{
+  "$defs": {
+    "ActionType": {
+      "enum": [
+        "apply",
+        "register",
+        "save",
+        "unsave",
+        "add_to_pathway",
+        "complete",
+        "decline",
+        "calendar_write",
+        "reflect"
+      ],
+      "title": "ActionType",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/ActionEvent.json",
+  "additionalProperties": false,
+  "description": "append-only 行动事件。VGA 与所有 BASELINE 指标都从这里聚合。",
+  "properties": {
+    "action_type": {
+      "$ref": "#/components/schemas/ActionType"
+    },
+    "approval_receipt_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Approval Receipt Id"
+    },
+    "event_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Event Id",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "plan_item_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Plan Item Id"
+    },
+    "result": {
+      "default": "succeeded",
+      "enum": [
+        "succeeded",
+        "failed",
+        "cancelled"
+      ],
+      "title": "Result",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "subject_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Subject Id",
+      "type": "string"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "verified_growth": {
+      "default": false,
+      "description": "是否计入 VGA：需有 Evidence 或 Reflection 证明产生了价值（Spec §17.1）",
+      "title": "Verified Growth",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "event_id",
+    "student_id",
+    "action_type",
+    "subject_id",
+    "timestamp"
+  ],
+  "title": "ActionEvent",
+  "type": "object"
+}

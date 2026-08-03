@@ -1,0 +1,58 @@
+{
+  "$defs": {
+    "TimeRange": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "format": "date-time",
+          "title": "End",
+          "type": "string"
+        },
+        "start": {
+          "format": "date-time",
+          "title": "Start",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "TimeRange",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/CalendarWriteDraft.json",
+  "additionalProperties": false,
+  "description": "要写回日历的事件内容。**由 CampusPath 生成**，学生预览后才落地。\n\n``event_title`` 在边界扫描中被显式豁免（见 tests/test_boundary_guards.py）：\nB5 禁止的是\"读取并保存学生原有事件的标题\"，不是\"我们创建的事件有名字\"。",
+  "properties": {
+    "event_title": {
+      "maxLength": 200,
+      "title": "Event Title",
+      "type": "string"
+    },
+    "reminder_minutes_before": {
+      "anyOf": [
+        {
+          "maximum": 10080,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reminder Minutes Before"
+    },
+    "span": {
+      "$ref": "#/components/schemas/TimeRange"
+    }
+  },
+  "required": [
+    "event_title",
+    "span"
+  ],
+  "title": "CalendarWriteDraft",
+  "type": "object"
+}

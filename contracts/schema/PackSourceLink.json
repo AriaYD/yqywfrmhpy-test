@@ -1,0 +1,35 @@
+{
+  "$id": "https://campuspath.invalid/schema/PackSourceLink.json",
+  "additionalProperties": false,
+  "properties": {
+    "last_checked_at": {
+      "maxLength": 40,
+      "title": "Last Checked At",
+      "type": "string"
+    },
+    "source_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Source Id",
+      "type": "string"
+    },
+    "title": {
+      "maxLength": 200,
+      "title": "Title",
+      "type": "string"
+    },
+    "url": {
+      "maxLength": 500,
+      "title": "Url",
+      "type": "string"
+    }
+  },
+  "required": [
+    "source_id",
+    "title",
+    "url",
+    "last_checked_at"
+  ],
+  "title": "PackSourceLink",
+  "type": "object"
+}

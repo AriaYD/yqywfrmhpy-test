@@ -1,0 +1,210 @@
+{
+  "$defs": {
+    "OfferingPattern": {
+      "enum": [
+        "every_term",
+        "fall_only",
+        "spring_only",
+        "alternate_years",
+        "irregular",
+        "unknown"
+      ],
+      "title": "OfferingPattern",
+      "type": "string"
+    },
+    "Provenance": {
+      "additionalProperties": false,
+      "description": "Spec §14.3。任何进入 Catalog 的事实都必须能回溯到这里。",
+      "properties": {
+        "confidence": {
+          "default": 1.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "evidence_snippet": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "支撑该结论的原文片段，用于 Unsupported Key Claim 复核（T8）",
+          "title": "Evidence Snippet"
+        },
+        "parser_version": {
+          "title": "Parser Version",
+          "type": "string"
+        },
+        "published_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Published At"
+        },
+        "retrieved_at": {
+          "format": "date-time",
+          "title": "Retrieved At",
+          "type": "string"
+        },
+        "source": {
+          "description": "来源系统或站点标识",
+          "title": "Source",
+          "type": "string"
+        },
+        "source_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "官方页面 URL",
+          "title": "Source Url"
+        }
+      },
+      "required": [
+        "source",
+        "retrieved_at",
+        "parser_version"
+      ],
+      "title": "Provenance",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/CourseCatalogItem.json",
+  "additionalProperties": false,
+  "description": "课程目录条目。真实数据来自 HKUST 公开目录（无学生数据）。",
+  "properties": {
+    "corequisite_expression": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Corequisite Expression"
+    },
+    "course_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Course Id",
+      "type": "string"
+    },
+    "credits": {
+      "minimum": 0,
+      "title": "Credits",
+      "type": "number"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Description"
+    },
+    "exclusion_expression": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Exclusion Expression"
+    },
+    "intended_learning_outcomes": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Intended Learning Outcomes",
+      "type": "array"
+    },
+    "offering_pattern": {
+      "$ref": "#/components/schemas/OfferingPattern",
+      "default": "unknown"
+    },
+    "prerequisite_expression": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "来源原文，例如 'COMP 1021 OR COMP 1023'；解析交给 Rules Engine",
+      "title": "Prerequisite Expression"
+    },
+    "previous_course_code": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Previous Course Code"
+    },
+    "skill_tags": {
+      "default": [],
+      "description": "A2 由课程描述映射产出，属语义判断",
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Skill Tags",
+      "type": "array"
+    },
+    "source": {
+      "$ref": "#/components/schemas/Provenance"
+    },
+    "subject": {
+      "title": "Subject",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "course_id",
+    "subject",
+    "title",
+    "credits",
+    "source"
+  ],
+  "title": "CourseCatalogItem",
+  "type": "object"
+}

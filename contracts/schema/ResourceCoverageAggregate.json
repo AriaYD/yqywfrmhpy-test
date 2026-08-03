@@ -1,0 +1,232 @@
+{
+  "$defs": {
+    "ExposureGapEntry": {
+      "additionalProperties": false,
+      "description": "曝光断层榜的一行：合格的人多，实际看到的人少。",
+      "properties": {
+        "eligible_n": {
+          "minimum": 5,
+          "title": "Eligible N",
+          "type": "integer"
+        },
+        "exposure_rate": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Exposure Rate",
+          "type": "number"
+        },
+        "opportunity_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Opportunity Id",
+          "type": "string"
+        },
+        "seen_n": {
+          "minimum": 0,
+          "title": "Seen N",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "opportunity_id",
+        "eligible_n",
+        "seen_n",
+        "exposure_rate"
+      ],
+      "title": "ExposureGapEntry",
+      "type": "object"
+    },
+    "RequirementCategory": {
+      "description": "出域时 ``MetricTuple.uncovered_requirement_categories`` 只携带这一层。\n\n它必须足够粗，粗到无法反推是哪位学生——所以是枚举而不是自由文本。",
+      "enum": [
+        "coursework",
+        "technical_skill",
+        "research_experience",
+        "industry_experience",
+        "project_portfolio",
+        "teamwork_evidence",
+        "communication",
+        "credential",
+        "language",
+        "network",
+        "eligibility_status"
+      ],
+      "title": "RequirementCategory",
+      "type": "string"
+    },
+    "SuppressedCell": {
+      "additionalProperties": false,
+      "description": "被抑制的单元格。**记录被抑制这件事本身，但不记录被抑制的数值。**",
+      "properties": {
+        "cell_key": {
+          "title": "Cell Key",
+          "type": "string"
+        },
+        "n": {
+          "minimum": 0,
+          "title": "N",
+          "type": "integer"
+        },
+        "reason": {
+          "default": "below_min_cell_n",
+          "enum": [
+            "below_min_cell_n",
+            "too_many_dimensions"
+          ],
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "cell_key",
+        "n"
+      ],
+      "title": "SuppressedCell",
+      "type": "object"
+    },
+    "UnmetRequirementEntry": {
+      "additionalProperties": false,
+      "description": "供给缺口榜的一行：这个要求类别，资源池里没有东西能覆盖。",
+      "properties": {
+        "category": {
+          "$ref": "#/components/schemas/RequirementCategory"
+        },
+        "covered_by_any_resource": {
+          "default": false,
+          "title": "Covered By Any Resource",
+          "type": "boolean"
+        },
+        "occurrences": {
+          "minimum": 5,
+          "title": "Occurrences",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "category",
+        "occurrences"
+      ],
+      "title": "UnmetRequirementEntry",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/ResourceCoverageAggregate.json",
+  "additionalProperties": false,
+  "description": "校方看到的最终形态。三项比率在样本不足时**必须**为 None。",
+  "properties": {
+    "action_rate": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Action Rate"
+    },
+    "aggregate_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Aggregate Id",
+      "type": "string"
+    },
+    "cell_n": {
+      "minimum": 0,
+      "title": "Cell N",
+      "type": "integer"
+    },
+    "cohort_dims_used": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Cohort Dims Used",
+      "type": "array"
+    },
+    "computed_at": {
+      "format": "date-time",
+      "title": "Computed At",
+      "type": "string"
+    },
+    "discovery_rate": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Discovery Rate"
+    },
+    "exposure_gap_ranking": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/ExposureGapEntry"
+      },
+      "title": "Exposure Gap Ranking",
+      "type": "array"
+    },
+    "gap_coverage_rate": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Gap Coverage Rate"
+    },
+    "period": {
+      "pattern": "^\\d{4}-\\d{2}_(FALL|WINTER|SPRING|SUMMER)$",
+      "title": "Period",
+      "type": "string"
+    },
+    "scope": {
+      "enum": [
+        "institution",
+        "school",
+        "year_level",
+        "development_mode"
+      ],
+      "title": "Scope",
+      "type": "string"
+    },
+    "suppressed_cells": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/SuppressedCell"
+      },
+      "title": "Suppressed Cells",
+      "type": "array"
+    },
+    "unmet_requirement_ranking": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/UnmetRequirementEntry"
+      },
+      "title": "Unmet Requirement Ranking",
+      "type": "array"
+    }
+  },
+  "required": [
+    "aggregate_id",
+    "period",
+    "scope",
+    "cell_n",
+    "computed_at"
+  ],
+  "title": "ResourceCoverageAggregate",
+  "type": "object"
+}

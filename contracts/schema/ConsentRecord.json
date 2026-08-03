@@ -1,0 +1,92 @@
+{
+  "$defs": {
+    "ConsentScope": {
+      "description": "Spec §13：每一类数据的读取都要有独立同意，不做打包授权。",
+      "enum": [
+        "sis_records",
+        "lms_records",
+        "calendar_freebusy",
+        "calendar_event_titles",
+        "calendar_write",
+        "self_reported_wellbeing",
+        "wellbeing_outreach",
+        "anonymous_aggregation",
+        "memory_retention",
+        "context_pack"
+      ],
+      "title": "ConsentScope",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/ConsentRecord.json",
+  "additionalProperties": false,
+  "properties": {
+    "expires_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expires At"
+    },
+    "granted": {
+      "title": "Granted",
+      "type": "boolean"
+    },
+    "granted_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Granted At"
+    },
+    "receipt_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "同意回执，用于审计（B13）",
+      "title": "Receipt Id"
+    },
+    "revoked_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Revoked At"
+    },
+    "scope": {
+      "$ref": "#/components/schemas/ConsentScope"
+    }
+  },
+  "required": [
+    "scope",
+    "granted"
+  ],
+  "title": "ConsentRecord",
+  "type": "object"
+}

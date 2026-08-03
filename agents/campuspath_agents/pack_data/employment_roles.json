@@ -1,0 +1,605 @@
+{
+  "compiled_at": "2026-08-02",
+  "methodology": "docs/pack-compiler-methodology.md",
+  "sources": {
+    "ai-product-manager": "seed/raw/jd_market/ai-product-manager/jd_corpus.draft.json（10 家公司官方 JD，覆盖率 100% 行映射，URL 逐条实测可达）",
+    "software-engineer": "seed/raw/jd_market/software-engineer/jd_corpus.draft.json（10 家公司官方 JD，覆盖率 100% 行映射，URL 逐条实测可达）"
+  },
+  "role_profiles": {
+    "ai-product-manager": {
+      "label": {
+        "zh_Hans": "AI 产品经理",
+        "en": "AI Product Manager"
+      },
+      "keywords": [
+        "产品经理",
+        "product manager",
+        "ai pm",
+        "ai产品",
+        "ai 产品",
+        "产品岗",
+        "product owner"
+      ],
+      "facets": [
+        {
+          "category": "technical_skill",
+          "kind": "hard",
+          "description": {
+            "zh_Hans": "核心技能栈：指标设计与度量方法论功底；熟悉抽样、实验评估等数据方法",
+            "en": "Core technical skills: Solid grounding in metric design and measurement methodology; Familiar with sampling and experiment-evaluation methods"
+          },
+          "evidence_sources": [],
+          "resource_channels": [],
+          "priority": "core",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 10 份要求",
+            "en": "Required by 10 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "project_portfolio",
+          "kind": "hard",
+          "description": {
+            "zh_Hans": "完整项目经历与作品集：AI评估相关经验（LLM-as-a-Judge、标注体系、Ground Truth）；多地区/多合规环境下设计数据方案的经验",
+            "en": "Projects & portfolio: AI evaluation experience (LLM-as-a-Judge, labeling systems, Ground Truth); Experience designing data solutions across multi-region/multi-compliance environments"
+          },
+          "evidence_sources": [],
+          "resource_channels": [],
+          "priority": "core",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 10 份要求",
+            "en": "Required by 10 of 10 top-company JDs"
+          },
+          "evidence_refs": [
+            "msra-tomorrow-stars",
+            "hkust-urop"
+          ]
+        },
+        {
+          "category": "credential",
+          "kind": "hard",
+          "description": {
+            "zh_Hans": "证书与专业资格：3年以上AI产品经理/策略产品经理工作经验；客服/内容安全/用户体验度量的业务背景",
+            "en": "Credentials & certifications: 3+ years of experience as AI PM / strategy PM; Background in customer service, content safety, or UX measurement domains"
+          },
+          "evidence_sources": [],
+          "resource_channels": [],
+          "priority": "core",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 9 份要求",
+            "en": "Required by 9 of 10 top-company JDs"
+          },
+          "evidence_refs": [
+            "npdp",
+            "google-project-management-certificate",
+            "cspo",
+            "safe-popm",
+            "product-school-ai-pm-certification"
+          ]
+        },
+        {
+          "category": "coursework",
+          "kind": "hard",
+          "description": {
+            "zh_Hans": "学历与专业背景：本科及以上学历；本科学历或等同实践经验",
+            "en": "Degree & academic background: Bachelor's degree or above; Bachelor's degree or equivalent practical experience"
+          },
+          "evidence_sources": [],
+          "resource_channels": [],
+          "priority": "core",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 8 份要求",
+            "en": "Required by 8 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "communication",
+          "kind": "soft",
+          "description": {
+            "zh_Hans": "沟通表达：优秀的跨团队沟通能力；能应对多元利益相关方",
+            "en": "Communication: Excellent cross-team communication; Ability to work with disparate stakeholders"
+          },
+          "evidence_sources": [
+            {
+              "zh_Hans": "取证参考：沟通表达相关的权威比赛/证书/项目（见证据参考表）",
+              "en": "Evidence via authoritative competitions/credentials/projects for Communication"
+            }
+          ],
+          "resource_channels": [],
+          "priority": "core",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 8 份要求",
+            "en": "Required by 8 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "technical_skill",
+          "kind": "soft",
+          "description": {
+            "zh_Hans": "数据敏感度：把模糊体验目标拆解为可量化标准；良好的数据敏感度与分析能力",
+            "en": "Data sense: Ability to translate fuzzy experience goals into quantifiable standards; Strong data sensitivity and analytical ability"
+          },
+          "evidence_sources": [
+            {
+              "zh_Hans": "取证参考：数据敏感度相关的权威比赛/证书/项目（见证据参考表）",
+              "en": "Evidence via authoritative competitions/credentials/projects for Data sense"
+            }
+          ],
+          "resource_channels": [],
+          "priority": "core",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 7 份要求",
+            "en": "Required by 7 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "teamwork_evidence",
+          "kind": "soft",
+          "description": {
+            "zh_Hans": "执行落地能力：在多方协作和复杂约束下推动方案落地；端到端项目执行与GTM策略推动能力",
+            "en": "Execution: Drives solutions to execution under multi-party constraints; Drives end-to-end program execution and go-to-market strategy"
+          },
+          "evidence_sources": [
+            {
+              "zh_Hans": "取证参考：执行落地能力相关的权威比赛/证书/项目（见证据参考表）",
+              "en": "Evidence via authoritative competitions/credentials/projects for Execution"
+            }
+          ],
+          "resource_channels": [],
+          "priority": "core",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 7 份要求",
+            "en": "Required by 7 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "communication",
+          "kind": "soft",
+          "description": {
+            "zh_Hans": "用户同理心：能够定义用户旅程；直接与企业客户互动",
+            "en": "User empathy: Ability to define user journeys; Engages directly with enterprise customers"
+          },
+          "evidence_sources": [
+            {
+              "zh_Hans": "取证参考：用户同理心相关的权威比赛/证书/项目（见证据参考表）",
+              "en": "Evidence via authoritative competitions/credentials/projects for User empathy"
+            }
+          ],
+          "resource_channels": [],
+          "priority": "core",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 6 份要求",
+            "en": "Required by 6 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "teamwork_evidence",
+          "kind": "soft",
+          "description": {
+            "zh_Hans": "团队协作：擅长跨多元团队协作；与销售团队紧密合作的经验",
+            "en": "Teamwork: Excels at collaborating across diverse teams; Experience partnering closely with sales teams"
+          },
+          "evidence_sources": [
+            {
+              "zh_Hans": "取证参考：团队协作相关的权威比赛/证书/项目（见证据参考表）",
+              "en": "Evidence via authoritative competitions/credentials/projects for Teamwork"
+            }
+          ],
+          "resource_channels": [],
+          "priority": "core",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 6 份要求",
+            "en": "Required by 6 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "communication",
+          "kind": "soft",
+          "description": {
+            "zh_Hans": "影响力与推动力：跨职能领导力，能在无直接管理权限下影响工程/研究/产品团队；在矩阵型组织中建立关系并施加影响力，管理跨团队交付物",
+            "en": "Influence: Exceptional cross-functional leadership; influences without authority across eng, research, and product; Builds relationships and influences in a matrix organization; manages cross-team deliverables"
+          },
+          "evidence_sources": [
+            {
+              "zh_Hans": "取证参考：影响力与推动力相关的权威比赛/证书/项目（见证据参考表）",
+              "en": "Evidence via authoritative competitions/credentials/projects for Influence"
+            }
+          ],
+          "resource_channels": [],
+          "priority": "standard",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 3 份要求",
+            "en": "Required by 3 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "teamwork_evidence",
+          "kind": "soft",
+          "description": {
+            "zh_Hans": "责任心与主人翁意识：能独立负责完整复杂项目；能独立定义问题并形成解决方案",
+            "en": "Ownership: Able to independently own complete, complex projects; Able to independently define problems and form solutions"
+          },
+          "evidence_sources": [
+            {
+              "zh_Hans": "取证参考：责任心与主人翁意识相关的权威比赛/证书/项目（见证据参考表）",
+              "en": "Evidence via authoritative competitions/credentials/projects for Ownership"
+            }
+          ],
+          "resource_channels": [],
+          "priority": "standard",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 3 份要求",
+            "en": "Required by 3 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "technical_skill",
+          "kind": "soft",
+          "description": {
+            "zh_Hans": "学习能力与好奇心：对AI产品有热情；对AI技术和产品有浓厚兴趣",
+            "en": "Learning agility: Passionate about AI products; Strong interest in AI technology and products"
+          },
+          "evidence_sources": [
+            {
+              "zh_Hans": "取证参考：学习能力与好奇心相关的权威比赛/证书/项目（见证据参考表）",
+              "en": "Evidence via authoritative competitions/credentials/projects for Learning agility"
+            }
+          ],
+          "resource_channels": [],
+          "priority": "standard",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 3 份要求",
+            "en": "Required by 3 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "teamwork_evidence",
+          "kind": "soft",
+          "description": {
+            "zh_Hans": "领导力：在芯片、硬件系统与软件生态搭建中的团队领导经验",
+            "en": "Leadership: Experience leading teams across silicon, hardware systems, and software ecosystem setup"
+          },
+          "evidence_sources": [
+            {
+              "zh_Hans": "取证参考：领导力相关的权威比赛/证书/项目（见证据参考表）",
+              "en": "Evidence via authoritative competitions/credentials/projects for Leadership"
+            }
+          ],
+          "resource_channels": [],
+          "priority": "standard",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 1 份要求",
+            "en": "Required by 1 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "eligibility_status",
+          "kind": "constraint",
+          "description": {
+            "zh_Hans": "工作地点：混合办公政策：至少25%时间需到办公室",
+            "en": "Location: Hybrid policy: staff expected in office at least 25% of the time"
+          },
+          "evidence_sources": [],
+          "resource_channels": [],
+          "priority": "standard",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 1 份要求",
+            "en": "Required by 1 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "eligibility_status",
+          "kind": "constraint",
+          "description": {
+            "zh_Hans": "身份/工作授权：提供签证担保（但不保证所有岗位/候选人）",
+            "en": "Visa / work authorisation: Visa sponsorship offered, though not guaranteed for every role/candidate"
+          },
+          "evidence_sources": [],
+          "resource_channels": [],
+          "priority": "standard",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 1 份要求",
+            "en": "Required by 1 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "language",
+          "kind": "constraint",
+          "description": {
+            "zh_Hans": "语言要求：良好的英语阅读能力",
+            "en": "Language requirements: Good English reading ability"
+          },
+          "evidence_sources": [],
+          "resource_channels": [],
+          "priority": "standard",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 1 份要求",
+            "en": "Required by 1 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        }
+      ]
+    },
+    "software-engineer": {
+      "label": {
+        "zh_Hans": "软件工程师",
+        "en": "Software Engineer"
+      },
+      "keywords": [
+        "软件工程师",
+        "software engineer",
+        "swe",
+        "开发工程师",
+        "developer",
+        "后端",
+        "前端",
+        "backend",
+        "frontend",
+        "全栈"
+      ],
+      "facets": [
+        {
+          "category": "technical_skill",
+          "kind": "hard",
+          "description": {
+            "zh_Hans": "核心技能栈：至少掌握一门通用编程语言（Java/Python/C++/C#/Go/Rust/TypeScript等）；掌握面向对象设计原则",
+            "en": "Core technical skills: Demonstrated experience with at least one general-purpose language (Java, Python, C++, C#, Go, Rust, TypeScript); Experience with object-oriented design principles"
+          },
+          "evidence_sources": [],
+          "resource_channels": [],
+          "priority": "core",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 10 份要求",
+            "en": "Required by 10 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "coursework",
+          "kind": "hard",
+          "description": {
+            "zh_Hans": "专业课程与绩点：对数据结构、算法有一定了解；具备数据结构与基础算法实现经验",
+            "en": "Coursework & GPA: Basic understanding of data structures and algorithms; Experience implementing data structures and basic algorithms"
+          },
+          "evidence_sources": [],
+          "resource_channels": [],
+          "priority": "core",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 7 份要求",
+            "en": "Required by 7 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "coursework",
+          "kind": "hard",
+          "description": {
+            "zh_Hans": "学历与专业背景：计算机科学/计算机工程/数据科学/信息系统或相关STEM专业本科及以上学历（在读或已毕业）；计算机/软件/通信/人工智能等相关专业本科及以上学历",
+            "en": "Degree & academic background: Bachelor's degree or above (enrolled or completed) in CS/CE/Data Science/IS or related STEM field; Bachelor's degree or above in CS/Software/Telecom/AI or related fields"
+          },
+          "evidence_sources": [],
+          "resource_channels": [],
+          "priority": "core",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 6 份要求",
+            "en": "Required by 6 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "project_portfolio",
+          "kind": "hard",
+          "description": {
+            "zh_Hans": "完整项目经历与作品集：有可展示的项目经验者优先；有开源项目贡献经验者优先",
+            "en": "Projects & portfolio: Demonstrated project experience preferred; Experience contributing to open-source projects"
+          },
+          "evidence_sources": [],
+          "resource_channels": [],
+          "priority": "core",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 6 份要求",
+            "en": "Required by 6 of 10 top-company JDs"
+          },
+          "evidence_refs": [
+            "tencent-rhino-bird",
+            "msra-tomorrow-stars",
+            "hkust-urop",
+            "gsoc"
+          ]
+        },
+        {
+          "category": "industry_experience",
+          "kind": "hard",
+          "description": {
+            "zh_Hans": "实习经历：有相关技术实习经历者优先；有科研或行业实践经验者优先",
+            "en": "Internship experience: Previous technical internship(s) preferred; Research or industry experience highly preferred"
+          },
+          "evidence_sources": [],
+          "resource_channels": [],
+          "priority": "standard",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 2 份要求",
+            "en": "Required by 2 of 10 top-company JDs"
+          },
+          "evidence_refs": [
+            "tencent-rhino-bird",
+            "msra-tomorrow-stars",
+            "hkust-urop"
+          ]
+        },
+        {
+          "category": "project_portfolio",
+          "kind": "hard",
+          "description": {
+            "zh_Hans": "比赛经历与奖项：在校期间积极参加校内外软件编程大赛",
+            "en": "Competitions & awards: Active participation in on/off-campus programming competitions"
+          },
+          "evidence_sources": [],
+          "resource_channels": [],
+          "priority": "standard",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 1 份要求",
+            "en": "Required by 1 of 10 top-company JDs"
+          },
+          "evidence_refs": [
+            "china-innovation-competition",
+            "challenge-cup",
+            "icpc",
+            "cumcm",
+            "mcm-icm"
+          ]
+        },
+        {
+          "category": "technical_skill",
+          "kind": "soft",
+          "description": {
+            "zh_Hans": "学习能力与好奇心：能快速学习并适应新技术；对技术抱有热情/热爱，愿意跨领域探索",
+            "en": "Learning agility: Ability to learn and adapt to new technologies quickly; Genuine passion/love for technology across diverse domains"
+          },
+          "evidence_sources": [
+            {
+              "zh_Hans": "取证参考：学习能力与好奇心相关的权威比赛/证书/项目（见证据参考表）",
+              "en": "Evidence via authoritative competitions/credentials/projects for Learning agility"
+            }
+          ],
+          "resource_channels": [],
+          "priority": "core",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 8 份要求",
+            "en": "Required by 8 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "communication",
+          "kind": "soft",
+          "description": {
+            "zh_Hans": "沟通表达：良好的沟通能力；优秀的书面与口头沟通能力",
+            "en": "Communication: Good communication skills; Excellent written and verbal communication skills"
+          },
+          "evidence_sources": [
+            {
+              "zh_Hans": "取证参考：沟通表达相关的权威比赛/证书/项目（见证据参考表）",
+              "en": "Evidence via authoritative competitions/credentials/projects for Communication"
+            }
+          ],
+          "resource_channels": [],
+          "priority": "core",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 7 份要求",
+            "en": "Required by 7 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "teamwork_evidence",
+          "kind": "soft",
+          "description": {
+            "zh_Hans": "团队协作：适应高协作的工程文化，能与团队紧密配合；乐于合作",
+            "en": "Teamwork: Able to work well in the highly collaborative engineering culture; Willing and able to collaborate"
+          },
+          "evidence_sources": [
+            {
+              "zh_Hans": "取证参考：团队协作相关的权威比赛/证书/项目（见证据参考表）",
+              "en": "Evidence via authoritative competitions/credentials/projects for Teamwork"
+            }
+          ],
+          "resource_channels": [],
+          "priority": "core",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 6 份要求",
+            "en": "Required by 6 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "technical_skill",
+          "kind": "soft",
+          "description": {
+            "zh_Hans": "问题解决能力：较强的问题解决与分析能力；具备独立工作和解决问题的能力",
+            "en": "Problem solving: Strong problem-solving and analytical skills; Able to work independently and solve problems"
+          },
+          "evidence_sources": [
+            {
+              "zh_Hans": "取证参考：问题解决能力相关的权威比赛/证书/项目（见证据参考表）",
+              "en": "Evidence via authoritative competitions/credentials/projects for Problem solving"
+            }
+          ],
+          "resource_channels": [],
+          "priority": "standard",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 4 份要求",
+            "en": "Required by 4 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "teamwork_evidence",
+          "kind": "soft",
+          "description": {
+            "zh_Hans": "责任心与主人翁意识：自驱力强，能够全情投入",
+            "en": "Ownership: Strong self-drive and full commitment/ownership"
+          },
+          "evidence_sources": [
+            {
+              "zh_Hans": "取证参考：责任心与主人翁意识相关的权威比赛/证书/项目（见证据参考表）",
+              "en": "Evidence via authoritative competitions/credentials/projects for Ownership"
+            }
+          ],
+          "resource_channels": [],
+          "priority": "standard",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 1 份要求",
+            "en": "Required by 1 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "eligibility_status",
+          "kind": "constraint",
+          "description": {
+            "zh_Hans": "到岗时长/实习时长：毕业时间须在2025年10月至2026年9月之间，或过去24个月内已毕业；限定该届毕业生（毕业年份批次）投递",
+            "en": "Availability / duration: Expected graduation Oct 2025-Sep 2026, or graduated within the last 24 months; Restricted to a specific graduation-year cohort"
+          },
+          "evidence_sources": [],
+          "resource_channels": [],
+          "priority": "standard",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 2 份要求",
+            "en": "Required by 2 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        },
+        {
+          "category": "language",
+          "kind": "constraint",
+          "description": {
+            "zh_Hans": "语言要求：英语流利；英语流利",
+            "en": "Language requirements: Fluent in English; Fluent English proficiency"
+          },
+          "evidence_sources": [],
+          "resource_channels": [],
+          "priority": "standard",
+          "market_note": {
+            "zh_Hans": "10 份头部 JD 中 2 份要求",
+            "en": "Required by 2 of 10 top-company JDs"
+          },
+          "evidence_refs": []
+        }
+      ]
+    }
+  }
+}

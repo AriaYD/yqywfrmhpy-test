@@ -1,0 +1,29 @@
+{
+  "$id": "https://campuspath.invalid/schema/DateRange.json",
+  "additionalProperties": false,
+  "properties": {
+    "end": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "End"
+    },
+    "start": {
+      "format": "date",
+      "title": "Start",
+      "type": "string"
+    }
+  },
+  "required": [
+    "start"
+  ],
+  "title": "DateRange",
+  "type": "object"
+}

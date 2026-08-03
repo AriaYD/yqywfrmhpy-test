@@ -1,0 +1,53 @@
+{
+  "$id": "https://campuspath.invalid/schema/MatchScoreBreakdown.json",
+  "additionalProperties": false,
+  "description": "Spec §16.3 的六项权重。**只有 A5 允许产出分数。**\n\n拆开而不是只给一个百分比，是因为 §16.3 要求\"每条结果必须显示为什么推荐\"。",
+  "properties": {
+    "event_quality_source_trust": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Event Quality Source Trust",
+      "type": "number"
+    },
+    "evidence_portfolio_value": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Evidence Portfolio Value",
+      "type": "number"
+    },
+    "gap_reduction_value": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Gap Reduction Value",
+      "type": "number"
+    },
+    "goal_alignment": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Goal Alignment",
+      "type": "number"
+    },
+    "personal_preference_fit": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Personal Preference Fit",
+      "type": "number"
+    },
+    "workload_energy_fit": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Workload Energy Fit",
+      "type": "number"
+    }
+  },
+  "required": [
+    "goal_alignment",
+    "gap_reduction_value",
+    "evidence_portfolio_value",
+    "workload_energy_fit",
+    "personal_preference_fit",
+    "event_quality_source_trust"
+  ],
+  "title": "MatchScoreBreakdown",
+  "type": "object"
+}

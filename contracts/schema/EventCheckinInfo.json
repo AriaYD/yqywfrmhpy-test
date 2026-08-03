@@ -1,0 +1,59 @@
+{
+  "$id": "https://campuspath.invalid/schema/EventCheckinInfo.json",
+  "additionalProperties": false,
+  "description": "每活动唯一签到码（管理端可见）。token 是服务端签发的不透明串——\n二维码内容 = checkin_url，学生扫码登录后 POST 签到。",
+  "properties": {
+    "attend_count": {
+      "minimum": 0,
+      "title": "Attend Count",
+      "type": "integer"
+    },
+    "checkin_url": {
+      "maxLength": 300,
+      "title": "Checkin Url",
+      "type": "string"
+    },
+    "counting_open": {
+      "default": true,
+      "title": "Counting Open",
+      "type": "boolean"
+    },
+    "opens_on": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Opens On"
+    },
+    "opportunity_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Opportunity Id",
+      "type": "string"
+    },
+    "stats_frozen": {
+      "default": false,
+      "title": "Stats Frozen",
+      "type": "boolean"
+    },
+    "token": {
+      "pattern": "^chk_[0-9a-f]{32}$",
+      "title": "Token",
+      "type": "string"
+    }
+  },
+  "required": [
+    "opportunity_id",
+    "token",
+    "checkin_url",
+    "attend_count"
+  ],
+  "title": "EventCheckinInfo",
+  "type": "object"
+}

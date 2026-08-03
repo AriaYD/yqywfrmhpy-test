@@ -1,0 +1,122 @@
+{
+  "$defs": {
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/WellbeingAssessmentResult.json",
+  "additionalProperties": false,
+  "description": "计分与两层分流结果。**筛查不是诊断**——声明是本模型的必填字段。\n\n分流只是\"建议联系谁\"；外联仍由学生一键确认发起（B13 不放宽）。",
+  "properties": {
+    "auto_contact_email": {
+      "anyOf": [
+        {
+          "maxLength": 254,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Auto Contact Email"
+    },
+    "auto_contact_sent": {
+      "default": false,
+      "title": "Auto Contact Sent",
+      "type": "boolean"
+    },
+    "disclaimer": {
+      "$ref": "#/components/schemas/LocalizedText"
+    },
+    "isi_band": {
+      "enum": [
+        "none",
+        "subclinical",
+        "moderate",
+        "severe"
+      ],
+      "title": "Isi Band",
+      "type": "string"
+    },
+    "isi_score": {
+      "maximum": 28,
+      "minimum": 0,
+      "title": "Isi Score",
+      "type": "integer"
+    },
+    "pss10_band": {
+      "enum": [
+        "low",
+        "moderate",
+        "high"
+      ],
+      "title": "Pss10 Band",
+      "type": "string"
+    },
+    "pss10_score": {
+      "maximum": 40,
+      "minimum": 0,
+      "title": "Pss10 Score",
+      "type": "integer"
+    },
+    "recommended_contact_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "按分流从学生自填联系人里取的姓名；未填则 None",
+      "title": "Recommended Contact Name"
+    },
+    "routing": {
+      "enum": [
+        "none",
+        "tutor",
+        "counseling_center"
+      ],
+      "title": "Routing",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "student_id",
+    "isi_score",
+    "isi_band",
+    "pss10_score",
+    "pss10_band",
+    "routing",
+    "disclaimer"
+  ],
+  "title": "WellbeingAssessmentResult",
+  "type": "object"
+}

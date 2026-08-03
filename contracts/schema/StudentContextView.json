@@ -1,0 +1,98 @@
+{
+  "$defs": {
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/StudentContextView.json",
+  "additionalProperties": false,
+  "description": "A1 输出：为当前任务组装的最小上下文。\n\n**不含 private_text，不含日历详情。** 这是 A1 交给下游（尤其 A5）的东西，\n传多了就等于把私密内容送进了另一个 Agent 的上下文窗口。",
+  "properties": {
+    "active_goal_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Active Goal Ids",
+      "type": "array"
+    },
+    "confirmed_experience_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Confirmed Experience Ids",
+      "type": "array"
+    },
+    "confirmed_skill_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Confirmed Skill Ids",
+      "type": "array"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "profile_version": {
+      "minimum": 1,
+      "title": "Profile Version",
+      "type": "integer"
+    },
+    "recalled_memory_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Recalled Memory Ids",
+      "type": "array"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "summary": {
+      "$ref": "#/components/schemas/LocalizedText"
+    }
+  },
+  "required": [
+    "student_id",
+    "profile_version",
+    "summary",
+    "generated_at"
+  ],
+  "title": "StudentContextView",
+  "type": "object"
+}

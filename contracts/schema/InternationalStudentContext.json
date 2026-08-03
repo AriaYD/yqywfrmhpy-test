@@ -1,0 +1,114 @@
+{
+  "$id": "https://campuspath.invalid/schema/InternationalStudentContext.json",
+  "additionalProperties": false,
+  "description": "结构化国际学生上下文（用户裁定 F，2026-08-02：**不是**一个布尔开关）。\n\n存在即视为「我是国际生」已勾选；字段对齐 vendored Pack 的\nbase/questions.yaml（integration-contract：这些字段归 Student Profile 所有，\n政策规则归 Pack 所有）。institution / programme_level / expected_graduation\n不重复存——求值时从 StudentProfile 本体派生，一份事实一个出处。",
+  "properties": {
+    "employer_sponsorship_expected": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Employer Sponsorship Expected"
+    },
+    "intended_start_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Intended Start Date"
+    },
+    "intended_work_jurisdiction": {
+      "enum": [
+        "HK-SAR",
+        "CN-MAINLAND",
+        "other"
+      ],
+      "title": "Intended Work Jurisdiction",
+      "type": "string"
+    },
+    "language_evidence": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 10,
+      "title": "Language Evidence",
+      "type": "array"
+    },
+    "permission_category": {
+      "maxLength": 80,
+      "minLength": 1,
+      "title": "Permission Category",
+      "type": "string"
+    },
+    "permission_expiry_date": {
+      "format": "date",
+      "title": "Permission Expiry Date",
+      "type": "string"
+    },
+    "school_approval": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "School Approval"
+    },
+    "study_jurisdiction": {
+      "enum": [
+        "HK-SAR",
+        "CN-MAINLAND",
+        "other"
+      ],
+      "title": "Study Jurisdiction",
+      "type": "string"
+    },
+    "study_mode": {
+      "default": "full_time",
+      "enum": [
+        "full_time",
+        "part_time"
+      ],
+      "title": "Study Mode",
+      "type": "string"
+    },
+    "target_cities": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 5,
+      "title": "Target Cities",
+      "type": "array"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "study_jurisdiction",
+    "intended_work_jurisdiction",
+    "permission_category",
+    "permission_expiry_date",
+    "updated_at"
+  ],
+  "title": "InternationalStudentContext",
+  "type": "object"
+}

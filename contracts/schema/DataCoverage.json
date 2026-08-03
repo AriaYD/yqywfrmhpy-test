@@ -1,0 +1,30 @@
+{
+  "$id": "https://campuspath.invalid/schema/DataCoverage.json",
+  "additionalProperties": false,
+  "description": "这条信号是基于多少数据得出的。覆盖不足时不得升级严重度。",
+  "properties": {
+    "days_with_data": {
+      "minimum": 0,
+      "title": "Days With Data",
+      "type": "integer"
+    },
+    "prerequisite_setting_present": {
+      "description": "学生是否已显式设置对应的窗口/偏好；False 时信号不得触发",
+      "title": "Prerequisite Setting Present",
+      "type": "boolean"
+    },
+    "window_days": {
+      "maximum": 90,
+      "minimum": 1,
+      "title": "Window Days",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "window_days",
+    "days_with_data",
+    "prerequisite_setting_present"
+  ],
+  "title": "DataCoverage",
+  "type": "object"
+}

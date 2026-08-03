@@ -1,0 +1,39 @@
+{
+  "$defs": {
+    "ConsentScope": {
+      "description": "Spec §13：每一类数据的读取都要有独立同意，不做打包授权。",
+      "enum": [
+        "sis_records",
+        "lms_records",
+        "calendar_freebusy",
+        "calendar_event_titles",
+        "calendar_write",
+        "self_reported_wellbeing",
+        "wellbeing_outreach",
+        "anonymous_aggregation",
+        "memory_retention",
+        "context_pack"
+      ],
+      "title": "ConsentScope",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/ConsentUpdateRequest.json",
+  "additionalProperties": false,
+  "description": "学生自助开关**单项**同意（§13 不打包授权在端点形状上强制：一次一项）。\n\n撤销即时生效；授权回执由服务端签发（B13），请求体里没有它的位置。",
+  "properties": {
+    "granted": {
+      "title": "Granted",
+      "type": "boolean"
+    },
+    "scope": {
+      "$ref": "#/components/schemas/ConsentScope"
+    }
+  },
+  "required": [
+    "scope",
+    "granted"
+  ],
+  "title": "ConsentUpdateRequest",
+  "type": "object"
+}

@@ -1,0 +1,49 @@
+{
+  "$defs": {
+    "QualityDimension": {
+      "description": "固定维度。新增维度要改 Spec，不能由前端随手加一个自由文本问题。",
+      "enum": [
+        "content_depth",
+        "organization",
+        "practical_value",
+        "networking_value",
+        "expectation_match"
+      ],
+      "title": "QualityDimension",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/DimensionAggregate.json",
+  "additionalProperties": false,
+  "properties": {
+    "ci_high": {
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Ci High",
+      "type": "number"
+    },
+    "ci_low": {
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Ci Low",
+      "type": "number"
+    },
+    "dimension": {
+      "$ref": "#/components/schemas/QualityDimension"
+    },
+    "weighted_score": {
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Weighted Score",
+      "type": "number"
+    }
+  },
+  "required": [
+    "dimension",
+    "weighted_score",
+    "ci_low",
+    "ci_high"
+  ],
+  "title": "DimensionAggregate",
+  "type": "object"
+}

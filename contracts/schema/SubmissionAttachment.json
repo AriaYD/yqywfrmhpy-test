@@ -1,0 +1,39 @@
+{
+  "$id": "https://campuspath.invalid/schema/SubmissionAttachment.json",
+  "additionalProperties": false,
+  "description": "投稿附件。与证据上传同一纪律：demo 只存元数据与 vault 引用，不存 blob。",
+  "properties": {
+    "content_type": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Content Type",
+      "type": "string"
+    },
+    "file_name": {
+      "maxLength": 255,
+      "minLength": 1,
+      "title": "File Name",
+      "type": "string"
+    },
+    "object_ref": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Object Ref",
+      "type": "string"
+    },
+    "size_bytes": {
+      "maximum": 20000000,
+      "minimum": 0,
+      "title": "Size Bytes",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "file_name",
+    "content_type",
+    "size_bytes",
+    "object_ref"
+  ],
+  "title": "SubmissionAttachment",
+  "type": "object"
+}

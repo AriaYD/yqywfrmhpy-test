@@ -1,0 +1,71 @@
+{
+  "$id": "https://campuspath.invalid/schema/DegreeRequirement.json",
+  "additionalProperties": false,
+  "properties": {
+    "alternatives": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Alternatives",
+      "type": "array"
+    },
+    "group": {
+      "title": "Group",
+      "type": "string"
+    },
+    "program_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Program Id",
+      "type": "string"
+    },
+    "required_count": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Required Count"
+    },
+    "required_credits": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Required Credits"
+    },
+    "requirement_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Requirement Id",
+      "type": "string"
+    },
+    "rule": {
+      "description": "要求原文，判定由 Rules Engine 完成",
+      "title": "Rule",
+      "type": "string"
+    }
+  },
+  "required": [
+    "requirement_id",
+    "program_id",
+    "group",
+    "rule"
+  ],
+  "title": "DegreeRequirement",
+  "type": "object"
+}

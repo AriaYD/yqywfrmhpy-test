@@ -1,0 +1,135 @@
+{
+  "$defs": {
+    "DevelopmentModeType": {
+      "enum": [
+        "employment",
+        "academia",
+        "entrepreneurship",
+        "personal_interest",
+        "exploration"
+      ],
+      "title": "DevelopmentModeType",
+      "type": "string"
+    },
+    "GoalRole": {
+      "description": "G3：一个主目标 + 一个候选目标。",
+      "enum": [
+        "primary",
+        "candidate"
+      ],
+      "title": "GoalRole",
+      "type": "string"
+    },
+    "GoalStatus": {
+      "enum": [
+        "active",
+        "candidate",
+        "paused",
+        "achieved",
+        "abandoned"
+      ],
+      "title": "GoalStatus",
+      "type": "string"
+    },
+    "Horizon": {
+      "enum": [
+        "next_two_weeks",
+        "this_term",
+        "long_term"
+      ],
+      "title": "Horizon",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/Goal.json",
+  "additionalProperties": false,
+  "description": "一个目标 = **一个方向** + 学生在那个框架下写下的具体终点。\n\n``development_mode`` 是 Spec 明确针对的五类人群（就业 / 深造 / 创业 /\n探索中 / 发展个人特长）。它先于 ``target_name`` 存在，因为\"入职某公司\"\n与\"读某个博士项目\"在要求图上根本不是同一类东西——先定方向，\nRequirement Graph 才有框架可依。\n\n``exploration`` 是一等公民，不是\"还没想好\"的占位：Spec §16.1 明确\n\"暂时不确定\"是一种合法状态，系统不得逼学生先编一个目标出来。",
+  "properties": {
+    "alternatives": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Alternatives",
+      "type": "array"
+    },
+    "confidence": {
+      "default": 0.5,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "development_mode": {
+      "$ref": "#/components/schemas/DevelopmentModeType"
+    },
+    "goal_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Goal Id",
+      "type": "string"
+    },
+    "horizon": {
+      "$ref": "#/components/schemas/Horizon",
+      "default": "long_term"
+    },
+    "last_reviewed": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Reviewed"
+    },
+    "role": {
+      "$ref": "#/components/schemas/GoalRole"
+    },
+    "status": {
+      "$ref": "#/components/schemas/GoalStatus",
+      "default": "active"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "target_name": {
+      "maxLength": 200,
+      "title": "Target Name",
+      "type": "string"
+    },
+    "target_type": {
+      "enum": [
+        "role",
+        "industry",
+        "program",
+        "skill",
+        "exploration"
+      ],
+      "title": "Target Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "goal_id",
+    "student_id",
+    "role",
+    "development_mode",
+    "target_type",
+    "target_name",
+    "created_at"
+  ],
+  "title": "Goal",
+  "type": "object"
+}

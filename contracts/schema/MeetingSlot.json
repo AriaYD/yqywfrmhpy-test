@@ -1,0 +1,49 @@
+{
+  "$id": "https://campuspath.invalid/schema/MeetingSlot.json",
+  "additionalProperties": false,
+  "description": "课表时段。**不含教师个人联系方式，也不含学生名单。**",
+  "properties": {
+    "end_time": {
+      "pattern": "^\\d{2}:\\d{2}$",
+      "title": "End Time",
+      "type": "string"
+    },
+    "start_time": {
+      "pattern": "^\\d{2}:\\d{2}$",
+      "title": "Start Time",
+      "type": "string"
+    },
+    "venue": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Venue"
+    },
+    "weekday": {
+      "enum": [
+        "MO",
+        "TU",
+        "WE",
+        "TH",
+        "FR",
+        "SA",
+        "SU"
+      ],
+      "title": "Weekday",
+      "type": "string"
+    }
+  },
+  "required": [
+    "weekday",
+    "start_time",
+    "end_time"
+  ],
+  "title": "MeetingSlot",
+  "type": "object"
+}

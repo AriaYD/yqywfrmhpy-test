@@ -1,0 +1,99 @@
+{
+  "$id": "https://campuspath.invalid/schema/CapacitySnapshot.json",
+  "additionalProperties": false,
+  "description": "Spec §16.6 的算术结果。纯计算，可单测到小数点。",
+  "properties": {
+    "buffer_ratio": {
+      "description": "未安排时间占 usable_free 的比例，可为负。**分母是 usable_free 而非 discretionary**——后者已经把 recovery_buffer 扣掉了，再用它当分母就等于同一份缓冲收两次费",
+      "title": "Buffer Ratio",
+      "type": "number"
+    },
+    "discretionary_capacity_hours": {
+      "description": "可为负：说明已经超载",
+      "title": "Discretionary Capacity Hours",
+      "type": "number"
+    },
+    "existing_flexible_hours": {
+      "default": 0.0,
+      "minimum": 0,
+      "title": "Existing Flexible Hours",
+      "type": "number"
+    },
+    "fixed_load_hours": {
+      "description": "课程、工作、通勤等固定负担",
+      "minimum": 0,
+      "title": "Fixed Load Hours",
+      "type": "number"
+    },
+    "overload_signal": {
+      "default": false,
+      "title": "Overload Signal",
+      "type": "boolean"
+    },
+    "period_end": {
+      "format": "date",
+      "title": "Period End",
+      "type": "string"
+    },
+    "period_start": {
+      "format": "date",
+      "title": "Period Start",
+      "type": "string"
+    },
+    "planned_load_hours": {
+      "default": 0.0,
+      "minimum": 0,
+      "title": "Planned Load Hours",
+      "type": "number"
+    },
+    "protected_time_hours": {
+      "description": "睡眠、用餐、恢复等保护区块",
+      "minimum": 0,
+      "title": "Protected Time Hours",
+      "type": "number"
+    },
+    "recovery_buffer_hours": {
+      "default": 0.0,
+      "minimum": 0,
+      "title": "Recovery Buffer Hours",
+      "type": "number"
+    },
+    "snapshot_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Snapshot Id",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "transition_hours": {
+      "default": 0.0,
+      "minimum": 0,
+      "title": "Transition Hours",
+      "type": "number"
+    },
+    "usable_free_hours": {
+      "description": "已剔除碎片、深夜与不可达时段",
+      "minimum": 0,
+      "title": "Usable Free Hours",
+      "type": "number"
+    }
+  },
+  "required": [
+    "snapshot_id",
+    "student_id",
+    "period_start",
+    "period_end",
+    "fixed_load_hours",
+    "protected_time_hours",
+    "usable_free_hours",
+    "discretionary_capacity_hours",
+    "buffer_ratio"
+  ],
+  "title": "CapacitySnapshot",
+  "type": "object"
+}

@@ -1,0 +1,516 @@
+{
+  "generated_at": "2026-07-31",
+  "programs": {
+    "COMP": {
+      "source": "mixed",
+      "source_note": "官方PDF https://ugadmin.hkust.edu.hk/prog_crs/ug/202627/pdf/26-27comp.pdf (programs.json requirement_groups 摘录 + _cache/major_COMP.txt 保留的逐条OR/AND Note原文)。PDF未给出逐学期排布，学期分配为按课程层级(1000→Y1...4000→Y4)与已知先修链（如COMP2011先于COMP2012，COMP2611/2711先于COMP3511/3711）推断，OR/AND子结构取自PDF原文而非猜测。已剔除programs.json中的'MATH 2540'——核对_cache/major_COMP.txt第92-93行(PDF换行导致'IEDA 2540'被误拆为'IEDA'+下一行'2540 OR MATH...'，OCR抓取生成了不存在的'MATH 2540')及hkust_catalog/courses.json（无此课程码）确认为抓取伪影，未排入学期。",
+      "terms": {
+        "Y1_FALL": {
+          "required": [
+            "COMP 1023",
+            "MATH 1013",
+            "MATH 1020",
+            "MATH 1023"
+          ],
+          "notes": "工程基础数学（官方PDF Note: [(MATH1013或1023) 且 (MATH1014或1024)] 或 [单独MATH1020]）。此处MATH1020与1013/1023并列，实际学生只走其中一条路径：Calculus I(1013)+II(1014)，或 Honors Calculus I(1023)+II(1024)，或 一学期的Accelerated Calculus(1020)。"
+        },
+        "Y1_SPRING": {
+          "required": [
+            "MATH 1014",
+            "MATH 1024"
+          ],
+          "notes": "承接Y1_FALL的微积分路径（配1013修1014，配1023修1024）；若Y1_FALL已修MATH1020则本学期该requirement已满足。"
+        },
+        "Y2_FALL": {
+          "required": [
+            "COMP 2011",
+            "COMP 2711",
+            "COMP 2711H",
+            "MATH 2111",
+            "MATH 2121",
+            "MATH 2131",
+            "COMP 4900"
+          ],
+          "notes": "COMP2711H为荣誉版可替代COMP2711；线性代数MATH2111/2121/2131三选一（官方Note: MATH2111 OR 2121 OR 2131）。COMP4900（0学分，Academic and Professional Development）为COMP专业在读每学期均须注册的项目，此处仅标注首次出现。"
+        },
+        "Y2_SPRING": {
+          "required": [
+            "COMP 2012",
+            "COMP 2012H",
+            "COMP 2611"
+          ],
+          "notes": "官方Note: (COMP2011 AND COMP2012) OR COMP2012H —— COMP2012H荣誉版单独一门课即可替代COMP2011+COMP2012。"
+        },
+        "Y3_FALL": {
+          "required": [
+            "COMP 3511",
+            "COMP 3711",
+            "COMP 3711H",
+            "ELEC 2600",
+            "ELEC 2600H",
+            "IEDA 2520",
+            "IEDA 2540",
+            "MATH 2411",
+            "MATH 2421",
+            "MATH 2431"
+          ],
+          "notes": "COMP3711H为荣誉版可替代COMP3711。概率课程从ELEC2600/2600H、IEDA2520/2540、MATH2411/2421/2431中选一门修读（官方Note列出全部7个互斥选项）。注：ELEC2600H已于2021-22学年后停开，仅作历史选项保留。"
+        },
+        "Y3_SPRING": {
+          "required": [
+            "COMP 3111",
+            "COMP 3111H"
+          ],
+          "notes": "COMP3111H为荣誉版可替代COMP3111。COMP电子选修课程（5门15学分，含≥3门同一领域+≥2门跨领域）自Y3起穿插修读，未在本表逐一列出（见 elective_requirement）。"
+        },
+        "Y4_FALL": {
+          "required": [
+            "COMP 1991",
+            "COMP 4981",
+            "COMP 4981H",
+            "COMP 4910"
+          ],
+          "notes": "毕业路径互斥三选一（官方Note: [COMP1991 AND (COMP4981 或 COMP4981H)] OR [COMP4910]）：(a) 实习COMP1991 + 毕业设计COMP4981/荣誉论文COMP4981H；或 (b) 带薪实习项目COMP4910（替代整条FYP路径）。"
+        },
+        "Y4_SPRING": {
+          "required": [
+            "COMP 4981",
+            "COMP 4981H"
+          ],
+          "notes": "延续Y4_FALL的毕业设计项目（全年制，共6学分）；选择COMP4910 Co-op路径者本学期无需重复修读。"
+        }
+      },
+      "elective_requirement": "COMP 2000-level or above Elective 1门(3学分) + COMP Electives 5门课(15学分，至少3门同一领域+至少2门跨领域，含Courses Without Associated Area)"
+    },
+    "CENG": {
+      "source": "mixed",
+      "source_note": "官方PDF https://ugadmin.hkust.edu.hk/prog_crs/ug/202627/pdf/26-27ceng.pdf (programs.json + _cache/major_CENG.txt)。逐学期排布为推断，OR选项子结构取自PDF原文Note。COMP1022P、CENG4160为PDF标注的已停开课程，仍按官方required course_codes列出但不建议实际选课。",
+      "terms": {
+        "Y1_FALL": {
+          "required": [
+            "COMP 1022P",
+            "COMP 1023",
+            "COMP 2011",
+            "COMP 2012H",
+            "CHEM 1012",
+            "MATH 1013",
+            "MATH 1020",
+            "MATH 1023",
+            "CENG 1000",
+            "CENG 1010"
+          ],
+          "notes": "编程课四选一（官方Note: COMP1022P OR COMP1023 OR COMP2011 OR COMP2012H；COMP1022P已于2024-25学年后停开，仅作历史选项保留）；微积分三选一（MATH1013/1020/1023，只需一学期）。"
+        },
+        "Y1_SPRING": {
+          "required": [
+            "PHYS 1112",
+            "PHYS 1312",
+            "CHEM 1052",
+            "BIEN 2410",
+            "BIEN 2610",
+            "LIFS 1901",
+            "CENG 1110"
+          ],
+          "notes": "物理二选一（PHYS1112或1312）；生物基础三选一（官方Note: BIEN2410 OR BIEN2610 OR LIFS1901）。"
+        },
+        "Y2_FALL": {
+          "required": [
+            "CENG 1500",
+            "CENG 2210",
+            "CENG 2310",
+            "CHEM 2111"
+          ],
+          "notes": null
+        },
+        "Y2_SPRING": {
+          "required": [
+            "CENG 2220",
+            "CENG 2320",
+            "CHEM 2155"
+          ],
+          "notes": null
+        },
+        "Y3_FALL": {
+          "required": [
+            "CENG 3110",
+            "CENG 3210",
+            "CENG 3300"
+          ],
+          "notes": null
+        },
+        "Y3_SPRING": {
+          "required": [
+            "CENG 3220",
+            "CENG 3230",
+            "CENG 3950"
+          ],
+          "notes": null
+        },
+        "Y4_FALL": {
+          "required": [
+            "CENG 3150",
+            "CENG 4020",
+            "CENG 4920",
+            "CENG 4930",
+            "CENG 4940"
+          ],
+          "notes": "毕业设计三选一（官方Note: CENG4920 毕业设计 OR CENG4930 论文研究 OR CENG4940 工业项目）。"
+        },
+        "Y4_SPRING": {
+          "required": [
+            "ENEG 1700"
+          ],
+          "notes": "ENEG1700 仅Environment Option学生需修（该Option可选，非全体CENG学生必修）。CENG选修课（12学分）及Environment Option选修课（3学分/1门，若选该Option）未在本表逐一列出，见 elective_requirement。"
+        }
+      },
+      "elective_requirement": "Elective(s) 12学分（自CENG/BIEN/COMP/ENEG/CHEM选修列表）；若选Environment Option，另需Environment Elective 3学分/1门"
+    },
+    "MATH": {
+      "source": "mixed",
+      "source_note": "官方PDF https://ugadmin.hkust.edu.hk/prog_crs/ug/202627/pdf/26-27math.pdf (programs.json + _cache/major_MATH.txt)。MATH专业含6个Track(Applied Math/CS/Financial and Actuarial Math/General Math/Pure Math/Pure Math(Advanced))+IRE Track，均为互斥必修组(type=required)。本表以Applied Mathematics Track为主线（Y3_SPRING-Y4_SPRING按其Required Course(s)顺序排布），其余5个Track+IRE的Required Course(s)组作为'组内择一'备选整体列入对应学期并在notes中明确标注，不代表学生需同时修读多个Track。School Requirements(理学院共同必修，本质6选43组合选修，与Major Prerequisite/Required大量重叠)整组列入Y1_SPRING并标注。逐学期排布本身为推断。",
+      "terms": {
+        "Y1_FALL": {
+          "required": [
+            "MATH 1013",
+            "MATH 1020",
+            "MATH 1023"
+          ],
+          "notes": "Major Pre-requisite微积分路径（官方Note: [(MATH1013或1023) 且 (MATH1014或1024)] 或 [MATH1020]）。IRE Track学生只能用MATH1023+MATH1024满足此要求（官方Note附注）。"
+        },
+        "Y1_SPRING": {
+          "required": [
+            "MATH 1014",
+            "MATH 1024",
+            "CHEM 1008",
+            "CHEM 1011",
+            "CHEM 1012",
+            "CHEM 1051",
+            "CHEM 1052",
+            "COMP 1021",
+            "COMP 1022P",
+            "COMP 1023",
+            "DASC 2010",
+            "LANG 3027",
+            "LIFS 1901",
+            "LIFS 1902",
+            "LIFS 1903",
+            "LIFS 1904",
+            "LIFS 1930",
+            "LIFS 2210",
+            "MATH 1005",
+            "MATH 1006",
+            "MATH 2011",
+            "MATH 2023",
+            "MATH 2111",
+            "MATH 2121",
+            "MATH 2131",
+            "OCES 1001",
+            "OCES 1010",
+            "PHYS 1101",
+            "PHYS 1111",
+            "PHYS 1112",
+            "PHYS 1113",
+            "PHYS 1114",
+            "PHYS 1115",
+            "PHYS 1312",
+            "PHYS 1314",
+            "SCIE 1500",
+            "SCIE 2500",
+            "SCIE 3900",
+            "UROP 1000",
+            "UROP 1100"
+          ],
+          "notes": "承接微积分路径。School Requirements（理学院共同要求，非MATH专属，type=required但本质是从43门课中选6门、每学科至多3门的组合选修，与本表其他学期的Major Prerequisite/Required课程大量重叠）整组列于此（组内择一/组合选修），不代表额外新增37门课程负担；COMP1022P已停开。"
+        },
+        "Y2_FALL": {
+          "required": [
+            "MATH 2023",
+            "MATH 2024",
+            "MATH 2121",
+            "MATH 2131"
+          ],
+          "notes": "MATH2023或Honors版2024二选一（IRE / Pure Math(Advanced) Track学生只能用2024）；MATH2121或Honors版2131二选一（同上只能用2131）。"
+        },
+        "Y2_SPRING": {
+          "required": [
+            "MATH 2033",
+            "MATH 2043"
+          ],
+          "notes": "MATH2033或Honors版2043二选一（IRE / Pure Math(Advanced) Track学生只能用2043）。"
+        },
+        "Y3_FALL": {
+          "required": [
+            "MATH 3033",
+            "MATH 3043"
+          ],
+          "notes": "MATH3033或Honors版3043二选一（IRE / Pure Math(Advanced) Track学生只能用3043）。学生此时选定后续Track（本表以Applied Mathematics Track为主线示例，其余5个Track为互斥备选，见后续学期）。"
+        },
+        "Y3_SPRING": {
+          "required": [
+            "MATH 2352",
+            "MATH 2411",
+            "MATH 2343",
+            "COMP 2711",
+            "COMP 2711H",
+            "MATH 3121",
+            "COMP 1023",
+            "COMP 2011",
+            "COMP 2012",
+            "COMP 2012H",
+            "COMP 2611",
+            "COMP 3711",
+            "COMP 3711H",
+            "MATH 2431",
+            "SCIE 3500",
+            "SCIE 4500",
+            "MATH 2421",
+            "MATH 3423",
+            "MATH 3424",
+            "MATH 3426",
+            "MATH 3427",
+            "MATH 3428"
+          ],
+          "notes": "【主线：Applied Mathematics Track必修】MATH2352, MATH2411。【备选Track，与主线互斥，仅为满足所有required课程码均被排入学期而并列列出，不与主线同修】Computer Science Track必修：MATH2343(或COMP2711/2711H)、MATH3121、COMP1023/2011/2012/2012H/2611/3711/3711H；International Research Enrichment Track必修：MATH2431、SCIE3500、SCIE4500；Statistics Track必修（部分）：MATH2421、MATH3423/3424/3426/3427/3428。"
+        },
+        "Y4_FALL": {
+          "required": [
+            "MATH 3312",
+            "MATH 4360",
+            "MATH 2411",
+            "MATH 2511",
+            "MATH 3423",
+            "MATH 4427",
+            "MATH 4511",
+            "MATH 4512",
+            "MATH 4513",
+            "MATH 4514",
+            "MATH 4515",
+            "MATH 2001",
+            "MATH 3131"
+          ],
+          "notes": "【主线：Applied Mathematics Track必修】MATH3312, MATH4360。【备选Track，互斥，仅为数据完整性列出】Financial and Actuarial Mathematics Track必修：MATH2411, MATH2511, MATH3423, MATH4427, MATH4511-4515；Pure Mathematics (Advanced) Track必修：MATH2001, MATH3131。"
+        },
+        "Y4_SPRING": {
+          "required": [
+            "MATH 4052",
+            "MATH 4992",
+            "MATH 4999",
+            "MATH 4991",
+            "MATH 4993",
+            "MATH 4996",
+            "MATH 2001",
+            "MATH 3121",
+            "MATH 4225",
+            "MATH 2421",
+            "MATH 2431",
+            "MATH 4424",
+            "MATH 4425"
+          ],
+          "notes": "【主线：Applied Mathematics Track必修】MATH4052；毕业设计MATH4992或MATH4999二选一。【备选Track，互斥，仅为数据完整性列出】General Mathematics Track必修（capstone四选一）：MATH4991/4992/4993/4999；Financial and Actuarial Mathematics Track capstone：MATH4996或MATH4999；Pure Mathematics Track必修：MATH2001, MATH3121, MATH4225，capstone MATH4991或MATH4999；Statistics Track必修（续）：MATH2421或MATH2431、MATH4424或MATH4425、capstone MATH4993或MATH4999。"
+        }
+      },
+      "elective_requirement": "视所选Track而定：Applied Math Track 12学分/4门; CS Track 3学分/2门; Financial & Actuarial Math Track 2学分/1门; General Math Track 9学分(无固定课程列表); Pure Math (Advanced) Track 12学分/4门(Algebra/Analysis/Geometry各≥1门); Pure Math Track 6学分/1门(另有Analysis/Geometry/Algebra各1门Depth Elective); Statistics Track 2学分/1门(另有Depth Electives 6学分/2门)"
+    },
+    "MECH": {
+      "source": "mixed",
+      "source_note": "官方PDF https://ugadmin.hkust.edu.hk/prog_crs/ug/202627/pdf/26-27mech.pdf (programs.json + _cache/major_MECH.txt)。逐学期排布为推断，OR选项子结构取自PDF原文Note。Energy/Engineering Design/Materials Option均为可选(非必修)方向电，仅Research Option附带1门必修课MECH4995（列入Y4_SPRING并注明仅该Option学生需修）。",
+      "terms": {
+        "Y1_FALL": {
+          "required": [
+            "COMP 1023",
+            "COMP 2011",
+            "COMP 2012H",
+            "MATH 1013",
+            "MATH 1020",
+            "MATH 1023",
+            "PHYS 1112",
+            "PHYS 1312",
+            "MECH 1001",
+            "MECH 1910"
+          ],
+          "notes": "编程三选一（COMP1023/2011/2012H）；微积分路径同COMP/CENG（官方Note: [(MATH1013或1023) 且 (MATH1014或1024)] 或 [MATH1020]）；物理二选一（PHYS1112/1312）。"
+        },
+        "Y1_SPRING": {
+          "required": [
+            "MATH 1014",
+            "MATH 1024",
+            "CHEM 1008",
+            "CHEM 1012",
+            "LIFS 1901",
+            "PHYS 1101",
+            "MECH 1990"
+          ],
+          "notes": "承接微积分路径（配1013修1014，配1023修1024；若Y1_FALL已修MATH1020则本学期该requirement已满足）。Science 1000-level课程四选一（官方Note: CHEM1008 OR CHEM1012 OR LIFS1901 OR PHYS1101，1门）。"
+        },
+        "Y2_FALL": {
+          "required": [
+            "MATH 2011",
+            "MECH 2002",
+            "MECH 2020",
+            "MECH 2300",
+            "MECH 2410"
+          ],
+          "notes": null
+        },
+        "Y2_SPRING": {
+          "required": [
+            "MATH 2351",
+            "MECH 2040",
+            "MECH 2210",
+            "MECH 2310",
+            "MECH 2520"
+          ],
+          "notes": null
+        },
+        "Y3_FALL": {
+          "required": [
+            "MECH 3030",
+            "MECH 3610",
+            "MECH 3630",
+            "ELEC 2420"
+          ],
+          "notes": null
+        },
+        "Y3_SPRING": {
+          "required": [
+            "MECH 3300",
+            "MECH 3420",
+            "MECH 3710",
+            "MECH 3310",
+            "MECH 3830",
+            "MECH 3907"
+          ],
+          "notes": "MECH3300/3420/3710三选一（官方Note: MECH3300 OR MECH3420 OR MECH3710）。"
+        },
+        "Y4_FALL": {
+          "required": [
+            "MECH 4900"
+          ],
+          "notes": "Final Year Design Project（6学分，全年制，Y4_FALL+Y4_SPRING两学期）。"
+        },
+        "Y4_SPRING": {
+          "required": [
+            "MECH 4900",
+            "MECH 4995"
+          ],
+          "notes": "MECH4900延续FYP；MECH4995仅Research Option学生需修（可选Option，非全体MECH学生必修）。Energy/Engineering Design/Materials三个Option的选修课（各9学分/3门，可不选）未在本表逐一列出，见 elective_requirement。"
+        }
+      },
+      "elective_requirement": "视所选Option而定（Option可不选）：Energy Option / Engineering Design Option / Materials Option 各9学分/3门课，取自对应elective列表"
+    },
+    "BCB": {
+      "source": "mixed",
+      "source_note": "官方PDF https://ugadmin.hkust.edu.hk/prog_crs/ug/202627/pdf/26-27bcb.pdf (programs.json + _cache/major_BCB.txt)。逐学期排布为推断，OR选项子结构（毕业论文路径、CHEM2111/2311及配套Lab二选一）取自PDF原文Note。IRE Track的3门必修课(LIFS3070/3110/SCIE3500)作为可选Track整体列入Y4_FALL并注明。School Requirements与MATH专业共享同一理学院共同要求文本，同样按组合选修处理，未逐条计入必修学分（BCB自身Major Prerequisite/Required课程已覆盖其中大部分科学基础课）。",
+      "terms": {
+        "Y1_FALL": {
+          "required": [
+            "LIFS 1901",
+            "LIFS 1903",
+            "CHEM 1011",
+            "CHEM 1051"
+          ],
+          "notes": "HKDSE生物达3级或以上者可免修LIFS1901/1903（官方Note）。"
+        },
+        "Y1_SPRING": {
+          "required": [
+            "LIFS 1902",
+            "LIFS 1904",
+            "CHEM 1012",
+            "CHEM 1052",
+            "CHEM 1008",
+            "CHEM 1011",
+            "CHEM 1051",
+            "COMP 1021",
+            "COMP 1022P",
+            "COMP 1023",
+            "DASC 2010",
+            "LANG 3027",
+            "LIFS 1901",
+            "LIFS 1930",
+            "LIFS 2210",
+            "MATH 1005",
+            "MATH 1006",
+            "MATH 1013",
+            "MATH 1014",
+            "MATH 1020",
+            "MATH 1023",
+            "MATH 1024",
+            "MATH 2011",
+            "MATH 2023",
+            "MATH 2111",
+            "MATH 2121",
+            "MATH 2131",
+            "OCES 1001",
+            "OCES 1010",
+            "PHYS 1101",
+            "PHYS 1111",
+            "PHYS 1112",
+            "PHYS 1113",
+            "PHYS 1114",
+            "PHYS 1115",
+            "PHYS 1312",
+            "PHYS 1314",
+            "SCIE 1500",
+            "SCIE 2500",
+            "SCIE 3900",
+            "UROP 1000",
+            "UROP 1100"
+          ],
+          "notes": "School Requirements（理学院共同要求，非BCB专属，type=required但本质是从43门课中选6门、每学科至多3门的组合选修，与Major Prerequisite/Required课程大量重叠，如CHEM1011/1012/1051/1052、LIFS1901/1902/1903/1904已在Major Prerequisite/Required中修读）整组列于此（组内择一/组合选修），不代表额外新增37门课程负担；COMP1022P已停开。"
+        },
+        "Y2_FALL": {
+          "required": [
+            "LIFS 2010",
+            "LIFS 2210",
+            "CHEM 2111",
+            "CHEM 2311"
+          ],
+          "notes": "CHEM2111（有机化学）或CHEM2311（分析化学）二选一（官方Note: CHEM2111 OR CHEM2311）。"
+        },
+        "Y2_SPRING": {
+          "required": [
+            "LIFS 2040",
+            "LIFS 2220",
+            "LIFS 2240",
+            "CHEM 2155",
+            "CHEM 2355"
+          ],
+          "notes": "CHEM2155或CHEM2355二选一，需与Y2_FALL所选CHEM2111/2311配对（官方Note: CHEM2155 OR CHEM2355）。"
+        },
+        "Y3_FALL": {
+          "required": [
+            "LIFS 2720",
+            "LIFS 3010",
+            "LIFS 3140"
+          ],
+          "notes": null
+        },
+        "Y3_SPRING": {
+          "required": [
+            "LIFS 2820",
+            "LIFS 3020"
+          ],
+          "notes": null
+        },
+        "Y4_FALL": {
+          "required": [
+            "LIFS 4961",
+            "LIFS 4971",
+            "SCIE 4500",
+            "LIFS 3070",
+            "LIFS 3110",
+            "SCIE 3500"
+          ],
+          "notes": "毕业论文路径三选一（官方Note: LIFS4961 OR (LIFS4971 AND LIFS4981) OR (SCIE4500 AND LIFS4981)，IRE Track学生只能走SCIE4500+LIFS4981路径）。LIFS3070/LIFS3110/SCIE3500为International Research Enrichment (IRE) Track的必修课，仅IRE Track学生需修。"
+        },
+        "Y4_SPRING": {
+          "required": [
+            "LIFS 4981"
+          ],
+          "notes": "延续Y4_FALL的毕业论文路径（LIFS4971或SCIE4500学生需在此学期修LIFS4981）；选择LIFS4961单学期capstone路径者本学期无需修LIFS4981。"
+        }
+      },
+      "elective_requirement": "Elective(s) 12-24学分（IRE Track最低12学分；非IRE走LIFS4971&LIFS4981路径至少20学分；走LIFS4961路径24学分），取自LIFS/BIPH/CHEM/OCES/PHYS elective列表"
+    }
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "$defs": {
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    },
+    "Provenance": {
+      "additionalProperties": false,
+      "description": "Spec §14.3。任何进入 Catalog 的事实都必须能回溯到这里。",
+      "properties": {
+        "confidence": {
+          "default": 1.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "evidence_snippet": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "支撑该结论的原文片段，用于 Unsupported Key Claim 复核（T8）",
+          "title": "Evidence Snippet"
+        },
+        "parser_version": {
+          "title": "Parser Version",
+          "type": "string"
+        },
+        "published_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Published At"
+        },
+        "retrieved_at": {
+          "format": "date-time",
+          "title": "Retrieved At",
+          "type": "string"
+        },
+        "source": {
+          "description": "来源系统或站点标识",
+          "title": "Source",
+          "type": "string"
+        },
+        "source_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "官方页面 URL",
+          "title": "Source Url"
+        }
+      },
+      "required": [
+        "source",
+        "retrieved_at",
+        "parser_version"
+      ],
+      "title": "Provenance",
+      "type": "object"
+    },
+    "Requirement": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "$ref": "#/components/schemas/RequirementCategory"
+        },
+        "description": {
+          "$ref": "#/components/schemas/LocalizedText"
+        },
+        "goal_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Goal Id",
+          "type": "string"
+        },
+        "level": {
+          "default": "entry",
+          "enum": [
+            "entry",
+            "competitive",
+            "exceptional"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "mandatory": {
+          "default": true,
+          "title": "Mandatory",
+          "type": "boolean"
+        },
+        "prerequisite_requirement_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Prerequisite Requirement Ids",
+          "type": "array"
+        },
+        "requirement_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Requirement Id",
+          "type": "string"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Provenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "validity_period_months": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Validity Period Months"
+        }
+      },
+      "required": [
+        "requirement_id",
+        "goal_id",
+        "category",
+        "description"
+      ],
+      "title": "Requirement",
+      "type": "object"
+    },
+    "RequirementCategory": {
+      "description": "出域时 ``MetricTuple.uncovered_requirement_categories`` 只携带这一层。\n\n它必须足够粗，粗到无法反推是哪位学生——所以是枚举而不是自由文本。",
+      "enum": [
+        "coursework",
+        "technical_skill",
+        "research_experience",
+        "industry_experience",
+        "project_portfolio",
+        "teamwork_evidence",
+        "communication",
+        "credential",
+        "language",
+        "network",
+        "eligibility_status"
+      ],
+      "title": "RequirementCategory",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/RequirementGraph.json",
+  "additionalProperties": false,
+  "description": "A3 输出，可缓存（key = goal_id + program + catalog_year + pack 版本）。",
+  "properties": {
+    "cache_key": {
+      "title": "Cache Key",
+      "type": "string"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "goal_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Goal Id",
+      "type": "string"
+    },
+    "graph_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Graph Id",
+      "type": "string"
+    },
+    "pack_ids": {
+      "default": [],
+      "description": "参与生成的 Context Pack / Career Path Pack",
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Pack Ids",
+      "type": "array"
+    },
+    "requirements": {
+      "items": {
+        "$ref": "#/components/schemas/Requirement"
+      },
+      "minItems": 1,
+      "title": "Requirements",
+      "type": "array"
+    }
+  },
+  "required": [
+    "graph_id",
+    "goal_id",
+    "requirements",
+    "generated_at",
+    "cache_key"
+  ],
+  "title": "RequirementGraph",
+  "type": "object"
+}

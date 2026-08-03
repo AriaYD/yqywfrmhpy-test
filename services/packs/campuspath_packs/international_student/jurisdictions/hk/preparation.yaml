@@ -1,0 +1,7 @@
+{
+  "preparation_items": [
+    {"preparation_action_id":"PREP-HK-WORK-001","category":"work_authorization","title":"Confirm Hong Kong work conditions","description":"Check the current Immigration Department permission, endorsement, work location, activity, hours, and duration before starting an internship or part-time role.","recommended_lead_time_days":30,"trigger_conditions":[{"field":"goal_type","operator":"in","value":["internship","part_time_work"]}],"mandatory":false,"mandatory_source_id":null,"source_ids":["HK-IMMD-STUDY","HK-IMMD-FAQ-STUDY"]},
+    {"preparation_action_id":"PREP-HK-SCHOOL-001","category":"documents","title":"Ask the institution about approval","description":"Ask the institution whether programme, attendance, school approval, or internal reporting steps apply to the opportunity.","recommended_lead_time_days":21,"trigger_conditions":[{"field":"goal_type","operator":"equals","value":"internship"}],"mandatory":false,"mandatory_source_id":null,"source_ids":[]},
+    {"preparation_action_id":"PREP-HK-GRAD-001","category":"timeline","title":"Plan the graduate-employment transition","description":"Track graduation evidence, current permission expiry, offer timing, and the latest IANG requirements with the Immigration Department.","recommended_lead_time_days":60,"trigger_conditions":[{"field":"goal_type","operator":"equals","value":"graduate_employment"}],"mandatory":false,"mandatory_source_id":null,"source_ids":["HK-IMMD-IANG","HK-IMMD-IANG-FAQ"]}
+  ]
+}

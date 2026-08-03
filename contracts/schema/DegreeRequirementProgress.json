@@ -1,0 +1,45 @@
+{
+  "$id": "https://campuspath.invalid/schema/DegreeRequirementProgress.json",
+  "additionalProperties": false,
+  "description": "学生在某条要求上的进度。satisfied_by 必须指向真实的课程记录。",
+  "properties": {
+    "earned_credits": {
+      "default": 0.0,
+      "minimum": 0,
+      "title": "Earned Credits",
+      "type": "number"
+    },
+    "remaining_credits": {
+      "default": 0.0,
+      "minimum": 0,
+      "title": "Remaining Credits",
+      "type": "number"
+    },
+    "requirement_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Requirement Id",
+      "type": "string"
+    },
+    "satisfied": {
+      "default": false,
+      "title": "Satisfied",
+      "type": "boolean"
+    },
+    "satisfied_by": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Satisfied By",
+      "type": "array"
+    }
+  },
+  "required": [
+    "requirement_id"
+  ],
+  "title": "DegreeRequirementProgress",
+  "type": "object"
+}

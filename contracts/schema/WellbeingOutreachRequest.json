@@ -1,0 +1,144 @@
+{
+  "$defs": {
+    "OutreachEmailFields": {
+      "additionalProperties": false,
+      "description": "Spec §16.8.4 的字段白名单。**这个模型的字段列表就是允许发送的全部内容。**\n\n禁止出现（由 extra=\"forbid\" + 边界扫描共同保证）：课程标题、日历标题、\n参与人、地点、完整 Profile、私人 Reflection、模型推断、诊断性措辞。",
+      "properties": {
+        "acknowledgement_url": {
+          "description": "回执链接，用于追踪认领",
+          "title": "Acknowledgement Url",
+          "type": "string"
+        },
+        "consent_receipt_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Consent Receipt Id",
+          "type": "string"
+        },
+        "internal_student_ref": {
+          "description": "学校内部标识或学生自选联系方式，不含姓名/学号原文",
+          "title": "Internal Student Ref",
+          "type": "string"
+        },
+        "student_requested_contact": {
+          "const": true,
+          "description": "恒为 True：只有学生主动请求或已有有效 opt-in 才发送",
+          "title": "Student Requested Contact",
+          "type": "boolean"
+        },
+        "trigger_category": {
+          "$ref": "#/components/schemas/WellbeingSignalType"
+        },
+        "triggered_at": {
+          "format": "date-time",
+          "title": "Triggered At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "internal_student_ref",
+        "student_requested_contact",
+        "trigger_category",
+        "triggered_at",
+        "consent_receipt_id",
+        "acknowledgement_url"
+      ],
+      "title": "OutreachEmailFields",
+      "type": "object"
+    },
+    "WellbeingSignalType": {
+      "description": "Spec §16.8.2 的五类。全部是阈值比较，无语义判断。",
+      "enum": [
+        "sleep_opportunity_compressed",
+        "self_reported_short_sleep",
+        "activity_opportunity_low",
+        "recovery_block_absent",
+        "capacity_overload"
+      ],
+      "title": "WellbeingSignalType",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/WellbeingOutreachRequest.json",
+  "additionalProperties": false,
+  "description": "Spec §14.2。投递状态必须可追踪——``email accepted`` 不等于学生获得支持。",
+  "properties": {
+    "consent_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Consent Id",
+      "type": "string"
+    },
+    "delivery_status": {
+      "default": "queued",
+      "enum": [
+        "queued",
+        "sent",
+        "bounced",
+        "failed",
+        "claimed",
+        "closed"
+      ],
+      "title": "Delivery Status",
+      "type": "string"
+    },
+    "disposition": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Disposition"
+    },
+    "email_fields": {
+      "$ref": "#/components/schemas/OutreachEmailFields"
+    },
+    "human_owner": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Human Owner"
+    },
+    "request_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Request Id",
+      "type": "string"
+    },
+    "requested_at": {
+      "format": "date-time",
+      "title": "Requested At",
+      "type": "string"
+    },
+    "student_id": {
+      "description": "仅存在于学生私有域的请求记录中；邮件本身携带的是 internal_student_ref",
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "trigger_category": {
+      "$ref": "#/components/schemas/WellbeingSignalType"
+    }
+  },
+  "required": [
+    "request_id",
+    "consent_id",
+    "student_id",
+    "trigger_category",
+    "email_fields",
+    "requested_at"
+  ],
+  "title": "WellbeingOutreachRequest",
+  "type": "object"
+}

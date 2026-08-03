@@ -1,0 +1,31 @@
+{
+  "$id": "https://campuspath.invalid/schema/CounselingWindow.json",
+  "additionalProperties": false,
+  "description": "心理咨询室每周开放窗口（校方 wellbeing-desk 设置）。\n\n审查修复（2026-08-01）：pattern 只保证\"两位数:两位数\"，``99:99`` 能过——\nslot 生成时 ``datetime(...)`` 当场炸成 500，且炸的是**全体学生**的预约面。\n时间合法性在契约层挡住，不留给运行时。",
+  "properties": {
+    "end": {
+      "pattern": "^\\d{2}:\\d{2}$",
+      "title": "End",
+      "type": "string"
+    },
+    "start": {
+      "pattern": "^\\d{2}:\\d{2}$",
+      "title": "Start",
+      "type": "string"
+    },
+    "weekday": {
+      "description": "0=周一 … 6=周日",
+      "maximum": 6,
+      "minimum": 0,
+      "title": "Weekday",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "weekday",
+    "start",
+    "end"
+  ],
+  "title": "CounselingWindow",
+  "type": "object"
+}

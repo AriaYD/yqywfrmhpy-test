@@ -1,0 +1,26 @@
+[project]
+name = "campuspath-capacity"
+version = "1.0.0"
+description = "Capacity & Calendar Service —— free/busy 到容量快照，零 LLM（WP5）"
+requires-python = ">=3.12"
+dependencies = ["campuspath-contracts"]
+
+# 🚫 永远不得依赖模型 SDK。日历 Token 与原始事件字段止步于本服务，
+# 一旦这里能调模型，Token 就有了进入 LLM 上下文的路径（CLAUDE.md 架构第 3 条）。
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["campuspath_capacity"]
+
+[tool.uv.sources]
+campuspath-contracts = { path = "../../contracts", editable = true }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

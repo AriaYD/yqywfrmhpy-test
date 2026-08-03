@@ -1,0 +1,381 @@
+{
+  "$defs": {
+    "PackPathwayImpact": {
+      "additionalProperties": false,
+      "properties": {
+        "impact_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Impact Id",
+          "type": "string"
+        },
+        "impact_type": {
+          "enum": [
+            "add_preparation_action",
+            "add_confirmation"
+          ],
+          "title": "Impact Type",
+          "type": "string"
+        },
+        "pathway_segment_id": {
+          "maxLength": 80,
+          "title": "Pathway Segment Id",
+          "type": "string"
+        },
+        "rule_ids": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Rule Ids",
+          "type": "array"
+        },
+        "summary": {
+          "maxLength": 500,
+          "title": "Summary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "impact_id",
+        "pathway_segment_id",
+        "impact_type",
+        "summary"
+      ],
+      "title": "PackPathwayImpact",
+      "type": "object"
+    },
+    "PackPreparationAction": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "maxLength": 40,
+          "title": "Category",
+          "type": "string"
+        },
+        "description": {
+          "maxLength": 1000,
+          "title": "Description",
+          "type": "string"
+        },
+        "mandatory": {
+          "default": false,
+          "title": "Mandatory",
+          "type": "boolean"
+        },
+        "preparation_action_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Preparation Action Id",
+          "type": "string"
+        },
+        "recommended_lead_time_days": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Recommended Lead Time Days"
+        },
+        "source_ids": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Ids",
+          "type": "array"
+        },
+        "title": {
+          "maxLength": 200,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "preparation_action_id",
+        "category",
+        "title",
+        "description"
+      ],
+      "title": "PackPreparationAction",
+      "type": "object"
+    },
+    "PackSourceLink": {
+      "additionalProperties": false,
+      "properties": {
+        "last_checked_at": {
+          "maxLength": 40,
+          "title": "Last Checked At",
+          "type": "string"
+        },
+        "source_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 200,
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "maxLength": 500,
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "title",
+        "url",
+        "last_checked_at"
+      ],
+      "title": "PackSourceLink",
+      "type": "object"
+    },
+    "PackSupportItem": {
+      "additionalProperties": false,
+      "properties": {
+        "application_required": {
+          "default": false,
+          "title": "Application Required",
+          "type": "boolean"
+        },
+        "category": {
+          "maxLength": 40,
+          "title": "Category",
+          "type": "string"
+        },
+        "deadline": {
+          "anyOf": [
+            {
+              "maxLength": 40,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Deadline"
+        },
+        "eligibility_summary": {
+          "maxLength": 500,
+          "title": "Eligibility Summary",
+          "type": "string"
+        },
+        "provider": {
+          "maxLength": 200,
+          "title": "Provider",
+          "type": "string"
+        },
+        "source_ids": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Ids",
+          "type": "array"
+        },
+        "support_item_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Support Item Id",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 200,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "support_item_id",
+        "category",
+        "title",
+        "provider",
+        "eligibility_summary"
+      ],
+      "title": "PackSupportItem",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/ContextPackEvaluation.json",
+  "additionalProperties": false,
+  "description": "求值信封（前端唯一消费面）。展示要求：辖区、Pack 版本、最近核验日期、\n来源链接、复核状态与**非法律建议免责声明**缺一不可。",
+  "properties": {
+    "applicable": {
+      "title": "Applicable",
+      "type": "boolean"
+    },
+    "applicable_rule_ids": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Applicable Rule Ids",
+      "type": "array"
+    },
+    "consented": {
+      "title": "Consented",
+      "type": "boolean"
+    },
+    "constraints": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Constraints",
+      "type": "array"
+    },
+    "eligibility_state": {
+      "enum": [
+        "eligible_now",
+        "future_eligible",
+        "needs_confirmation",
+        "ineligible_current_cycle"
+      ],
+      "title": "Eligibility State",
+      "type": "string"
+    },
+    "evaluated_at": {
+      "format": "date-time",
+      "title": "Evaluated At",
+      "type": "string"
+    },
+    "headline_key": {
+      "maxLength": 60,
+      "title": "Headline Key",
+      "type": "string"
+    },
+    "installed": {
+      "title": "Installed",
+      "type": "boolean"
+    },
+    "jurisdiction": {
+      "anyOf": [
+        {
+          "maxLength": 20,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Jurisdiction"
+    },
+    "last_verified_at": {
+      "anyOf": [
+        {
+          "maxLength": 40,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Verified At"
+    },
+    "missing_information": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Missing Information",
+      "type": "array"
+    },
+    "pack_current": {
+      "title": "Pack Current",
+      "type": "boolean"
+    },
+    "pack_digest": {
+      "maxLength": 40,
+      "title": "Pack Digest",
+      "type": "string"
+    },
+    "pack_version": {
+      "anyOf": [
+        {
+          "maxLength": 20,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Pack Version"
+    },
+    "pathway_impacts": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/PackPathwayImpact"
+      },
+      "title": "Pathway Impacts",
+      "type": "array"
+    },
+    "preparation_actions": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/PackPreparationAction"
+      },
+      "title": "Preparation Actions",
+      "type": "array"
+    },
+    "required_evidence": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Evidence",
+      "type": "array"
+    },
+    "review_required": {
+      "title": "Review Required",
+      "type": "boolean"
+    },
+    "rules_validation_id": {
+      "maxLength": 60,
+      "title": "Rules Validation Id",
+      "type": "string"
+    },
+    "source_links": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/PackSourceLink"
+      },
+      "title": "Source Links",
+      "type": "array"
+    },
+    "support_items": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/PackSupportItem"
+      },
+      "title": "Support Items",
+      "type": "array"
+    }
+  },
+  "required": [
+    "installed",
+    "applicable",
+    "consented",
+    "pack_current",
+    "eligibility_state",
+    "headline_key",
+    "pack_digest",
+    "rules_validation_id",
+    "review_required",
+    "evaluated_at"
+  ],
+  "title": "ContextPackEvaluation",
+  "type": "object"
+}

@@ -1,0 +1,56 @@
+{
+  "$defs": {
+    "EligibilityRuleKind": {
+      "enum": [
+        "year_level",
+        "program",
+        "gpa",
+        "prerequisite_course",
+        "work_authorization",
+        "language",
+        "membership",
+        "application_window",
+        "other"
+      ],
+      "title": "EligibilityRuleKind",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/EligibilityRule.json",
+  "additionalProperties": false,
+  "description": "来自机会来源的**具体规则**，不是全局年级假设（Spec §16.1）。",
+  "properties": {
+    "expression": {
+      "description": "来源原文或结构化表达式",
+      "title": "Expression",
+      "type": "string"
+    },
+    "kind": {
+      "$ref": "#/components/schemas/EligibilityRuleKind"
+    },
+    "mandatory": {
+      "default": true,
+      "title": "Mandatory",
+      "type": "boolean"
+    },
+    "source_tier": {
+      "description": "Spec §16.2 的优先级；model_inferred 只能导向 needs_confirmation",
+      "enum": [
+        "organizer_structured",
+        "official_page_text",
+        "institution_confirmed",
+        "institution_note",
+        "model_inferred"
+      ],
+      "title": "Source Tier",
+      "type": "string"
+    }
+  },
+  "required": [
+    "kind",
+    "expression",
+    "source_tier"
+  ],
+  "title": "EligibilityRule",
+  "type": "object"
+}

@@ -1,0 +1,37 @@
+{
+  "$id": "https://campuspath.invalid/schema/ExposureGapEntry.json",
+  "additionalProperties": false,
+  "description": "曝光断层榜的一行：合格的人多，实际看到的人少。",
+  "properties": {
+    "eligible_n": {
+      "minimum": 5,
+      "title": "Eligible N",
+      "type": "integer"
+    },
+    "exposure_rate": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Exposure Rate",
+      "type": "number"
+    },
+    "opportunity_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Opportunity Id",
+      "type": "string"
+    },
+    "seen_n": {
+      "minimum": 0,
+      "title": "Seen N",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "opportunity_id",
+    "eligible_n",
+    "seen_n",
+    "exposure_rate"
+  ],
+  "title": "ExposureGapEntry",
+  "type": "object"
+}

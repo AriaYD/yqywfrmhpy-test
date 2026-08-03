@@ -1,0 +1,15 @@
+# Cloud Build 上传瘦身：只有 Dockerfile COPY 的五个目录需要进上下文（contracts/seed/services/agents/jobs）
+.git/
+.venv/
+node_modules/
+apps/
+docs/
+eval/
+infra/
+mcp/
+reference/
+scripts/
+seed/raw/hkust_programs/_cache/
+.claude/
+*.md
+.env

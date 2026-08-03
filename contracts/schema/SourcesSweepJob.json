@@ -1,0 +1,83 @@
+{
+  "$id": "https://campuspath.invalid/schema/SourcesSweepJob.json",
+  "additionalProperties": false,
+  "description": "一键刷新全部真实源（2026-08-02 用户需求 C）。\n\n服务端后台线程逐源真实抓取 + 变更检测；进度 = ``done/total`` 确定性计数，\n不是模型自估。同一时间只允许一个巡检在跑（409）。mock 源与 paused 源跳过。",
+  "properties": {
+    "changed": {
+      "minimum": 0,
+      "title": "Changed",
+      "type": "integer"
+    },
+    "done": {
+      "minimum": 0,
+      "title": "Done",
+      "type": "integer"
+    },
+    "error": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Error"
+    },
+    "errors": {
+      "minimum": 0,
+      "title": "Errors",
+      "type": "integer"
+    },
+    "finished_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Finished At"
+    },
+    "job_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Job Id",
+      "type": "string"
+    },
+    "started_at": {
+      "format": "date-time",
+      "title": "Started At",
+      "type": "string"
+    },
+    "state": {
+      "enum": [
+        "running",
+        "done",
+        "failed"
+      ],
+      "title": "State",
+      "type": "string"
+    },
+    "total": {
+      "minimum": 0,
+      "title": "Total",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "job_id",
+    "state",
+    "total",
+    "done",
+    "changed",
+    "errors",
+    "started_at"
+  ],
+  "title": "SourcesSweepJob",
+  "type": "object"
+}

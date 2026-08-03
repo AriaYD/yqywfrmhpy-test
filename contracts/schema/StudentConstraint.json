@@ -1,0 +1,35 @@
+{
+  "$id": "https://campuspath.invalid/schema/StudentConstraint.json",
+  "additionalProperties": false,
+  "properties": {
+    "description": {
+      "maxLength": 500,
+      "title": "Description",
+      "type": "string"
+    },
+    "hard": {
+      "default": false,
+      "description": "hard=True 时进入 Rules 硬约束",
+      "title": "Hard",
+      "type": "boolean"
+    },
+    "kind": {
+      "enum": [
+        "commute",
+        "caregiving",
+        "financial",
+        "accessibility",
+        "visa",
+        "other"
+      ],
+      "title": "Kind",
+      "type": "string"
+    }
+  },
+  "required": [
+    "kind",
+    "description"
+  ],
+  "title": "StudentConstraint",
+  "type": "object"
+}

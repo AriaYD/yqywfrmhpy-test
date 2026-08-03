@@ -1,0 +1,350 @@
+@import "tailwindcss";
+
+/*
+  CampusPath 设计系统 v2 — "温柔陶土 × 可核验"
+  ---------------------------------------------------------------
+  Claymorphism（温和档）× Claude 暖色：奶油底、白卡、陶土橙。
+  给学生的是一张摸起来温柔的成长地图，不是一块仪表盘。
+  圆角与阴影出自粘土的物理：柔外影 + 内高光 = 轻微的"充气感"；
+  按压时收缩、松手时回弹（.pressable）。
+
+  贯穿全站的主张不变：本系统从不在没有凭据的情况下断言任何事。
+  UNKNOWN 有自己的**斜纹质感**——不是灰、更不是红。
+  "解析不出来"永远不等于"你不合格"（Spec §16.2）。
+
+  对比度由 scripts/check-contrast.mjs 门禁强制（组合数以脚本输出为准）。
+  #D97757 是品牌锚点但双向文字都不达标（白字 3.12 / 暖黑 3.46）——
+  它只出现在纯装饰填充；功能强调用 --accent(#D3714E, ≥3:1)，
+  文字与按钮填充用 --accent-deep(#A04A2A, ≥4.5:1)。
+*/
+
+@theme {
+  /* 燕麦：奶油中性底。永不用纯白当页面底 */
+  --color-oat-50: #faf9f5;
+  --color-oat-100: #f0eee6;
+  --color-oat-200: #e5e1d4;
+  --color-oat-300: #d4cebe;
+
+  /* 树皮：暖黑文字与暗色面。不是纯黑 */
+  --color-bark-100: #ede9de;
+  --color-bark-300: #b8b09e;
+  --color-bark-400: #948d7a;
+  --color-bark-500: #7a7360;
+  --color-bark-600: #69624f;
+  --color-bark-800: #3a362d;
+  --color-bark-850: #2a2721;
+  --color-bark-900: #201e1a;
+  --color-bark-950: #1b1915;
+
+  /* 陶土：品牌强调。500 是 Claude 锚点，只做装饰；700 是文字档 */
+  --color-terra-100: #f6e3d8;
+  --color-terra-200: #efcdba;
+  --color-terra-300: #e5a588;
+  --color-terra-400: #e08a67;
+  --color-terra-500: #d97757;
+  --color-terra-600: #c25e3f;
+  --color-terra-700: #a04a2a;
+  --color-terra-800: #7e3a20;
+
+  /* pastel 分区（Vibrant & Block-based）：200/500 静态；
+     100（底）/700（字）随主题切换，定义在 :root 各主题块 */
+  --color-sage-200: #d2e4ce;
+  --color-sage-500: #4e8a63;
+  --color-mist-200: #c8dee6;
+  --color-mist-500: #6e9aad;
+  --color-blossom-200: #efd2db;
+  --color-blossom-500: #c98aa0;
+
+  /* 绯红：危险/不满足。刻意不是警报红——这个产品不惩罚人 */
+  --color-rust-100: #f9e3e1;
+  --color-rust-200: #f2cbc7;
+  --color-rust-500: #c24e4e;
+  --color-rust-600: #a63838;
+  --color-rust-700: #963030;
+
+  /* 砂岩赭：UNKNOWN 的专属语汇。不得挪作装饰或强调（v1 硬约束不变） */
+  --color-ochre-700: #7f5510;
+  --color-ochre-600: #9a6417;
+  --color-ochre-500: #c2831f;
+  --color-ochre-400: #dda43f;
+  --color-ochre-300: #ecc37c;
+  --color-ochre-100: #f8ecd3;
+
+  /* 圆角四档：xs 只给日历微块（26px 行高生态），其余三档全站通用 */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "SF Pro Text",
+    "Helvetica Neue", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+}
+
+/* ---------------------------------------------------------------
+   主题：唯一浅色（2026-08-03 用户裁定禁用深色——两个暗色块已整体
+   移除，color-scheme 锁 light，表单控件也不跟随系统深色）。
+   --------------------------------------------------------------- */
+:root {
+  --bg: #faf9f5;
+  --bg-sunk: #f0eee6;
+  --card: #ffffff;
+  --card-translucent: rgb(255 253 248 / 0.8);
+  --line: rgb(41 38 27 / 0.1);
+  --line-strong: rgb(41 38 27 / 0.2);
+  --fg: #29261b;
+  --fg-muted: #6b6455;
+  --fg-faint: #69624f;
+  --accent: #d3714e;
+  --accent-deep: #a04a2a;
+  --accent-soft: #f6e3d8;
+  --accent-fg: #ffffff;
+  --hatch: #c2831f;
+  --hatch-ink: #7f5510;
+  --color-moss-600: #3a6b4e;
+  --color-moss-500: #4e8a63;
+  --color-moss-100: #e5f0e3;
+  --color-clay-600: #a63838;
+  --color-clay-500: #c24e4e;
+  --color-clay-100: #f9e3e1;
+  --color-sage-100: #e5f0e3;
+  --color-sage-700: #3a6b4e;
+  --color-mist-100: #e1eef2;
+  --color-mist-700: #31606f;
+  --color-blossom-100: #f7e6eb;
+  --color-blossom-700: #8d4a5e;
+  --shadow-card: 0 1px 2px rgb(94 74 56 / 0.05), 0 12px 28px -10px rgb(94 74 56 / 0.16),
+    inset 0 1.5px 0 rgb(255 255 255 / 0.85);
+  --shadow-btn: 0 1px 2px rgb(94 74 56 / 0.08), 0 4px 12px -6px rgb(94 74 56 / 0.18),
+    inset 0 1px 0 rgb(255 255 255 / 0.7);
+  --shadow-inset: inset 0 2px 4px rgb(94 74 56 / 0.07);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-sunk: var(--bg-sunk);
+  --color-card: var(--card);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-faint: var(--fg-faint);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-fg: var(--accent-fg);
+  --color-hatch-ink: var(--hatch-ink);
+}
+
+html {
+  /* 间距用 rem：用户放大字号时布局跟着长，而不是被撑破 */
+  font: 100% / 1.55 var(--font-sans);
+  background: var(--bg);
+  /* 跨页布局稳定（用户硬约束）：滚动条出现/消失不得引起内容横移 */
+  scrollbar-gutter: stable;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- 排版：tracking 随字号变，不是一个值走天下（ui-ux-pro-max §6 letter-spacing）。
+   标题字阶走 Nunito（next/font 注入 --font-display，仅拉丁与数字），
+   中文按字体栈自动回落系统中文字体。 --- */
+.t-display { font-family: var(--font-display, ui-sans-serif), var(--font-sans); font-size: clamp(1.75rem, 3.2vw, 2.5rem); line-height: 1.08; letter-spacing: -0.022em; font-weight: 800; }
+.t-title   { font-family: var(--font-display, ui-sans-serif), var(--font-sans); font-size: 1.3125rem; line-height: 1.24; letter-spacing: -0.014em; font-weight: 700; }
+.t-section { font-family: var(--font-display, ui-sans-serif), var(--font-sans); font-size: 1rem; line-height: 1.35; letter-spacing: -0.006em; font-weight: 700; }
+.t-body    { font-size: 0.9375rem; line-height: 1.62; letter-spacing: 0; }
+.t-meta    { font-size: 0.8125rem; line-height: 1.45; letter-spacing: 0.006em; }
+.t-micro   { font-size: 0.6875rem; line-height: 1.3; letter-spacing: 0.055em; text-transform: uppercase; font-weight: 600; }
+.t-mono    { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: -0.01em; }
+
+/* --- 原语类：样式的单一出处，页面用类名组合（"CSS 类为契约、组件为糖"）。
+   按压反馈仍由 .pressable 提供，页面写法如 "pressable btn btn-primary"。 --- */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    padding: 0.4375rem 0.875rem;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    letter-spacing: 0.006em;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .btn-primary {
+    background: var(--accent-deep);
+    color: var(--accent-fg);
+    box-shadow: var(--shadow-btn);
+  }
+  .btn-primary:hover { background: color-mix(in srgb, var(--accent-deep) 90%, #000); }
+  .btn-secondary {
+    background: var(--card);
+    color: var(--fg);
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-btn);
+  }
+  .btn-secondary:hover { background: color-mix(in srgb, var(--card) 60%, var(--bg-sunk)); }
+  .btn-ghost { background: transparent; color: var(--fg-muted); }
+  .btn-ghost:hover { background: var(--accent-soft); color: var(--accent-deep); }
+  .btn-danger {
+    background: var(--color-clay-100);
+    color: var(--color-clay-600);
+    border-color: color-mix(in srgb, var(--color-clay-600) 25%, transparent);
+  }
+  .btn-danger:hover { background: color-mix(in srgb, var(--color-clay-100) 88%, var(--color-clay-600)); }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
+
+  .field {
+    background: var(--bg-sunk);
+    color: var(--fg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-inset);
+    padding: 0.4375rem 0.75rem;
+  }
+  .field:focus { border-color: var(--accent); }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-radius: var(--radius-sm);
+    padding: 0.125rem 0.5rem;
+  }
+  /* UNKNOWN 没有 chip 色调——三值语汇只能走 .hatch-unknown */
+  .chip-sage { background: var(--color-sage-100); color: var(--color-sage-700); }
+  .chip-mist { background: var(--color-mist-100); color: var(--color-mist-700); }
+  .chip-blossom { background: var(--color-blossom-100); color: var(--color-blossom-700); }
+  .chip-peach { background: var(--accent-soft); color: var(--accent-deep); }
+  .chip-neutral { background: var(--bg-sunk); color: var(--fg-muted); }
+
+  /* AI/规则生成的推荐评语（用户裁定 2026-08-01）：陶土浅底轻高亮，
+     让"这句是系统在解释为什么"一眼可辨。文字色沿用调用处
+     （fg/fg-muted/hatch-ink 对 accent-soft 均有门禁组合）。 */
+  .ai-note {
+    background: var(--accent-soft);
+    border-radius: var(--radius-sm);
+    padding: 0.375rem 0.625rem;
+  }
+
+  /* 国际生特殊注记（B/F，2026-08-02）：与 .ai-note 的陶土浅底区分，
+     用 mist 浅底——对比度组合（fg / fg-muted / mist-700 on mist-100）
+     已在 check-contrast.mjs 门禁内，双主题实算通过 */
+  .intl-note {
+    background: var(--color-mist-100);
+    border-radius: var(--radius-sm);
+    padding: 0.375rem 0.625rem;
+  }
+}
+
+/* --- 签名元素 1：UNKNOWN 的斜纹。三值逻辑在视觉上也必须是三值。
+   clay 化：垫一层柔和赭色底、条纹浓度降到 30%，质感从"警示胶带"
+   变成"柔性凹槽"，但仍与 满足/不满足 截然异族。 --- */
+.hatch-unknown {
+  background-color: color-mix(in srgb, var(--hatch) 8%, var(--card));
+  background-image: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--hatch) 30%, transparent) 0 2px,
+    transparent 2px 6px
+  );
+}
+
+/* --- 签名元素 2：凭据票根。打孔从"用底色填圆点"改为 mask 真镂空——
+   放在任何底色上（白卡、pastel 块）缺口都成立，不再露馅。 --- */
+.credential-chip {
+  position: relative;
+  isolation: isolate;
+  -webkit-mask-image: radial-gradient(circle 4px at 0 50%, transparent 97%, #000 100%),
+    radial-gradient(circle 4px at 100% 50%, transparent 97%, #000 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: radial-gradient(circle 4px at 0 50%, transparent 97%, #000 100%),
+    radial-gradient(circle 4px at 100% 50%, transparent 97%, #000 100%);
+  mask-composite: intersect;
+}
+
+/* --- 悬浮层材质：内容从下面滚过去，不是一条不透明横条（ui-ux-pro-max blur-purpose：blur 用于层级，不是装饰）。
+   暖色下饱和度收敛到 160%——180% 会把奶油底推成脏橙。 --- */
+.material-chrome {
+  background: var(--card-translucent);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+}
+
+/* 模态层要更"厚"。实测过一版用 material-chrome 的抽屉：
+   下面那片卡片网格透上来，正文几乎读不了——大面积表面要更厚 +
+   模态要压暗背景（ui-ux-pro-max scrim 40-60%），两条都得做，
+   只做其中一条不够。 */
+.material-modal {
+  background: color-mix(in srgb, var(--card) 92%, transparent);
+  backdrop-filter: blur(32px) saturate(150%);
+  -webkit-backdrop-filter: blur(32px) saturate(150%);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .material-modal { background: var(--card); backdrop-filter: none; }
+}
+
+/* --- 焦点：键盘可见。#D3714E 对卡/底 ≥3:1（脚本门禁） --- */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+/* 审查 M9：sr-only 的 file input 藏在 label.btn 里时，
+   焦点落在 1px 的 input 上肉眼不可见——把焦点环画到可见的按钮壳上 */
+.btn:has(:focus-visible),
+label.btn:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* --- 按下即反馈，不等 click（ui-ux-pro-max：tap 反馈 <100ms、press-feedback）。
+   压入 110ms 快而果断；松手回到常态走 260ms 轻过冲曲线——
+   粘土松手时的那一下回弹（ui-ux-pro-max spring-physics / scale-feedback 0.95-1.05）。 --- */
+.pressable {
+  transition: transform 260ms cubic-bezier(0.22, 1.15, 0.36, 1),
+              background-color 140ms ease-out, border-color 140ms ease-out;
+  touch-action: manipulation;
+}
+.pressable:active {
+  transform: scale(0.97);
+  transition: transform 110ms cubic-bezier(0.32, 0.72, 0, 1),
+              background-color 140ms ease-out, border-color 140ms ease-out;
+}
+
+/* --- 减少动效 ≠ 没有反馈；换成不引发前庭反应的淡入 --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 120ms !important;
+    scroll-behavior: auto !important;
+  }
+  .pressable:active { transform: none; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .material-chrome { background: var(--card); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+
+@media (prefers-contrast: more) {
+  :root { --line: rgb(41 38 27 / 0.45); --line-strong: rgb(41 38 27 / 0.65); --fg-muted: #3a362d; }
+  .material-chrome { background: var(--card); backdrop-filter: none; }
+}
+
+::selection { background: color-mix(in srgb, var(--accent) 28%, transparent); }
+
+/* Agent Runtime 状态灯呼吸（2026-08-03） */
+@keyframes cp-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}

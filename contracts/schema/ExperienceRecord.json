@@ -1,0 +1,150 @@
+{
+  "$defs": {
+    "DateRange": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        },
+        "start": {
+          "format": "date",
+          "title": "Start",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start"
+      ],
+      "title": "DateRange",
+      "type": "object"
+    },
+    "ExperienceType": {
+      "enum": [
+        "internship",
+        "part_time",
+        "research",
+        "project",
+        "competition",
+        "club",
+        "volunteer",
+        "entrepreneurship",
+        "exchange",
+        "other"
+      ],
+      "title": "ExperienceType",
+      "type": "string"
+    },
+    "VerificationStatus": {
+      "description": "Spec §8.2.3：不把上传文件自动当成学校认证。",
+      "enum": [
+        "self_reported",
+        "source_imported",
+        "institution_verified",
+        "expired",
+        "disputed"
+      ],
+      "title": "VerificationStatus",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/ExperienceRecord.json",
+  "additionalProperties": false,
+  "properties": {
+    "evidence_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "experience_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Experience Id",
+      "type": "string"
+    },
+    "note_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Note Ids",
+      "type": "array"
+    },
+    "organization": {
+      "title": "Organization",
+      "type": "string"
+    },
+    "outcomes": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Outcomes",
+      "type": "array"
+    },
+    "period": {
+      "$ref": "#/components/schemas/DateRange"
+    },
+    "responsibilities": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Responsibilities",
+      "type": "array"
+    },
+    "role": {
+      "title": "Role",
+      "type": "string"
+    },
+    "skills": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Skills",
+      "type": "array"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "type": {
+      "$ref": "#/components/schemas/ExperienceType"
+    },
+    "verification_status": {
+      "$ref": "#/components/schemas/VerificationStatus",
+      "default": "self_reported"
+    }
+  },
+  "required": [
+    "experience_id",
+    "student_id",
+    "type",
+    "organization",
+    "role",
+    "period"
+  ],
+  "title": "ExperienceRecord",
+  "type": "object"
+}

@@ -1,0 +1,234 @@
+[
+  {
+    "code": "ACCT",
+    "name": "Accounting"
+  },
+  {
+    "code": "AISC",
+    "name": "Interdisciplinary Studies"
+  },
+  {
+    "code": "AMCC",
+    "name": "Arts and Machine Creativity"
+  },
+  {
+    "code": "BIBU",
+    "name": "Biotechnology and Business"
+  },
+  {
+    "code": "BIEN",
+    "name": "Bioengineering"
+  },
+  {
+    "code": "CENG",
+    "name": "Chemical and Biological Engineering"
+  },
+  {
+    "code": "CHEM",
+    "name": "Chemistry"
+  },
+  {
+    "code": "CIVL",
+    "name": "Civil and Environmental Engineering"
+  },
+  {
+    "code": "COMP",
+    "name": "Computer Science and Engineering"
+  },
+  {
+    "code": "CPEG",
+    "name": "Computer Engineering"
+  },
+  {
+    "code": "CTDL",
+    "name": "Critical Thinking and Data Literacy"
+  },
+  {
+    "code": "DASC",
+    "name": "Data Analytics in Science"
+  },
+  {
+    "code": "DSCT",
+    "name": "Data Science and Technology"
+  },
+  {
+    "code": "EABU",
+    "name": "SF Program in Eurasian Business"
+  },
+  {
+    "code": "ECON",
+    "name": "Economics"
+  },
+  {
+    "code": "ELEC",
+    "name": "Electronic and Computer Engineering"
+  },
+  {
+    "code": "EMIA",
+    "name": "Emerging Interdisciplinary Areas"
+  },
+  {
+    "code": "ENEG",
+    "name": "Energy"
+  },
+  {
+    "code": "ENGG",
+    "name": "School of Engineering"
+  },
+  {
+    "code": "ENTR",
+    "name": "Entrepreneurship"
+  },
+  {
+    "code": "ENVR",
+    "name": "Environment"
+  },
+  {
+    "code": "ENVS",
+    "name": "Environmental Science"
+  },
+  {
+    "code": "FINA",
+    "name": "Finance"
+  },
+  {
+    "code": "GBUS",
+    "name": "Global Business"
+  },
+  {
+    "code": "GNED",
+    "name": "General Education"
+  },
+  {
+    "code": "HLTH",
+    "name": "Health and Physical Education"
+  },
+  {
+    "code": "HMAW",
+    "name": "Habits, Mindsets, and Wellness"
+  },
+  {
+    "code": "HUMA",
+    "name": "Humanities"
+  },
+  {
+    "code": "IEDA",
+    "name": "Industrial Engineering and Decision Analytics"
+  },
+  {
+    "code": "IIMP",
+    "name": "Individualized Interdisciplinary Major"
+  },
+  {
+    "code": "IROP",
+    "name": "International Research Opportunities Program"
+  },
+  {
+    "code": "ISDN",
+    "name": "Integrative Systems and Design"
+  },
+  {
+    "code": "ISOM",
+    "name": "Information Systems, Business Statistics and Operations Management"
+  },
+  {
+    "code": "LABU",
+    "name": "Language for Business"
+  },
+  {
+    "code": "LANG",
+    "name": "Language"
+  },
+  {
+    "code": "LEGL",
+    "name": "Legal Education"
+  },
+  {
+    "code": "LIFS",
+    "name": "Life Science"
+  },
+  {
+    "code": "MARK",
+    "name": "Marketing"
+  },
+  {
+    "code": "MATH",
+    "name": "Mathematics"
+  },
+  {
+    "code": "MECH",
+    "name": "Mechanical and Aerospace Engineering"
+  },
+  {
+    "code": "MGMT",
+    "name": "Management"
+  },
+  {
+    "code": "OCES",
+    "name": "Ocean Science"
+  },
+  {
+    "code": "PHYS",
+    "name": "Physics"
+  },
+  {
+    "code": "PPOL",
+    "name": "Public Policy"
+  },
+  {
+    "code": "RMBI",
+    "name": "Risk Management and Business Intelligence"
+  },
+  {
+    "code": "SBMT",
+    "name": "School of Business and Management"
+  },
+  {
+    "code": "SCIE",
+    "name": "School of Science"
+  },
+  {
+    "code": "SGFN",
+    "name": "Sustainable and Green Finance"
+  },
+  {
+    "code": "SHSS",
+    "name": "School of Humanities and Social Science"
+  },
+  {
+    "code": "SISP",
+    "name": "Summer Institute for Secondary School Students"
+  },
+  {
+    "code": "SOSC",
+    "name": "Social Science"
+  },
+  {
+    "code": "SUST",
+    "name": "Sustainability"
+  },
+  {
+    "code": "TEMG",
+    "name": "Technology and Management"
+  },
+  {
+    "code": "UCOP",
+    "name": "Undergraduate Global Challenges and Opportunities Program"
+  },
+  {
+    "code": "UPOP",
+    "name": "Undergraduate Practice Opportunities Program"
+  },
+  {
+    "code": "UROP",
+    "name": "Undergraduate Research Opportunities Program"
+  },
+  {
+    "code": "UTOP",
+    "name": "Undergraduate Teaching Opportunities Program"
+  },
+  {
+    "code": "WBBA",
+    "name": "SF Program in World Business"
+  }
+]

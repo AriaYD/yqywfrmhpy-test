@@ -1,0 +1,78 @@
+{
+  "$defs": {
+    "Locale": {
+      "description": "UI 双语要求（Plan §2）。契约层只承载 locale 标签，不承载文案。",
+      "enum": [
+        "zh-Hans",
+        "en"
+      ],
+      "title": "Locale",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/ReminderTemplate.json",
+  "additionalProperties": false,
+  "description": "Spec §16.8.3 的六个槽位。每种语言一份，缺一不可。",
+  "properties": {
+    "locale": {
+      "$ref": "#/components/schemas/Locale"
+    },
+    "slot1_observation": {
+      "description": "系统观察到了什么",
+      "minLength": 1,
+      "title": "Slot1 Observation",
+      "type": "string"
+    },
+    "slot2_data_source": {
+      "description": "数据来自哪里、覆盖范围",
+      "minLength": 1,
+      "title": "Slot2 Data Source",
+      "type": "string"
+    },
+    "slot3_non_judgment": {
+      "description": "系统没有作出什么判断",
+      "minLength": 1,
+      "title": "Slot3 Non Judgment",
+      "type": "string"
+    },
+    "slot4_immediate_options": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Slot4 Immediate Options",
+      "type": "array"
+    },
+    "slot5_support_options": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Slot5 Support Options",
+      "type": "array"
+    },
+    "slot6_consent_state": {
+      "minLength": 1,
+      "title": "Slot6 Consent State",
+      "type": "string"
+    },
+    "template_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Template Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "template_id",
+    "locale",
+    "slot1_observation",
+    "slot2_data_source",
+    "slot3_non_judgment",
+    "slot4_immediate_options",
+    "slot5_support_options",
+    "slot6_consent_state"
+  ],
+  "title": "ReminderTemplate",
+  "type": "object"
+}

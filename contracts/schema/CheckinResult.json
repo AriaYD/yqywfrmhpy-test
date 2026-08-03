@@ -1,0 +1,33 @@
+{
+  "$id": "https://campuspath.invalid/schema/CheckinResult.json",
+  "additionalProperties": false,
+  "properties": {
+    "accepted": {
+      "title": "Accepted",
+      "type": "boolean"
+    },
+    "already_checked_in": {
+      "default": false,
+      "title": "Already Checked In",
+      "type": "boolean"
+    },
+    "attend_count": {
+      "minimum": 0,
+      "title": "Attend Count",
+      "type": "integer"
+    },
+    "opportunity_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Opportunity Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "opportunity_id",
+    "accepted",
+    "attend_count"
+  ],
+  "title": "CheckinResult",
+  "type": "object"
+}

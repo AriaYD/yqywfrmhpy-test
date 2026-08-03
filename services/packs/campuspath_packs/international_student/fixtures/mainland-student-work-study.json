@@ -1,0 +1,14 @@
+{
+  "student_cohort": "international",
+  "study_jurisdiction": "CN-MAINLAND",
+  "intended_work_jurisdiction": "CN-MAINLAND",
+  "institution": "Example University",
+  "programme_level": "postgraduate_research",
+  "study_mode": "full_time",
+  "permission_category": "study_residence_permit",
+  "permission_expiry_date": "2027-06-30",
+  "goal_type": "part_time_work",
+  "intended_start_date": "2026-09-15",
+  "consent_context_pack": true
+}
+

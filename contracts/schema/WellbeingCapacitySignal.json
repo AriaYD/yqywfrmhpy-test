@@ -1,0 +1,167 @@
+{
+  "$defs": {
+    "DataCoverage": {
+      "additionalProperties": false,
+      "description": "这条信号是基于多少数据得出的。覆盖不足时不得升级严重度。",
+      "properties": {
+        "days_with_data": {
+          "minimum": 0,
+          "title": "Days With Data",
+          "type": "integer"
+        },
+        "prerequisite_setting_present": {
+          "description": "学生是否已显式设置对应的窗口/偏好；False 时信号不得触发",
+          "title": "Prerequisite Setting Present",
+          "type": "boolean"
+        },
+        "window_days": {
+          "maximum": 90,
+          "minimum": 1,
+          "title": "Window Days",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "window_days",
+        "days_with_data",
+        "prerequisite_setting_present"
+      ],
+      "title": "DataCoverage",
+      "type": "object"
+    },
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    },
+    "ObservationSource": {
+      "enum": [
+        "student_defined_window",
+        "self_reported",
+        "capacity_snapshot",
+        "planned_schedule"
+      ],
+      "title": "ObservationSource",
+      "type": "string"
+    },
+    "Severity": {
+      "enum": [
+        "info",
+        "attention",
+        "blocking"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "WellbeingSignalType": {
+      "description": "Spec §16.8.2 的五类。全部是阈值比较，无语义判断。",
+      "enum": [
+        "sleep_opportunity_compressed",
+        "self_reported_short_sleep",
+        "activity_opportunity_low",
+        "recovery_block_absent",
+        "capacity_overload"
+      ],
+      "title": "WellbeingSignalType",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/WellbeingCapacitySignal.json",
+  "additionalProperties": false,
+  "description": "由 Rules & Constraint Engine 确定性产出（Spec §14.2）。\n\n``non_diagnostic`` 恒为 True 且不可赋成 False——这不是配置项。",
+  "properties": {
+    "data_coverage": {
+      "$ref": "#/components/schemas/DataCoverage"
+    },
+    "evaluated_at": {
+      "format": "date-time",
+      "title": "Evaluated At",
+      "type": "string"
+    },
+    "non_diagnostic": {
+      "const": true,
+      "default": true,
+      "title": "Non Diagnostic",
+      "type": "boolean"
+    },
+    "observation_source": {
+      "$ref": "#/components/schemas/ObservationSource"
+    },
+    "observed_value": {
+      "$ref": "#/components/schemas/LocalizedText",
+      "description": "实测值，例如 '7 天中 3 天低于 7 小时'"
+    },
+    "period_end": {
+      "format": "date",
+      "title": "Period End",
+      "type": "string"
+    },
+    "period_start": {
+      "format": "date",
+      "title": "Period Start",
+      "type": "string"
+    },
+    "reference_line": {
+      "$ref": "#/components/schemas/LocalizedText",
+      "description": "所依据的参考线原文，例如 '成人每 24 小时至少 7 小时'（Spec §16.8.1）"
+    },
+    "rule_id": {
+      "description": "产生该信号的阈值规则 id，可回溯到 rule set",
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Rule Id",
+      "type": "string"
+    },
+    "severity": {
+      "$ref": "#/components/schemas/Severity",
+      "default": "info"
+    },
+    "signal_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Signal Id",
+      "type": "string"
+    },
+    "signal_type": {
+      "$ref": "#/components/schemas/WellbeingSignalType"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "signal_id",
+    "student_id",
+    "signal_type",
+    "period_start",
+    "period_end",
+    "observation_source",
+    "data_coverage",
+    "reference_line",
+    "observed_value",
+    "evaluated_at",
+    "rule_id"
+  ],
+  "title": "WellbeingCapacitySignal",
+  "type": "object"
+}

@@ -1,0 +1,92 @@
+{
+  "$defs": {
+    "SkillLevel": {
+      "enum": [
+        "aware",
+        "practicing",
+        "proficient",
+        "advanced"
+      ],
+      "title": "SkillLevel",
+      "type": "string"
+    },
+    "SkillSourceType": {
+      "enum": [
+        "course",
+        "experience",
+        "project",
+        "self_assessed",
+        "certificate",
+        "agent_inferred"
+      ],
+      "title": "SkillSourceType",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/SkillRecord.json",
+  "additionalProperties": false,
+  "properties": {
+    "confidence": {
+      "default": 0.5,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "evidence_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "last_used_at": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Used At"
+    },
+    "level": {
+      "$ref": "#/components/schemas/SkillLevel"
+    },
+    "skill_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Skill Id",
+      "type": "string"
+    },
+    "source_type": {
+      "$ref": "#/components/schemas/SkillSourceType"
+    },
+    "student_confirmed": {
+      "default": false,
+      "description": "agent_inferred 且未确认的技能不得进入 Canonical Profile（B3）",
+      "title": "Student Confirmed",
+      "type": "boolean"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "skill_id",
+    "student_id",
+    "level",
+    "source_type"
+  ],
+  "title": "SkillRecord",
+  "type": "object"
+}

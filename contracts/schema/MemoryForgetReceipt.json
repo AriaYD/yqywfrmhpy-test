@@ -1,0 +1,31 @@
+{
+  "$id": "https://campuspath.invalid/schema/MemoryForgetReceipt.json",
+  "additionalProperties": false,
+  "description": "「忘记」的回执。条目被真正移除；移除这件事本身留痕。",
+  "properties": {
+    "forgotten_at": {
+      "format": "date-time",
+      "title": "Forgotten At",
+      "type": "string"
+    },
+    "memory_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Memory Id",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "memory_id",
+    "student_id",
+    "forgotten_at"
+  ],
+  "title": "MemoryForgetReceipt",
+  "type": "object"
+}

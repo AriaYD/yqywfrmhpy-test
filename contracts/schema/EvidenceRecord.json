@@ -1,0 +1,144 @@
+{
+  "$defs": {
+    "VerificationStatus": {
+      "description": "Spec §8.2.3：不把上传文件自动当成学校认证。",
+      "enum": [
+        "self_reported",
+        "source_imported",
+        "institution_verified",
+        "expired",
+        "disputed"
+      ],
+      "title": "VerificationStatus",
+      "type": "string"
+    },
+    "Visibility": {
+      "enum": [
+        "private",
+        "shared_with_advisor",
+        "institution_visible"
+      ],
+      "title": "Visibility",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/EvidenceRecord.json",
+  "additionalProperties": false,
+  "description": "Spec §8.2.3：Evidence 独立留存，不随 Profile 更新消失。",
+  "properties": {
+    "checksum": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Checksum"
+    },
+    "evidence_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Evidence Id",
+      "type": "string"
+    },
+    "evidence_type": {
+      "enum": [
+        "certificate",
+        "transcript",
+        "artifact",
+        "link",
+        "award_letter",
+        "reference",
+        "screenshot",
+        "other"
+      ],
+      "title": "Evidence Type",
+      "type": "string"
+    },
+    "expires_at": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expires At"
+    },
+    "issuer": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Issuer"
+    },
+    "object_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Private Vault 中的对象引用，按 student_id 前缀隔离",
+      "title": "Object Ref"
+    },
+    "obtained_at": {
+      "format": "date",
+      "title": "Obtained At",
+      "type": "string"
+    },
+    "source": {
+      "title": "Source",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "uri": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Uri"
+    },
+    "verification_status": {
+      "$ref": "#/components/schemas/VerificationStatus",
+      "default": "self_reported"
+    },
+    "visibility": {
+      "$ref": "#/components/schemas/Visibility",
+      "default": "private"
+    }
+  },
+  "required": [
+    "evidence_id",
+    "student_id",
+    "evidence_type",
+    "source",
+    "obtained_at"
+  ],
+  "title": "EvidenceRecord",
+  "type": "object"
+}

@@ -1,0 +1,79 @@
+{
+  "$id": "https://campuspath.invalid/schema/CounselingBooking.json",
+  "additionalProperties": false,
+  "description": "第二层分流（ISI≥15 且 PSS-10>20）的咨询预约。\n\n预约展示给咨询室：姓名 / 专业 / 年级 / 班级 / 联系方式（用户裁定\n2026-08-01）。专业与年级由服务端从 Profile 回填，学生不可伪造；\n姓名 / 班级 / 联系方式由学生在预约时自填。",
+  "properties": {
+    "booking_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Booking Id",
+      "type": "string"
+    },
+    "class_label": {
+      "anyOf": [
+        {
+          "maxLength": 60,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Class Label"
+    },
+    "contact": {
+      "maxLength": 254,
+      "minLength": 3,
+      "title": "Contact",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "program": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Program",
+      "type": "string"
+    },
+    "slot_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Slot Id",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "student_name": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Student Name",
+      "type": "string"
+    },
+    "year": {
+      "maximum": 8,
+      "minimum": 1,
+      "title": "Year",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "booking_id",
+    "student_id",
+    "slot_id",
+    "student_name",
+    "program",
+    "year",
+    "contact",
+    "created_at"
+  ],
+  "title": "CounselingBooking",
+  "type": "object"
+}

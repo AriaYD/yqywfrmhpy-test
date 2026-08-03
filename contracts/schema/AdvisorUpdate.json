@@ -1,0 +1,25 @@
+{
+  "$id": "https://campuspath.invalid/schema/AdvisorUpdate.json",
+  "additionalProperties": false,
+  "description": "B9（2026-08-01 用户裁定）：注册信息可查看/编辑——姓名与专长方向可改。",
+  "properties": {
+    "focus": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Focus",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "focus"
+  ],
+  "title": "AdvisorUpdate",
+  "type": "object"
+}

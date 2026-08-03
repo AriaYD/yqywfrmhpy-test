@@ -1,0 +1,61 @@
+{
+  "$id": "https://campuspath.invalid/schema/PackPreparationAction.json",
+  "additionalProperties": false,
+  "properties": {
+    "category": {
+      "maxLength": 40,
+      "title": "Category",
+      "type": "string"
+    },
+    "description": {
+      "maxLength": 1000,
+      "title": "Description",
+      "type": "string"
+    },
+    "mandatory": {
+      "default": false,
+      "title": "Mandatory",
+      "type": "boolean"
+    },
+    "preparation_action_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Preparation Action Id",
+      "type": "string"
+    },
+    "recommended_lead_time_days": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Recommended Lead Time Days"
+    },
+    "source_ids": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Source Ids",
+      "type": "array"
+    },
+    "title": {
+      "maxLength": 200,
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "preparation_action_id",
+    "category",
+    "title",
+    "description"
+  ],
+  "title": "PackPreparationAction",
+  "type": "object"
+}

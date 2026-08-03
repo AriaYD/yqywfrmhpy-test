@@ -1,0 +1,71 @@
+{
+  "$defs": {
+    "AgentId": {
+      "description": "6 个语义 Agent（Spec §8.1）。数量固定，新增需改 Spec。",
+      "enum": [
+        "A0",
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5"
+      ],
+      "title": "AgentId",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/AgentCall.json",
+  "additionalProperties": false,
+  "properties": {
+    "agent": {
+      "$ref": "#/components/schemas/AgentId"
+    },
+    "call_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Call Id",
+      "type": "string"
+    },
+    "depends_on": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Depends On",
+      "type": "array"
+    },
+    "parallel_group": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "同一组内的调用可并行（A1/A2/A3），用于 WP11 延迟优化",
+      "title": "Parallel Group"
+    },
+    "tool_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tool Name"
+    }
+  },
+  "required": [
+    "call_id",
+    "agent"
+  ],
+  "title": "AgentCall",
+  "type": "object"
+}

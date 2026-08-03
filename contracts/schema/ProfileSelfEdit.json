@@ -1,0 +1,334 @@
+{
+  "$defs": {
+    "DateRange": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        },
+        "start": {
+          "format": "date",
+          "title": "Start",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start"
+      ],
+      "title": "DateRange",
+      "type": "object"
+    },
+    "ExperienceRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "experience_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Experience Id",
+          "type": "string"
+        },
+        "note_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Note Ids",
+          "type": "array"
+        },
+        "organization": {
+          "title": "Organization",
+          "type": "string"
+        },
+        "outcomes": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Outcomes",
+          "type": "array"
+        },
+        "period": {
+          "$ref": "#/components/schemas/DateRange"
+        },
+        "responsibilities": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Responsibilities",
+          "type": "array"
+        },
+        "role": {
+          "title": "Role",
+          "type": "string"
+        },
+        "skills": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Skills",
+          "type": "array"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/components/schemas/ExperienceType"
+        },
+        "verification_status": {
+          "$ref": "#/components/schemas/VerificationStatus",
+          "default": "self_reported"
+        }
+      },
+      "required": [
+        "experience_id",
+        "student_id",
+        "type",
+        "organization",
+        "role",
+        "period"
+      ],
+      "title": "ExperienceRecord",
+      "type": "object"
+    },
+    "ExperienceType": {
+      "enum": [
+        "internship",
+        "part_time",
+        "research",
+        "project",
+        "competition",
+        "club",
+        "volunteer",
+        "entrepreneurship",
+        "exchange",
+        "other"
+      ],
+      "title": "ExperienceType",
+      "type": "string"
+    },
+    "InternationalStudentContext": {
+      "additionalProperties": false,
+      "description": "结构化国际学生上下文（用户裁定 F，2026-08-02：**不是**一个布尔开关）。\n\n存在即视为「我是国际生」已勾选；字段对齐 vendored Pack 的\nbase/questions.yaml（integration-contract：这些字段归 Student Profile 所有，\n政策规则归 Pack 所有）。institution / programme_level / expected_graduation\n不重复存——求值时从 StudentProfile 本体派生，一份事实一个出处。",
+      "properties": {
+        "employer_sponsorship_expected": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Employer Sponsorship Expected"
+        },
+        "intended_start_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Intended Start Date"
+        },
+        "intended_work_jurisdiction": {
+          "enum": [
+            "HK-SAR",
+            "CN-MAINLAND",
+            "other"
+          ],
+          "title": "Intended Work Jurisdiction",
+          "type": "string"
+        },
+        "language_evidence": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Language Evidence",
+          "type": "array"
+        },
+        "permission_category": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Permission Category",
+          "type": "string"
+        },
+        "permission_expiry_date": {
+          "format": "date",
+          "title": "Permission Expiry Date",
+          "type": "string"
+        },
+        "school_approval": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "School Approval"
+        },
+        "study_jurisdiction": {
+          "enum": [
+            "HK-SAR",
+            "CN-MAINLAND",
+            "other"
+          ],
+          "title": "Study Jurisdiction",
+          "type": "string"
+        },
+        "study_mode": {
+          "default": "full_time",
+          "enum": [
+            "full_time",
+            "part_time"
+          ],
+          "title": "Study Mode",
+          "type": "string"
+        },
+        "target_cities": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Target Cities",
+          "type": "array"
+        },
+        "updated_at": {
+          "format": "date-time",
+          "title": "Updated At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "study_jurisdiction",
+        "intended_work_jurisdiction",
+        "permission_category",
+        "permission_expiry_date",
+        "updated_at"
+      ],
+      "title": "InternationalStudentContext",
+      "type": "object"
+    },
+    "VerificationStatus": {
+      "description": "Spec §8.2.3：不把上传文件自动当成学校认证。",
+      "enum": [
+        "self_reported",
+        "source_imported",
+        "institution_verified",
+        "expired",
+        "disputed"
+      ],
+      "title": "VerificationStatus",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/ProfileSelfEdit.json",
+  "additionalProperties": false,
+  "description": "R4-G（2026-07-31）：学生本人直接编辑档案（LinkedIn 式 Edit）。\n\n与 B3 不冲突：提议→裁决路径挡的是 **Agent** 暗改档案；学生改自己的\n标签与经历不需要谁批准（先例：目标就是学生直接写的）。\n字段都可选——只改提供的部分。",
+  "properties": {
+    "candidate_goal_share": {
+      "anyOf": [
+        {
+          "maximum": 0.5,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Candidate Goal Share"
+    },
+    "clear_intl_context": {
+      "default": false,
+      "title": "Clear Intl Context",
+      "type": "boolean"
+    },
+    "experiences": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/components/schemas/ExperienceRecord"
+          },
+          "maxItems": 50,
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "整组替换本人的经历记录；每条 student_id 必须是本人",
+      "title": "Experiences"
+    },
+    "interests": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 30,
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Interests"
+    },
+    "intl_context": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/InternationalStudentContext"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "title": "ProfileSelfEdit",
+  "type": "object"
+}

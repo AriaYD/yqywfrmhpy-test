@@ -1,0 +1,190 @@
+{
+  "$defs": {
+    "EnergyCost": {
+      "enum": [
+        "low",
+        "moderate",
+        "high",
+        "draining"
+      ],
+      "title": "EnergyCost",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/Reflection.json",
+  "additionalProperties": false,
+  "description": "学生私有。``private_text`` 永远不离开 Student Private Vault。",
+  "properties": {
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "energy_cost": {
+      "$ref": "#/components/schemas/EnergyCost",
+      "default": "moderate"
+    },
+    "fit_tag": {
+      "anyOf": [
+        {
+          "maxLength": 40,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Fit Tag"
+    },
+    "goal_delta": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Goal Delta",
+      "type": "array"
+    },
+    "next_action": {
+      "anyOf": [
+        {
+          "maxLength": 1000,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Next Action"
+    },
+    "personal_learning": {
+      "anyOf": [
+        {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Personal Learning"
+    },
+    "preference_delta": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Preference Delta",
+      "type": "array"
+    },
+    "private_text": {
+      "anyOf": [
+        {
+          "maxLength": 20000,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "学生原文。类型层保证它没有任何通往 Aggregation 的路径（B4）",
+      "title": "Private Text"
+    },
+    "profile_candidate_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Profile Candidate Ids",
+      "type": "array"
+    },
+    "rating_content_depth": {
+      "anyOf": [
+        {
+          "maximum": 5,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Rating Content Depth"
+    },
+    "rating_expectation_match": {
+      "anyOf": [
+        {
+          "maximum": 5,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Rating Expectation Match"
+    },
+    "rating_organization": {
+      "anyOf": [
+        {
+          "maximum": 5,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Rating Organization"
+    },
+    "rating_practical_value": {
+      "anyOf": [
+        {
+          "maximum": 5,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Rating Practical Value"
+    },
+    "reflection_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Reflection Id",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "subject_id": {
+      "description": "被反思的行动 / 活动 / 课程",
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Subject Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "reflection_id",
+    "student_id",
+    "subject_id",
+    "created_at"
+  ],
+  "title": "Reflection",
+  "type": "object"
+}

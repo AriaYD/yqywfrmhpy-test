@@ -1,0 +1,706 @@
+{
+  "role": "ai-product-manager",
+  "compiled_at": "2026-08-02",
+  "companies": [
+    {
+      "company": "字节跳动 ByteDance",
+      "jd_title": "AI产品经理（评测方向）-TikTok",
+      "official_url": "https://jobs.bytedance.com/experienced/position/7656316786938136885/detail",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C01-L1",
+          "original_excerpt": "本科及以上学历，3年以上AI产品经理/策略产品经理工作经验；",
+          "points": [
+            {"point_id": "C01-L1-P1", "layer": "hard", "category": "education_degree", "summary_zh": "本科及以上学历", "summary_en": "Bachelor's degree or above"},
+            {"point_id": "C01-L1-P2", "layer": "hard", "category": "credential", "summary_zh": "3年以上AI产品经理/策略产品经理工作经验", "summary_en": "3+ years of experience as AI PM / strategy PM"}
+          ]
+        },
+        {
+          "line_id": "C01-L2",
+          "original_excerpt": "具备扎实的指标设计与度量方法论功底，能够将模糊的体验目标拆解为可统计、可定目标的量化标准；",
+          "points": [
+            {"point_id": "C01-L2-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "指标设计与度量方法论功底", "summary_en": "Solid grounding in metric design and measurement methodology"},
+            {"point_id": "C01-L2-P2", "layer": "soft", "category": "data_sense", "summary_zh": "把模糊体验目标拆解为可量化标准", "summary_en": "Ability to translate fuzzy experience goals into quantifiable standards"}
+          ]
+        },
+        {
+          "line_id": "C01-L3",
+          "original_excerpt": "熟悉抽样、实验评估等数据方法，具备良好的数据敏感度与分析能力；",
+          "points": [
+            {"point_id": "C01-L3-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "熟悉抽样、实验评估等数据方法", "summary_en": "Familiar with sampling and experiment-evaluation methods"},
+            {"point_id": "C01-L3-P2", "layer": "soft", "category": "data_sense", "summary_zh": "良好的数据敏感度与分析能力", "summary_en": "Strong data sensitivity and analytical ability"}
+          ]
+        },
+        {
+          "line_id": "C01-L4",
+          "original_excerpt": "优秀的跨团队沟通与推动能力，能够在多方协作和复杂约束下推动方案落地。",
+          "points": [
+            {"point_id": "C01-L4-P1", "layer": "soft", "category": "communication", "summary_zh": "优秀的跨团队沟通能力", "summary_en": "Excellent cross-team communication"},
+            {"point_id": "C01-L4-P2", "layer": "soft", "category": "execution", "summary_zh": "在多方协作和复杂约束下推动方案落地", "summary_en": "Drives solutions to execution under multi-party constraints"}
+          ]
+        },
+        {
+          "line_id": "C01-L5",
+          "original_excerpt": "加分项：有AI评估相关经验（如LLM-as-a-Judge、标注体系搭建、Ground Truth建设）；",
+          "points": [
+            {"point_id": "C01-L5-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "AI评估相关经验（LLM-as-a-Judge、标注体系、Ground Truth）", "summary_en": "AI evaluation experience (LLM-as-a-Judge, labeling systems, Ground Truth)"}
+          ]
+        },
+        {
+          "line_id": "C01-L6",
+          "original_excerpt": "有客服、内容安全、用户体验度量或相关To-User业务背景；",
+          "points": [
+            {"point_id": "C01-L6-P1", "layer": "hard", "category": "credential", "summary_zh": "客服/内容安全/用户体验度量的业务背景", "summary_en": "Background in customer service, content safety, or UX measurement domains"}
+          ]
+        },
+        {
+          "line_id": "C01-L7",
+          "original_excerpt": "有在多地区/多合规环境下设计数据方案的经验。",
+          "points": [
+            {"point_id": "C01-L7-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "多地区/多合规环境下设计数据方案的经验", "summary_en": "Experience designing data solutions across multi-region/multi-compliance environments"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 7, "lines_mapped": 7}
+    },
+    {
+      "company": "Google",
+      "jd_title": "Product Manager, Retrieval-Augmented Generation and Embeddings",
+      "official_url": "https://www.google.com/about/careers/applications/jobs/results/74642828323365574-product-manager-retrievalaugmented-generation-and-embeddings",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C02-L1",
+          "original_excerpt": "Bachelor's degree or equivalent practical experience.",
+          "points": [
+            {"point_id": "C02-L1-P1", "layer": "hard", "category": "education_degree", "summary_zh": "本科学历或等同实践经验", "summary_en": "Bachelor's degree or equivalent practical experience"}
+          ]
+        },
+        {
+          "line_id": "C02-L2",
+          "original_excerpt": "5 years of experience in product management or a related technical role.",
+          "points": [
+            {"point_id": "C02-L2-P1", "layer": "hard", "category": "credential", "summary_zh": "5年产品管理或相关技术岗位经验", "summary_en": "5 years of experience in product management or a related technical role"}
+          ]
+        },
+        {
+          "line_id": "C02-L3",
+          "original_excerpt": "2 years of experience taking technical products from conception to launch (e.g., ideation to execution, end-to-end, 0 to 1, etc).",
+          "points": [
+            {"point_id": "C02-L3-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "2年将技术产品从0到1推向上线的经验", "summary_en": "2 years of experience taking technical products from conception to launch (0 to 1)"}
+          ]
+        },
+        {
+          "line_id": "C02-L4",
+          "original_excerpt": "Experience integrating generative AI tools or LLM interfaces into workflows.",
+          "points": [
+            {"point_id": "C02-L4-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "将生成式AI工具/LLM接口集成进工作流的经验", "summary_en": "Experience integrating generative AI tools or LLM interfaces into workflows"}
+          ]
+        },
+        {
+          "line_id": "C02-L5",
+          "original_excerpt": "Experience building and scaling developer platforms, developer-facing APIs/SDKs, or general back-end infrastructure (e.g. for search or AI applications).",
+          "points": [
+            {"point_id": "C02-L5-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "构建并规模化开发者平台/API/SDK或后端基础设施的经验", "summary_en": "Experience building and scaling developer platforms, APIs/SDKs, or back-end infrastructure"}
+          ]
+        },
+        {
+          "line_id": "C02-L6",
+          "original_excerpt": "Master's degree in a technology or a business related field.",
+          "points": [
+            {"point_id": "C02-L6-P1", "layer": "hard", "category": "education_degree", "summary_zh": "技术或商业相关领域硕士学位", "summary_en": "Master's degree in a technology or business related field"}
+          ]
+        },
+        {
+          "line_id": "C02-L7",
+          "original_excerpt": "2 years of experience in software development or engineering.",
+          "points": [
+            {"point_id": "C02-L7-P1", "layer": "hard", "category": "credential", "summary_zh": "2年软件开发或工程经验", "summary_en": "2 years of experience in software development or engineering"}
+          ]
+        },
+        {
+          "line_id": "C02-L8",
+          "original_excerpt": "Experience with Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), and vector search.",
+          "points": [
+            {"point_id": "C02-L8-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "熟悉大语言模型、RAG检索增强生成与向量搜索", "summary_en": "Experience with LLMs, Retrieval-Augmented Generation (RAG), and vector search"}
+          ]
+        },
+        {
+          "line_id": "C02-L9",
+          "original_excerpt": "Ability to define user journeys and success metrics along with excellent analytical skills.",
+          "points": [
+            {"point_id": "C02-L9-P1", "layer": "soft", "category": "user_empathy", "summary_zh": "能够定义用户旅程", "summary_en": "Ability to define user journeys"},
+            {"point_id": "C02-L9-P2", "layer": "soft", "category": "data_sense", "summary_zh": "定义成功指标并具备出色的分析能力", "summary_en": "Defines success metrics with excellent analytical skills"}
+          ]
+        },
+        {
+          "line_id": "C02-L10",
+          "original_excerpt": "Exceptional cross-functional leadership skills with the ability to influence without authority across engineering, research, and product areas.",
+          "points": [
+            {"point_id": "C02-L10-P1", "layer": "soft", "category": "influence", "summary_zh": "跨职能领导力，能在无直接管理权限下影响工程/研究/产品团队", "summary_en": "Exceptional cross-functional leadership; influences without authority across eng, research, and product"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 10, "lines_mapped": 10}
+    },
+    {
+      "company": "Microsoft",
+      "jd_title": "Senior AI Product Manager",
+      "official_url": "https://apply.careers.microsoft.com/careers/job/1970393556940364",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C03-L1",
+          "original_excerpt": "Required/Minimum Qualifications: Bachelor's Degree AND 5+ years experience in product/service/program management or software development OR equivalent experience.",
+          "points": [
+            {"point_id": "C03-L1-P1", "layer": "hard", "category": "education_degree", "summary_zh": "本科学历", "summary_en": "Bachelor's Degree"},
+            {"point_id": "C03-L1-P2", "layer": "hard", "category": "credential", "summary_zh": "5年以上产品/服务/项目管理或软件开发经验（或等同经验）", "summary_en": "5+ years experience in product/service/program management or software development (or equivalent)"}
+          ]
+        },
+        {
+          "line_id": "C03-L2",
+          "original_excerpt": "Additional Or Preferred Qualifications: Bachelor's Degree AND 10+ years experience in product/service/project/program management or software development OR equivalent experience.",
+          "points": [
+            {"point_id": "C03-L2-P1", "layer": "hard", "category": "education_degree", "summary_zh": "本科学历（优先项对应更长年限）", "summary_en": "Bachelor's Degree (preferred track requires longer tenure)"},
+            {"point_id": "C03-L2-P2", "layer": "hard", "category": "credential", "summary_zh": "10年以上产品/项目/程序管理或软件开发经验", "summary_en": "10+ years experience in product/service/project/program management or software development"}
+          ]
+        },
+        {
+          "line_id": "C03-L3",
+          "original_excerpt": "2+ years of experience working on AI systems as an architect or a product manager.",
+          "points": [
+            {"point_id": "C03-L3-P1", "layer": "hard", "category": "credential", "summary_zh": "2年以上以架构师或产品经理身份从事AI系统工作的经验", "summary_en": "2+ years of experience working on AI systems as an architect or product manager"}
+          ]
+        },
+        {
+          "line_id": "C03-L4",
+          "original_excerpt": "Strong understanding of several of the below areas: GPU Architecture, Scale Up and Scale out networking, Data Center Specifications, Model Architecture and System Reliability.",
+          "points": [
+            {"point_id": "C03-L4-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "深入理解GPU架构、横纵向扩展网络、数据中心规格、模型架构与系统可靠性", "summary_en": "Strong understanding of GPU architecture, scale up/out networking, data center specs, model architecture, and system reliability"}
+          ]
+        },
+        {
+          "line_id": "C03-L5",
+          "original_excerpt": "3+ years of technical product management experience, including products within datacenter Hardware systems and/or Cloud infrastructure.",
+          "points": [
+            {"point_id": "C03-L5-P1", "layer": "hard", "category": "credential", "summary_zh": "3年以上数据中心硬件系统/云基础设施相关技术产品管理经验", "summary_en": "3+ years of technical product management experience in datacenter hardware or cloud infrastructure"}
+          ]
+        },
+        {
+          "line_id": "C03-L6",
+          "original_excerpt": "3+ years experience creating product roadmap(s) from conception to launch, driving end-to-end program execution, defining product go-to-market strategy, and leading program direction discussions.",
+          "points": [
+            {"point_id": "C03-L6-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "3年以上从0到1制定产品路线图并推向上市的经验", "summary_en": "3+ years creating product roadmaps from conception to launch"},
+            {"point_id": "C03-L6-P2", "layer": "soft", "category": "execution", "summary_zh": "端到端项目执行与GTM策略推动能力", "summary_en": "Drives end-to-end program execution and go-to-market strategy"}
+          ]
+        },
+        {
+          "line_id": "C03-L7",
+          "original_excerpt": "Experience leading teams in silicon, Hardware systems & Software ecosystem setup within technical contexts.",
+          "points": [
+            {"point_id": "C03-L7-P1", "layer": "soft", "category": "leadership", "summary_zh": "在芯片、硬件系统与软件生态搭建中的团队领导经验", "summary_en": "Experience leading teams across silicon, hardware systems, and software ecosystem setup"}
+          ]
+        },
+        {
+          "line_id": "C03-L8",
+          "original_excerpt": "Ability to deal with disparate stakeholders in highly ambiguous situations and drive clear results and progress.",
+          "points": [
+            {"point_id": "C03-L8-P1", "layer": "soft", "category": "execution", "summary_zh": "在高度模糊情境下推动明确成果与进展", "summary_en": "Drives clear results and progress amid highly ambiguous situations"},
+            {"point_id": "C03-L8-P2", "layer": "soft", "category": "communication", "summary_zh": "能应对多元利益相关方", "summary_en": "Ability to work with disparate stakeholders"}
+          ]
+        },
+        {
+          "line_id": "C03-L9",
+          "original_excerpt": "Understanding and passion for program management including presentation skills and written communication; ability to build relationships and influence in a matrix organization; managing cross team deliverables including program costs, schedules, risks and issues mitigation, establishing process and framework for large scale collaboration.",
+          "points": [
+            {"point_id": "C03-L9-P1", "layer": "soft", "category": "communication", "summary_zh": "出色的演讲与书面沟通能力", "summary_en": "Strong presentation skills and written communication"},
+            {"point_id": "C03-L9-P2", "layer": "soft", "category": "influence", "summary_zh": "在矩阵型组织中建立关系并施加影响力，管理跨团队交付物", "summary_en": "Builds relationships and influences in a matrix organization; manages cross-team deliverables"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 9, "lines_mapped": 9}
+    },
+    {
+      "company": "OpenAI",
+      "jd_title": "Product Manager, API Agents",
+      "official_url": "https://openai.com/careers/product-manager-api-agents-san-francisco/",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C04-L1",
+          "original_excerpt": "Have 5+ years of product management or related industry experience.",
+          "points": [
+            {"point_id": "C04-L1-P1", "layer": "hard", "category": "credential", "summary_zh": "5年以上产品管理或相关行业经验", "summary_en": "5+ years of product management or related industry experience"}
+          ]
+        },
+        {
+          "line_id": "C04-L2",
+          "original_excerpt": "Proven track record of building for developers, with strong intuition for designing clear, flexible APIs and primitives that scale from early experimentation to production use.",
+          "points": [
+            {"point_id": "C04-L2-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "为开发者构建产品的成功履历", "summary_en": "Proven track record of building products for developers"},
+            {"point_id": "C04-L2-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "设计清晰、灵活、可从实验扩展到生产的API与基础组件的直觉", "summary_en": "Strong intuition for designing clear, flexible, production-scalable APIs and primitives"}
+          ]
+        },
+        {
+          "line_id": "C04-L3",
+          "original_excerpt": "Have experience collaborating directly and deeply with high-growth tech companies.",
+          "points": [
+            {"point_id": "C04-L3-P1", "layer": "hard", "category": "credential", "summary_zh": "与高速增长科技公司深度直接协作的经验", "summary_en": "Experience collaborating directly and deeply with high-growth tech companies"}
+          ]
+        },
+        {
+          "line_id": "C04-L4",
+          "original_excerpt": "Have hands-on experience driving consensus and action in ambiguous spaces.",
+          "points": [
+            {"point_id": "C04-L4-P1", "layer": "soft", "category": "influence", "summary_zh": "在模糊环境中推动共识与行动的实战经验", "summary_en": "Hands-on experience driving consensus and action in ambiguous spaces"}
+          ]
+        },
+        {
+          "line_id": "C04-L5",
+          "original_excerpt": "Excel at collaborating across diverse teams and communicating complex ideas clearly.",
+          "points": [
+            {"point_id": "C04-L5-P1", "layer": "soft", "category": "teamwork", "summary_zh": "擅长跨多元团队协作", "summary_en": "Excels at collaborating across diverse teams"},
+            {"point_id": "C04-L5-P2", "layer": "soft", "category": "communication", "summary_zh": "能清晰传达复杂概念", "summary_en": "Communicates complex ideas clearly"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 5, "lines_mapped": 5}
+    },
+    {
+      "company": "Anthropic",
+      "jd_title": "Product Manager, Enterprise",
+      "official_url": "https://job-boards.greenhouse.io/anthropic/jobs/5253339008",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C05-L1",
+          "original_excerpt": "Minimum qualifications: Strong understanding of enterprise security concepts (RBAC, audit logging, encryption, data residency).",
+          "points": [
+            {"point_id": "C05-L1-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "深入理解企业安全概念（RBAC、审计日志、加密、数据驻留）", "summary_en": "Strong understanding of enterprise security concepts (RBAC, audit logging, encryption, data residency)"}
+          ]
+        },
+        {
+          "line_id": "C05-L2",
+          "original_excerpt": "Experience with compliance frameworks (SOC 2, HIPAA, GDPR) and certification processes.",
+          "points": [
+            {"point_id": "C05-L2-P1", "layer": "hard", "category": "credential", "summary_zh": "合规框架（SOC2/HIPAA/GDPR）及认证流程经验", "summary_en": "Experience with compliance frameworks (SOC 2, HIPAA, GDPR) and certification processes"},
+            {"point_id": "C05-L2-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "熟悉合规认证流程的具体操作", "summary_en": "Familiarity with the mechanics of compliance certification processes"}
+          ]
+        },
+        {
+          "line_id": "C05-L3",
+          "original_excerpt": "Track record of shipping enterprise features that drive adoption in security-conscious organizations.",
+          "points": [
+            {"point_id": "C05-L3-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "在安全敏感型组织中交付驱动采纳的企业级功能的履历", "summary_en": "Track record of shipping enterprise features that drive adoption in security-conscious organizations"}
+          ]
+        },
+        {
+          "line_id": "C05-L4",
+          "original_excerpt": "Excellent communication skills with ability to work across technical and business stakeholders.",
+          "points": [
+            {"point_id": "C05-L4-P1", "layer": "soft", "category": "communication", "summary_zh": "出色的沟通能力，能跨技术与业务利益相关方协作", "summary_en": "Excellent communication skills across technical and business stakeholders"}
+          ]
+        },
+        {
+          "line_id": "C05-L5",
+          "original_excerpt": "Experience partnering closely with sales teams and engaging directly with enterprise customers.",
+          "points": [
+            {"point_id": "C05-L5-P1", "layer": "soft", "category": "teamwork", "summary_zh": "与销售团队紧密合作的经验", "summary_en": "Experience partnering closely with sales teams"},
+            {"point_id": "C05-L5-P2", "layer": "soft", "category": "user_empathy", "summary_zh": "直接与企业客户互动", "summary_en": "Engages directly with enterprise customers"}
+          ]
+        },
+        {
+          "line_id": "C05-L6",
+          "original_excerpt": "Preferred qualifications: 6+ years of product management experience, with at least 3 years focused on enterprise software.",
+          "points": [
+            {"point_id": "C05-L6-P1", "layer": "hard", "category": "credential", "summary_zh": "6年以上产品管理经验，其中至少3年专注企业软件", "summary_en": "6+ years of product management experience, with 3+ years focused on enterprise software"}
+          ]
+        },
+        {
+          "line_id": "C05-L7",
+          "original_excerpt": "Experience in AI/ML products or platforms.",
+          "points": [
+            {"point_id": "C05-L7-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "AI/ML产品或平台经验", "summary_en": "Experience in AI/ML products or platforms"}
+          ]
+        },
+        {
+          "line_id": "C05-L8",
+          "original_excerpt": "Background in identity & access management, security tools, or compliance software.",
+          "points": [
+            {"point_id": "C05-L8-P1", "layer": "hard", "category": "credential", "summary_zh": "身份与访问管理、安全工具或合规软件背景", "summary_en": "Background in identity & access management, security tools, or compliance software"}
+          ]
+        },
+        {
+          "line_id": "C05-L9",
+          "original_excerpt": "Understanding of regulated industries (healthcare, financial services, government).",
+          "points": [
+            {"point_id": "C05-L9-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "理解受监管行业（医疗、金融、政府）", "summary_en": "Understanding of regulated industries (healthcare, financial services, government)"}
+          ]
+        },
+        {
+          "line_id": "C05-L10",
+          "original_excerpt": "Technical background or experience working closely with infrastructure/platform teams.",
+          "points": [
+            {"point_id": "C05-L10-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "技术背景或与基础设施/平台团队紧密合作的经验", "summary_en": "Technical background or experience working closely with infrastructure/platform teams"}
+          ]
+        },
+        {
+          "line_id": "C05-L11",
+          "original_excerpt": "Experience with enterprise admin console design and IT buyer personas.",
+          "points": [
+            {"point_id": "C05-L11-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "企业管理控制台设计及IT采购决策者画像经验", "summary_en": "Experience with enterprise admin console design and IT buyer personas"}
+          ]
+        },
+        {
+          "line_id": "C05-L12",
+          "original_excerpt": "Strong technical judgment with ability to go deep on security and infrastructure topics.",
+          "points": [
+            {"point_id": "C05-L12-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "强技术判断力，能深入安全与基础设施议题", "summary_en": "Strong technical judgment with ability to go deep on security and infrastructure topics"}
+          ]
+        },
+        {
+          "line_id": "C05-L13",
+          "original_excerpt": "Structured thinking and ability to break down complex compliance requirements into shippable features.",
+          "points": [
+            {"point_id": "C05-L13-P1", "layer": "soft", "category": "execution", "summary_zh": "把复杂合规需求拆解为可交付功能的结构化思维", "summary_en": "Structured thinking to break down complex compliance requirements into shippable features"}
+          ]
+        },
+        {
+          "line_id": "C05-L14",
+          "original_excerpt": "Customer empathy with ability to understand enterprise buyer and admin personas.",
+          "points": [
+            {"point_id": "C05-L14-P1", "layer": "soft", "category": "user_empathy", "summary_zh": "客户同理心，理解企业采购者与管理员画像", "summary_en": "Customer empathy with ability to understand enterprise buyer and admin personas"}
+          ]
+        },
+        {
+          "line_id": "C05-L15",
+          "original_excerpt": "Execution focus with track record of shipping in fast-paced environments.",
+          "points": [
+            {"point_id": "C05-L15-P1", "layer": "soft", "category": "execution", "summary_zh": "执行导向，具备快节奏环境中的交付履历", "summary_en": "Execution focus with a track record of shipping in fast-paced environments"}
+          ]
+        },
+        {
+          "line_id": "C05-L16",
+          "original_excerpt": "Logistics — Minimum education: Bachelor's degree or an equivalent combination of education, training, and/or experience.",
+          "points": [
+            {"point_id": "C05-L16-P1", "layer": "hard", "category": "education_degree", "summary_zh": "最低学历要求：本科或同等教育/培训/经验组合", "summary_en": "Minimum education: Bachelor's degree or equivalent combination of education/training/experience"}
+          ]
+        },
+        {
+          "line_id": "C05-L17",
+          "original_excerpt": "Required field of study: A field relevant to the role as demonstrated through coursework, training, or professional experience.",
+          "points": [
+            {"point_id": "C05-L17-P1", "layer": "hard", "category": "education_degree", "summary_zh": "要求专业领域与岗位相关（可通过课程/培训/职业经验证明）", "summary_en": "Required field of study relevant to the role, demonstrable via coursework, training, or professional experience"}
+          ]
+        },
+        {
+          "line_id": "C05-L18",
+          "original_excerpt": "Location-based hybrid policy: Currently, we expect all staff to be in one of our offices at least 25% of the time.",
+          "points": [
+            {"point_id": "C05-L18-P1", "layer": "constraint", "category": "location", "summary_zh": "混合办公政策：至少25%时间需到办公室", "summary_en": "Hybrid policy: staff expected in office at least 25% of the time"}
+          ]
+        },
+        {
+          "line_id": "C05-L19",
+          "original_excerpt": "Visa sponsorship: We do sponsor visas! However, we aren't able to successfully sponsor visas for every role and every candidate.",
+          "points": [
+            {"point_id": "C05-L19-P1", "layer": "constraint", "category": "visa_identity", "summary_zh": "提供签证担保（但不保证所有岗位/候选人）", "summary_en": "Visa sponsorship offered, though not guaranteed for every role/candidate"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 19, "lines_mapped": 19}
+    },
+    {
+      "company": "美团 Meituan",
+      "jd_title": "AI产品经理-小美Agent方向",
+      "official_url": "https://zhaopin.meituan.com/web/position/detail?jobUnionId=3939735042&highlightType=social",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C06-L1",
+          "original_excerpt": "本科及以上学历，5年及以上产品相关工作经验，能独立负责完整复杂项目；",
+          "points": [
+            {"point_id": "C06-L1-P1", "layer": "hard", "category": "education_degree", "summary_zh": "本科及以上学历", "summary_en": "Bachelor's degree or above"},
+            {"point_id": "C06-L1-P2", "layer": "hard", "category": "credential", "summary_zh": "5年及以上产品相关工作经验", "summary_en": "5+ years of product-related work experience"},
+            {"point_id": "C06-L1-P3", "layer": "soft", "category": "ownership", "summary_zh": "能独立负责完整复杂项目", "summary_en": "Able to independently own complete, complex projects"}
+          ]
+        },
+        {
+          "line_id": "C06-L2",
+          "original_excerpt": "有 prompt 调优的完整闭环经验（改动 → 评测 → 归因 → 回归验证），理解小样本噪声、单变量实验等基本评测纪律；",
+          "points": [
+            {"point_id": "C06-L2-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "prompt调优完整闭环经验（改动→评测→归因→回归验证）", "summary_en": "Full-loop prompt-tuning experience (change → evaluate → attribute → regression-check)"},
+            {"point_id": "C06-L2-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "理解小样本噪声、单变量实验等评测纪律", "summary_en": "Understands small-sample noise, single-variable experiment discipline"}
+          ]
+        },
+        {
+          "line_id": "C06-L3",
+          "original_excerpt": "AI-native 工作方式：熟练使用 AI / Agent 工具驱动自动化工作流，能阅读 agent 行为日志做失败归因；",
+          "points": [
+            {"point_id": "C06-L3-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "熟练使用AI/Agent工具驱动自动化工作流", "summary_en": "Proficient at using AI/Agent tools to drive automated workflows"},
+            {"point_id": "C06-L3-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "能阅读agent行为日志做失败归因", "summary_en": "Can read agent behavior logs to attribute failures"}
+          ]
+        },
+        {
+          "line_id": "C06-L4",
+          "original_excerpt": "有较强的用户视角和洞察力，能把真实用户表达转化为评测用例，从使用场景和体验角度发现策略问题；",
+          "points": [
+            {"point_id": "C06-L4-P1", "layer": "soft", "category": "user_empathy", "summary_zh": "较强的用户视角和洞察力", "summary_en": "Strong user perspective and insight"},
+            {"point_id": "C06-L4-P2", "layer": "soft", "category": "data_sense", "summary_zh": "把真实用户表达转化为评测用例", "summary_en": "Translates real user expressions into evaluation test cases"}
+          ]
+        },
+        {
+          "line_id": "C06-L5",
+          "original_excerpt": "具有出色的组织协调能力和沟通能力，能推动跨团队项目快速落地；",
+          "points": [
+            {"point_id": "C06-L5-P1", "layer": "soft", "category": "communication", "summary_zh": "出色的组织协调能力和沟通能力", "summary_en": "Excellent coordination and communication skills"},
+            {"point_id": "C06-L5-P2", "layer": "soft", "category": "execution", "summary_zh": "推动跨团队项目快速落地", "summary_en": "Drives cross-team projects to fast execution"}
+          ]
+        },
+        {
+          "line_id": "C06-L6",
+          "original_excerpt": "加分项：有 Agent 产品（多轮对话 / 工具调用 / 记忆系统）的设计或评测实践；对 LLM-as-judge、评测集建设有经验。",
+          "points": [
+            {"point_id": "C06-L6-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "Agent产品（多轮对话/工具调用/记忆系统）的设计或评测实践", "summary_en": "Design or evaluation practice on Agent products (multi-turn dialogue / tool calling / memory systems)"},
+            {"point_id": "C06-L6-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "LLM-as-judge、评测集建设经验", "summary_en": "Experience with LLM-as-judge and building evaluation sets"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 6, "lines_mapped": 6}
+    },
+    {
+      "company": "腾讯 Tencent",
+      "jd_title": "腾讯会议-AI产品经理-企业应用方向",
+      "official_url": "https://careers.tencent.com/jobdesc.html?postId=2036620119203020800",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C07-L1",
+          "original_excerpt": "本科及以上学历，2年以上互联网产品工作经验，有toB产品经验优先考虑；",
+          "points": [
+            {"point_id": "C07-L1-P1", "layer": "hard", "category": "education_degree", "summary_zh": "本科及以上学历", "summary_en": "Bachelor's degree or above"},
+            {"point_id": "C07-L1-P2", "layer": "hard", "category": "credential", "summary_zh": "2年以上互联网产品工作经验", "summary_en": "2+ years of internet product work experience"},
+            {"point_id": "C07-L1-P3", "layer": "hard", "category": "project_portfolio", "summary_zh": "toB产品经验优先", "summary_en": "toB (enterprise) product experience preferred"}
+          ]
+        },
+        {
+          "line_id": "C07-L2",
+          "original_excerpt": "对AI行业趋势和大模型技术与应用边界有深刻的理解，对AI产品有热情；",
+          "points": [
+            {"point_id": "C07-L2-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "深刻理解AI行业趋势与大模型技术应用边界", "summary_en": "Deep understanding of AI industry trends and the capability boundaries of large models"},
+            {"point_id": "C07-L2-P2", "layer": "soft", "category": "learning_agility", "summary_zh": "对AI产品有热情", "summary_en": "Passionate about AI products"}
+          ]
+        },
+        {
+          "line_id": "C07-L3",
+          "original_excerpt": "具备较强的用户思维、产品体验敏感度和出色的团队协作与沟通能力；",
+          "points": [
+            {"point_id": "C07-L3-P1", "layer": "soft", "category": "user_empathy", "summary_zh": "较强的用户思维与产品体验敏感度", "summary_en": "Strong user thinking and product experience sensitivity"},
+            {"point_id": "C07-L3-P2", "layer": "soft", "category": "teamwork", "summary_zh": "出色的团队协作能力", "summary_en": "Excellent team collaboration ability"},
+            {"point_id": "C07-L3-P3", "layer": "soft", "category": "communication", "summary_zh": "出色的沟通能力", "summary_en": "Excellent communication ability"}
+          ]
+        },
+        {
+          "line_id": "C07-L4",
+          "original_excerpt": "善于系统化思考，对行业有深入的洞察、清晰的业务逻辑和产品判断。",
+          "points": [
+            {"point_id": "C07-L4-P1", "layer": "soft", "category": "data_sense", "summary_zh": "系统化思考、行业洞察、清晰业务逻辑与产品判断", "summary_en": "Systematic thinking, deep industry insight, clear business logic and product judgment"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 4, "lines_mapped": 4}
+    },
+    {
+      "company": "阿里巴巴 Alibaba",
+      "jd_title": "ATH-AI创新事业部-产品经理-AI Agent",
+      "official_url": "https://talent-holding.alibaba.com/off-campus/position-detail?lang=zh&positionId=100028940001",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C08-L1",
+          "original_excerpt": "本科及以上学历，2 年及以上产品经理经验；",
+          "points": [
+            {"point_id": "C08-L1-P1", "layer": "hard", "category": "education_degree", "summary_zh": "本科及以上学历", "summary_en": "Bachelor's degree or above"},
+            {"point_id": "C08-L1-P2", "layer": "hard", "category": "credential", "summary_zh": "2年及以上产品经理经验", "summary_en": "2+ years of product manager experience"}
+          ]
+        },
+        {
+          "line_id": "C08-L2",
+          "original_excerpt": "对 AI 技术和产品有浓厚兴趣，能够快速理解 Agent 的核心机制、能力边界和发展趋势；",
+          "points": [
+            {"point_id": "C08-L2-P1", "layer": "soft", "category": "learning_agility", "summary_zh": "对AI技术和产品有浓厚兴趣", "summary_en": "Strong interest in AI technology and products"},
+            {"point_id": "C08-L2-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "快速理解Agent核心机制、能力边界和发展趋势", "summary_en": "Quickly grasps Agent core mechanisms, capability boundaries, and trends"}
+          ]
+        },
+        {
+          "line_id": "C08-L3",
+          "original_excerpt": "具备扎实的产品策划、用户洞察和逻辑分析能力，能够独立定义问题并形成解决方案；",
+          "points": [
+            {"point_id": "C08-L3-P1", "layer": "soft", "category": "user_empathy", "summary_zh": "扎实的用户洞察能力", "summary_en": "Solid user insight ability"},
+            {"point_id": "C08-L3-P2", "layer": "soft", "category": "data_sense", "summary_zh": "扎实的产品策划与逻辑分析能力", "summary_en": "Solid product planning and logical analysis ability"},
+            {"point_id": "C08-L3-P3", "layer": "soft", "category": "ownership", "summary_zh": "能独立定义问题并形成解决方案", "summary_en": "Able to independently define problems and form solutions"}
+          ]
+        },
+        {
+          "line_id": "C08-L4",
+          "original_excerpt": "具备良好的数据意识和结果导向，能够结合用户反馈和数据持续优化产品；",
+          "points": [
+            {"point_id": "C08-L4-P1", "layer": "soft", "category": "data_sense", "summary_zh": "良好的数据意识和结果导向", "summary_en": "Good data sense and results orientation"},
+            {"point_id": "C08-L4-P2", "layer": "soft", "category": "execution", "summary_zh": "结合用户反馈和数据持续优化产品", "summary_en": "Continuously optimizes product using user feedback and data"}
+          ]
+        },
+        {
+          "line_id": "C08-L5",
+          "original_excerpt": "具备较强的项目推动和跨团队协作能力，能够适应快速变化和不确定的工作环境；",
+          "points": [
+            {"point_id": "C08-L5-P1", "layer": "soft", "category": "execution", "summary_zh": "较强的项目推动能力", "summary_en": "Strong project-driving ability"},
+            {"point_id": "C08-L5-P2", "layer": "soft", "category": "teamwork", "summary_zh": "跨团队协作能力", "summary_en": "Cross-team collaboration ability"},
+            {"point_id": "C08-L5-P3", "layer": "soft", "category": "learning_agility", "summary_zh": "适应快速变化和不确定的工作环境", "summary_en": "Adapts to fast-changing and uncertain work environments"}
+          ]
+        },
+        {
+          "line_id": "C08-L6",
+          "original_excerpt": "具备以下任一方向的相关经验者优先：AI Agent、开发者工具、云产品、SaaS 或复杂场景产品；用户增长、官网产品、转化漏斗或增长实验。",
+          "points": [
+            {"point_id": "C08-L6-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "AI Agent/开发者工具/云产品/SaaS或复杂场景产品经验优先", "summary_en": "Experience in AI Agent, developer tools, cloud products, SaaS, or complex-scenario products preferred"},
+            {"point_id": "C08-L6-P2", "layer": "hard", "category": "project_portfolio", "summary_zh": "用户增长/官网产品/转化漏斗或增长实验经验优先", "summary_en": "Experience in user growth, official site products, conversion funnels, or growth experiments preferred"}
+          ]
+        },
+        {
+          "line_id": "C08-L7",
+          "original_excerpt": "具备良好的英语阅读能力；有编程或 Coding Agent 使用经验者优先。",
+          "points": [
+            {"point_id": "C08-L7-P1", "layer": "constraint", "category": "language", "summary_zh": "良好的英语阅读能力", "summary_en": "Good English reading ability"},
+            {"point_id": "C08-L7-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "有编程或Coding Agent使用经验者优先", "summary_en": "Programming or Coding Agent usage experience preferred"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 7, "lines_mapped": 7}
+    },
+    {
+      "company": "小红书 Xiaohongshu",
+      "jd_title": "AI 产品经理-商业化 / 电商",
+      "official_url": "https://job.xiaohongshu.com/social/position/19906",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C09-L1",
+          "original_excerpt": "经验要求：1年以上互联网产品经理经验，有商业化（广告/营销）、电商或 AI 相关产品经验者优先。",
+          "points": [
+            {"point_id": "C09-L1-P1", "layer": "hard", "category": "credential", "summary_zh": "1年以上互联网产品经理经验", "summary_en": "1+ years of internet product manager experience"},
+            {"point_id": "C09-L1-P2", "layer": "hard", "category": "project_portfolio", "summary_zh": "商业化/电商/AI相关产品经验优先", "summary_en": "Commercialization/e-commerce/AI-related product experience preferred"}
+          ]
+        },
+        {
+          "line_id": "C09-L2",
+          "original_excerpt": "AI 理解力：对大语言模型、多模态、Agent 等 AI 技术有深入理解，能够评估技术可行性并与算法团队高效对话。",
+          "points": [
+            {"point_id": "C09-L2-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "对大语言模型、多模态、Agent等AI技术有深入理解", "summary_en": "Deep understanding of LLM, multimodal, and Agent AI technologies"},
+            {"point_id": "C09-L2-P2", "layer": "soft", "category": "communication", "summary_zh": "能评估技术可行性并与算法团队高效对话", "summary_en": "Assesses technical feasibility and communicates efficiently with algorithm teams"}
+          ]
+        },
+        {
+          "line_id": "C09-L3",
+          "original_excerpt": "用户思维：具备优秀的用户洞察能力，能从用户需求和业务痛点出发，设计兼具创新性与落地性的产品方案。",
+          "points": [
+            {"point_id": "C09-L3-P1", "layer": "soft", "category": "user_empathy", "summary_zh": "优秀的用户洞察能力", "summary_en": "Excellent user insight ability"},
+            {"point_id": "C09-L3-P2", "layer": "soft", "category": "execution", "summary_zh": "设计兼具创新性与落地性的产品方案", "summary_en": "Designs product solutions that are both innovative and executable"}
+          ]
+        },
+        {
+          "line_id": "C09-L4",
+          "original_excerpt": "数据能力：熟练运用数据驱动决策，能独立完成数据分析、指标定义和效果归因。",
+          "points": [
+            {"point_id": "C09-L4-P1", "layer": "soft", "category": "data_sense", "summary_zh": "熟练运用数据驱动决策", "summary_en": "Proficient in data-driven decision making"},
+            {"point_id": "C09-L4-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "独立完成数据分析、指标定义和效果归因", "summary_en": "Independently performs data analysis, metric definition, and effect attribution"}
+          ]
+        },
+        {
+          "line_id": "C09-L5",
+          "original_excerpt": "执行力与推动力：能在模糊场景中快速理清方向，高效推进跨团队合作，具备较强的项目管理能力。",
+          "points": [
+            {"point_id": "C09-L5-P1", "layer": "soft", "category": "learning_agility", "summary_zh": "能在模糊场景中快速理清方向", "summary_en": "Quickly clarifies direction in ambiguous scenarios"},
+            {"point_id": "C09-L5-P2", "layer": "soft", "category": "teamwork", "summary_zh": "高效推进跨团队合作", "summary_en": "Drives cross-team collaboration efficiently"},
+            {"point_id": "C09-L5-P3", "layer": "soft", "category": "execution", "summary_zh": "较强的项目管理能力", "summary_en": "Strong project management ability"}
+          ]
+        },
+        {
+          "line_id": "C09-L6",
+          "original_excerpt": "加分项：有 AIGC 产品、广告系统、推荐系统、智能客服或电商导购产品经验；对小红书社区生态有深刻理解。",
+          "points": [
+            {"point_id": "C09-L6-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "AIGC产品/广告系统/推荐系统/智能客服/电商导购产品经验", "summary_en": "Experience with AIGC products, ad systems, recommendation systems, smart customer service, or e-commerce shopping guide products"},
+            {"point_id": "C09-L6-P2", "layer": "hard", "category": "credential", "summary_zh": "对小红书社区生态有深刻理解", "summary_en": "Deep understanding of Xiaohongshu's community ecosystem"}
+          ]
+        },
+        {
+          "line_id": "C09-L7",
+          "original_excerpt": "任职资格：1. 1-5年工作经验，本科及以上",
+          "points": [
+            {"point_id": "C09-L7-P1", "layer": "hard", "category": "credential", "summary_zh": "1-5年工作经验", "summary_en": "1-5 years of work experience"},
+            {"point_id": "C09-L7-P2", "layer": "hard", "category": "education_degree", "summary_zh": "本科及以上学历", "summary_en": "Bachelor's degree or above"}
+          ]
+        },
+        {
+          "line_id": "C09-L8",
+          "original_excerpt": "任职资格：2. AI产品经验",
+          "points": [
+            {"point_id": "C09-L8-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "AI产品经验", "summary_en": "AI product experience"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 8, "lines_mapped": 8}
+    },
+    {
+      "company": "科大讯飞 iFlytek",
+      "jd_title": "AI产品经理",
+      "official_url": "https://iflytek.zhiye.com/social/detail?jobAdId=fb760bb6-9d02-44f6-8f08-acee3775aca1",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C10-L1",
+          "original_excerpt": "拥有成功的ToB或开发者平台产品经验，能够提供个人主导的代表性产品案例。",
+          "points": [
+            {"point_id": "C10-L1-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "成功的ToB或开发者平台产品经验", "summary_en": "Successful toB or developer-platform product experience"},
+            {"point_id": "C10-L1-P2", "layer": "soft", "category": "ownership", "summary_zh": "能提供个人主导的代表性产品案例", "summary_en": "Can present representative product cases personally led"}
+          ]
+        },
+        {
+          "line_id": "C10-L2",
+          "original_excerpt": "具备出色的逻辑思维与产品设计能力，对复杂业务流程有优秀的抽象和梳理能力。",
+          "points": [
+            {"point_id": "C10-L2-P1", "layer": "soft", "category": "data_sense", "summary_zh": "出色的逻辑思维能力", "summary_en": "Excellent logical thinking ability"},
+            {"point_id": "C10-L2-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "对复杂业务流程有优秀的抽象和梳理能力", "summary_en": "Excellent ability to abstract and organize complex business processes"}
+          ]
+        },
+        {
+          "line_id": "C10-L3",
+          "original_excerpt": "对人工智能（特别是大语言模型及相关技术）有深刻的理解，熟悉智能体的工作范式与应用场景。",
+          "points": [
+            {"point_id": "C10-L3-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "对人工智能（尤其大语言模型）有深刻理解", "summary_en": "Deep understanding of AI, especially large language models"},
+            {"point_id": "C10-L3-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "熟悉智能体的工作范式与应用场景", "summary_en": "Familiar with agent working paradigms and application scenarios"}
+          ]
+        },
+        {
+          "line_id": "C10-L4",
+          "original_excerpt": "自我驱动力强，具备优秀的跨部门沟通、协调与项目管理能力，能在快速变化的环境中推动项目顺利进展。",
+          "points": [
+            {"point_id": "C10-L4-P1", "layer": "soft", "category": "ownership", "summary_zh": "自我驱动力强", "summary_en": "Strong self-drive"},
+            {"point_id": "C10-L4-P2", "layer": "soft", "category": "communication", "summary_zh": "优秀的跨部门沟通与协调能力", "summary_en": "Excellent cross-department communication and coordination"},
+            {"point_id": "C10-L4-P3", "layer": "soft", "category": "execution", "summary_zh": "在快速变化的环境中推动项目顺利进展的项目管理能力", "summary_en": "Project management ability that drives progress amid rapid change"}
+          ]
+        },
+        {
+          "line_id": "C10-L5",
+          "original_excerpt": "具有良好的团队合作精神、沟通能力与抗压能力。",
+          "points": [
+            {"point_id": "C10-L5-P1", "layer": "soft", "category": "teamwork", "summary_zh": "良好的团队合作精神", "summary_en": "Good team-spirit"},
+            {"point_id": "C10-L5-P2", "layer": "soft", "category": "communication", "summary_zh": "良好的沟通能力", "summary_en": "Good communication ability"},
+            {"point_id": "C10-L5-P3", "layer": "soft", "category": "execution", "summary_zh": "良好的抗压能力", "summary_en": "Good ability to work under pressure"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 5, "lines_mapped": 5}
+    }
+  ]
+}

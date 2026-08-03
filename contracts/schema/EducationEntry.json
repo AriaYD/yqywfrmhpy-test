@@ -1,0 +1,70 @@
+{
+  "$id": "https://campuspath.invalid/schema/EducationEntry.json",
+  "additionalProperties": false,
+  "description": "R5-B（2026-08-01）：教育经历——高中到研究生，含夏令营/交换/驾校等。",
+  "properties": {
+    "end_year": {
+      "anyOf": [
+        {
+          "maxLength": 10,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "End Year"
+    },
+    "note": {
+      "anyOf": [
+        {
+          "maxLength": 500,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Note"
+    },
+    "program": {
+      "anyOf": [
+        {
+          "maxLength": 200,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Program"
+    },
+    "school": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "School",
+      "type": "string"
+    },
+    "start_year": {
+      "anyOf": [
+        {
+          "maxLength": 10,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Start Year"
+    }
+  },
+  "required": [
+    "school"
+  ],
+  "title": "EducationEntry",
+  "type": "object"
+}

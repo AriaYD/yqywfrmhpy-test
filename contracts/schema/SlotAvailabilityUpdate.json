@@ -1,0 +1,16 @@
+{
+  "$id": "https://campuspath.invalid/schema/SlotAvailabilityUpdate.json",
+  "additionalProperties": false,
+  "description": "R8-1：Advisor 设置某时段开放 / 不在。已被预约的时段不能标记不在\n（先处理预约，见 409）。",
+  "properties": {
+    "available": {
+      "title": "Available",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "available"
+  ],
+  "title": "SlotAvailabilityUpdate",
+  "type": "object"
+}

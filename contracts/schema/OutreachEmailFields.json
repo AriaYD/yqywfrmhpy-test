@@ -1,0 +1,61 @@
+{
+  "$defs": {
+    "WellbeingSignalType": {
+      "description": "Spec §16.8.2 的五类。全部是阈值比较，无语义判断。",
+      "enum": [
+        "sleep_opportunity_compressed",
+        "self_reported_short_sleep",
+        "activity_opportunity_low",
+        "recovery_block_absent",
+        "capacity_overload"
+      ],
+      "title": "WellbeingSignalType",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/OutreachEmailFields.json",
+  "additionalProperties": false,
+  "description": "Spec §16.8.4 的字段白名单。**这个模型的字段列表就是允许发送的全部内容。**\n\n禁止出现（由 extra=\"forbid\" + 边界扫描共同保证）：课程标题、日历标题、\n参与人、地点、完整 Profile、私人 Reflection、模型推断、诊断性措辞。",
+  "properties": {
+    "acknowledgement_url": {
+      "description": "回执链接，用于追踪认领",
+      "title": "Acknowledgement Url",
+      "type": "string"
+    },
+    "consent_receipt_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Consent Receipt Id",
+      "type": "string"
+    },
+    "internal_student_ref": {
+      "description": "学校内部标识或学生自选联系方式，不含姓名/学号原文",
+      "title": "Internal Student Ref",
+      "type": "string"
+    },
+    "student_requested_contact": {
+      "const": true,
+      "description": "恒为 True：只有学生主动请求或已有有效 opt-in 才发送",
+      "title": "Student Requested Contact",
+      "type": "boolean"
+    },
+    "trigger_category": {
+      "$ref": "#/components/schemas/WellbeingSignalType"
+    },
+    "triggered_at": {
+      "format": "date-time",
+      "title": "Triggered At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "internal_student_ref",
+    "student_requested_contact",
+    "trigger_category",
+    "triggered_at",
+    "consent_receipt_id",
+    "acknowledgement_url"
+  ],
+  "title": "OutreachEmailFields",
+  "type": "object"
+}

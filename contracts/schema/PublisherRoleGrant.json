@@ -1,0 +1,88 @@
+{
+  "$id": "https://campuspath.invalid/schema/PublisherRoleGrant.json",
+  "additionalProperties": false,
+  "description": "Spec §14.4。授权是**受限的**：限组织、限分类、限期限（D5）。",
+  "properties": {
+    "allowed_categories": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Allowed Categories",
+      "type": "array"
+    },
+    "can_publish_directly": {
+      "default": false,
+      "title": "Can Publish Directly",
+      "type": "boolean"
+    },
+    "grant_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Grant Id",
+      "type": "string"
+    },
+    "granted_by": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Granted By",
+      "type": "string"
+    },
+    "organization_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Organization Id",
+      "type": "string"
+    },
+    "principal_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Principal Id",
+      "type": "string"
+    },
+    "revoked_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Revoked At"
+    },
+    "role": {
+      "enum": [
+        "publisher",
+        "reviewer",
+        "curator"
+      ],
+      "title": "Role",
+      "type": "string"
+    },
+    "valid_from": {
+      "format": "date",
+      "title": "Valid From",
+      "type": "string"
+    },
+    "valid_to": {
+      "format": "date",
+      "title": "Valid To",
+      "type": "string"
+    }
+  },
+  "required": [
+    "grant_id",
+    "principal_id",
+    "organization_id",
+    "role",
+    "allowed_categories",
+    "valid_from",
+    "valid_to",
+    "granted_by"
+  ],
+  "title": "PublisherRoleGrant",
+  "type": "object"
+}

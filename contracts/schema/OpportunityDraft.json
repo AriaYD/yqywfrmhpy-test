@@ -1,0 +1,579 @@
+{
+  "$defs": {
+    "EligibilityRule": {
+      "additionalProperties": false,
+      "description": "来自机会来源的**具体规则**，不是全局年级假设（Spec §16.1）。",
+      "properties": {
+        "expression": {
+          "description": "来源原文或结构化表达式",
+          "title": "Expression",
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/components/schemas/EligibilityRuleKind"
+        },
+        "mandatory": {
+          "default": true,
+          "title": "Mandatory",
+          "type": "boolean"
+        },
+        "source_tier": {
+          "description": "Spec §16.2 的优先级；model_inferred 只能导向 needs_confirmation",
+          "enum": [
+            "organizer_structured",
+            "official_page_text",
+            "institution_confirmed",
+            "institution_note",
+            "model_inferred"
+          ],
+          "title": "Source Tier",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "expression",
+        "source_tier"
+      ],
+      "title": "EligibilityRule",
+      "type": "object"
+    },
+    "EligibilityRuleKind": {
+      "enum": [
+        "year_level",
+        "program",
+        "gpa",
+        "prerequisite_course",
+        "work_authorization",
+        "language",
+        "membership",
+        "application_window",
+        "other"
+      ],
+      "title": "EligibilityRuleKind",
+      "type": "string"
+    },
+    "InternationalAcceptance": {
+      "description": "「是否接受国际学生」三态（B，2026-08-02）。\n\n**模型永远不猜这个字段**（integration-contract：employer claims 归\nOpportunity 所有）——取值只能来自发布者填写或官方源结构化抽取；\nUNKNOWN 时求值器自动 needs_confirmation，界面不显示不编造。",
+      "enum": [
+        "accepts",
+        "not_accepted",
+        "unknown"
+      ],
+      "title": "InternationalAcceptance",
+      "type": "string"
+    },
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    },
+    "Opportunity": {
+      "additionalProperties": false,
+      "properties": {
+        "accepts_international": {
+          "$ref": "#/components/schemas/InternationalAcceptance",
+          "default": "unknown"
+        },
+        "category_tags": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Category Tags",
+          "type": "array"
+        },
+        "deadline": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Deadline"
+        },
+        "eligibility_rules": {
+          "default": [],
+          "items": {
+            "$ref": "#/components/schemas/EligibilityRule"
+          },
+          "title": "Eligibility Rules",
+          "type": "array"
+        },
+        "ends_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ends At"
+        },
+        "language_requirements": {
+          "default": [],
+          "items": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "maxItems": 5,
+          "title": "Language Requirements",
+          "type": "array"
+        },
+        "last_verified_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "用于 T7 Stale/Wrong Opportunity Rate",
+          "title": "Last Verified At"
+        },
+        "occurrence_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "同一系列的某一届",
+          "title": "Occurrence Id"
+        },
+        "official_url": {
+          "title": "Official Url",
+          "type": "string"
+        },
+        "opportunity_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Opportunity Id",
+          "type": "string"
+        },
+        "organizer": {
+          "title": "Organizer",
+          "type": "string"
+        },
+        "organizer_category": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/OrganizerCategory"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "organizer_localized": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/LocalizedText"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "provenance": {
+          "$ref": "#/components/schemas/Provenance"
+        },
+        "publication_status": {
+          "$ref": "#/components/schemas/PublicationStatus",
+          "default": "draft"
+        },
+        "requirement_categories": {
+          "default": [],
+          "description": "该机会能覆盖的要求类别，用于 Gap Coverage 计算",
+          "items": {
+            "$ref": "#/components/schemas/RequirementCategory"
+          },
+          "title": "Requirement Categories",
+          "type": "array"
+        },
+        "series_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Series Id"
+        },
+        "skills": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Skills",
+          "type": "array"
+        },
+        "source_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Source Id",
+          "type": "string"
+        },
+        "sponsorship_support": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/LocalizedText"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "starts_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Starts At"
+        },
+        "title": {
+          "description": "来源给出的官方标题（通常是英文）",
+          "maxLength": 300,
+          "title": "Title",
+          "type": "string"
+        },
+        "title_localized": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/LocalizedText"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "来源**自己**提供的译名。为空表示来源只有一种语言——这时 UI 回落到 title，而不是找模型现翻一个：机会名称会被学生拿去搜索、报名、写进简历，翻错的代价不是读起来别扭而已。"
+        },
+        "type": {
+          "$ref": "#/components/schemas/OpportunityType"
+        },
+        "workload_hours_total": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Workload Hours Total"
+        }
+      },
+      "required": [
+        "opportunity_id",
+        "type",
+        "title",
+        "organizer",
+        "official_url",
+        "source_id",
+        "provenance"
+      ],
+      "title": "Opportunity",
+      "type": "object"
+    },
+    "OpportunityType": {
+      "enum": [
+        "internship",
+        "job",
+        "research_position",
+        "competition",
+        "workshop",
+        "event",
+        "club_activity",
+        "scholarship",
+        "exchange",
+        "mentorship",
+        "volunteer",
+        "policy_update"
+      ],
+      "title": "OpportunityType",
+      "type": "string"
+    },
+    "OrganizerCategory": {
+      "description": "主办方分类（2026-07-31 八大类；2026-08-02 用户裁定扩为十大类）。\n浏览筛选用这一层，不用原始名称。",
+      "enum": [
+        "campus_official",
+        "school_faculty",
+        "career_center",
+        "entrepreneurship_center",
+        "student_club",
+        "alumni",
+        "enterprise",
+        "partner_enterprise",
+        "policy",
+        "intl_policy"
+      ],
+      "title": "OrganizerCategory",
+      "type": "string"
+    },
+    "Provenance": {
+      "additionalProperties": false,
+      "description": "Spec §14.3。任何进入 Catalog 的事实都必须能回溯到这里。",
+      "properties": {
+        "confidence": {
+          "default": 1.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "evidence_snippet": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "支撑该结论的原文片段，用于 Unsupported Key Claim 复核（T8）",
+          "title": "Evidence Snippet"
+        },
+        "parser_version": {
+          "title": "Parser Version",
+          "type": "string"
+        },
+        "published_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Published At"
+        },
+        "retrieved_at": {
+          "format": "date-time",
+          "title": "Retrieved At",
+          "type": "string"
+        },
+        "source": {
+          "description": "来源系统或站点标识",
+          "title": "Source",
+          "type": "string"
+        },
+        "source_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "官方页面 URL",
+          "title": "Source Url"
+        }
+      },
+      "required": [
+        "source",
+        "retrieved_at",
+        "parser_version"
+      ],
+      "title": "Provenance",
+      "type": "object"
+    },
+    "PublicationStatus": {
+      "description": "Spec D5 的完整状态机。缺任何一个状态都无法演示退回/驳回分支。",
+      "enum": [
+        "draft",
+        "submitted",
+        "auto_checked",
+        "in_review",
+        "changes_requested",
+        "rejected",
+        "approved",
+        "published",
+        "updated",
+        "expired",
+        "withdrawn",
+        "archived"
+      ],
+      "title": "PublicationStatus",
+      "type": "string"
+    },
+    "RequirementCategory": {
+      "description": "出域时 ``MetricTuple.uncovered_requirement_categories`` 只携带这一层。\n\n它必须足够粗，粗到无法反推是哪位学生——所以是枚举而不是自由文本。",
+      "enum": [
+        "coursework",
+        "technical_skill",
+        "research_experience",
+        "industry_experience",
+        "project_portfolio",
+        "teamwork_evidence",
+        "communication",
+        "credential",
+        "language",
+        "network",
+        "eligibility_status"
+      ],
+      "title": "RequirementCategory",
+      "type": "string"
+    },
+    "ValidationIssue": {
+      "additionalProperties": false,
+      "description": "确定性 Schema 闸门的输出。blocking 项**直接丢弃并告警，不回喂 LLM 重试**\n（Spec §8.9.1 第 3 条）。",
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "detail": {
+          "$ref": "#/components/schemas/LocalizedText"
+        },
+        "field_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field Path"
+        },
+        "severity": {
+          "$ref": "#/components/schemas/ValidationIssueSeverity"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "detail"
+      ],
+      "title": "ValidationIssue",
+      "type": "object"
+    },
+    "ValidationIssueSeverity": {
+      "enum": [
+        "info",
+        "warning",
+        "blocking"
+      ],
+      "title": "ValidationIssueSeverity",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/OpportunityDraft.json",
+  "additionalProperties": false,
+  "description": "A4 产出。在通过闸门并被人工审核前，它既不进 Catalog 也不进学生上下文。\n\nA4 只有 ``read_source`` 与 ``emit_opportunity_draft`` 两个工具，\n因此本模型是 A4 唯一的对外出口（Spec §8.9.1 第 2 条）。",
+  "properties": {
+    "draft_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Draft Id",
+      "type": "string"
+    },
+    "duplicate_of": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Duplicate Of"
+    },
+    "extracted": {
+      "$ref": "#/components/schemas/Opportunity"
+    },
+    "extraction_confidence": {
+      "default": 0.5,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Extraction Confidence",
+      "type": "number"
+    },
+    "issues": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/ValidationIssue"
+      },
+      "title": "Issues",
+      "type": "array"
+    },
+    "provenance": {
+      "$ref": "#/components/schemas/Provenance"
+    },
+    "source_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Source Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "draft_id",
+    "source_id",
+    "extracted",
+    "provenance"
+  ],
+  "title": "OpportunityDraft",
+  "type": "object"
+}

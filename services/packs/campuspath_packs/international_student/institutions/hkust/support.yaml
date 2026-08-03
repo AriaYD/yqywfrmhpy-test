@@ -1,0 +1,6 @@
+{"support_items":[
+  {"support_item_id":"HKUST-SUPPORT-SCHOLARSHIP-001","category":"scholarship","title":"International qualifications scholarships","provider":"HKUST","eligibility_summary":"Official scholarship information for eligible international qualifications applicants; verify intake, eligibility, and deadline.","application_required":true,"deadline":null,"source_ids":["HKUST-INTL-SCHOLARSHIPS"],"last_verified_at":"2026-08-01","review_at":"2026-09-01"},
+  {"support_item_id":"HKUST-SUPPORT-FA-001","category":"financial_support","title":"HKUST Scholarships and Financial Aid Office","provider":"HKUST Scholarships and Financial Aid Office","eligibility_summary":"Official source for current scholarship and financial-aid opportunities; availability and eligibility must be confirmed.","application_required":true,"deadline":null,"source_ids":["HKUST-SFAO"],"last_verified_at":"2026-08-01","review_at":"2026-09-01"},
+  {"support_item_id":"HKUST-SUPPORT-CAREER-001","category":"career_service","title":"HKUST Career Center","provider":"HKUST Career Center","eligibility_summary":"Career guidance and employment information for non-local students; service scope and booking requirements should be confirmed.","application_required":false,"deadline":null,"source_ids":["HKUST-CAREER-NONLOCAL"],"last_verified_at":"2026-08-01","review_at":"2026-09-01"}
+]}
+

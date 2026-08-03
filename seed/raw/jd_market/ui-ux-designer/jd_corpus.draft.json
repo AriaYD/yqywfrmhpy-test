@@ -1,0 +1,397 @@
+{
+  "role": "ui-ux-designer",
+  "compiled_at": "2026-08-02",
+  "companies": [
+    {
+      "company": "Google",
+      "jd_title": "UX Designer, Tools Automation and Infrastructure",
+      "official_url": "https://www.google.com/about/careers/applications/jobs/results/87880344878883526-ux-designer-tools-automation-and-infrastructure/",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C01-L1",
+          "original_excerpt": "Bachelor's degree or equivalent practical experience.",
+          "points": [
+            {"point_id": "C01-L1-P1", "layer": "hard", "category": "education_degree", "summary_zh": "本科学历或同等实践经验", "summary_en": "Bachelor's degree or equivalent practical experience"}
+          ]
+        },
+        {
+          "line_id": "C01-L2",
+          "original_excerpt": "4 years of conversation design experience in product design or UX design.",
+          "points": [
+            {"point_id": "C01-L2-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "4年产品设计或UX设计（对话式设计）相关经验", "summary_en": "4 years of conversation design experience in product design or UX design"}
+          ]
+        },
+        {
+          "line_id": "C01-L3",
+          "original_excerpt": "8 years of experience with one or more of the following methods: usability studies, concept tests, benchmarks, diary studies, interviewing consumers (user interviews), field research, surveys.",
+          "points": [
+            {"point_id": "C01-L3-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "8年可用性测试、概念测试、日记研究、用户访谈、实地调研或问卷等用户研究方法经验", "summary_en": "8 years of experience with usability studies, concept tests, diary studies, user interviews, field research, or surveys"}
+          ]
+        },
+        {
+          "line_id": "C01-L4",
+          "original_excerpt": "Experience collaborating with multidisciplinary teams of Designers, Researchers, Engineers, Content Strategists and Product Managers throughout the design process, creating user flows and wireframes to building user interface mockups and prototypes.",
+          "points": [
+            {"point_id": "C01-L4-P1", "layer": "soft", "category": "teamwork", "summary_zh": "与设计师、研究员、工程师、内容策略师、产品经理等跨职能团队协作贯穿设计全流程", "summary_en": "Experience collaborating with multidisciplinary teams (Designers, Researchers, Engineers, Content Strategists, Product Managers) throughout the design process"},
+            {"point_id": "C01-L4-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "具备制作用户流程图、线框图到高保真界面模型与原型的能力", "summary_en": "Experience creating user flows and wireframes through to building user interface mockups and prototypes"}
+          ]
+        },
+        {
+          "line_id": "C01-L5",
+          "original_excerpt": "Experience creating user flows and wireframes to building user interface mockups and prototypes in Figma.",
+          "points": [
+            {"point_id": "C01-L5-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "熟练使用Figma完成用户流程图、线框图、界面模型与原型制作", "summary_en": "Experience creating user flows, wireframes, mockups, and prototypes in Figma"}
+          ]
+        },
+        {
+          "line_id": "C01-L6",
+          "original_excerpt": "Experience creating user journey flows (e.g., LucidChart, Visio, etc).",
+          "points": [
+            {"point_id": "C01-L6-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "具备使用LucidChart、Visio等工具绘制用户旅程图的经验", "summary_en": "Experience creating user journey flows using tools such as LucidChart or Visio"}
+          ]
+        },
+        {
+          "line_id": "C01-L7",
+          "original_excerpt": "Lead large programs across an organization with multiple stakeholders who have engaging interest.",
+          "points": [
+            {"point_id": "C01-L7-P1", "layer": "soft", "category": "leadership", "summary_zh": "能够牵头跨组织、多利益相关方参与的大型项目", "summary_en": "Ability to lead large programs across an organization with multiple engaged stakeholders"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 7, "lines_mapped": 7}
+    },
+    {
+      "company": "Tencent",
+      "jd_title": "在研策略竞技UE5产品-UI设计师-新星引力计划",
+      "official_url": "https://careers.tencent.com/jobdesc.html?postId=2070157576028471296",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C02-L1",
+          "original_excerpt": "本科(含本科)以上学历；",
+          "points": [
+            {"point_id": "C02-L1-P1", "layer": "hard", "category": "education_degree", "summary_zh": "本科及以上学历", "summary_en": "Bachelor's degree or above"}
+          ]
+        },
+        {
+          "line_id": "C02-L2",
+          "original_excerpt": "1-3年游戏界面从业经验；",
+          "points": [
+            {"point_id": "C02-L2-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "1-3年游戏界面（UI）设计从业经验", "summary_en": "1-3 years of experience in game interface (UI) design"}
+          ]
+        },
+        {
+          "line_id": "C02-L3",
+          "original_excerpt": "优秀的设计能力，出色的沟通能力和团队协作能力，迅速高效的执行力；",
+          "points": [
+            {"point_id": "C02-L3-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "优秀的设计能力", "summary_en": "Excellent design ability"},
+            {"point_id": "C02-L3-P2", "layer": "soft", "category": "communication", "summary_zh": "出色的沟通能力", "summary_en": "Outstanding communication skills"},
+            {"point_id": "C02-L3-P3", "layer": "soft", "category": "teamwork", "summary_zh": "良好的团队协作能力", "summary_en": "Good teamwork/collaboration skills"},
+            {"point_id": "C02-L3-P4", "layer": "soft", "category": "execution", "summary_zh": "迅速高效的执行力", "summary_en": "Fast and efficient execution"}
+          ]
+        },
+        {
+          "line_id": "C02-L4",
+          "original_excerpt": "工作态度积极主动，性格谦和，待人真诚、宽容；",
+          "points": [
+            {"point_id": "C02-L4-P1", "layer": "soft", "category": "ownership", "summary_zh": "工作态度积极主动", "summary_en": "Proactive, self-driven work attitude"},
+            {"point_id": "C02-L4-P2", "layer": "soft", "category": "teamwork", "summary_zh": "性格谦和、待人真诚宽容，利于团队合作", "summary_en": "Modest, sincere, and tolerant disposition conducive to collaboration"}
+          ]
+        },
+        {
+          "line_id": "C02-L5",
+          "original_excerpt": "热爱游戏，至少精通一种网络游戏玩法。",
+          "points": [
+            {"point_id": "C02-L5-P1", "layer": "soft", "category": "user_empathy", "summary_zh": "热爱游戏并至少精通一种网络游戏玩法，理解玩家体验", "summary_en": "Passionate about games and proficient in at least one online game, with understanding of player experience"}
+          ]
+        },
+        {
+          "line_id": "C02-L6",
+          "original_excerpt": "有项目完整经验的。",
+          "points": [
+            {"point_id": "C02-L6-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "有完整项目经验者优先", "summary_en": "Complete end-to-end project experience preferred"}
+          ]
+        },
+        {
+          "line_id": "C02-L7",
+          "original_excerpt": "熟练运用AI辅助设计的。",
+          "points": [
+            {"point_id": "C02-L7-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "熟练运用AI辅助设计工具者优先", "summary_en": "Proficiency with AI-assisted design tools preferred"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 7, "lines_mapped": 7}
+    },
+    {
+      "company": "HSBC",
+      "jd_title": "Senior Product Designer - International Wealth and Premier Banking",
+      "official_url": "https://apply.careers.hsbc.com/job/Kowloon-City-Senior-Product-Designer-International-Wealth-and-Premier-Banking-Kowl/1366640057/",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C03-L1",
+          "original_excerpt": "Proven experience designing digital products and services, with strategic responsibility and impact or connecting decisions to business and customer goals",
+          "points": [
+            {"point_id": "C03-L1-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "有数字产品与服务设计的实证经验，能将设计决策与业务及客户目标相连接", "summary_en": "Proven experience designing digital products and services, connecting decisions to business and customer goals"}
+          ]
+        },
+        {
+          "line_id": "C03-L2",
+          "original_excerpt": "A strong portfolio showcasing world-class product design across responsive and native platforms, with clear user and business outcomes.",
+          "points": [
+            {"point_id": "C03-L2-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "拥有展示跨响应式与原生平台产品设计能力、有明确用户与业务成果的强作品集", "summary_en": "Strong portfolio showcasing world-class product design across responsive and native platforms with clear outcomes"}
+          ]
+        },
+        {
+          "line_id": "C03-L3",
+          "original_excerpt": "Expertise in Figma, design systems, prototyping, and core UX disciplines including research, content design, testing, visual and interaction design, and information architecture.",
+          "points": [
+            {"point_id": "C03-L3-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "精通Figma、设计系统、原型制作及用户研究、内容设计、测试、视觉与交互设计、信息架构等核心UX能力", "summary_en": "Expertise in Figma, design systems, prototyping, and core UX disciplines (research, content design, testing, visual/interaction design, information architecture)"}
+          ]
+        },
+        {
+          "line_id": "C03-L4",
+          "original_excerpt": "Experience in complex, regulated environments—ideally financial services.",
+          "points": [
+            {"point_id": "C03-L4-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "有在复杂、受监管环境（理想为金融服务业）中工作的经验", "summary_en": "Experience in complex, regulated environments, ideally financial services"}
+          ]
+        },
+        {
+          "line_id": "C03-L5",
+          "original_excerpt": "Working knowledge of accessibility standards and inclusive design.",
+          "points": [
+            {"point_id": "C03-L5-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "了解无障碍设计标准与包容性设计", "summary_en": "Working knowledge of accessibility standards and inclusive design"}
+          ]
+        },
+        {
+          "line_id": "C03-L6",
+          "original_excerpt": "A collaborative, cross-functional mindset with the ability to build trust across geographies and in global contexts.",
+          "points": [
+            {"point_id": "C03-L6-P1", "layer": "soft", "category": "teamwork", "summary_zh": "具备跨职能协作思维，能在跨地域与全球化背景中建立信任", "summary_en": "Collaborative, cross-functional mindset able to build trust across geographies and global contexts"}
+          ]
+        },
+        {
+          "line_id": "C03-L7",
+          "original_excerpt": "Demonstrate a capability for writing effective content in UK English as part of your product design skill set - so that language and design work together to create intuitive user experiences.",
+          "points": [
+            {"point_id": "C03-L7-P1", "layer": "constraint", "category": "language", "summary_zh": "能用英式英语撰写有效内容", "summary_en": "Capability for writing effective content in UK English"},
+            {"point_id": "C03-L7-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "语言与设计结合，输出直观易用的用户体验（内容设计能力）", "summary_en": "Ability to combine language and design to create intuitive user experiences (content design skill)"}
+          ]
+        },
+        {
+          "line_id": "C03-L8",
+          "original_excerpt": "Confidence mentoring others and contributing to a culture of growth and excellence.",
+          "points": [
+            {"point_id": "C03-L8-P1", "layer": "soft", "category": "leadership", "summary_zh": "有信心指导他人，营造成长与卓越的团队文化", "summary_en": "Confidence mentoring others and contributing to a culture of growth and excellence"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 8, "lines_mapped": 8}
+    },
+    {
+      "company": "Autohome",
+      "jd_title": "UI设计师（2023应届校招）",
+      "official_url": "https://www.nowcoder.com/jobs/detail/183836",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C04-L1",
+          "original_excerpt": "美术、设计类相关专业。",
+          "points": [
+            {"point_id": "C04-L1-P1", "layer": "hard", "category": "education_degree", "summary_zh": "美术、设计类相关专业", "summary_en": "Background in fine arts or design-related major"}
+          ]
+        },
+        {
+          "line_id": "C04-L2",
+          "original_excerpt": "具有良好的美术基础，熟练运用PS、AI、sketch等设计软件。",
+          "points": [
+            {"point_id": "C04-L2-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "具有良好的美术基础", "summary_en": "Strong foundation in fine art"},
+            {"point_id": "C04-L2-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "熟练运用PS、AI、Sketch等设计软件", "summary_en": "Proficient with design software such as Photoshop, Illustrator, Sketch"}
+          ]
+        },
+        {
+          "line_id": "C04-L3",
+          "original_excerpt": "踏实肯干，关注细节，有团队精神，热爱设计，对设计有独特的视野。",
+          "points": [
+            {"point_id": "C04-L3-P1", "layer": "soft", "category": "ownership", "summary_zh": "踏实肯干、关注细节", "summary_en": "Diligent and detail-oriented"},
+            {"point_id": "C04-L3-P2", "layer": "soft", "category": "teamwork", "summary_zh": "有团队精神", "summary_en": "Team spirit"},
+            {"point_id": "C04-L3-P3", "layer": "soft", "category": "learning_agility", "summary_zh": "热爱设计，对设计有独特的视野", "summary_en": "Passionate about design with a unique creative perspective"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 3, "lines_mapped": 3}
+    },
+    {
+      "company": "miHoYo",
+      "jd_title": "UX设计师（C端）2026届校招",
+      "official_url": "https://www.nowcoder.com/feed/main/detail/8e7527ba06f44a4893b0d98015fda46c",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C05-L1",
+          "original_excerpt": "热爱游戏，是米哈游或其他游戏的深度玩家，对游戏社区有自己独到的理解。",
+          "points": [
+            {"point_id": "C05-L1-P1", "layer": "soft", "category": "user_empathy", "summary_zh": "热爱游戏，是深度玩家，对游戏社区有独到理解", "summary_en": "Passionate about games, a deep player of miHoYo or other games, with distinctive understanding of gaming communities"}
+          ]
+        },
+        {
+          "line_id": "C05-L2",
+          "original_excerpt": "具备扎实的交互/UI设计基础，熟练使用各类设计工具，具备良好的审美和视觉呈现能力，独立完成产品设计工作。",
+          "points": [
+            {"point_id": "C05-L2-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "具备扎实的交互/UI设计基础，熟练使用各类设计工具", "summary_en": "Solid foundation in interaction/UI design, proficient with various design tools"},
+            {"point_id": "C05-L2-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "具备良好的审美和视觉呈现能力", "summary_en": "Good aesthetic sense and visual presentation ability"},
+            {"point_id": "C05-L2-P3", "layer": "soft", "category": "ownership", "summary_zh": "能够独立完成产品设计工作", "summary_en": "Able to independently complete product design work"}
+          ]
+        },
+        {
+          "line_id": "C05-L3",
+          "original_excerpt": "具备一定的AI实践能力，例如使用AI Agent辅助设计，或了解AI native工作流，有相关作品或探索案例更佳。",
+          "points": [
+            {"point_id": "C05-L3-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "具备一定的AI实践能力，如使用AI Agent辅助设计或了解AI native工作流", "summary_en": "Some AI practice ability, e.g. using AI agents to assist design or familiarity with AI-native workflows"},
+            {"point_id": "C05-L3-P2", "layer": "hard", "category": "project_portfolio", "summary_zh": "有相关AI辅助设计作品或探索案例者更佳", "summary_en": "Related AI-assisted design work or exploration case studies are a plus"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 3, "lines_mapped": 3}
+    },
+    {
+      "company": "九方云",
+      "jd_title": "UI/UX设计师实习生（大量转正HC）",
+      "official_url": "https://job.ncss.cn/student/jobs/Tsdm5daB9xXKsC76st1AyZ/detail.html",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C06-L1",
+          "original_excerpt": "设计类相关专业，2026本科应届及以上学历优先，掌握产品设计基础理论，对交互/UI设计感兴趣优先。",
+          "points": [
+            {"point_id": "C06-L1-P1", "layer": "hard", "category": "education_degree", "summary_zh": "设计类相关专业，2026本科应届及以上学历优先", "summary_en": "Design-related major, 2026 fresh bachelor's graduate or above preferred"},
+            {"point_id": "C06-L1-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "掌握产品设计基础理论，对交互/UI设计感兴趣", "summary_en": "Grasp of basic product design theory, interest in interaction/UI design"}
+          ]
+        },
+        {
+          "line_id": "C06-L2",
+          "original_excerpt": "有较好的逻辑思维能力，了解交互/UI设计的基础知识，有校内网或相关实习经历者优先。",
+          "points": [
+            {"point_id": "C06-L2-P1", "layer": "soft", "category": "problem_solving", "summary_zh": "有较好的逻辑思维能力", "summary_en": "Good logical thinking ability"},
+            {"point_id": "C06-L2-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "了解交互/UI设计的基础知识", "summary_en": "Understanding of basic interaction/UI design knowledge"},
+            {"point_id": "C06-L2-P3", "layer": "hard", "category": "internship", "summary_zh": "有校内网或相关实习经历者优先", "summary_en": "Campus community or related internship experience preferred"}
+          ]
+        },
+        {
+          "line_id": "C06-L3",
+          "original_excerpt": "关注设计趋势、动态、设计社区的文章分享等，有目的有计划的进行过相关学习。",
+          "points": [
+            {"point_id": "C06-L3-P1", "layer": "soft", "category": "learning_agility", "summary_zh": "关注设计趋势动态与社区分享，有目的有计划地进行相关学习", "summary_en": "Follows design trends and community articles, engages in purposeful, planned self-learning"}
+          ]
+        },
+        {
+          "line_id": "C06-L4",
+          "original_excerpt": "具备基础的用户思维，了解产品思维，有用户/产品调研经验者优先。",
+          "points": [
+            {"point_id": "C06-L4-P1", "layer": "soft", "category": "user_empathy", "summary_zh": "具备基础的用户思维", "summary_en": "Basic user-centered thinking"},
+            {"point_id": "C06-L4-P2", "layer": "soft", "category": "data_sense", "summary_zh": "了解产品思维，有用户/产品调研经验者优先", "summary_en": "Understanding of product thinking; user/product research experience preferred"}
+          ]
+        },
+        {
+          "line_id": "C06-L5",
+          "original_excerpt": "拥有良好的沟通与协作能力，能够清晰有条理的表达你的设计思路。",
+          "points": [
+            {"point_id": "C06-L5-P1", "layer": "soft", "category": "communication", "summary_zh": "能够清晰有条理地表达设计思路", "summary_en": "Able to clearly and logically articulate design thinking"},
+            {"point_id": "C06-L5-P2", "layer": "soft", "category": "teamwork", "summary_zh": "拥有良好的协作能力", "summary_en": "Good collaboration ability"}
+          ]
+        },
+        {
+          "line_id": "C06-L6",
+          "original_excerpt": "有良好的创新思维与学习能力，对新领域保持好奇心，对设计更好的体验始终有追求。",
+          "points": [
+            {"point_id": "C06-L6-P1", "layer": "soft", "category": "learning_agility", "summary_zh": "有良好的创新思维与学习能力，对新领域保持好奇心，追求更好的设计体验", "summary_en": "Good innovative thinking and learning ability, curiosity about new fields, pursuit of better design experiences"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 6, "lines_mapped": 6}
+    },
+    {
+      "company": "JD.com",
+      "jd_title": "高级交互设计师",
+      "official_url": "https://www.liepin.com/job/1933370961.shtml",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C07-L1",
+          "original_excerpt": "五年以上体验设计行业相关经验（艺术设计等相关本科毕业优先）；",
+          "points": [
+            {"point_id": "C07-L1-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "五年以上体验设计行业相关经验", "summary_en": "5+ years of relevant experience design industry experience"},
+            {"point_id": "C07-L1-P2", "layer": "hard", "category": "education_degree", "summary_zh": "艺术设计等相关专业本科毕业优先", "summary_en": "Bachelor's degree in art/design-related major preferred"}
+          ]
+        },
+        {
+          "line_id": "C07-L2",
+          "original_excerpt": "同理心与产品嗅觉并存，为用户而设计的同时平衡产品和商业目标，拥有完备的设计方法论并有付诸实践的成功案例；",
+          "points": [
+            {"point_id": "C07-L2-P1", "layer": "soft", "category": "user_empathy", "summary_zh": "同理心强，为用户而设计", "summary_en": "Strong empathy, designs for users"},
+            {"point_id": "C07-L2-P2", "layer": "soft", "category": "data_sense", "summary_zh": "具备产品嗅觉，能平衡产品和商业目标", "summary_en": "Product sense, able to balance product and business goals"},
+            {"point_id": "C07-L2-P3", "layer": "hard", "category": "project_portfolio", "summary_zh": "拥有完备的设计方法论并有付诸实践的成功案例", "summary_en": "Complete design methodology with successful cases of practical application"}
+          ]
+        },
+        {
+          "line_id": "C07-L3",
+          "original_excerpt": "深刻理解用户体验设计理论和方法，有数据观测分析的思路，有独立总结的方法论优先；",
+          "points": [
+            {"point_id": "C07-L3-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "深刻理解用户体验设计理论和方法", "summary_en": "Deep understanding of UX design theory and methods"},
+            {"point_id": "C07-L3-P2", "layer": "soft", "category": "data_sense", "summary_zh": "有数据观测分析的思路，有独立总结的方法论优先", "summary_en": "Data-observation and analysis mindset; independently summarized methodology preferred"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 3, "lines_mapped": 3}
+    },
+    {
+      "company": "Meituan",
+      "jd_title": "高级UI设计师",
+      "official_url": "https://www.liepin.com/job/1958931851.shtml",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C08-L1",
+          "original_excerpt": "2-5年互联网产品 UI 设计工作经验；能独立负责产品 UI 设计；",
+          "points": [
+            {"point_id": "C08-L1-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "2-5年互联网产品UI设计工作经验", "summary_en": "2-5 years of internet product UI design work experience"},
+            {"point_id": "C08-L1-P2", "layer": "soft", "category": "ownership", "summary_zh": "能独立负责产品UI设计", "summary_en": "Able to independently own product UI design"}
+          ]
+        },
+        {
+          "line_id": "C08-L2",
+          "original_excerpt": "具备系统产品设计经验；",
+          "points": [
+            {"point_id": "C08-L2-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "具备系统化产品设计经验", "summary_en": "Experience with systematic product design"}
+          ]
+        },
+        {
+          "line_id": "C08-L3",
+          "original_excerpt": "有扎实的用户界面和用户体验设计功底，善于梳理 UI 设计流程和规范，并与他人分享；",
+          "points": [
+            {"point_id": "C08-L3-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "有扎实的用户界面和用户体验设计功底，善于梳理UI设计流程和规范", "summary_en": "Solid UI/UX design foundation, skilled at organizing UI design process and standards"},
+            {"point_id": "C08-L3-P2", "layer": "soft", "category": "communication", "summary_zh": "善于将设计流程和规范与他人分享", "summary_en": "Good at sharing design process and standards with others"}
+          ]
+        },
+        {
+          "line_id": "C08-L4",
+          "original_excerpt": "有较强的沟通能力和执行能力，能承受较大的工作压力；",
+          "points": [
+            {"point_id": "C08-L4-P1", "layer": "soft", "category": "communication", "summary_zh": "有较强的沟通能力", "summary_en": "Strong communication skills"},
+            {"point_id": "C08-L4-P2", "layer": "soft", "category": "execution", "summary_zh": "有较强的执行能力，能承受较大的工作压力", "summary_en": "Strong execution ability, able to handle significant work pressure"}
+          ]
+        },
+        {
+          "line_id": "C08-L5",
+          "original_excerpt": "思维活跃，想象力丰富，良好团队合作精神。",
+          "points": [
+            {"point_id": "C08-L5-P1", "layer": "soft", "category": "learning_agility", "summary_zh": "思维活跃，想象力丰富", "summary_en": "Active, imaginative thinking"},
+            {"point_id": "C08-L5-P2", "layer": "soft", "category": "teamwork", "summary_zh": "良好的团队合作精神", "summary_en": "Good team spirit"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 5, "lines_mapped": 5}
+    }
+  ]
+}

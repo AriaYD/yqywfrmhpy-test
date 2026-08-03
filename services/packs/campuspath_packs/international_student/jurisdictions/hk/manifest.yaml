@@ -1,0 +1,19 @@
+{
+  "pack_id": "international-student-hk",
+  "pack_type": "context",
+  "version": "0.1.0",
+  "status": "review_required",
+  "jurisdiction": "HK-SAR",
+  "institution": null,
+  "applicability": {"student_cohort": "international", "programme_levels": ["undergraduate", "postgraduate_taught", "postgraduate_research"], "study_modes": ["full_time"], "goal_types": ["internship", "part_time_work", "graduate_employment"]},
+  "required_student_fields": ["intended_work_jurisdiction", "programme_level", "permission_category", "permission_expiry_date", "goal_type", "intended_start_date", "consent_context_pack"],
+  "rules_file": "./rules.yaml",
+  "sources_file": "./sources.yaml",
+  "effective_from": "2026-08-01",
+  "effective_until": null,
+  "review_at": "2026-09-01",
+  "default_uncertainty_policy": "needs_confirmation",
+  "consent_required": true,
+  "owner": "CampusPath context-pack owner",
+  "reviewer": "Policy reviewer required"
+}

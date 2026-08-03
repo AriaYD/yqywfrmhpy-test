@@ -1,0 +1,88 @@
+{
+  "$defs": {
+    "FitTag": {
+      "description": "区分\"活动不好\"与\"对我不合适\"（Spec §17.4 Personal-vs-Global Separation）。",
+      "enum": [
+        "too_basic_for_me",
+        "too_advanced_for_me",
+        "wrong_format_for_me",
+        "schedule_mismatch",
+        "good_fit"
+      ],
+      "title": "FitTag",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/StudentEventFeedbackForm.json",
+  "additionalProperties": false,
+  "description": "学生端 C 轨评分表单（2026-07-31 用户要求：评分拆维度，不混在一起）。\n\n三个维度 + 一个个人匹配标签，对应架构的 Personal-vs-Global 分离：\n内容深度/实用收获/组织是**活动本身**的质量（进聚合）；\n「对我的匹配」是**个人**判断，只以 FitTag 枚举出域，不折进质量分。\n服务端（A1 的职责位）把本表单转换为去标识的 EventQualityFeedback；\nstudent_id 只在 URL 路径里，永不进入聚合载荷（§8.9.2）。",
+  "properties": {
+    "attended_verified": {
+      "default": false,
+      "title": "Attended Verified",
+      "type": "boolean"
+    },
+    "content_depth": {
+      "description": "内容深度与质量",
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Content Depth",
+      "type": "integer"
+    },
+    "expectation_match": {
+      "anyOf": [
+        {
+          "maximum": 5,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expectation Match"
+    },
+    "fit": {
+      "$ref": "#/components/schemas/FitTag",
+      "description": "与我的目标/形式的匹配——个人判断，不是质量分"
+    },
+    "organization": {
+      "anyOf": [
+        {
+          "maximum": 5,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "组织与流程",
+      "title": "Organization"
+    },
+    "practical_value": {
+      "description": "实用收获——是否学到东西",
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Practical Value",
+      "type": "integer"
+    },
+    "subject_id": {
+      "description": "被评的机会 / 活动",
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Subject Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "subject_id",
+    "content_depth",
+    "practical_value",
+    "fit"
+  ],
+  "title": "StudentEventFeedbackForm",
+  "type": "object"
+}

@@ -1,0 +1,1419 @@
+{
+  "registry_version": "1.0.0",
+  "compiled_at": "2026-08-02",
+  "source_document": "reference/HKUST_student_development_resource_map.md (2026-08-01 HKT 核查) + context-packs/international-student sources (ef6a2f2)",
+  "sources": [
+    {
+      "source_id": "hkust-event-calendar",
+      "name": {
+        "zh_Hans": "HKUST 中央活动日历",
+        "en": "HKUST Event Calendar"
+      },
+      "url": "https://calendar.hkust.edu.hk/",
+      "kind": "opportunity_source",
+      "category": "central_calendar",
+      "priority": "p0",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true,
+      "extraction_depth": "full_chain"
+    },
+    {
+      "source_id": "hkust_engage",
+      "name": {
+        "zh_Hans": "HKUST 官方活动（Engage 快照）",
+        "en": "HKUST Official Events (Engage snapshot)"
+      },
+      "url": "https://calendar.hkust.edu.hk/",
+      "kind": "opportunity_source",
+      "category": "central_calendar",
+      "priority": "p0",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true,
+      "extraction_depth": "change_monitor"
+    },
+    {
+      "source_id": "career-center-recruitment",
+      "name": {
+        "zh_Hans": "Career Center 招聘与就业服务",
+        "en": "Career Center Recruitment & Services"
+      },
+      "url": "https://career.hkust.edu.hk/web/page.php?sid=10",
+      "kind": "opportunity_source",
+      "category": "career_internship",
+      "priority": "p0",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "career-center-events",
+      "name": {
+        "zh_Hans": "Career Center 活动与课程",
+        "en": "Career Center Events & Courses"
+      },
+      "url": "https://career.hkust.edu.hk/web/page.php?sid=50",
+      "kind": "opportunity_source",
+      "category": "career_internship",
+      "priority": "p0",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "career-mosaic",
+      "name": {
+        "zh_Hans": "Career Mosaic 职业平台",
+        "en": "Career Mosaic"
+      },
+      "url": "https://career.hkust.edu.hk/web/page.php?tid=16",
+      "kind": "opportunity_source",
+      "category": "career_internship",
+      "priority": "p1",
+      "render": "static",
+      "entry_type": "program_hub",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "ec-events",
+      "name": {
+        "zh_Hans": "创业中心活动与比赛",
+        "en": "Entrepreneurship Center Events"
+      },
+      "url": "https://ec.hkust.edu.hk/events?layout=ec-home&limit=6",
+      "kind": "opportunity_source",
+      "category": "entrepreneurship",
+      "priority": "p0",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "cse-placement",
+      "name": {
+        "zh_Hans": "CSE 系实习与岗位列表",
+        "en": "CSE Placement / Internship Listings"
+      },
+      "url": "https://cse.hkust.edu.hk/ug/admissions/placement/?id=listjob",
+      "kind": "opportunity_source",
+      "category": "career_internship",
+      "priority": "p0",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "registry-resource-library",
+      "name": {
+        "zh_Hans": "教务处资源库（跨校选课等）",
+        "en": "Academic Registry Resource Library"
+      },
+      "url": "https://registry.hkust.edu.hk/resource-library",
+      "kind": "opportunity_source",
+      "category": "exchange_cross_uni",
+      "priority": "p0",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "urop-projects",
+      "name": {
+        "zh_Hans": "UROP 本科科研项目总表",
+        "en": "UROP Project Listings"
+      },
+      "url": "https://urop.hkust.edu.hk/projects",
+      "kind": "opportunity_source",
+      "category": "research_urop",
+      "priority": "p0",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "studyabroad-program-search",
+      "name": {
+        "zh_Hans": "海外交换项目检索",
+        "en": "Study Abroad Program Search"
+      },
+      "url": "https://studyabroad.hkust.edu.hk/outbound/program-search",
+      "kind": "opportunity_source",
+      "category": "exchange_cross_uni",
+      "priority": "p1",
+      "render": "js",
+      "entry_type": "program_hub",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "fytgs-short-term",
+      "name": {
+        "zh_Hans": "FYTGS 短期学习与访问项目",
+        "en": "FYTGS Short-term Study"
+      },
+      "url": "https://fytgs.hkust.edu.hk/admissions/short-term-study",
+      "kind": "opportunity_source",
+      "category": "exchange_cross_uni",
+      "priority": "p1",
+      "render": "static",
+      "entry_type": "program_hub",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "seng-iei",
+      "name": {
+        "zh_Hans": "工学院产业合作与实习中心（IEI）",
+        "en": "SENG Industry Engagement & Internship"
+      },
+      "url": "https://seng.hkust.edu.hk/iei",
+      "kind": "opportunity_source",
+      "category": "career_internship",
+      "priority": "p1",
+      "render": "static",
+      "entry_type": "program_hub",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "seng-iei-student-opportunities",
+      "name": {
+        "zh_Hans": "工学院学生机会页",
+        "en": "SENG Opportunities for Students"
+      },
+      "url": "https://seng.hkust.edu.hk/iei/opportunities-for-students",
+      "kind": "opportunity_source",
+      "category": "career_internship",
+      "priority": "p1",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "bm-events",
+      "name": {
+        "zh_Hans": "商学院活动",
+        "en": "Business School Events"
+      },
+      "url": "https://bm.hkust.edu.hk/events",
+      "kind": "opportunity_source",
+      "category": "school_academic",
+      "priority": "p1",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "science-events",
+      "name": {
+        "zh_Hans": "理学院活动",
+        "en": "School of Science Events"
+      },
+      "url": "https://science.hkust.edu.hk/events",
+      "kind": "opportunity_source",
+      "category": "school_academic",
+      "priority": "p1",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "shss-events",
+      "name": {
+        "zh_Hans": "人文社科学院活动",
+        "en": "SHSS Events"
+      },
+      "url": "https://shss.hkust.edu.hk/events",
+      "kind": "opportunity_source",
+      "category": "school_academic",
+      "priority": "p1",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "ias-upcoming",
+      "name": {
+        "zh_Hans": "高等研究院讲座与论坛",
+        "en": "IAS Upcoming Events"
+      },
+      "url": "https://ias.hkust.edu.hk/events/upcoming-events",
+      "kind": "opportunity_source",
+      "category": "school_academic",
+      "priority": "p1",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "ec-ipic",
+      "name": {
+        "zh_Hans": "IPIC 孵化计划",
+        "en": "IPIC Incubation"
+      },
+      "url": "https://ec.hkust.edu.hk/ipic-incubation",
+      "kind": "opportunity_source",
+      "category": "entrepreneurship",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "program_hub",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "ec-univenture",
+      "name": {
+        "zh_Hans": "UniVenture 创业计划",
+        "en": "HKUST UniVenture Program"
+      },
+      "url": "https://ec.hkust.edu.hk/hkust-univenture-program",
+      "kind": "opportunity_source",
+      "category": "entrepreneurship",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "program_hub",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "ec-techship",
+      "name": {
+        "zh_Hans": "Tech-Ship 计划",
+        "en": "EC Tech-Ship"
+      },
+      "url": "https://ec-techship.hkust.edu.hk/",
+      "kind": "opportunity_source",
+      "category": "entrepreneurship",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "program_hub",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "ec-gba-youth",
+      "name": {
+        "zh_Hans": "大湾区青年创业计划",
+        "en": "GBA Youth Entrepreneurship"
+      },
+      "url": "https://ec-gba.hkust.edu.hk/",
+      "kind": "opportunity_source",
+      "category": "entrepreneurship",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "program_hub",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "joint-washu",
+      "name": {
+        "zh_Hans": "HKUST–WashU 联合培养",
+        "en": "HKUST–WashU Joint Program"
+      },
+      "url": "https://seng.hkust.edu.hk/academics/undergraduate/joint-university-programs/hkust-washu",
+      "kind": "opportunity_source",
+      "category": "exchange_cross_uni",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "program_hub",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "joint-waseda",
+      "name": {
+        "zh_Hans": "HKUST–早稻田双学士",
+        "en": "HKUST–Waseda Dual Bachelor's"
+      },
+      "url": "https://shss.hkust.edu.hk/global_experience/dual-bachelors-degree",
+      "kind": "opportunity_source",
+      "category": "exchange_cross_uni",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "program_hub",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "joint-wbb",
+      "name": {
+        "zh_Hans": "World Bachelor in Business 三校学位",
+        "en": "World Bachelor in Business"
+      },
+      "url": "https://wbb.hkust.edu.hk/admissions.html",
+      "kind": "opportunity_source",
+      "category": "exchange_cross_uni",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "program_hub",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "seng-dual-degree-rpg",
+      "name": {
+        "zh_Hans": "工学院联合培养研究生项目",
+        "en": "SENG Dual-degree / Jointly Supervised RPG"
+      },
+      "url": "https://seng.hkust.edu.hk/academics/research-postgraduate/dual-degree-jointly-supervised-programs",
+      "kind": "opportunity_source",
+      "category": "exchange_cross_uni",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "program_hub",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "fytgs-intl-visiting-internship",
+      "name": {
+        "zh_Hans": "国际访问实习学生计划",
+        "en": "International Visiting Internship Student Program"
+      },
+      "url": "https://fytgs.hkust.edu.hk/admissions/short-term-study/international-visiting-internship-student-program",
+      "kind": "opportunity_source",
+      "category": "exchange_cross_uni",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "program_hub",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "fytgs-pg-visiting",
+      "name": {
+        "zh_Hans": "研究生访问实习（香港校区）",
+        "en": "PG Visiting Internship Students (HK Campus)"
+      },
+      "url": "https://fytgs.hkust.edu.hk/admissions/short-term-study-Hong-Kong-Campus/pg-visiting-internship-students",
+      "kind": "opportunity_source",
+      "category": "exchange_cross_uni",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "program_hub",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "join-ug-visiting",
+      "name": {
+        "zh_Hans": "本科访问学生申请",
+        "en": "Undergraduate Visiting Student Application"
+      },
+      "url": "https://join.hkust.edu.hk/applyugvisiting",
+      "kind": "opportunity_source",
+      "category": "exchange_cross_uni",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "program_hub",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "ece-zilim-recruiting",
+      "name": {
+        "zh_Hans": "ECE 孟子立课题组招募",
+        "en": "ECE Prof. Zili Meng Recruiting"
+      },
+      "url": "https://ece.hkust.edu.hk/zilim",
+      "kind": "opportunity_source",
+      "category": "research_urop",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "ece-eexmli-recruiting",
+      "name": {
+        "zh_Hans": "ECE 李小萌课题组招募",
+        "en": "ECE Prof. Xiaomeng Li Recruiting"
+      },
+      "url": "https://ece.hkust.edu.hk/eexmli",
+      "kind": "opportunity_source",
+      "category": "research_urop",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "ece-eeyyang-recruiting",
+      "name": {
+        "zh_Hans": "ECE 杨延松课题组招募",
+        "en": "ECE Prof. Yansong Yang Recruiting"
+      },
+      "url": "https://ece.hkust.edu.hk/eeyyang",
+      "kind": "opportunity_source",
+      "category": "research_urop",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "linfu-group-recruiting",
+      "name": {
+        "zh_Hans": "Lin Fu 课题组招募",
+        "en": "Prof. Lin Fu Research Group Recruiting"
+      },
+      "url": "https://linfu.people.ust.hk/people.html",
+      "kind": "opportunity_source",
+      "category": "research_urop",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "yuegroup-urop",
+      "name": {
+        "zh_Hans": "Optical Wireless Lab UROP",
+        "en": "Optical Wireless Lab UROP"
+      },
+      "url": "https://yuegroup.hkust.edu.hk/UROP",
+      "kind": "opportunity_source",
+      "category": "research_urop",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dst-societies-directory",
+      "name": {
+        "zh_Hans": "学生事务处社团总目录",
+        "en": "DSTO Student Societies Directory"
+      },
+      "url": "https://dst.hkust.edu.hk/student-life/list-of-student-societies",
+      "kind": "opportunity_source",
+      "category": "club_alumni",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "connect-student-groups",
+      "name": {
+        "zh_Hans": "HKUST Connect 服务与领导力学生团体",
+        "en": "HKUST Connect Student Groups"
+      },
+      "url": "https://connect.hkust.edu.hk/get-involved/awards-resources/student-groups",
+      "kind": "opportunity_source",
+      "category": "club_alumni",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "alumni-groups-directory",
+      "name": {
+        "zh_Hans": "校友组织总目录",
+        "en": "Alumni Groups Directory"
+      },
+      "url": "https://alumni.ust.hk/index.php/networks/alumni-groups",
+      "kind": "opportunity_source",
+      "category": "club_alumni",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "alumni-events",
+      "name": {
+        "zh_Hans": "校友活动",
+        "en": "Alumni Events"
+      },
+      "url": "https://alumni.ust.hk/index.php/events",
+      "kind": "opportunity_source",
+      "category": "club_alumni",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "oma-mainland-associations",
+      "name": {
+        "zh_Hans": "内地事务处学生社群",
+        "en": "OMA Mainland Students Associations"
+      },
+      "url": "https://oma.hkust.edu.hk/mainland-students-associations",
+      "kind": "opportunity_source",
+      "category": "club_alumni",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "hkustsu",
+      "name": {
+        "zh_Hans": "学生会",
+        "en": "HKUST Students' Union"
+      },
+      "url": "https://hkustsu.hkust.edu.hk/",
+      "kind": "opportunity_source",
+      "category": "club_alumni",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "admin-departments-directory",
+      "name": {
+        "zh_Hans": "行政部门官方目录（发现新增单位）",
+        "en": "Administrative Departments Directory"
+      },
+      "url": "https://hkust.edu.hk/directory/administrative-departments",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "academic-departments-directory",
+      "name": {
+        "zh_Hans": "学术部门官方目录",
+        "en": "Academic Departments Directory"
+      },
+      "url": "https://hkust.edu.hk/directory/academic-departments",
+      "kind": "opportunity_source",
+      "category": "school_academic",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-career-center",
+      "name": {
+        "zh_Hans": "就业指导中心",
+        "en": "Career Center"
+      },
+      "url": "https://career.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-ec",
+      "name": {
+        "zh_Hans": "创业中心",
+        "en": "Entrepreneurship Center"
+      },
+      "url": "https://ec.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-studyabroad",
+      "name": {
+        "zh_Hans": "全球学习办公室",
+        "en": "Office of Global Learning / Study Abroad"
+      },
+      "url": "https://studyabroad.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-dao",
+      "name": {
+        "zh_Hans": "拓展及校友事务处",
+        "en": "Development and Alumni Office"
+      },
+      "url": "https://dao.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-oma",
+      "name": {
+        "zh_Hans": "内地事务处",
+        "en": "Office of Mainland Affairs"
+      },
+      "url": "https://oma.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-connect",
+      "name": {
+        "zh_Hans": "HKUST Connect",
+        "en": "HKUST Connect"
+      },
+      "url": "https://connect.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-dsto",
+      "name": {
+        "zh_Hans": "学生事务处",
+        "en": "Dean of Students' Office"
+      },
+      "url": "https://dst.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-okt",
+      "name": {
+        "zh_Hans": "知识转移办公室",
+        "en": "Office of Knowledge Transfer"
+      },
+      "url": "https://okt.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-research-office",
+      "name": {
+        "zh_Hans": "科研处",
+        "en": "Research Office"
+      },
+      "url": "https://ro.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-vprd-institutes",
+      "name": {
+        "zh_Hans": "研发副校长办公室·研究机构目录",
+        "en": "VPRD Research Institutes"
+      },
+      "url": "https://vprd.hkust.edu.hk/research-infrastructure/research-institutes",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-registry",
+      "name": {
+        "zh_Hans": "教务处",
+        "en": "Academic Registry"
+      },
+      "url": "https://registry.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-fytgs",
+      "name": {
+        "zh_Hans": "霍英东研究生院",
+        "en": "Fok Ying Tung Graduate School"
+      },
+      "url": "https://fytgs.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-cei",
+      "name": {
+        "zh_Hans": "教育创新中心",
+        "en": "Center for Education Innovation"
+      },
+      "url": "https://cei.ust.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-artsctr",
+      "name": {
+        "zh_Hans": "艺术中心",
+        "en": "Center for the Arts"
+      },
+      "url": "https://artsctr.ust.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-cdgt",
+      "name": {
+        "zh_Hans": "资优教育发展中心",
+        "en": "Center for the Development of the Gifted and Talented"
+      },
+      "url": "https://cdgt.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-counsel",
+      "name": {
+        "zh_Hans": "辅导及健康中心",
+        "en": "Counseling and Wellness Center"
+      },
+      "url": "https://counsel.ust.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-sfao",
+      "name": {
+        "zh_Hans": "奖学金及经济援助处",
+        "en": "Scholarships and Financial Aid Office"
+      },
+      "url": "https://sfao.ust.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-join-ug",
+      "name": {
+        "zh_Hans": "本科招生处",
+        "en": "Undergraduate Recruitment & Admissions"
+      },
+      "url": "https://join.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-geco",
+      "name": {
+        "zh_Hans": "环球事务及传讯处",
+        "en": "Global Engagement and Communications Office"
+      },
+      "url": "https://geco.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-green",
+      "name": {
+        "zh_Hans": "可持续发展办公室",
+        "en": "Sustainability / Net-Zero Office"
+      },
+      "url": "https://green.ust.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-library",
+      "name": {
+        "zh_Hans": "图书馆",
+        "en": "Library"
+      },
+      "url": "https://library.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "dept-shrl",
+      "name": {
+        "zh_Hans": "学生宿舍及住宿生活办公室",
+        "en": "Student Housing and Residential Life Office"
+      },
+      "url": "https://shrl.ust.hk",
+      "kind": "opportunity_source",
+      "category": "admin_department",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "school-science",
+      "name": {
+        "zh_Hans": "理学院",
+        "en": "School of Science"
+      },
+      "url": "https://science.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "school_academic",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "school-seng",
+      "name": {
+        "zh_Hans": "工学院",
+        "en": "School of Engineering"
+      },
+      "url": "https://seng.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "school_academic",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "school-bm",
+      "name": {
+        "zh_Hans": "商学院",
+        "en": "Business School"
+      },
+      "url": "https://bm.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "school_academic",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "school-shss",
+      "name": {
+        "zh_Hans": "人文社会科学学院",
+        "en": "School of Humanities and Social Science"
+      },
+      "url": "https://shss.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "school_academic",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "school-ais",
+      "name": {
+        "zh_Hans": "跨学科学院",
+        "en": "Academy of Interdisciplinary Studies"
+      },
+      "url": "https://ais.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "school_academic",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "school-medicine",
+      "name": {
+        "zh_Hans": "医学院（新设，监控招生与活动）",
+        "en": "School of Medicine (new, monitor)"
+      },
+      "url": "https://medicine.hkust.edu.hk",
+      "kind": "opportunity_source",
+      "category": "school_academic",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "HK-IMMD-STUDY",
+      "name": {
+        "zh_Hans": "香港入境处·学生签证",
+        "en": "HK Immigration Department: Students"
+      },
+      "url": "https://www.immd.gov.hk/eng/services/visas/study.html",
+      "kind": "policy_source",
+      "category": "policy",
+      "priority": "p0",
+      "render": "static",
+      "entry_type": "policy_page",
+      "opportunity_bearing": false,
+      "is_real_fetch": true,
+      "policy_audience": "intl"
+    },
+    {
+      "source_id": "HK-IMMD-FAQ-STUDY",
+      "name": {
+        "zh_Hans": "香港入境处·就学政策 FAQ",
+        "en": "HK IMMD Immigration Policy on Study FAQ"
+      },
+      "url": "https://www.immd.gov.hk/eng/faq/imm-policy-study.html",
+      "kind": "policy_source",
+      "category": "policy",
+      "priority": "p0",
+      "render": "static",
+      "entry_type": "policy_page",
+      "opportunity_bearing": false,
+      "is_real_fetch": true,
+      "policy_audience": "intl"
+    },
+    {
+      "source_id": "HK-IMMD-IANG",
+      "name": {
+        "zh_Hans": "香港入境处·IANG 非本地毕业生留港",
+        "en": "HK IMMD IANG"
+      },
+      "url": "https://www.immd.gov.hk/eng/services/visas/IANG.html",
+      "kind": "policy_source",
+      "category": "policy",
+      "priority": "p0",
+      "render": "static",
+      "entry_type": "policy_page",
+      "opportunity_bearing": false,
+      "is_real_fetch": true,
+      "policy_audience": "intl"
+    },
+    {
+      "source_id": "HK-IMMD-IANG-ZH",
+      "name": {
+        "zh_Hans": "香港入境处·IANG 非本地毕业生留港（繁中版）",
+        "en": "IMMD IANG — non-local graduates (Traditional Chinese)"
+      },
+      "url": "https://www.immd.gov.hk/hks/services/visas/IANG.html",
+      "kind": "policy_source",
+      "category": "policy",
+      "priority": "p0",
+      "render": "static",
+      "entry_type": "policy_page",
+      "opportunity_bearing": false,
+      "is_real_fetch": true,
+      "policy_audience": "intl"
+    },
+    {
+      "source_id": "HK-IMMD-IANG-FAQ",
+      "name": {
+        "zh_Hans": "香港入境处·IANG FAQ",
+        "en": "HK IMMD IANG FAQ"
+      },
+      "url": "https://www.immd.gov.hk/eng/faq/non-local-graduates-return-employment-arrangement.html",
+      "kind": "policy_source",
+      "category": "policy",
+      "priority": "p0",
+      "render": "static",
+      "entry_type": "policy_page",
+      "opportunity_bearing": false,
+      "is_real_fetch": true,
+      "policy_audience": "intl"
+    },
+    {
+      "source_id": "HK-LABOUR-INTERNS",
+      "name": {
+        "zh_Hans": "香港劳工处·学生实习最低工资豁免",
+        "en": "HK Labour Dept: Student Interns SMW Exemption"
+      },
+      "url": "https://www.labour.gov.hk/eng/erb/smw_esi_wes.htm",
+      "kind": "policy_source",
+      "category": "policy",
+      "priority": "p1",
+      "render": "static",
+      "entry_type": "policy_page",
+      "opportunity_bearing": false,
+      "is_real_fetch": true,
+      "policy_audience": "all"
+    },
+    {
+      "source_id": "CN-MOE-WORKSTUDY",
+      "name": {
+        "zh_Hans": "教育部·国际学生勤工助学管理规定",
+        "en": "CN MOE Work-study Administrative Measures"
+      },
+      "url": "https://www.moe.gov.cn/srcsite/A20/s7068/202201/t20220121_595550.html",
+      "kind": "policy_source",
+      "category": "policy",
+      "priority": "p1",
+      "render": "static",
+      "entry_type": "policy_page",
+      "opportunity_bearing": false,
+      "is_real_fetch": true,
+      "policy_audience": "intl"
+    },
+    {
+      "source_id": "CN-MOE-ADMISSION",
+      "name": {
+        "zh_Hans": "教育部·国际学生招收培养管理办法",
+        "en": "CN MOE Admission & Training Measures"
+      },
+      "url": "https://www.moe.gov.cn/jyb_xxgk/xxgk/zhengce/guizhang/202112/t20211206_585055.html",
+      "kind": "policy_source",
+      "category": "policy",
+      "priority": "p1",
+      "render": "static",
+      "entry_type": "policy_page",
+      "opportunity_bearing": false,
+      "is_real_fetch": true,
+      "policy_audience": "intl"
+    },
+    {
+      "source_id": "CN-SC-FOREIGN-EMPLOYMENT",
+      "name": {
+        "zh_Hans": "国务院·外国人在中国就业管理规定",
+        "en": "CN State Council Foreigner Employment Provisions"
+      },
+      "url": "https://www.gov.cn/zhengce/2022-08/31/content_5711314.htm",
+      "kind": "policy_source",
+      "category": "policy",
+      "priority": "p1",
+      "render": "static",
+      "entry_type": "policy_page",
+      "opportunity_bearing": false,
+      "is_real_fetch": true,
+      "policy_audience": "intl"
+    },
+    {
+      "source_id": "CN-MOHRSS-GRADUATES",
+      "name": {
+        "zh_Hans": "人社部·优秀外籍高校毕业生就业",
+        "en": "CN MOHRSS Outstanding Foreign Graduates Employment"
+      },
+      "url": "https://www.mohrss.gov.cn/xxgk2020/fdzdgknr/zcfg/gfxwj/jy/201701/t20170111_264214.html",
+      "kind": "policy_source",
+      "category": "policy",
+      "priority": "p1",
+      "render": "static",
+      "entry_type": "policy_page",
+      "opportunity_bearing": false,
+      "is_real_fetch": true,
+      "policy_audience": "all"
+    },
+    {
+      "source_id": "CN-NIA-GUIDE",
+      "name": {
+        "zh_Hans": "国家移民管理局·外籍人员来华工作生活指南",
+        "en": "CN NIA Guide for Foreigners Working in China"
+      },
+      "url": "https://www.nia.gov.cn/n741440/n741542/c1637910/part/1637927.pdf",
+      "kind": "policy_source",
+      "category": "policy",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "policy_page",
+      "opportunity_bearing": false,
+      "is_real_fetch": true,
+      "policy_audience": "intl"
+    },
+    {
+      "source_id": "HKUST-CAREER-NONLOCAL",
+      "name": {
+        "zh_Hans": "HKUST 就业中心·非本地生就业信息",
+        "en": "HKUST Career Center: Non-local Students Employment"
+      },
+      "url": "https://career.hkust.edu.hk/web/page.php?tid=38",
+      "kind": "policy_source",
+      "category": "policy",
+      "priority": "p0",
+      "render": "static",
+      "entry_type": "policy_page",
+      "opportunity_bearing": false,
+      "is_real_fetch": true,
+      "policy_audience": "intl"
+    },
+    {
+      "source_id": "HKUST-REGISTRY-ATTENDANCE",
+      "name": {
+        "zh_Hans": "HKUST 教务处·上课出勤与就业指引",
+        "en": "HKUST Registry: Classes & Attendance/Employment"
+      },
+      "url": "https://registry.hkust.edu.hk/resource-library/classes-attendance",
+      "kind": "policy_source",
+      "category": "policy",
+      "priority": "p1",
+      "render": "static",
+      "entry_type": "policy_page",
+      "opportunity_bearing": false,
+      "is_real_fetch": true,
+      "policy_audience": "all"
+    },
+    {
+      "source_id": "HKUST-INTL-SCHOLARSHIPS",
+      "name": {
+        "zh_Hans": "HKUST 国际资历奖学金",
+        "en": "HKUST International Qualifications Scholarships"
+      },
+      "url": "https://join.hkust.edu.hk/intlscholarships",
+      "kind": "policy_source",
+      "category": "policy",
+      "priority": "p1",
+      "render": "static",
+      "entry_type": "policy_page",
+      "opportunity_bearing": false,
+      "is_real_fetch": true,
+      "policy_audience": "intl"
+    },
+    {
+      "source_id": "HKUST-SFAO",
+      "name": {
+        "zh_Hans": "HKUST 奖学金及经济援助处（国际生）",
+        "en": "HKUST Scholarships & Financial Aid Office"
+      },
+      "url": "https://sfao.hkust.edu.hk/page.php?i=3",
+      "kind": "policy_source",
+      "category": "policy",
+      "priority": "p1",
+      "render": "static",
+      "entry_type": "policy_page",
+      "opportunity_bearing": false,
+      "is_real_fetch": true,
+      "policy_audience": "all"
+    },
+    {
+      "source_id": "SRC-sis",
+      "name": {
+        "zh_Hans": "SIS 学籍系统（合成沙箱）",
+        "en": "SIS (Synthetic Sandbox)"
+      },
+      "url": "mock://sis",
+      "kind": "education_connector",
+      "category": "education_system",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": false
+    },
+    {
+      "source_id": "SRC-lms",
+      "name": {
+        "zh_Hans": "LMS 学习系统（Moodle 沙箱）",
+        "en": "LMS (Moodle Sandbox)"
+      },
+      "url": "mock://lms",
+      "kind": "education_connector",
+      "category": "education_system",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": false
+    },
+    {
+      "source_id": "SRC-catalog",
+      "name": {
+        "zh_Hans": "课程目录（真实 HKUST 快照）",
+        "en": "Course Catalog (real HKUST snapshot)"
+      },
+      "url": "https://prog-crs.hkust.edu.hk/ugcourse/",
+      "kind": "education_connector",
+      "category": "education_system",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": true
+    },
+    {
+      "source_id": "SRC-timetable",
+      "name": {
+        "zh_Hans": "课表系统（合成沙箱）",
+        "en": "Timetable (Synthetic Sandbox)"
+      },
+      "url": "mock://timetable",
+      "kind": "education_connector",
+      "category": "education_system",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "directory",
+      "opportunity_bearing": false,
+      "is_real_fetch": false
+    },
+    {
+      "source_id": "SRC-career-center",
+      "name": {
+        "zh_Hans": "Career Center 投递源（合成）",
+        "en": "Career Center Feed (Synthetic)"
+      },
+      "url": "mock://career-center-feed",
+      "kind": "opportunity_source",
+      "category": "career_internship",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": false
+    },
+    {
+      "source_id": "SRC-lab-site",
+      "name": {
+        "zh_Hans": "实验室网站源（合成）",
+        "en": "Lab Website Source (Synthetic)"
+      },
+      "url": "mock://lab-site",
+      "kind": "opportunity_source",
+      "category": "research_urop",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": false
+    },
+    {
+      "source_id": "SRC-club-portal",
+      "name": {
+        "zh_Hans": "社团投稿门户（合成）",
+        "en": "Club Publisher Portal (Synthetic)"
+      },
+      "url": "mock://club-portal",
+      "kind": "opportunity_source",
+      "category": "club_alumni",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": false
+    },
+    {
+      "source_id": "SRC-partner-ats",
+      "name": {
+        "zh_Hans": "合作企业 ATS 订阅源（合成）",
+        "en": "Partner Enterprise ATS (Synthetic)"
+      },
+      "url": "mock://partner-ats",
+      "kind": "opportunity_source",
+      "category": "career_internship",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": false
+    },
+    {
+      "source_id": "SRC-events-calendar",
+      "name": {
+        "zh_Hans": "校园活动日历源（合成）",
+        "en": "Campus Events Calendar (Synthetic)"
+      },
+      "url": "mock://events-calendar",
+      "kind": "opportunity_source",
+      "category": "central_calendar",
+      "priority": "p2",
+      "render": "static",
+      "entry_type": "event_list",
+      "opportunity_bearing": true,
+      "is_real_fetch": false
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+[project]
+name = "campuspath-contracts"
+version = "1.0.0"
+description = "CampusPath 契约层：Schema 唯一真相来源（WP1）"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.9,<3",
+]
+
+# 本包禁止依赖任何模型 SDK（B11/B12）。新增依赖前先想清楚它的传递依赖里有没有。
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["campuspath_contracts"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

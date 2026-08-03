@@ -1,0 +1,151 @@
+{
+  "$defs": {
+    "CapacityStatus": {
+      "enum": [
+        "open",
+        "waitlist",
+        "full",
+        "restricted",
+        "unknown"
+      ],
+      "title": "CapacityStatus",
+      "type": "string"
+    },
+    "MeetingSlot": {
+      "additionalProperties": false,
+      "description": "课表时段。**不含教师个人联系方式，也不含学生名单。**",
+      "properties": {
+        "end_time": {
+          "pattern": "^\\d{2}:\\d{2}$",
+          "title": "End Time",
+          "type": "string"
+        },
+        "start_time": {
+          "pattern": "^\\d{2}:\\d{2}$",
+          "title": "Start Time",
+          "type": "string"
+        },
+        "venue": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Venue"
+        },
+        "weekday": {
+          "enum": [
+            "MO",
+            "TU",
+            "WE",
+            "TH",
+            "FR",
+            "SA",
+            "SU"
+          ],
+          "title": "Weekday",
+          "type": "string"
+        }
+      },
+      "required": [
+        "weekday",
+        "start_time",
+        "end_time"
+      ],
+      "title": "MeetingSlot",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/CourseOffering.json",
+  "additionalProperties": false,
+  "properties": {
+    "capacity_status": {
+      "$ref": "#/components/schemas/CapacityStatus",
+      "default": "unknown"
+    },
+    "course_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Course Id",
+      "type": "string"
+    },
+    "delivery_mode": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Delivery Mode"
+    },
+    "exam_time": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Exam Time"
+    },
+    "instructor": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Instructor"
+    },
+    "offering_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Offering Id",
+      "type": "string"
+    },
+    "schedule": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/MeetingSlot"
+      },
+      "title": "Schedule",
+      "type": "array"
+    },
+    "section": {
+      "title": "Section",
+      "type": "string"
+    },
+    "term": {
+      "pattern": "^\\d{4}-\\d{2}_(FALL|WINTER|SPRING|SUMMER)$",
+      "title": "Term",
+      "type": "string"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "offering_id",
+    "course_id",
+    "term",
+    "section",
+    "updated_at"
+  ],
+  "title": "CourseOffering",
+  "type": "object"
+}

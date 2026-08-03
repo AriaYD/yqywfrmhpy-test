@@ -1,0 +1,26 @@
+{
+  "$id": "https://campuspath.invalid/schema/MemoryCorrection.json",
+  "additionalProperties": false,
+  "description": "学生对一条记忆的纠正（F17）。\n\n产生一条**新**条目并取代旧条目——旧条目保留并标记被取代（§8.6：\n不静默覆盖）。纠正内容是学生原话，origin 恒为 student_statement。",
+  "properties": {
+    "corrected_content": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Corrected Content",
+      "type": "string"
+    },
+    "memory_id": {
+      "description": "被纠正的条目",
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Memory Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "memory_id",
+    "corrected_content"
+  ],
+  "title": "MemoryCorrection",
+  "type": "object"
+}

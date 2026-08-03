@@ -1,0 +1,1491 @@
+<title>CampusPath — Dynamic Campus Growth Pathway Agent System V4.1</title>
+
+<style>
+/*__SHARED_CSS__*/
+</style>
+
+<header class="chrome">
+  <div class="chrome-in">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 20 L4 12 Q4 7 9 7 L15 7 Q20 7 20 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="4" cy="20" r="2.4" fill="currentColor"/>
+        <circle cx="20" cy="12" r="2.4" fill="none" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      <span class="brand-name">CampusPath</span>
+      <span class="brand-ver">V4.1</span>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab" role="tab" data-go="overview"  aria-selected="true">Overview</button>
+      <button class="tab" role="tab" data-go="functions" aria-selected="false">Functions</button>
+      <button class="tab" role="tab" data-go="agents"    aria-selected="false">Agent Architecture</button>
+      <button class="tab" role="tab" data-go="workflow"  aria-selected="false">Workflow</button>
+      <button class="tab" role="tab" data-go="tech"      aria-selected="false">Implementation</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ══════════════════════════ PAGE 1 · OVERVIEW ══════════════════════════ -->
+<div class="page" id="overview" data-active="true">
+
+  <div class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">HKUST × Google Hackathon · Gemini Enterprise for Higher Education</div>
+        <h1>Turn who a student wants to become<br>into what they can do today.</h1>
+        <p class="hero-sub">
+          CampusPath is a long-horizon AI agent system that accompanies a student from enrolment to graduation.
+          It connects the student's authorised growth record, the registry system, the LMS, the course catalogue,
+          their personal calendar and both on- and off-campus opportunities — then organises fragmented resources
+          into a multi-timescale, executable campus growth pathway that recalibrates as things change and never overloads them.
+        </p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="quote">
+          <div class="quote-label">Positioning, in one sentence</div>
+          <div class="quote-text">Continuously integrate trustworthy on- and off-campus resources with the student's real feedback, and dynamically work backwards from who the student wants to become to a campus growth pathway that is executable now and recalibrated in real time as things change.</div>
+          <div class="quote-src">Spec V4.1 · title section (translated from the Chinese source)</div>
+        </div>
+        <div class="grid g2">
+          <div class="card stat"><div class="stat-n">27</div><div class="stat-l">Numbered functions F01–F27</div></div>
+          <div class="card stat"><div class="stat-n">6</div><div class="stat-l">Semantic agents A0–A5</div></div>
+          <div class="card stat"><div class="stat-n">2</div><div class="stat-l">Agent runtimes</div></div>
+          <div class="card stat"><div class="stat-n">9</div><div class="stat-l">Deterministic services (zero LLM)</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">01 · Why this project</div>
+      <h2>The real problem is not a lack of resources — it is that resources never become a pathway</h2>
+      <p class="sec-note">
+        Universities are full of courses, competitions, labs, exchanges, talks, clubs, startup support and career
+        opportunities — but they are highly fragmented. On top of a heavy academic load, students have to search,
+        verify, judge, plan and track all of it themselves, at a very high cognitive cost. Many opportunities are
+        missed not because the student was not capable, but because they found out too late, could not tell whether
+        they were eligible, did not know how to combine things, or made a plan that did not match their real energy.
+      </p>
+    </div>
+
+    <h3 style="margin-bottom:14px;">The six long-term costs this project reduces</h3>
+    <div class="grid g3">
+      <div class="card mode"><div class="mode-n">COST 1</div><div class="mode-t">Discovery cost</div><div class="mode-d">Not knowing which trustworthy opportunities exist</div></div>
+      <div class="card mode"><div class="mode-n">COST 2</div><div class="mode-t">Comprehension cost</div><div class="mode-d">Seeing an opportunity but not knowing its actual eligibility rules or value</div></div>
+      <div class="card mode"><div class="mode-n">COST 3</div><div class="mode-t">Planning cost</div><div class="mode-d">Not knowing how courses, experiences and opportunities form a pathway with real dependencies</div></div>
+      <div class="card mode"><div class="mode-n">COST 4</div><div class="mode-t">Execution cost</div><div class="mode-d">Bookmarking a lot, but never converting it into actions, materials and calendar entries</div></div>
+      <div class="card mode"><div class="mode-n">COST 5</div><div class="mode-t">Correction cost</div><div class="mode-d">Nothing accumulates afterwards, so the system keeps scheduling things that did not work or did not fit</div></div>
+      <div class="card mode"><div class="mode-n">COST 6</div><div class="mode-t">Capacity cost</div><div class="mode-d">Not knowing how coursework, life and growth tasks fit into a real calendar — leading to clashes, overload, or squeezed rest</div></div>
+    </div>
+
+    <div class="callout c-route" style="margin-top:18px;">
+      <b>Why a one-off career plan is not enough:</b>
+      A student's abilities, goals, energy and external opportunities all change. An internship you do not qualify for
+      in year one may fit perfectly in year three; a direction that seemed appealing may turn out not to suit you after
+      one hands-on experience. So the genuinely useful product is not a static roadmap — it is a growth system that
+      can keep sensing, remembering, verifying and replanning.
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">02 · Purpose and final product positioning</div>
+      <h2>A campus growth operating system — not another job aggregator</h2>
+    </div>
+
+    <div class="quote" style="margin-bottom:22px;">
+      <div class="quote-label">Final product positioning</div>
+      <div class="quote-text">A dynamic campus growth operating system, powered by Gemini Enterprise and centred on the student's own choices: it turns long-term direction into near-term action, turns real action into evidence and memory, and then uses that new evidence to continuously recalibrate the next stage of the pathway.</div>
+      <div class="quote-src">Spec V4.1 · §2.1 (translated from the Chinese source)</div>
+    </div>
+
+    <h3 style="margin-bottom:12px;">The core loop</h3>
+    <div class="card" style="overflow-x:auto;">
+      <div class="loop">
+        <span>Profile + Education + Calendar/Capacity State</span><i>→</i>
+        <span>Goal</span><i>→</i><span>Requirement</span><i>→</i><span>Gap</span><i>→</i>
+        <span>Course &amp; Opportunity</span><i>→</i><span>Constraint-safe Plan</span><i>→</i>
+        <span>Consent-based Action</span><i>→</i><span>Reflection &amp; Evidence</span><i>→</i>
+        <span>Confirmed Profile/Memory Update</span><i>→</i><span>Replan</span>
+      </div>
+    </div>
+
+    <h3 style="margin:26px 0 12px;">Two-sided value: what the student gets, what the university gets</h3>
+    <p class="sec-note" style="margin-bottom:14px;">
+      The brief is Gemini Enterprise for <b>Higher Education</b>. The party that actually deploys and pays is the
+      university, so the product must make both value propositions true at once.
+    </p>
+    <div class="grid g2">
+      <div class="card mode">
+        <div class="mode-n">FOR STUDENTS</div>
+        <div class="mode-t">Long-term direction, worked backwards into something executable now that does not squeeze out life</div>
+        <div class="mode-d">Every recommendation states which gap it closes, what evidence it produces, and why now.</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">FOR THE UNIVERSITY</div>
+        <div class="mode-t">Turn resources the university already funds heavily into measurable, improvable, attributable growth assets</div>
+        <div class="mode-d">And, for the first time, show the university which real student needs its resource pool does not cover.</div>
+      </div>
+    </div>
+
+    <div class="callout c-ok" style="margin-top:16px;">
+      <b>How "university resources" are defined here:</b>
+      Any opportunity a student can access <i>because of their enrolled status</i> counts as a university resource.
+      Alumni referrals, employers recruiting on campus, partner-organisation places, inter-university consortium
+      events — all of these exist because of the university's brand and network, and do not stop counting just because
+      the organiser sits outside the campus. So this product <b>does not split resources into on-campus versus
+      off-campus</b>. It only distinguishes whether the student <b>found it, qualified for it, and used it</b>.
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">03 · Who this is for</div>
+      <h2>Five goal-oriented groups — not five identity labels</h2>
+      <p class="sec-note">
+        These five are grouped by where a student <i>wants to go</i>, not by undergraduate / master's / doctoral status
+        or nationality, and they are not permanent labels. A student can hold two candidate directions at once and
+        shift the weighting as they gain experience.
+      </p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card mode mvp">
+        <div class="mode-n">MODE 1</div>
+        <div class="mode-t">Employment &amp; career development</div>
+        <div class="mode-d">Entering a target company, industry, role or public-service field</div>
+        <div class="mode-k">System focus: role requirements, skill evidence, projects, internships, portfolio, network, recruiting rhythm</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">MODE 2</div>
+        <div class="mode-t">Academia &amp; postgraduate study</div>
+        <div class="mode-d">Master's, PhD, entering a research field, finding a supervisor</div>
+        <div class="mode-k">System focus: course foundations, research methods, labs, paper reading, research experience, references, application timeline</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">MODE 3</div>
+        <div class="mode-t">Entrepreneurship &amp; innovation</div>
+        <div class="mode-d">Starting a project, validating a need, joining an incubator, forming a team</div>
+        <div class="mode-k">System focus: problem discovery, technical/business capability, competitions, prototypes, user validation, mentors, funding, team</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">MODE 4</div>
+        <div class="mode-t">Interests &amp; personal growth</div>
+        <div class="mode-d">Art, sport, language, public service, creative work or other long-term interests</div>
+        <div class="mode-k">System focus: capability growth, community, work produced, experience quality, sustainable commitment — without forcing professionalisation</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">MODE 5</div>
+        <div class="mode-t">Exploration &amp; undecided</div>
+        <div class="mode-d">Currently unsure, hoping to understand themselves through practice</div>
+        <div class="mode-k">System focus: low-cost, varied exploratory experiments; updating interests and goal confidence from real experience</div>
+      </div>
+      <div class="card mode" style="border-style:dashed;">
+        <div class="mode-n">A CROSS-CUTTING CONSTRAINT — NOT A SIXTH GROUP</div>
+        <div class="mode-t">Context Pack</div>
+        <div class="mode-d">International status, financial situation, caring responsibilities, health and energy, commuting, language, accessibility needs</div>
+        <div class="mode-k">Injected as a personal constraint that every development mode must respect, rather than duplicating a whole new set of agents</div>
+      </div>
+    </div>
+
+    <h3 style="margin:28px 0 12px;">Usage period and MVP scope</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Stage</th><th>Typical starting point</th><th>Example planning span</th><th>MVP</th></tr></thead>
+        <tbody>
+          <tr><td>Undergraduate</td><td>Year-one entry, or joining later</td><td>Covers four undergraduate years, summers and the transition out of university; a late joiner starts from the current term and backfills their history</td><td><span class="pill p-route">Primary group</span></td></tr>
+          <tr><td>Master's</td><td>Entry, changing direction, or preparing for jobs / PhD applications</td><td>Covers coursework, research, internships, thesis and the next-stage application; the exact span follows the programme structure</td><td><span class="pill p-mute">In product scope</span></td></tr>
+          <tr><td>Doctoral</td><td>Entry, around qualifying exams, or when changing research direction</td><td>Can span multiple years across research, conferences, collaboration, teaching, funding and academic/industry development</td><td><span class="pill p-mute">In product scope</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout c-route" style="margin-top:16px;">
+      <b>Career Path Pack — the goal model is pluggable, not a duplicated agent:</b>
+      What differs between development paths is only "what this path requires, what evidence counts, and on what
+      timeline" — not the agent structure. So it is abstracted into a versioned rule pack, structurally identical to
+      the Context Pack.<br>
+      The MVP ships exactly one pack: <code>undergrad-direct-employment</code>. A second pack,
+      <code>phd-to-industry</code> (doctoral graduates moving into industry), is reserved at the interface level —
+      <b>if that pack is not delivered, the MVP is unaffected, the front end does not show it, and no material claims
+      support for that path.</b>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">04 · Boundaries</div>
+      <h2>What this product is not</h2>
+      <p class="sec-note">Explicit exclusions matter as much as the function list — they rule out whole implementation routes from the start.</p>
+    </div>
+    <div class="grid g2">
+      <div class="card">
+        <ul class="blist">
+          <li><span class="x">×</span><span>Not a "success predictor" that guarantees entry to a particular company or university</span></li>
+          <li><span class="x">×</span><span>Not an automated decision system that makes irreversible life decisions on a student's behalf</span></li>
+          <li><span class="x">×</span><span>Not a system that measures growth by activity count, busyness or CV length</span></li>
+          <li><span class="x">×</span><span>Not a surveillance tool that scrapes personal or platform data without authorisation</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <ul class="blist">
+          <li><span class="x">×</span><span>Not a tool for the university to inspect students' private thoughts or control their choices</span></li>
+          <li><span class="x">×</span><span>Not a medical device, a psychological diagnostic tool, or a suicide-risk prediction system</span></li>
+          <li><span class="x">×</span><span>Not a monitoring system that reports on a student to the university based on calendar gaps, sleep patterns or exercise minutes</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════ PAGE 2 · FUNCTIONS ══════════════════════════ -->
+<div class="page" id="functions">
+  <section style="padding-top:44px;">
+    <div class="sec-head">
+      <div class="eyebrow">05 · Complete function list F01–F27</div>
+      <h2>27 functions, each annotated with where it is implemented</h2>
+      <p class="sec-note">
+        This is the single function-numbering baseline for V4.1. This page, the diagrams and the tests all reference
+        these codes, so the same function is never called two different things in two different places.
+        <b>Click any row to expand it</b> and see which agent or deterministic service implements it, and which
+        information flows on the main architecture diagram it travels along.
+        Clicking a flow code (<span class="mono" style="color:var(--route);">E1</span> and so on) jumps to the matching
+        arrow annotation on the Workflow page.
+      </p>
+      <div class="callout c-route" style="margin-top:4px;">
+        Beyond this page, <b>the F codes inside the diagrams and in the arrow annotations are clickable too</b> — they
+        open that function's entry in a panel on the right, so you never have to come back here to look one up.
+        Each diagram also has an <b>Expand</b> button in its top-right corner for full-screen zoom and pan.
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <input class="search" id="fnSearch" type="search" placeholder="Search by name, code or implementation…" aria-label="Search functions">
+      <button class="chip" data-filter="all" aria-pressed="true">All 27</button>
+      <button class="chip" data-filter="agent" aria-pressed="false">Agent-implemented</button>
+      <button class="chip" data-filter="det" aria-pressed="false">Deterministic service</button>
+      <button class="chip" data-filter="nollm" aria-pressed="false">Zero-LLM path</button>
+      <button class="chip" data-filter="changed" aria-pressed="false">Changed in V4.1</button>
+    </div>
+
+    <div class="fn-list" id="fnList"></div>
+    <p id="fnEmpty" style="display:none;color:var(--ink-3);font-size:.88rem;padding:26px 0;text-align:center;">
+      No matching functions.
+    </p>
+  </section>
+</div>
+
+<!-- ══════════════════════════ PAGE 3 · AGENT ARCHITECTURE ══════════════════════════ -->
+<div class="page" id="agents">
+  <section style="padding-top:44px;">
+    <div class="sec-head">
+      <div class="eyebrow">06 · The agent system</div>
+      <h2>6 semantic agents, 2 runtimes, 9 deterministic services</h2>
+      <p class="sec-note">
+        Design principle: do not wrap every function in an agent. Use an agent only where there is an independent
+        objective, genuine semantic judgement, distinct tooling or distinct state. Repeatable logic — date comparison,
+        eligibility rules, de-duplication, capacity checks, scoring — should be deterministic code.
+      </p>
+    </div>
+
+    <div class="callout c-ok" style="margin-bottom:22px;">
+      <b>The core architectural principle in V4.1: A5 is the only agent in the system that makes trade-offs.</b>
+      A1 / A2 / A3 / A4 only assemble facts and candidates cleanly; they do not rank. This gives "why was this
+      recommended" exactly one source of explanation, and lets every agent's output contract be evaluated independently.
+    </div>
+
+    <h3 style="margin-bottom:14px;">Responsibilities, inputs and outputs</h3>
+    <div class="grid g2" id="agentGrid"></div>
+
+    <h3 style="margin:34px 0 14px;">Complete agent information architecture</h3>
+    <p class="sec-note" style="margin-bottom:14px;">
+      Arrow codes <span class="mono" style="color:var(--route)">E1–E33</span> map one-to-one to the annotation table on
+      the Workflow page; the codes in square brackets are the functions that information flow implements.
+    </p>
+    <div class="schematic">
+      <pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'htmlLabels':true},'themeVariables':{'fontFamily':'ui-monospace, SFMono-Regular, Menlo, monospace','fontSize':'12px','primaryColor':'#FFFFFF','primaryTextColor':'#0B1A2B','primaryBorderColor':'#8A93A2','lineColor':'#5C6675','clusterBkg':'#E4E7E4','clusterBorder':'#B6BBB6','edgeLabelBackground':'#F1F2F0'}}}%%
+flowchart TB
+    U["Student Web App<br/>goals · résumé · consent · confirmation · feedback"]
+    CP["Pack Registry<br/>Context Pack · Career Path Pack"]
+
+    subgraph SR["Student Path Runtime"]
+      A0["A0 Orchestrator<br/>deterministic routing + LLM fallback"]
+      A1["A1 Student Context &amp; Growth"]
+      A2["A2 Academic Agent"]
+      A5["A5 Pathway Decision<br/>S1 parallel Plan A/B/C<br/>S2 constraint-repair loop"]
+      A3["A3 Goal &amp; Gap"]
+    end
+
+    subgraph OR["Opportunity Operations Runtime"]
+      A4["A4 Opportunity Intelligence<br/>S3 isolated parallel extraction"]
+    end
+
+    subgraph DET["Deterministic service plane · zero LLM"]
+      RULE["Rules &amp; Constraint Engine<br/>+ 5 wellbeing thresholds"]
+      CAP["Capacity &amp; Calendar Service"]
+      COMP["Wellbeing Reminder Composer<br/>fixed templates"]
+      ACT["Action &amp; Consent Service"]
+      MON["Event Monitor &amp; Replan"]
+      PUBS["Publishing / Review / Audit"]
+      AGG["Aggregation Service"]
+      STATE["Student State &amp; Memory"]
+    end
+
+    CONN["Connector &amp; Catalog Layer"]
+    CAT["Opportunity Catalog"]
+    PLAZA["Information Plaza"]
+    WELL["Counseling / Wellbeing queue<br/>isolated from Career Center"]
+    SRC["External sources / publisher submissions"]
+
+    U -->|"E1 Intent + ConsentState [F01,F13]"| A0
+    CP -->|"E2 applicable rule packs [F27]"| A0
+    A0 -->|"E3 profile / reflection task [F02,F14-F17]"| A1
+    A0 -->|"E4 academic task [F04,F05]"| A2
+    A0 -->|"E5 goal task [F03,F08]"| A3
+    CONN -->|"E6 SIS/LMS/Catalog/Timetable [F04]"| A2
+    CONN -->|"E7 free/busy + protected blocks [F06]"| CAP
+    A1 -->|"E8 confirmed context + evidence"| A5
+    A2 -->|"E9 AcademicState + annotated candidates [F05]"| A5
+    A3 -->|"E10 RequirementGraph + GapMap [F08]"| A5
+    CAP -->|"E11 CapacitySnapshot + self-reported data [F07]"| RULE
+    CAP -->|"E12 AvailabilityBlock + conflicts [F06]"| A5
+    RULE -->|"E13 WellbeingCapacitySignal [F07]"| COMP
+    A5 <-->|"E14 hard constraints ↔ validation_id [F05,F07,F11,F27]"| RULE
+    CAT -->|"E15 candidate set + provenance [F10,F11]"| A5
+    A5 -->|"E16 MatchResult / Pathway / schedule preview [F11,F12]"| U
+    U -->|"E17 ConsentReceipt [F13]"| ACT
+    ACT -->|"E18 ActionEvent [F18]"| MON
+    ACT -->|"E19 action result + evidence request [F14-F16]"| A1
+    COMP -->|"E20 templated two-step reminders [F07]"| U
+    COMP -->|"E21 OutreachRequest requires valid consent [F07]"| ACT
+    ACT -->|"E22 allow-listed fields email [F07]"| WELL
+    A1 -->|"E23 ProfileUpdateProposal [F02,F16,F17]"| STATE
+    STATE -->|"E24 minimal task-relevant recall [F17]"| A1
+    A1 -->|"E25 structured quality feedback only [F23]"| AGG
+    MON -->|"E26 ReplanTrigger + AffectedScope [F18]"| A0
+    SRC -->|"E27 raw content as data [F09,F20]"| A4
+    A4 -->|"E28 draft + provenance [F09,F21]"| PUBS
+    PUBS -->|"E29 approved resources [F10,F19-F21]"| CAT
+    CAT -->|"E30 public catalogue [F10]"| PLAZA
+    AGG -->|"E31 quality confidence [F23]"| A5
+    STATE -->|"E32 de-identified MetricTuple [F23]"| AGG
+    AGG -->|"E33 ResourceCoverageAggregate [F23]"| CCI["Career Center Insights<br/>aggregate only · no drill-down to individuals"]
+      </pre>
+    </div>
+    <div class="fig-cap"><b>Fig. 1</b><span>Complete agent information architecture. The Student Path Runtime and the Opportunity Operations Runtime are deployed separately; none of the nine modules on the deterministic service plane contains an LLM call. Click any F code in the diagram to read that function's entry.</span></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">07 · Runtime and service boundaries</div>
+      <h2>Why two runtimes, and what is deliberately kept out of the agents</h2>
+    </div>
+
+    <div class="grid g2" style="margin-bottom:22px;">
+      <div class="card mode">
+        <div class="mode-n">RUNTIME 1</div>
+        <div class="mode-t">Student Path Runtime</div>
+        <div class="mode-d">A0 · A1 · A2 · A3 · A5</div>
+        <div class="mode-k">Shares the student request chain, schemas, task-relevant context and low-latency interaction; credentials are still isolated by connector scope</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">RUNTIME 2</div>
+        <div class="mode-t">Opportunity Operations Runtime</div>
+        <div class="mode-d">A4</div>
+        <div class="mode-k">Processes untrusted external content asynchronously in the background; its cadence, scaling, security posture and review responsibility all differ from the student's real-time path</div>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom:12px;">The nine deterministic services (zero LLM)</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Service</th><th>Responsibility</th><th>Zero-LLM guarantee</th></tr></thead>
+        <tbody>
+          <tr><td><b>Student State &amp; Memory</b></td><td>Canonical Profile, Event Store, Evidence Index, Private Vault, Memory Provider</td><td><span class="pill p-ok">Yes</span></td></tr>
+          <tr><td><b>Rules &amp; Constraint Engine</b></td><td>Four-state eligibility, dates, prerequisites, credits, capacity, protected blocks, pack rules, and the five wellbeing signal thresholds</td><td><span class="pill p-ok">Build-time assertion</span></td></tr>
+          <tr><td><b>Capacity &amp; Calendar Service</b></td><td>Free/busy retrieval, five-way AvailabilityBlock classification, discretionary-capacity computation, conflict detection</td><td><span class="pill p-ok">Build-time assertion</span></td></tr>
+          <tr><td><b>Wellbeing Reminder Composer</b></td><td>Fixed templates covering the six mandatory content slots; the two-step reminder state machine; allow-listed outreach email template</td><td><span class="pill p-ok">Build-time assertion</span></td></tr>
+          <tr><td><b>Action &amp; Consent Service</b></td><td>Preview, authorisation, idempotent writes, task/calendar actions, reminder delivery, minimised outreach requests</td><td><span class="pill p-ok">Yes</span></td></tr>
+          <tr><td><b>Event Monitor &amp; Replan</b></td><td>Change subscription, scheduled checks, debouncing, blast-radius computation, replanning tasks</td><td><span class="pill p-ok">Yes</span></td></tr>
+          <tr><td><b>Publishing / Review / Audit</b></td><td>Publisher RBAC, the state machine, human approval, versioning, withdrawal, audit</td><td><span class="pill p-ok">Yes</span></td></tr>
+          <tr><td><b>Aggregation Service</b></td><td>Anonymous aggregation of two inputs: activity quality feedback, and resource-utilisation <code>MetricTuple</code>. Applies sample thresholds, small-cell suppression, cohort/series stratification, time decay, confidence intervals. <b>Accepts only structured data and de-identified tuples by type</b></td><td><span class="pill p-ok">Yes</span></td></tr>
+          <tr><td><b>Connector &amp; Catalog Layer</b></td><td>SIS/LMS/Calendar/Opportunity providers, a unified adapter, catalogue queries and source health</td><td><span class="pill p-ok">Yes</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig-cap"><b>Note</b><span>"Build-time assertion" means the module is forbidden from importing any model SDK at build time, enforced by a CI check rather than developer discipline.</span></div>
+
+    <h3 style="margin:30px 0 12px;">Three uses of ADK workflow agents</h3>
+    <p class="sec-note" style="margin-bottom:14px;">
+      These are workflow constructs <b>inside</b> an agent, not new deployment units: the agent count stays at 6, the
+      runtime count stays at 2, and the number of governed objects in the Registry and Gateway is unchanged.
+    </p>
+    <div class="grid g3">
+      <div class="card mode">
+        <div class="mode-n">S1 · ParallelAgent</div>
+        <div class="mode-t">Inside A5: parallel Plan A/B/C</div>
+        <div class="mode-d">Balanced / Ambitious / Low-load are generated in parallel under three different intensity constraints, so each plan gets independent, focused reasoning without the latency adding up.</div>
+        <div class="mode-k">Implements F12</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">S2 · LoopAgent</div>
+        <div class="mode-t">Inside A5: constraint-repair loop</div>
+        <div class="mode-d">Generate plan → Rules validation → if capacity, protected blocks or prerequisites are violated, regenerate carrying the violation reason (max 3 rounds).</div>
+        <div class="mode-k">Makes Capacity Violation = 0 and Protected Block Violation = 0 loop invariants rather than aspirations</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">S3 · ParallelAgent</div>
+        <div class="mode-t">Inside A4: isolated multi-source extraction</div>
+        <div class="mode-d">Sources are extracted in parallel, with each source's untrusted content isolated in its own sub-context — an injection in one source cannot contaminate another.</div>
+        <div class="mode-k">Implements F09, and is simultaneously a security measure</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">08 · Agent security contracts</div>
+      <h2>Moving privacy from "we worded the prompt carefully" to "the architecture cannot do it"</h2>
+      <p class="sec-note">These four are deployment contracts, not design suggestions: each has a corresponding automated test, and a failing test fails the build.</p>
+    </div>
+    <div class="grid g2">
+      <div class="card mode">
+        <div class="mode-n">§8.9.1</div>
+        <div class="mode-t">A4 untrusted-content isolation</div>
+        <div class="mode-d">
+          ① External text is always passed as a user-role data block with boundary markers, and never concatenated into the system prompt;<br>
+          ② the tool allow-list contains only <code>read_source</code> and <code>emit_opportunity_draft</code> — no student-data reads, no publishing rights, no outbound writes;<br>
+          ③ output must pass a deterministic schema gate before entering the review queue; failures are discarded and alerted, never fed back to the LLM for a retry.
+        </div>
+        <div class="mode-k">Threat-model conclusion: even if A4 is fully hijacked, the maximum impact is "a draft that a human reviewer rejects"</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">§8.9.2</div>
+        <div class="mode-t">A1 output type boundary</div>
+        <div class="mode-d">
+          A1 touches both the student's most private content (reflection text) and the quality signal that eventually
+          reaches the university. Its output to the Aggregation Service <b>can only be a structured
+          EventQualityFeedback</b> — free text is not accepted at the interface type level — and A1 holds no tool
+          permission to write to the aggregation domain.
+        </div>
+        <div class="mode-k">Private Reflection Exposure = 0 is guaranteed jointly by a data-type boundary and a tool-permission boundary</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">§8.9.3</div>
+        <div class="mode-t">Mandatory validation_id binding on A5</div>
+        <div class="mode-d">
+          Every Rules validation returns a <code>validation_id</code>. <b>Every PlanItem and every eligibility
+          conclusion</b> A5 emits must carry the matching ID, and the API layer rejects anything missing or forged.
+        </div>
+        <div class="mode-k">Guarantees that eligibility, prerequisites, deadlines, capacity and protected blocks can never be overridden by model output</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">§8.9.4</div>
+        <div class="mode-t">Zero LLM on the wellbeing path</div>
+        <div class="mode-d">
+          The five signal determinations, the reminder copy and the outreach email content are all produced by
+          deterministic code and fixed templates. The reasoning: these five determinations are pure threshold
+          comparisons with no semantic judgement, so an LLM adds no capability and only adds hallucination risk —
+          on the highest-risk data class in the entire product.
+        </div>
+        <div class="mode-k">The only LLM permitted on this path is A5 generating a low-load alternative plan, still bound by validation_id</div>
+      </div>
+    </div>
+
+    <h3 style="margin:30px 0 12px;">The wellbeing path: zero LLM end to end</h3>
+    <div class="schematic">
+      <pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'htmlLabels':true},'themeVariables':{'fontFamily':'ui-monospace, SFMono-Regular, Menlo, monospace','fontSize':'12px','primaryColor':'#FFFFFF','primaryTextColor':'#0B1A2B','primaryBorderColor':'#8A93A2','lineColor':'#5C6675','edgeLabelBackground':'#F1F2F0'}}}%%
+flowchart TD
+    S1["Student explicitly sets<br/>sleep protection window · recovery preference · intensity mode<br/>never inferred from an empty calendar"] --> A
+    S2["Student self-reports<br/>sleep / exercise check-ins<br/>tagged self-reported with day coverage"] --> A
+    S3["Capacity &amp; Calendar Service<br/>CapacitySnapshot"] --> A
+    A["Rules &amp; Constraint Engine<br/>five threshold checks + data coverage and exclusion validation<br/>zero LLM"] --> C{"Can automatic rescheduling clear it?"}
+    C -->|Yes| D["A5 LoopAgent produces a low-load plan<br/>no reminder sent"]
+    C -->|No| E["Composer sends reminder 1<br/>fixed six-slot template"]
+    E --> F["Re-evaluate after 24–72 h or on the next plan change"]
+    F --> G{"Signal persists and unaddressed?"}
+    G -->|No| H["Close or keep observing"]
+    G -->|Yes| I["Composer sends reminder 2<br/>low-load mode + support options"]
+    I --> J{"Student actively requests contact,<br/>or a valid opt-in already exists?"}
+    J -->|No| K["No individual information sent to the university<br/>student-side protection continues"]
+    J -->|Yes| L["Action &amp; Consent generates a minimal outreach<br/>allow-listed field template"]
+    L --> M["Counseling / Wellbeing human queue<br/>not visible to Career Center"]
+    CR["Student explicitly states immediate danger"] --> N["A0's only action: do not wait for two reminders<br/>trigger the university's pre-configured Crisis Safety Protocol<br/>official emergency resources + human handling"]
+      </pre>
+    </div>
+    <div class="fig-cap"><b>Fig. 2</b><span>The only LLM on this path is A5 generating the low-load plan, and its output is still bound by the Rules validation_id. Determination, reminder copy and outreach email are all deterministic code and fixed templates.</span></div>
+
+    <div class="callout c-crit" style="margin-top:18px;">
+      <b>What the system may and may not say:</b>
+      If the calendar leaves no 7-hour sleep window, it may say "this plan may have compressed your intended sleep
+      opportunity" — it may <b>not</b> say "you only slept X hours". On sustained overload, repeated postponement or
+      plan rejection, it may say "the current plan intensity may not be right" — it may <b>not</b> say "you are at risk
+      of suicide". The adult reference lines (7 hours of sleep; 150–300 minutes of moderate activity per week) are used
+      only to form general health prompts. They are not depression or suicide-risk thresholds and can never on their own
+      trigger a report to the university.
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════ PAGE 4 · WORKFLOW ══════════════════════════ -->
+<div class="page" id="workflow">
+  <section style="padding-top:44px;">
+    <div class="sec-head">
+      <div class="eyebrow">09 · Student-side workflow</div>
+      <h2>From goal to action, and back to goal</h2>
+      <p class="sec-note">
+        Every student interaction runs through this chain. Codes in square brackets are the functions that flow
+        implements. Courses, eligibility, dates, capacity, RBAC and wellbeing thresholds are all validated by
+        deterministic rules; the agents only handle goal understanding, semantic extraction, explanation, conflict
+        detection and option comparison.
+      </p>
+    </div>
+    <div class="schematic">
+      <pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'htmlLabels':true},'themeVariables':{'fontFamily':'ui-monospace, SFMono-Regular, Menlo, monospace','fontSize':'12px','primaryColor':'#FFFFFF','primaryTextColor':'#0B1A2B','primaryBorderColor':'#8A93A2','lineColor':'#5C6675','edgeLabelBackground':'#F1F2F0'}}}%%
+flowchart TD
+    U["Student: goals / résumé / consent / feedback"] -->|"Intent + ConsentState → WorkflowPlan [F01,F03,F13]"| A0["A0 Orchestrator<br/>deterministic routing + LLM fallback"]
+    A0 -->|"profile / outcome task [F02,F14-F17]"| A1["A1 Student Context &amp; Growth"]
+    A0 -->|"academic task [F04,F05]"| A2["A2 Academic Agent"]
+    A0 -->|"goal context [F03,F08]"| A3["A3 Goal &amp; Gap"]
+    CALP["Calendar Provider"] -->|"free/busy + protected blocks [F06]"| CAP["Capacity &amp; Calendar Service<br/>zero LLM · token never leaves"]
+    A1 -->|"confirmed context + evidence"| A5["A5 Pathway Decision<br/>S1 Plan A/B/C · S2 constraint repair"]
+    A2 -->|"AcademicState + AnnotatedCourseCandidate"| A5
+    A3 -->|"RequirementGraph + prioritised gaps"| A5
+    CAP -->|"CapacitySnapshot + AvailabilityBlock [F06]"| A5
+    CAP -->|"capacity + self-reported data [F07]"| RULE["Rules &amp; Constraint Engine<br/>incl. 5 wellbeing thresholds"]
+    CAT["Approved Opportunity Catalog"] -->|"candidates + provenance [F10,F11]"| A5
+    A5 <-->|"rules request ↔ validated constraints + validation_id [F05-F07,F11,F27]"| RULE
+    RULE -->|"WellbeingCapacitySignal [F07]"| COMP["Wellbeing Reminder Composer<br/>fixed templates · zero LLM"]
+    COMP -->|"max two reminders / low-load option [F07]"| C
+    A5 -->|"Plan A/B/C + schedule draft [F12]"| C{"Student confirms?"}
+    C -->|"edit / reject"| A0
+    C -->|"consent receipt [F13]"| ACT["Action &amp; Consent Service"]
+    ACT -->|"action result + evidence request"| EVT["Event Timeline"]
+    EVT -->|"reflection / profile / memory [F14-F17]"| A1
+    A1 -->|"structured EventQualityFeedback only [F23]"| AGG["Aggregation Service"]
+    EVT -->|"affected change [F18]"| MON["Event Monitor"]
+    MON -->|"replan scope"| A0
+      </pre>
+    </div>
+    <div class="fig-cap"><b>Fig. 3</b><span>Student-side workflow. Note that the Calendar Provider's token and raw event fields stop at the Capacity &amp; Calendar Service and never enter any agent context.</span></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">10 · University and Career Center workflow</div>
+      <h2>How resources reach the Information Plaza and the matching pool</h2>
+      <p class="sec-note">
+        Resources the Career Center owns and has already verified can be published directly by an official publisher;
+        anything submitted by an authorised student must be reviewed by a human. A4 only offers review suggestions and
+        has <b>no publishing approval rights</b> — the routing decision is made by deterministic code.
+      </p>
+    </div>
+    <div class="schematic">
+      <pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'htmlLabels':true},'themeVariables':{'fontFamily':'ui-monospace, SFMono-Regular, Menlo, monospace','fontSize':'12px','primaryColor':'#FFFFFF','primaryTextColor':'#0B1A2B','primaryBorderColor':'#8A93A2','lineColor':'#5C6675','edgeLabelBackground':'#F1F2F0'}}}%%
+flowchart TD
+    ADMIN["Career Center Admin"] -->|"P1 PublisherRoleGrant<br/>organisation · category · expiry · direct-publish? [F19]"| PORTAL["Publisher Portal"]
+    PUBR["Publisher<br/>official · faculty · lab · authorised student"] -->|"P2 draft + source evidence [F20]"| PORTAL
+    SRC["Public / authorised external sources"] -->|"P3 raw content<br/>passed as data, not instructions [F09]"| A4["A4 Opportunity Intelligence"]
+    PORTAL -->|"P4 submitted version"| A4
+    A4 -->|"P5 normalised fields + provenance + review suggestion"| GATE["Schema gate · deterministic<br/>required fields / dates / URL allow-list / duplicates / sensitive content"]
+    GATE -->|"P6 ValidationIssue [F21]"| REV{"Publishing policy routing<br/>deterministic, not decided by A4"}
+    REV -->|"P7 official and verified → direct publish"| SERVICE["Publishing / Review / Audit"]
+    REV -->|"P8 authorised student → mandatory human review"| HUMAN["Reviewer / Curator"]
+    HUMAN -->|"P9 changes requested / rejected + reason"| PORTAL
+    HUMAN -->|"P10 approved"| SERVICE
+    SERVICE -->|"P11 published record [F10]"| CAT["Opportunity Catalog"]
+    CAT -->|"P12 public catalogue"| PLAZA["Student Information Plaza"]
+    CAT -->|"P13 candidate set [F11]"| A5["A5 Pathway Decision"]
+    AGG["Aggregation Service"] -->|"P14 anonymous trends above threshold [F23]"| CURATOR["Curator / resource owner"]
+    CURATOR -->|"P15 correct / re-review / withdraw"| SERVICE
+    HEALTH["Connector telemetry"] -->|"P16 sync / parse / freshness / broken links [F22]"| OPS["IT / Content Ops"]
+      </pre>
+    </div>
+    <div class="fig-cap"><b>Fig. 4</b><span>University and Career Center workflow. The publishing state machine is Draft → Submitted → Auto-checked → In Review → Changes Requested / Rejected / Approved → Published → Updated / Expired / Withdrawn / Archived.</span></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">11 · Information transfer between the two sides</div>
+      <h2>The student side and the university side connect through governed data products, never by reading each other's databases</h2>
+    </div>
+    <div class="schematic">
+      <pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'htmlLabels':true},'themeVariables':{'fontFamily':'ui-monospace, SFMono-Regular, Menlo, monospace','fontSize':'12px','primaryColor':'#FFFFFF','primaryTextColor':'#0B1A2B','primaryBorderColor':'#8A93A2','lineColor':'#5C6675','edgeLabelBackground':'#F1F2F0'}}}%%
+flowchart LR
+    CC["University side<br/>publish · review · source ops"] -->|"① approved opportunity + provenance<br/>[F09,F10,F19-F22]"| CAT["Opportunity Catalog<br/>governed data product"]
+    CAT -->|"② browsable public catalogue [F10]"| PLAZA["Student side: Information Plaza"]
+    CAT -->|"③ candidate set [F11,F12]"| A5["A5 matching and pathway"]
+    STU["Student side<br/>actions and feedback"] -->|"④ anonymous quality signals above threshold [F14,F23]"| INS["University side: quality improvement"]
+    STU -->|"⑤ de-identified MetricTuple → anonymous aggregation [F23]"| COVER["University side: resource coverage insight<br/>exposure-gap board · supply-gap board"]
+    COVER -->|"⑥ resource procurement and distribution adjustments"| CAT
+    INS -->|"⑦ correct / re-review / withdraw"| CAT
+    STU -.->|"⑧ consented minimal non-urgent outreach only [F07]"| WELL["Counseling / Wellbeing<br/>fully isolated from Career Center"]
+    VAULT["Student Private Vault<br/>reflection text · private notes · calendar detail · wellbeing"] -.->|"✕ no path to the university side"| CC
+      </pre>
+    </div>
+    <div class="fig-cap"><b>Fig. 5</b><span>Information transfer between the two sides. In ⑤ the per-student computation happens inside the student's data domain and the tuple carries no student_id once it leaves; dashed arrow ⑧ exists only when the student actively requests it or a valid opt-in is in place; the ✕ at the bottom means the student's private data domain has no path to the university side at all.</span></div>
+
+    <div class="grid g2" style="margin-top:18px;">
+      <div class="card">
+        <ul class="blist">
+          <li><span class="n">1</span><span>Career Center / publisher → <code>Opportunity Catalog</code> → student Information Plaza and A5</span></li>
+          <li><span class="n">2</span><span>Individual student reflections go only into the Student Private Vault by default</span></li>
+          <li><span class="n">3</span><span>Only anonymous quality signals and resource-utilisation aggregates above the sample threshold reach Career Center Insights; the per-student computation for the latter happens inside the student data domain and is de-identified on exit</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <ul class="blist">
+          <li><span class="n">4</span><span>Student wellbeing signals never reach the Career Center</span></li>
+          <li><span class="n">5</span><span>Only consented, minimal non-urgent outreach enters the separate Counseling / Wellbeing queue</span></li>
+          <li><span class="n">6</span><span>Context Packs are installed by an authorised administrator; the student side only reads the version applicable to their own goals</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">12 · Arrow-by-arrow annotations</div>
+      <h2>E1–E33: what each arrow carries and which function it implements</h2>
+      <p class="sec-note">
+        These correspond to Fig. 1 on the Agent Architecture page. The <span class="mono" style="color:var(--ink-3)">F</span>
+        codes at the end of each row are clickable and open the full function entry on the right, so you do not have to
+        switch back to the Functions page. Clicking an <span class="mono" style="color:var(--route)">E</span> code on the
+        Functions page jumps here and highlights the matching row.
+      </p>
+    </div>
+    <div class="arrows" id="arrowList"></div>
+  </section>
+</div>
+
+<!-- ══════════════════════════ PAGE 5 · IMPLEMENTATION ══════════════════════════ -->
+<div class="page" id="tech">
+  <section style="padding-top:44px;">
+    <div class="sec-head">
+      <div class="eyebrow">13 · Four product layers</div>
+      <h2>A hybrid architecture: not replacing the university's systems, but orchestrating between them</h2>
+    </div>
+    <div class="grid g4">
+      <div class="card mode"><div class="mode-n">LAYER 1</div><div class="mode-t">Experience and role layer</div><div class="mode-d">Student web app, Publisher Portal, Career Center Console and governed administrative entry points</div></div>
+      <div class="card mode"><div class="mode-n">LAYER 2</div><div class="mode-t">6-agent / 2-runtime semantic layer</div><div class="mode-d">Request orchestration, student context, academics, goals and gaps, opportunity understanding, pathway decisions</div></div>
+      <div class="card mode"><div class="mode-n">LAYER 3</div><div class="mode-t">Deterministic service plane</div><div class="mode-d">State and memory, rules and constraints, capacity, wellbeing, action and consent, event monitoring, publishing review, aggregation, connectors</div></div>
+      <div class="card mode"><div class="mode-n">LAYER 4</div><div class="mode-t">Campus systems and resource connectivity</div><div class="mode-d">Connects SIS, degree audit, Moodle, course catalogue, Career Center, calendars and opportunity sources via APIs, native connectors or BYO-MCP</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">14 · Google ecosystem components</div>
+      <h2>What each component actually does in this system</h2>
+      <p class="sec-note">Model versions are replaceable configuration; the product's value does not depend on any specific model.</p>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Component</th><th>Role in CampusPath</th></tr></thead>
+        <tbody>
+          <tr><td><b>Configurable Gemini model layer</b></td><td>A stable general model and a low-cost model configured per task; the specific version is replaceable deployment configuration, not a premise of the product's capability</td></tr>
+          <tr><td><b>ADK</b></td><td>Agents, tools, sequential/parallel/loop workflows, callbacks, sessions, memory and evaluation</td></tr>
+          <tr><td><b>Agent Runtime</b></td><td>Hosts and runs the ADK agents; provides a scalable execution environment (two runtimes in this project)</td></tr>
+          <tr><td><b>Memory Bank</b></td><td>Cross-session persistent memory, distillation and semantic retrieval</td></tr>
+          <tr><td><b>Agent Registry</b></td><td>Registration of agents, MCPs, tools, endpoints, versions and metadata</td></tr>
+          <tr><td><b>Agent Gateway</b></td><td>The agent/tool communication entry point, enforcing identity, IAM, semantic policy and audit</td></tr>
+          <tr><td><b>BYO-MCP</b></td><td>A unified connection to Moodle, mock/real SIS, the course catalogue, campus resources and custom systems</td></tr>
+          <tr><td><b>Workspace APIs</b></td><td>Google Calendar free/busy and event actions, plus separately authorised Drive, Gmail and other capabilities</td></tr>
+          <tr><td><b>Cloud Run</b></td><td>Student app API, provider adapters, custom MCPs and scheduled jobs</td></tr>
+          <tr><td><b>Firestore / Cloud Storage</b></td><td>Profile, education records, capacity snapshots, opportunities, publishing review, plans and events; private attachments and verifiable artefacts</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">15 · Synthetic Campus Sandbox</div>
+      <h2>No sample data is provided, so the test campus has to be built</h2>
+      <p class="sec-note">
+        The organisers have stated explicitly that participants must mock their own data, and suggested using an
+        open-source e-learning system such as Moodle deployed on Google Cloud for interaction. So this is not
+        optional extra work — it is a necessary build under the terms of the brief. Every interface must be clearly
+        marked <code>Synthetic / Demo Data</code> and must never be mixed with real students or real grades.
+      </p>
+    </div>
+
+    <div class="schematic">
+      <pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'htmlLabels':true},'themeVariables':{'fontFamily':'ui-monospace, SFMono-Regular, Menlo, monospace','fontSize':'12px','primaryColor':'#FFFFFF','primaryTextColor':'#0B1A2B','primaryBorderColor':'#8A93A2','lineColor':'#5C6675','edgeLabelBackground':'#F1F2F0'}}}%%
+flowchart TD
+    S["Fixed seed and data dictionary"] --> M["Moodle sandbox<br/>Google Cloud · web services enabled"]
+    S --> E["Mock SIS / Degree Audit / Course API"]
+    S --> O["Mock Opportunity / Publisher API"]
+    S --> C["Calendar fixtures or test account"]
+    M --> A["BYO-MCP / provider adapters"]
+    E --> A
+    O --> A
+    C --> A
+    A --> D["Student and Career Center demo"]
+    S --> G["Gold set and failure samples"]
+    D --> V["Automated evaluation and human acceptance"]
+    G --> V
+      </pre>
+    </div>
+    <div class="fig-cap"><b>Fig. 6</b><span>Synthetic Campus flow. The seed is re-runnable, so judges see an identical scenario every time.</span></div>
+
+    <h3 style="margin:26px 0 12px;">Failure samples that must be designed in (selection)</h3>
+    <div class="grid g2">
+      <div class="card">
+        <ul class="blist">
+          <li><span class="n">01</span><span>Expired, but the page is still live</span></li>
+          <li><span class="n">02</span><span>An internship a first-year does not qualify for but a third-year will</span></li>
+          <li><span class="n">03</span><span>Two sources describe the same opportunity with conflicting deadlines</span></li>
+          <li><span class="n">04</span><span>Marketed well, but real feedback is consistently poor</span></li>
+          <li><span class="n">05</span><span>A genuinely good activity that is far too basic for this particular student</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <ul class="blist">
+          <li><span class="n">06</span><span>A course combination that serves the career goal but leaves the student short on graduation credits</span></li>
+          <li><span class="n">07</span><span>The calendar looks free, but the slot is sleep, meals, commuting or protected recovery</span></li>
+          <li><span class="n">08</span><span>Résumé extraction error, an expired certificate, or the student rejecting the profile write</span></li>
+          <li><span class="n">09</span><span>An authorised student trying to publish directly, or acting for a club they do not represent</span></li>
+          <li><span class="n">10</span><span>An event is cancelled but still shows in the Information Plaza</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">16 · Quantified metrics</div>
+      <h2>The north-star metric and the resource-utilisation scale</h2>
+    </div>
+
+    <div class="card" style="margin-bottom:18px;">
+      <div class="quote-label" style="color:var(--gold);">North-star metric</div>
+      <div class="quote-text" style="margin-bottom:6px;">Verified Growth Actions (VGA) / Active Student / Month</div>
+      <p style="font-size:.88rem;color:var(--ink-2);">
+        Actions the student genuinely completed, where evidence or reflection demonstrates value created in skills,
+        knowledge, artefacts, research, network, opportunity progression or goal clarification.
+        <b>VGA does not reward clicks, bookmarks, sign-ups or busyness itself.</b>
+      </p>
+    </div>
+
+    <h3 style="margin-bottom:12px;">Resource-utilisation metrics</h3>
+    <p class="sec-note" style="margin-bottom:14px;">
+      VGA measures "how many effective actions the student completed", but the product positioning also claims
+      "university resources are fully used". That layer needs its own scale — otherwise the claim cannot be checked
+      during judging.
+    </p>
+    <div class="tw" style="margin-bottom:18px;">
+      <table>
+        <thead><tr><th>Metric</th><th>Definition</th><th>What it proves</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Eligible Opportunity<br>Discovery Rate</b></td>
+            <td>Of the resources for which a student was <code>Eligible now</code> during a term, the proportion they actually saw</td>
+            <td>Quantifies discovery cost: how many opportunities were missed not because the student did not qualify, but because they were never seen</td>
+          </tr>
+          <tr>
+            <td><b>Discovered-to-<br>Action Rate</b></td>
+            <td>Of the resources seen while eligible, the proportion converted into a bookmark, sign-up, pathway addition or completed action</td>
+            <td>Quantifies execution cost: whether the system turns discovery into action rather than just a bigger bookmark list</td>
+          </tr>
+          <tr>
+            <td><b>Gap Coverage by<br>Available Resources</b></td>
+            <td>Of the gaps in a student's Gap Map, the proportion coverable by at least one resource in the pool</td>
+            <td>A resource-supply insight fed back to the university — a management input no university can obtain today</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin:26px 0 12px;">How these three metrics reach the university</h3>
+    <p class="sec-note" style="margin-bottom:14px;">
+      These metrics <b>must</b> reach the Career Center, or they are just numbers the team scores itself with and
+      produce no management value for the university. But the delivery path is bound by exactly the same privacy
+      discipline as activity quality feedback: <b>what travels is an aggregate conclusion, never any individual
+      student's data.</b> These are flows <span class="mono" style="color:var(--route)">E32 / E33</span> on the main
+      architecture diagram.
+    </p>
+
+    <div class="grid g3" style="margin-bottom:16px;">
+      <div class="card mode">
+        <div class="mode-n">STAGE 1 · PER-STUDENT COMPUTATION</div>
+        <div class="mode-t">Happens inside the student's private data domain</div>
+        <div class="mode-d">Uses that student's four-state eligibility results, exposure records, ActionEvents and Gap Map to compute a single <b>de-identified</b> <code>MetricTuple</code>.</div>
+        <div class="mode-k">Raw exposure and action records never leave the student's data domain; the tuple carries no student_id on exit</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">STAGE 2 · ANONYMOUS AGGREGATION</div>
+        <div class="mode-t">Aggregation Service (deterministic, zero LLM)</div>
+        <div class="mode-d">Applies a minimum sample threshold and small-cell suppression to <code>MetricTuple[]</code>, producing a <code>ResourceCoverageAggregate</code>.</div>
+        <div class="mode-k">Cross-tabulation below the threshold is forbidden, so repeated filtering cannot shrink a cell to an identifiable size</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">STAGE 3 · UNIVERSITY VIEW</div>
+        <div class="mode-t">Career Center Insights</div>
+        <div class="mode-d">Global and cohort trend views. The university sees aggregate conclusions only; <b>neither the interface nor the backend offers any way to look up an individual</b>.</div>
+        <div class="mode-k">Converges with the Equity &amp; Reach Insights module</div>
+      </div>
+    </div>
+
+    <h4 style="margin:0 0 10px;">What the MetricTuple carries when it leaves the student data domain</h4>
+    <div class="grid g2" style="margin-bottom:16px;">
+      <div class="card">
+        <div class="dr-k" style="margin-bottom:8px;color:var(--ok);">Carries</div>
+        <ul class="blist">
+          <li><span class="n">✓</span><span>period, coarse cohort_dims (school / year / development mode)</span></li>
+          <li><span class="n">✓</span><span>eligible_count, seen_count, acted_count</span></li>
+          <li><span class="n">✓</span><span>gap_total, gap_covered</span></li>
+          <li><span class="n">✓</span><span>The <b>requirement category</b> of uncovered gaps (e.g. "user research practice") — not the gap text itself</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="dr-k" style="margin-bottom:8px;color:var(--crit);">Explicitly does not carry</div>
+        <ul class="blist">
+          <li><span class="x">×</span><span>student_id, name, student number</span></li>
+          <li><span class="x">×</span><span>Profile fields, goal text, specific gap descriptions</span></li>
+          <li><span class="x">×</span><span>Reflection text, private notes</span></li>
+          <li><span class="x">×</span><span>Calendar data, or any wellbeing field</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="margin:0 0 10px;">What the university finally sees</h4>
+    <div class="tw" style="margin-bottom:16px;">
+      <table>
+        <thead><tr><th>View</th><th>Content</th><th>What the university can do with it</th></tr></thead>
+        <tbody>
+          <tr><td><b>Global utilisation</b></td><td>The three metrics university-wide, with trends</td><td>Judge whether resource reach is improving</td></tr>
+          <tr><td><b>Exposure-gap board</b></td><td>Resources ranked by "many eligible, few actually saw it"</td><td>Locate a distribution problem — the resource is fine, it just did not get through</td></tr>
+          <tr><td><b>Supply-gap board</b></td><td>The most frequent requirement categories the resource pool cannot cover</td><td>A direct input to resource procurement and programme design</td></tr>
+          <tr><td><b>Cohort comparison</b></td><td>Differences by school / year / development mode, shown only where the cell meets the sample threshold</td><td>Find groups systematically unable to reach resources</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout c-crit">
+      <b>Hard boundaries:</b>
+      ① any view cell below the sample threshold shows <code>Insufficient evidence</code> and is suppressed, rather than
+      displaying a deceptively precise number;
+      ② the university interface offers no "show me the students behind this number" entry point, and the backend
+      offers no such query;
+      ③ the number of combinable cohort dimensions is capped, preventing re-identification through repeated filtering;
+      ④ this path carries no wellbeing fields whatsoever;
+      ⑤ it is a separate pipeline from the team's F26 evaluation metrics and shares no output with it.
+    </div>
+
+    <h3 style="margin:30px 0 12px;">Trust and load guardrails (all must be zero)</h3>
+    <div class="grid g3">
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Capacity violations (unwarned overloaded plans)</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Protected block violations</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Private reflection exposure</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Calendar detail over-collection</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Unconfirmed profile writes</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Wellbeing false escalations</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Unauthorised publications</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Unbacked plan items (missing validation_id)</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">Metric re-identification (sub-threshold values shown / individual drill-down)</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--ok);">0</div><div class="stat-l">MetricTuple field leakage (student_id or wellbeing fields)</div></div>
+      <div class="card stat"><div class="stat-n" style="color:var(--route);">P50 &lt; 3s</div><div class="stat-l">Common interaction latency (replanning P95 &lt; 12s)</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">17 · Latency budget</div>
+      <h2>Latency is a design constraint, not an afterthought</h2>
+      <p class="sec-note">
+        If the multi-agent chain ran entirely serially, a single interaction could take 20–45 seconds — unacceptable for
+        an interactive web app and for a timed demo.
+      </p>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Measure</th><th>How</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td><b>A0 deterministic routing</b></td><td>Known intents dispatch directly without LLM orchestration</td><td>Covers ~90% of requests, saves one LLM round trip</td></tr>
+          <tr><td><b>A1 / A2 / A3 in parallel</b></td><td>They have no interdependency, so they run under an ADK <code>ParallelAgent</code></td><td>Three serial calls become one parallel call</td></tr>
+          <tr><td><b>RequirementGraph caching</b></td><td>Not recomputed while the goal is unchanged</td><td>A3 skipped in the normal case</td></tr>
+          <tr><td><b>Zero-LLM deterministic services</b></td><td>Capacity / Rules / Composer</td><td>These stages run in milliseconds</td></tr>
+          <tr><td><b>Session pre-warming</b></td><td>The chain is pre-run to the Gap Map in the background when the student opens the app</td><td>Usually only A5 remains at interaction time</td></tr>
+          <tr><td><b>Streamed rendering</b></td><td>Structured results return first, explanatory prose follows</td><td>Halves perceived latency</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">18 · Mapping to the judging criteria</div>
+      <h2>Gemini Enterprise for Higher Education</h2>
+    </div>
+    <div class="grid g2">
+      <div class="card mode">
+        <div class="mode-n">APPLICATION NOVELTY</div>
+        <div class="mode-t">One continuous loop</div>
+        <div class="mode-d">Long-term goals, prerequisite dependencies, dynamic eligibility, personal energy, opportunity quality, real actions and long-term memory all live in a single continuous loop — not a one-off assessment or a job aggregator.</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">REAL-WORLD VIABILITY</div>
+        <div class="mode-t">Hybrid architecture plus two-sided value</div>
+        <div class="mode-d">A standalone student app plus Gemini Enterprise agents plus Moodle / Workspace / Career Center / BYO-MCP; the university replaces none of its existing systems. The gap-coverage metric gives the university a resource-planning insight.</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">QUANTIFIABLE IMPACT</div>
+        <div class="mode-t">A reproducible gold-set evaluation</div>
+        <div class="mode-d">Measures time to discovery, four-state eligibility accuracy, course constraint satisfaction, plan executability, action conversion, repeated low-value recommendations, replanning quality, and the three resource-utilisation metrics.</div>
+      </div>
+      <div class="card mode">
+        <div class="mode-n">ECOSYSTEM EXECUTION</div>
+        <div class="mode-t">The full ADK workflow-agent set</div>
+        <div class="mode-d">ADK multi-agent, all three workflow agent types (sequential / parallel / loop), Agent Runtime, Memory Bank, Registry, Gateway, Workspace APIs, Cloud Run and a self-built MCP.</div>
+      </div>
+    </div>
+
+    <div class="callout c-ok" style="margin-top:20px;">
+      <b>The strongest security narrative: we deliberately do not use AI where it matters most.</b>
+      Zero LLM across the entire wellbeing path, three untrusted-content isolation contracts on A4, and a type-level
+      boundary between private reflection text and university-facing data — this is a threat model that can be
+      explained directly to judges, rather than a line saying "we care about privacy".
+    </div>
+  </section>
+
+  <footer>
+    <span>CampusPath V4.1 · interactive project brief</span>
+    <span>Content follows <code>CampusPath_Complete_Product_Spec_V4.1</code> exactly</span>
+    <span>Positioning and audience statements are faithful translations of the Chinese source, not rewrites</span>
+  </footer>
+</div>
+
+</main>
+
+<!-- ══════════ DIAGRAM LIGHTBOX ══════════ -->
+<div class="lightbox" id="lightbox" data-open="false" role="dialog" aria-modal="true" aria-label="Expanded diagram view">
+  <div class="lb-bar">
+    <span class="lb-title" id="lbTitle">Diagram</span>
+    <button class="lb-btn" id="lbOut"  type="button" aria-label="Zoom out">−</button>
+    <span class="lb-zoom" id="lbZoom">100%</span>
+    <button class="lb-btn" id="lbIn"   type="button" aria-label="Zoom in">+</button>
+    <button class="lb-btn" id="lb100" type="button">Actual size</button>
+    <button class="lb-btn" id="lbFit"  type="button">Fit</button>
+    <button class="lb-btn" id="lbClose" type="button" aria-label="Close">Close ✕</button>
+  </div>
+  <div class="lb-stage" id="lbStage">
+    <div class="lb-canvas" id="lbCanvas"></div>
+    <div class="lb-hint">Scroll to zoom · drag to pan · click an F code to read that function · Esc to close</div>
+  </div>
+</div>
+
+<!-- ══════════ FUNCTION DETAIL DRAWER ══════════ -->
+<div class="dr-scrim" id="drScrim" data-open="false"></div>
+<aside class="drawer" id="drawer" data-open="false" role="dialog" aria-modal="false" aria-label="Function detail">
+  <div class="dr-top">
+    <div class="dr-idx" id="drIdx">01</div>
+    <div class="dr-heads">
+      <div class="dr-code" id="drCode">F01</div>
+      <div class="dr-zh" id="drZh"></div>
+      <div class="dr-en" id="drEn"></div>
+    </div>
+    <button class="dr-x" id="drClose" type="button" aria-label="Close">✕</button>
+  </div>
+  <div class="dr-body">
+    <div class="dr-sec">
+      <div class="dr-k">Description</div>
+      <div class="dr-v" id="drDesc"></div>
+    </div>
+    <div class="dr-sec">
+      <div class="dr-k">Implemented by</div>
+      <div class="dr-v" id="drWhere"></div>
+    </div>
+    <div class="dr-sec">
+      <div class="dr-k">Primary role</div>
+      <div class="dr-v" id="drRole"></div>
+    </div>
+    <div class="dr-sec">
+      <div class="dr-k">Information flows</div>
+      <div class="arrow-refs" id="drFlows"></div>
+    </div>
+    <div class="dr-foot">
+      Sourced from the same dataset as the Functions page, per the Spec V4.1 §23 function baseline.
+      Click an E code above to jump to that flow's full annotation.
+    </div>
+  </div>
+</aside>
+
+<script>
+/* ============================================================
+   Data — from Spec V4.1; nothing outside the spec is added
+   ============================================================ */
+
+const AGENTS = [
+  { id:'A0', name:'CampusPath Orchestrator', rt:'Student Path Runtime',
+    resp:'Known intents go through a deterministic routing table; anything else gets a minimal workflow plan generated by an LLM. Loads the applicable Context Pack / Career Path Pack, calls the relevant agents, consolidates evidence, and decides when to ask the student. On a stated immediate-danger disclosure its only action is to trigger the Crisis Safety Protocol.',
+    in:'User request (structured UI event or free text), ConsentState, ReplanScope from the Event Monitor, pack metadata',
+    out:'WorkflowPlan, AgentCall, ResponseEnvelope, ClarificationRequest',
+    fns:['F01','F13','F18','F27'] },
+  { id:'A1', name:'Student Context & Growth Agent', rt:'Student Path Runtime',
+    resp:'Manages the complete profile, evidence, reflection, key takeaways, personal activity value, and memory candidates and conflicts. Every high-impact write is proposed only, never written directly; it emits structured quality feedback only and takes no part in anonymous aggregation.',
+    in:'Student input, résumé and certificate file references, evidence, ActionEvent results, reflection answers, memory recall',
+    out:'StudentContextView, ProfileUpdateProposal (pending), ReflectionResult, KeyTakeaway, MemoryProposal, structured EventQualityFeedback',
+    fns:['F02','F14','F15','F16','F17','F23'] },
+  { id:'A2', name:'Academic Agent', rt:'Student Path Runtime',
+    resp:'Consolidates academic facts across SIS, LMS, degree audit and catalogue; resolves ambiguity in programme rules; maps course descriptions to skill tags; annotates candidate courses with prerequisites, conflicts and workload. It does not rank, does not hold a calendar token, and never touches wellbeing data.',
+    in:'SIS records via the Education MCP, degree audit rules, LMS workload, course catalogue, timetable',
+    out:'AcademicState, DegreeProgress, AnnotatedCourseCandidate (no scores), DataUncertainty',
+    fns:['F04','F05'] },
+  { id:'A3', name:'Goal & Gap Agent', rt:'Student Path Runtime',
+    resp:'Clarifies goals, generates the requirement graph, compares it against current evidence, and identifies priority gaps, dependency chains, unknowns and estimated reach dates. Supports shared-gap and divergence-point analysis across a primary and a candidate goal.',
+    in:'Primary and candidate goals, A1 confirmed evidence, A2 academic state, Context Pack / Career Path Pack requirements',
+    out:'RequirementGraph (cacheable), DynamicGapMap, GoalReview',
+    fns:['F03','F08','F27'] },
+  { id:'A4', name:'Opportunity Intelligence Agent', rt:'Opportunity Operations Runtime', ops:true,
+    resp:'Understands external and submitted opportunities, extracting and normalising fields, recording provenance, and flagging risks and review suggestions. It has no publishing approval rights, no student-data access and no outbound write capability; external content is always passed as data, never as instructions.',
+    in:'Raw source content (as a user-role data block), PublicationSubmission, source policy, schema',
+    out:'OpportunityDraft, Provenance, ReviewSuggestion, ValidationIssue',
+    fns:['F09','F20','F21'] },
+  { id:'A5', name:'Pathway Decision Agent', rt:'Student Path Runtime',
+    resp:'The only agent in the system that makes trade-offs. Within the eligibility, prerequisite, deadline, capacity and pack constraints returned by the rules engine, it produces eligibility explanations, opportunity matching, course plan ranking, multi-timescale pathways and Plan A/B/C.',
+    in:'A1 context, A2 academic facts and course candidates, A3 gaps, CapacitySnapshot, WellbeingCapacitySignal, approved catalogue, rules validation results, quality aggregates',
+    out:'EligibilityExplanation, MatchResult, CoursePlan (balanced/ambitious/low-load), PathwayVersion, ScheduleProposal',
+    fns:['F05','F11','F12','F13'] }
+];
+
+const ARROWS = [
+  ['E1','Student → A0','`Intent` (structured UI event or free text) + `ConsentState` (per-source authorisation scope, calendar detail level, wellbeing reminder preference, outreach consent)',['F01','F13']],
+  ['E2','Pack Registry → A0','`ContextPackManifest` / `CareerPathPack`; loaded only when installed, applicable and consented to',['F27']],
+  ['E3','A0 → A1','`ProfileTask`: résumé file reference / ActionEvent result / reflection trigger / memory query scope',['F02','F14','F15','F16','F17']],
+  ['E4','A0 → A2','`AcademicTask`: student_id, term, requirement_group to resolve, course candidate scope',['F04','F05']],
+  ['E5','A0 → A3','`GoalTask`: primary and candidate goal definitions, change trigger reason, additional pack requirements',['F03','F08']],
+  ['E6','Connector → A2','SIS completed/in-progress records, degree audit rules, LMS assignments and completion state, course catalogue, timetable',['F04']],
+  ['E7','Connector → Capacity Service','Free/busy intervals (no titles, attendees or notes by default) plus the student-defined protected blocks',['F06']],
+  ['E8','A1 → A5','`StudentContextView`: confirmed skills/experience/projects/certificates + evidence references + relevant memory fragments + previously rejected directions',['F11']],
+  ['E9','A2 → A5','`AcademicState` + `DegreeProgress` + `AnnotatedCourseCandidate[]` (prerequisite state, conflict flags, workload, skill tags — **no scores**)',['F05']],
+  ['E10','A3 → A5','`RequirementGraph` + `DynamicGapMap` (gaps, priority, confidence, reach date, unknowns)',['F08']],
+  ['E11','Capacity Service → Rules','`CapacitySnapshot` + student self-reported sleep/exercise data + protected window',['F07']],
+  ['E12','Capacity Service → A5','`CapacitySnapshot` + `AvailabilityBlock[]` + `ConflictReport`',['F06']],
+  ['E13','Rules → Composer','`WellbeingCapacitySignal[]` (signal_type, observation_source, data_coverage, reference_line, severity, `non_diagnostic=true`)',['F07']],
+  ['E14','A5 ↔ Rules','Outbound: candidate opportunity rule fields, course combinations, schedule draft. Inbound: `EligibilityState` (four states), `ConstraintValidation` (carrying `validation_id`)',['F05','F07','F11','F27']],
+  ['E15','Catalog → A5','Approved `Opportunity[]` + `Provenance` (source, retrieval time, publication time, parser version, evidence snippet, confidence) + freshness',['F10','F11']],
+  ['E16','A5 → Student','`MatchResult` (four-state eligibility, reason, what is missing, when it becomes reachable, effort, source, risk), `PathwayVersion`, `Plan A/B/C`, `ScheduleProposal` preview',['F11','F12']],
+  ['E17','Student → Action & Consent','`ConsentReceipt` (scope, timestamp, authorised action) + any edited PlanItem. **Without this arrow, no write may occur**',['F13']],
+  ['E18','Action & Consent → Event Monitor','`ActionEvent`, `CalendarAction` (external_event_id)',['F18']],
+  ['E19','Action & Consent → A1','Action completion result + evidence collection request, triggering the three reflection tracks',['F14','F15','F16']],
+  ['E20','Composer → Student','Templated reminder with six slots: what was observed / data source and coverage / **explicit statement that no medical judgement was made** / actionable options / support options / consent state. Maximum two',['F07']],
+  ['E21','Composer → Action & Consent','`WellbeingOutreachRequest`, generated **only** when the student actively requests it or a valid opt-in exists',['F07']],
+  ['E22','Action & Consent → Wellbeing queue','Allow-listed email fields: internal identifier, the fact the student requested contact, trigger category, timestamp, consent token, receipt link. **Excludes** course/calendar titles, profile, reflection and any diagnostic wording',['F07']],
+  ['E23','A1 → State & Memory','`ProfileUpdateProposal` (pending) → written to the canonical profile after student confirmation, plus a `ProfileChangeEvent`; and `MemoryProposal`',['F02','F16','F17']],
+  ['E24','State & Memory → A1','Minimal task-relevant memory fragments and evidence references',['F17']],
+  ['E25','A1 → Aggregation','**Structured `EventQualityFeedback` only**; reflection text cannot travel this path at the type level',['F23']],
+  ['E26','Event Monitor → A0','`ReplanTrigger` + `AffectedScope` (marks only the affected fragment, never overturning the whole plan)',['F18']],
+  ['E27','External source / submission → A4','Raw content, passed as a user-role data block with boundary markers',['F09','F20']],
+  ['E28','A4 → Publishing','`OpportunityDraft` + `Provenance` + `ReviewSuggestion` + `ValidationIssue`, after the schema gate',['F09','F21']],
+  ['E29','Publishing → Catalog','The approved `Opportunity` (with publication_status, version and audit reference)',['F10','F19','F20','F21']],
+  ['E30','Catalog → Information Plaza','All approved resources plus category/tag/source/update time/official status. **Visibility is never decided by AI ranking**',['F10']],
+  ['E31','Aggregation → A5','`EventQualityAggregate` (quality_confidence above sample threshold, stratified by occurrence/series/cohort)',['F23','F11']],
+  ['E32','Student State → Aggregation','`MetricTuple`: period, coarse cohort_dims, eligible/seen/acted counts, gap_total/gap_covered, uncovered requirement **categories**. **The per-student computation happens inside the student data domain and the tuple carries no student_id on exit**; it contains no profile, goal text, reflection, calendar or wellbeing fields',['F23']],
+  ['E33','Aggregation → Career Center Insights','`ResourceCoverageAggregate`: global and cohort values for the three resource-utilisation metrics, the exposure-gap board and the supply-gap board. **Small cells suppressed, no individual drill-down**',['F23']]
+];
+
+/* code, English name, display name, description, implemented by, role, arrows, tags */
+const FUNCTIONS = [
+  ['F01','Onboarding, Consent & Privacy','Onboarding, consent and privacy','Establishes programme, year, goal mode, data authorisation, calendar detail scope, capacity preference, wellbeing reminder settings and outreach consent','A0 + Action & Consent + IAM','Student',['E1'],['agent']],
+  ['F02','Complete Growth Profile','Complete growth profile','Imports the résumé and prior experience, and maintains skills, projects, research, internships, certificates, awards, clubs, volunteering, evidence/notes and confirmation history','A1 + Student State & Memory','Student',['E3','E23','E24'],['agent','det']],
+  ['F03','Goal Studio','Goal Studio','Creates and compares employment, academic, entrepreneurial, interest and exploration goals; supports one primary plus one candidate goal with shared gaps and divergence points; the MVP ships only the undergraduate employment Career Path Pack','A3','Student',['E5'],['agent','changed']],
+  ['F04','Education Record Import','Education record import','Imports completed, in-progress, programme structure, completion status and workload from SIS, degree audit and LMS','A2 + Connector Layer','Student',['E4','E6'],['agent','det']],
+  ['F05','Course & Degree Planning','Course and degree planning','Course recommendations and alternatives that simultaneously satisfy graduation, prerequisite, offering, goal, evidence and time constraints','A2 (facts and candidate annotation) + Rules (hard constraints) + A5 (the only ranker)','Student',['E4','E9','E14'],['agent','det','changed']],
+  ['F06','Calendar & Capacity','Calendar and capacity','Free/busy first; generates busy/free/protected/buffer/flexible blocks, capacity and conflicts; writes to a dedicated calendar after confirmation','Capacity & Calendar Service (zero LLM) + Calendar Provider + Action & Consent','Student',['E7','E12'],['det','nollm','changed']],
+  ['F07','Wellbeing Capacity Guardrail','Wellbeing capacity guardrail','Checks sleep opportunity, activity opportunity, recovery blocks, buffer and sustained overload; at most two reminders, low-load rescheduling, and consented non-urgent outreach','Rules (threshold determination) + Wellbeing Reminder Composer (templates) + A5 (low-load rescheduling only) + Action & Consent + Event Monitor','Student / Wellbeing',['E11','E13','E20','E21','E22'],['det','nollm','changed']],
+  ['F08','Dynamic Gap Map','Dynamic gap map','Compares goal requirements against confirmed facts and evidence, showing priority gaps, dependencies, unknowns, confidence and reach dates','A3','Student',['E5','E10'],['agent']],
+  ['F09','Opportunity Ingestion & Provenance','Opportunity ingestion and provenance','Extracts, normalises, de-duplicates, versions, records provenance and flags anomalies from official and authorised sources','A4 (S3 isolated parallel extraction + security contracts) + Connector Layer','System / Content Ops',['E27','E28'],['agent','changed']],
+  ['F10','Information Plaza & Catalog','Information Plaza and catalogue','Shows every approved resource with search, categories, tags, source, update time and self-directed discovery','Publishing Service + Catalog','Student / Career Center',['E15','E29','E30'],['det']],
+  ['F11','Eligibility & Personalized Matching','Eligibility and personalised matching','Four-state eligibility, goal alignment, gap value, workload, preference, quality and source trust — with explanations shown','A5 + Rules (mandatory validation_id binding)','Student',['E8','E14','E15','E16','E31'],['agent','det','changed']],
+  ['F12','Dynamic Pathway & Timeline','Dynamic pathway and timeline','Near-term, 4–12 week, term/year, remaining period, Plan A/B/C, version differences and the GrowthTrajectory curve','A5 (S1 parallel Plan A/B/C, S2 constraint-repair loop)','Student',['E16'],['agent','changed']],
+  ['F13','Action Center & Consent','Action centre and consent','Bookmarks, application entry points, material checklists, previews, task/calendar writes, status, alternatives and idempotent audit','A0 / A5 + Action & Consent','Student',['E1','E17'],['agent','det']],
+  ['F14','Personal Reflection','Personal reflection','Guides personal learning, interest, goal, energy and next-step reflection through short questions; the raw text stays private by default','A1','Student',['E19'],['agent']],
+  ['F15','My Key Takeaways & Notes','My key takeaways and notes','Lets students record knowledge, methods, contacts, questions and ideas themselves, choosing whether to remember them or keep them private','A1 + Private Vault','Student',['E3','E19'],['agent','det']],
+  ['F16','Evidence Portfolio & Profile Update','Evidence portfolio and profile update','Results, certificates and artefacts enter evidence; A1 proposes a profile update, written only after student confirmation, with change history retained','A1 + Student State & Memory','Student',['E19','E23'],['agent','det']],
+  ['F17','Long-term Memory Control','Long-term memory control','Cross-session recall, source, confidence, conflict, expiry, correction, locking, forgetting and export','A1 Memory Curation Skill + Memory Platform','Student',['E23','E24'],['agent','det']],
+  ['F18','Event Monitoring & Replanning','Event monitoring and replanning','Monitors changes in courses, calendar, opportunities, deadlines, actions, feedback, load and sources, recomputing only the affected pathway','Event Monitor + A0 + A5','Student / System',['E18','E26'],['agent','det']],
+  ['F19','Publisher Authorization','Publisher authorisation','Organisation, category, expiry and direct-publish scope; granting, revocation and audit','Publishing Service + IAM','Career Center Admin',['E29'],['det']],
+  ['F20','Publisher Portal','Publisher Portal','Drafting, field completion, preview, submission, revision, status and versioning','Publisher Portal + A4','Publisher',['E27'],['agent','det']],
+  ['F21','Publication Review & Moderation','Publication review and moderation','Automated validation, A4 review suggestions, human approval/return/rejection, publishing, withdrawal and audit','A4 (suggestions only) + Publishing Service (deterministic routing)','Reviewer / Curator',['E28','E29'],['agent','det','changed']],
+  ['F22','Source & Connector Health','Source and connector health','Monitors sync, authentication, parsing, freshness, links and schema for opportunity sources and education/identity connectors in separate domains','Connector Layer + Observability','IT / Content Ops',[],['det']],
+  ['F23','Quality & Outcome Insights','Quality and outcome insights','Immediate personal fit, occurrence/series/cohort aggregation, sample thresholds, time decay, re-review and remediation; plus delivering the three resource-utilisation metrics to the university after de-identification and anonymous aggregation','A1 (structured collection only) + Student State (in-domain per-student computation) + Aggregation Service (exclusive aggregation)','Student / Curator',['E25','E31','E32','E33'],['agent','det','changed']],
+  ['F24','Agent Governance','Agent governance','Registry, Gateway, IAM, policy, prompt/skill/tool versioning, tracing, evaluation and audit','Gemini Enterprise Agent Platform','Security Admin',[],['det']],
+  ['F25','Synthetic Campus Sandbox','Synthetic campus sandbox','Moodle, mock SIS/degree/course/calendar/opportunity/publisher services, failure samples and a repeatable seed','Connector Layer + Test Environment','Team / Evaluator',[],['det']],
+  ['F26','Evaluation & KPI','Evaluation and KPIs','Gold set, eligibility accuracy, course constraints, plan executability, replanning, memory, publishing, privacy, wellbeing guardrails, resource utilisation and latency','Evaluation Harness','Team / Evaluator',[],['det','changed']],
+  ['F27','Context Pack & Career Path Pack Interface','Context Pack and Career Path Pack interface','Installs and versions cross-cutting constraints and goal models; the International Student pack and phd-to-industry are both planned packs, not separate agents','A0 / A3 / A5 + Rules','Student / Admin',['E2','E14'],['agent','det','changed']]
+];
+
+/* ============================================================
+   Rendering
+   ============================================================ */
+
+const md = s => s
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+  .replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')
+  .replace(/`(.+?)`/g,'<code>$1</code>');
+
+const FN_MAP = Object.fromEntries(FUNCTIONS.map((f, i) => [f[0], { row: f, n: i + 1 }]));
+
+const fBtn = f => FN_MAP[f]
+  ? `<button class="pill p-mute" data-fcode="${f}" title="Open ${f}">${f}</button>`
+  : `<span class="pill p-mute">${f}</span>`;
+
+document.getElementById('agentGrid').innerHTML = AGENTS.map(a => `
+  <article class="agent" ${a.ops ? 'data-rt="ops"' : ''}>
+    <div class="agent-top">
+      <div class="agent-id">${a.id}</div>
+      <div>
+        <div class="agent-name">${a.name}</div>
+        <div class="agent-rt">${a.rt}</div>
+      </div>
+    </div>
+    <p class="agent-resp">${a.resp}</p>
+    <div class="io">
+      <div class="io-r"><div class="io-k">IN</div><div class="io-v">${a.in}</div></div>
+      <div class="io-r"><div class="io-k">OUT</div><div class="io-v">${a.out}</div></div>
+    </div>
+    <div class="agent-fns">${a.fns.map(fBtn).join('')}</div>
+  </article>
+`).join('');
+
+document.getElementById('arrowList').innerHTML = ARROWS.map(([id, path, data, fns]) => `
+  <div class="arw" id="arw-${id}">
+    <div class="arw-h">
+      <span class="arw-id">${id}</span>
+      <span class="arw-path">${md(path)}</span>
+      ${fns.map(fBtn).join('')}
+    </div>
+    <p class="arw-d">${md(data)}</p>
+  </div>
+`).join('');
+
+const fnList  = document.getElementById('fnList');
+const fnEmpty = document.getElementById('fnEmpty');
+
+function tagPills(tags) {
+  const map = { nollm: ['p-ok', 'Zero LLM'], changed: ['p-warn', 'V4.1 change'] };
+  return tags.filter(t => map[t]).map(t => `<span class="pill ${map[t][0]}">${map[t][1]}</span>`).join('');
+}
+
+function renderFns(items) {
+  fnEmpty.style.display = items.length ? 'none' : 'block';
+  fnList.innerHTML = items.map(([code, en, zh, desc, where, role, arrows, tags]) => {
+    const n = FN_MAP[code].n;
+    return `
+    <article class="fn" data-open="false" data-code="${code}">
+      <button class="fn-btn" aria-expanded="false">
+        <span class="fn-idx">${String(n).padStart(2,'0')}</span>
+        <span class="fn-code">${code}</span>
+        <span class="fn-title">${en}</span>
+        <span class="fn-meta">${tagPills(tags)}</span>
+      </button>
+      <div class="fn-body"><div><div class="fn-inner">
+        <div class="fn-row"><div class="fn-k">Description</div><div class="fn-v">${desc}</div></div>
+        <div class="fn-row"><div class="fn-k">Implemented by</div><div class="fn-v"><b>${where}</b></div></div>
+        <div class="fn-row"><div class="fn-k">Primary role</div><div class="fn-v">${role}</div></div>
+        <div class="fn-row"><div class="fn-k">Flows</div><div class="fn-v">${
+          arrows.length
+            ? `<div class="arrow-refs">${arrows.map(a => `<button class="aref" data-jump="${a}">${a}</button>`).join('')}</div>`
+            : '<span style="color:var(--ink-3);">Does not travel the main architecture diagram (governance, sandbox or evaluation layer)</span>'
+        }</div></div>
+      </div></div></div>
+    </article>`;
+  }).join('');
+}
+
+renderFns(FUNCTIONS);
+
+fnList.addEventListener('click', e => {
+  const jump = e.target.closest('[data-jump]');
+  if (jump) { e.stopPropagation(); jumpToArrow(jump.dataset.jump); return; }
+  const btn = e.target.closest('.fn-btn');
+  if (!btn) return;
+  const card = btn.closest('.fn');
+  const open = card.dataset.open === 'true';
+  card.dataset.open = open ? 'false' : 'true';
+  btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+});
+
+let activeFilter = 'all';
+const search = document.getElementById('fnSearch');
+
+function applyFilters() {
+  const q = search.value.trim().toLowerCase();
+  renderFns(FUNCTIONS.filter(f => {
+    if (activeFilter !== 'all' && !f[7].includes(activeFilter)) return false;
+    if (!q) return true;
+    return (f[0] + f[1] + f[2] + f[3] + f[4] + f[5]).toLowerCase().includes(q);
+  }));
+}
+
+search.addEventListener('input', applyFilters);
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', 'false'));
+    chip.setAttribute('aria-pressed', 'true');
+    activeFilter = chip.dataset.filter;
+    applyFilters();
+  });
+});
+
+/* ---------- Page navigation ---------- */
+function goto(id) {
+  document.querySelectorAll('.page').forEach(p => p.dataset.active = String(p.id === id));
+  document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.go === id)));
+  if (location.hash.slice(1) !== id) history.replaceState(null, '', '#' + id);
+}
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => { goto(t.dataset.go); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+});
+const initial = location.hash.slice(1);
+if (initial && document.getElementById(initial)) goto(initial);
+
+/* ============================================================
+   Diagram lightbox
+   ============================================================ */
+
+const lb       = document.getElementById('lightbox');
+const lbStage  = document.getElementById('lbStage');
+const lbCanvas = document.getElementById('lbCanvas');
+const lbTitle  = document.getElementById('lbTitle');
+const lbZoom   = document.getElementById('lbZoom');
+
+let scale = 1, tx = 0, ty = 0, natW = 0, natH = 0;
+
+function applyTransform() {
+  lbCanvas.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+  lbZoom.textContent = Math.round(scale * 100) + '%';
+}
+
+function fitToStage() {
+  const r = lbStage.getBoundingClientRect();
+  if (!natW || !natH) return;
+  scale = Math.max(0.1, Math.min(Math.min((r.width - 40) / natW, (r.height - 40) / natH), 4));
+  tx = (r.width  - natW * scale) / 2;
+  ty = (r.height - natH * scale) / 2;
+  applyTransform();
+}
+
+/* Default view is 100%: shrinking a large diagram to fit makes the text less readable, not more. */
+function actualSize() {
+  const r = lbStage.getBoundingClientRect();
+  if (!natW || !natH) return;
+  scale = 1;
+  tx = natW < r.width  ? (r.width  - natW) / 2 : 20;
+  ty = natH < r.height ? (r.height - natH) / 2 : 20;
+  applyTransform();
+}
+
+function zoomAt(factor, cx, cy) {
+  const next = Math.max(0.2, Math.min(scale * factor, 8));
+  const r = lbStage.getBoundingClientRect();
+  const px = (cx ?? r.width / 2)  - tx;
+  const py = (cy ?? r.height / 2) - ty;
+  tx -= px * (next / scale - 1);
+  ty -= py * (next / scale - 1);
+  scale = next;
+  applyTransform();
+}
+
+function openZoom(schematic) {
+  const svg = schematic.querySelector('pre.mermaid svg') || schematic.querySelector('.mermaid svg');
+  if (!svg) return;
+  lbTitle.textContent = schematic.dataset.figTitle || 'Diagram';
+
+  const clone = svg.cloneNode(true);
+  clone.removeAttribute('style');
+  clone.style.maxWidth = 'none';
+
+  const vb = svg.getAttribute('viewBox');
+  if (vb) { const p = vb.split(/[\s,]+/).map(Number); natW = p[2]; natH = p[3]; }
+  else { const r = svg.getBoundingClientRect(); natW = r.width; natH = r.height; }
+  clone.setAttribute('width', natW);
+  clone.setAttribute('height', natH);
+
+  lbCanvas.innerHTML = '';
+  lbCanvas.appendChild(clone);
+  lb.dataset.open = 'true';
+  document.body.style.overflow = 'hidden';
+  requestAnimationFrame(actualSize);
+}
+
+function closeZoom() {
+  lb.dataset.open = 'false';
+  lbCanvas.innerHTML = '';
+  if (drawer.dataset.open !== 'true') document.body.style.overflow = '';
+}
+
+document.getElementById('lbClose').addEventListener('click', closeZoom);
+document.getElementById('lbIn').addEventListener('click',  () => zoomAt(1.3));
+document.getElementById('lbOut').addEventListener('click', () => zoomAt(1 / 1.3));
+document.getElementById('lbFit').addEventListener('click', fitToStage);
+document.getElementById('lb100').addEventListener('click', actualSize);
+
+lbStage.addEventListener('wheel', e => {
+  e.preventDefault();
+  const r = lbStage.getBoundingClientRect();
+  zoomAt(e.deltaY < 0 ? 1.12 : 1 / 1.12, e.clientX - r.left, e.clientY - r.top);
+}, { passive: false });
+
+let dragging = false, lastX = 0, lastY = 0;
+lbStage.addEventListener('pointerdown', e => {
+  if (e.target.closest('.fcode')) return;
+  dragging = true; lastX = e.clientX; lastY = e.clientY;
+  lbStage.setPointerCapture(e.pointerId);
+  lbStage.classList.add('dragging');
+});
+lbStage.addEventListener('pointermove', e => {
+  if (!dragging) return;
+  tx += e.clientX - lastX; ty += e.clientY - lastY;
+  lastX = e.clientX; lastY = e.clientY;
+  applyTransform();
+});
+['pointerup','pointercancel'].forEach(ev =>
+  lbStage.addEventListener(ev, () => { dragging = false; lbStage.classList.remove('dragging'); })
+);
+
+/* ============================================================
+   Function detail drawer
+   ============================================================ */
+
+const drawer = document.getElementById('drawer');
+const scrim  = document.getElementById('drScrim');
+
+function openFn(code) {
+  const hit = FN_MAP[code];
+  if (!hit) return;
+  const [c, en, zh, desc, where, role, arrows] = hit.row;
+
+  document.getElementById('drIdx').textContent  = String(hit.n).padStart(2, '0');
+  document.getElementById('drCode').textContent = c;
+  document.getElementById('drZh').textContent   = en;
+  document.getElementById('drEn').textContent   = '';
+  document.getElementById('drDesc').textContent = desc;
+  document.getElementById('drWhere').innerHTML  = '<b>' + where + '</b>';
+  document.getElementById('drRole').textContent = role;
+  document.getElementById('drFlows').innerHTML  = arrows.length
+    ? arrows.map(a => `<button class="aref" data-jump="${a}">${a}</button>`).join('')
+    : '<span style="color:var(--ink-3);font-size:.85rem;">Does not travel the main architecture diagram (governance, sandbox or evaluation layer)</span>';
+
+  drawer.dataset.open = 'true';
+  scrim.dataset.open  = 'true';
+  document.body.style.overflow = 'hidden';
+  document.getElementById('drClose').focus();
+}
+
+function closeFn() {
+  drawer.dataset.open = 'false';
+  scrim.dataset.open  = 'false';
+  if (lb.dataset.open !== 'true') document.body.style.overflow = '';
+}
+
+document.getElementById('drClose').addEventListener('click', closeFn);
+scrim.addEventListener('click', closeFn);
+document.getElementById('drFlows').addEventListener('click', e => {
+  const b = e.target.closest('[data-jump]');
+  if (!b) return;
+  closeFn(); closeZoom();
+  jumpToArrow(b.dataset.jump);
+});
+
+function jumpToArrow(id) {
+  goto('workflow');
+  requestAnimationFrame(() => {
+    const el = document.getElementById('arw-' + id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.querySelectorAll('.arw.flash').forEach(n => n.classList.remove('flash'));
+    el.classList.add('flash');
+    setTimeout(() => el.classList.remove('flash'), 2600);
+  });
+}
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-fcode]');
+  if (!t) return;
+  e.preventDefault(); e.stopPropagation();
+  openFn(t.dataset.fcode);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (drawer.dataset.open === 'true') { closeFn(); return; }
+    if (lb.dataset.open === 'true') closeZoom();
+    return;
+  }
+  if (e.key === 'Enter' || e.key === ' ') {
+    const t = e.target.closest && e.target.closest('[data-fcode]');
+    if (t) { e.preventDefault(); openFn(t.dataset.fcode); }
+  }
+});
+
+/* ============================================================
+   Diagram enhancement: expand button + clickable F codes
+   ============================================================ */
+
+const FIG_TITLES = [
+  'Fig. 1 · Complete agent information architecture',
+  'Fig. 2 · The wellbeing path: zero LLM end to end',
+  'Fig. 3 · Student-side workflow',
+  'Fig. 4 · University and Career Center workflow',
+  'Fig. 5 · Information transfer between the two sides',
+  'Fig. 6 · Synthetic Campus flow'
+];
+
+const ZOOM_ICON =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' +
+  '<path d="M3 9V5a2 2 0 0 1 2-2h4M15 3h4a2 2 0 0 1 2 2v4M21 15v4a2 2 0 0 1-2 2h-4M9 21H5a2 2 0 0 1-2-2v-4"/></svg>';
+
+document.querySelectorAll('.schematic').forEach((sch, i) => {
+  sch.dataset.figTitle = FIG_TITLES[i] || 'Diagram';
+  const b = document.createElement('button');
+  b.className = 'zoom-btn';
+  b.type = 'button';
+  b.innerHTML = ZOOM_ICON + '<span>Expand</span>';
+  b.setAttribute('aria-label', 'Expand ' + sch.dataset.figTitle);
+  b.addEventListener('click', ev => { ev.stopPropagation(); openZoom(sch); });
+  sch.appendChild(b);
+});
+
+const XHTML = 'http://www.w3.org/1999/xhtml';
+
+function linkifyF(root) {
+  root.querySelectorAll('foreignObject span, foreignObject div, foreignObject p').forEach(el => {
+    if (el.dataset.fLinked === '1') return;
+    if (el.children.length) return;
+    if (el.namespaceURI !== XHTML) return;
+    const txt = el.textContent;
+    if (!/F\d{2}/.test(txt)) return;
+    el.innerHTML = txt
+      .replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m]))
+      .replace(/F(\d{2})/g, (m, d) => {
+        const code = 'F' + d;
+        return FN_MAP[code]
+          ? `<a class="fcode" data-fcode="${code}" role="button" tabindex="0" title="Open ${code}">${code}</a>`
+          : m;
+      });
+    el.dataset.fLinked = '1';
+  });
+}
+
+document.querySelectorAll('.schematic').forEach(sch => {
+  const run = () => { const svg = sch.querySelector('svg'); if (svg) linkifyF(svg); };
+  new MutationObserver(run).observe(sch, { childList: true, subtree: true });
+  run();
+});
+
+let sweeps = 0;
+const sweep = setInterval(() => {
+  document.querySelectorAll('.schematic svg').forEach(linkifyF);
+  if (++sweeps > 30) clearInterval(sweep);
+}, 1000);
+</script>

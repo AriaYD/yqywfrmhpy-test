@@ -1,0 +1,87 @@
+{
+  "$defs": {
+    "ContactPerson": {
+      "additionalProperties": false,
+      "description": "R5-E2（2026-08-01）：学生自填的重要联系人。\n\n联系方式**不写死在代码里**——每个班的辅导员/班主任/班长都不同，\n且变动频繁；学生入系统时填写，学期内任意时间可改。\n只在学生域与 outreach 分流使用，无任何通往聚合域的路径。",
+      "properties": {
+        "email": {
+          "anyOf": [
+            {
+              "maxLength": 254,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Email"
+        },
+        "name": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "phone": {
+          "anyOf": [
+            {
+              "maxLength": 40,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Phone"
+        },
+        "role": {
+          "enum": [
+            "tutor",
+            "class_teacher",
+            "monitor"
+          ],
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "role",
+        "name"
+      ],
+      "title": "ContactPerson",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/ImportantContacts.json",
+  "additionalProperties": false,
+  "properties": {
+    "contacts": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/ContactPerson"
+      },
+      "maxItems": 6,
+      "title": "Contacts",
+      "type": "array"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "student_id",
+    "updated_at"
+  ],
+  "title": "ImportantContacts",
+  "type": "object"
+}

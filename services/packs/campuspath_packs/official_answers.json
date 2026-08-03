@@ -1,0 +1,85 @@
+{
+  "version": "1.0.0",
+  "verified_at": "2026-08-02",
+  "disclaimer_zh": "以下均为官方页面指引链接，不转述、不解读政策内容；结论以官方页面与人工政策复核为准，不构成法律建议。",
+  "disclaimer_en": "Official page pointers only; no policy content is paraphrased or interpreted. Not legal advice.",
+  "note": "国际生「找官方信息类」准备/核实动作的问答对照表（2026-08-02 用户需求）。匹配即给对应官方链接指引；链接与每日巡检源注册表同源（source_id 可回溯），巡检发现页面变更会出政策提醒卡。",
+  "entries": [
+    {
+      "answer_id": "QA-IANG-REQUIREMENTS",
+      "question_zh": "IANG（非本地毕业生留港/回港就业安排）的申请资格、手续与审批时间在哪里确认？",
+      "keywords": ["iang", "immigration", "入境处", "留港", "回港就业", "graduation status", "timing"],
+      "answer_zh": "香港入境处 IANG 专页——「入境签证/进入许可」与「延长逗留期限」两栏各含 申请前/申请手续/申请后（申请资格、审批时间在内）",
+      "answer_en": "HK Immigration Department IANG page — Entry visa and Extension of stay tabs each cover before/during/after application (eligibility and processing time included)",
+      "links": [
+        {"title_zh": "入境处 IANG 专页（英文）", "title_en": "IMMD IANG (English)", "url": "https://www.immd.gov.hk/eng/services/visas/IANG.html", "source_id": "HK-IMMD-IANG"},
+        {"title_zh": "入境处 IANG 专页（繁体中文）", "title_en": "IMMD IANG (Traditional Chinese)", "url": "https://www.immd.gov.hk/hks/services/visas/IANG.html", "source_id": "HK-IMMD-IANG-ZH"},
+        {"title_zh": "IANG 常见问题", "title_en": "IANG FAQ", "url": "https://www.immd.gov.hk/eng/faq/non-local-graduates-return-employment-arrangement.html", "source_id": "HK-IMMD-IANG-FAQ"}
+      ]
+    },
+    {
+      "answer_id": "QA-GRADUATION-DATE",
+      "question_zh": "actual_graduation_date（实际毕业时间）去哪里核实？",
+      "keywords": ["graduation_date", "actual_graduation", "毕业时间", "毕业日期"],
+      "answer_zh": "以 HKUST 教务处（Academic Registry）官方发布为准；毕业审核与学籍规定见教务处资源库",
+      "answer_en": "Confirm with the HKUST Academic Registry's official publications",
+      "links": [
+        {"title_zh": "HKUST 教务处资源库", "title_en": "HKUST Academic Registry resources", "url": "https://registry.hkust.edu.hk/resource-library/classes-attendance", "source_id": "HKUST-REGISTRY-ATTENDANCE"}
+      ]
+    },
+    {
+      "answer_id": "QA-EMPLOYMENT-PLAN",
+      "question_zh": "offer_or_employment_plan（工作邀约/就业计划）相关的官方信息在哪里？",
+      "keywords": ["offer", "employment_plan", "employment plan", "就业计划", "求职"],
+      "answer_zh": "HKUST 就业中心「非本地生就业信息」页 + 入境处 IANG 专页（就业类逗留安排）",
+      "answer_en": "HKUST Career Center non-local student employment page, plus the IMMD IANG page",
+      "links": [
+        {"title_zh": "HKUST 就业中心·非本地生就业信息", "title_en": "HKUST Career Center — non-local students", "url": "https://career.hkust.edu.hk/web/page.php?tid=38", "source_id": "HKUST-CAREER-NONLOCAL"},
+        {"title_zh": "入境处 IANG 专页（英文）", "title_en": "IMMD IANG (English)", "url": "https://www.immd.gov.hk/eng/services/visas/IANG.html", "source_id": "HK-IMMD-IANG"}
+      ]
+    },
+    {
+      "answer_id": "QA-TRANSITION-PLAN",
+      "question_zh": "毕业-就业过渡（graduate-employment transition）该按哪些官方节点规划？",
+      "keywords": ["transition", "graduate-employment", "毕业过渡", "留学生就业"],
+      "answer_zh": "按入境处 IANG 页「申请前/申请手续/申请后」节点 + HKUST 就业中心非本地生页规划时间线",
+      "answer_en": "Plan against the IMMD IANG before/during/after milestones and the HKUST Career Center non-local page",
+      "links": [
+        {"title_zh": "入境处 IANG 专页（英文）", "title_en": "IMMD IANG (English)", "url": "https://www.immd.gov.hk/eng/services/visas/IANG.html", "source_id": "HK-IMMD-IANG"},
+        {"title_zh": "HKUST 就业中心·非本地生就业信息", "title_en": "HKUST Career Center — non-local students", "url": "https://career.hkust.edu.hk/web/page.php?tid=38", "source_id": "HKUST-CAREER-NONLOCAL"}
+      ]
+    },
+    {
+      "answer_id": "QA-STUDY-VISA-WORK",
+      "question_zh": "学生签证在读期间的实习/兼职限制去哪里确认？",
+      "keywords": ["student_visa", "study visa", "实习限制", "兼职", "work-study", "school_approval"],
+      "answer_zh": "入境处学生签证专页（在读工作安排）+ 劳工处实习相关规定",
+      "answer_en": "IMMD study visa page (work arrangements while studying) and Labour Department internship rules",
+      "links": [
+        {"title_zh": "入境处·学生签证专页", "title_en": "IMMD study visa", "url": "https://www.immd.gov.hk/eng/services/visas/study.html", "source_id": "HK-IMMD-STUDY"},
+        {"title_zh": "劳工处·实习相关规定", "title_en": "Labour Department internships", "url": "https://www.labour.gov.hk/eng/erb/smw_esi_wes.htm", "source_id": "HK-LABOUR-INTERNS"}
+      ]
+    },
+    {
+      "answer_id": "QA-MAINLAND-EMPLOYMENT",
+      "question_zh": "计划回内地就业的官方政策入口？",
+      "keywords": ["mainland", "内地就业", "回国", "cn-mainland"],
+      "answer_zh": "人社部高校毕业生就业文件 + 国家移民管理局办事指南",
+      "answer_en": "MOHRSS graduate employment policy and the National Immigration Administration guide",
+      "links": [
+        {"title_zh": "人社部·高校毕业生就业文件", "title_en": "MOHRSS graduate employment", "url": "https://www.mohrss.gov.cn/xxgk2020/fdzdgknr/zcfg/gfxwj/jy/201701/t20170111_264214.html", "source_id": "CN-MOHRSS-GRADUATES"},
+        {"title_zh": "国家移民管理局·办事指南", "title_en": "NIA service guide", "url": "https://www.nia.gov.cn/n741440/n741542/c1637910/part/1637927.pdf", "source_id": "CN-NIA-GUIDE"}
+      ]
+    },
+    {
+      "answer_id": "QA-SCHOLARSHIP-FINAID",
+      "question_zh": "国际生奖学金与经济援助的官方入口？",
+      "keywords": ["scholarship", "奖学金", "financial", "资助"],
+      "answer_zh": "HKUST 奖学金及经济援助处官方页",
+      "answer_en": "HKUST Scholarships & Financial Aid Office",
+      "links": [
+        {"title_zh": "HKUST 奖学金及经济援助处", "title_en": "HKUST SFAO", "url": "https://sfao.hkust.edu.hk/page.php?i=3", "source_id": "HKUST-SFAO"}
+      ]
+    }
+  ]
+}

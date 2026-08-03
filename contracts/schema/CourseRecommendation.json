@@ -1,0 +1,123 @@
+{
+  "$defs": {
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/CourseRecommendation.json",
+  "additionalProperties": false,
+  "description": "R4-K（2026-07-31）：推荐给学生的**选修课**（必修课不推荐——反正都要修）。\n\n两层筛选：规则关键词初筛 → AI 复筛并给出每门课的推荐理由。\n判定边界：AI 评的是\"这门课与你的目标相关不相关\"，**不覆盖** Rules 的\n先修判定（§16.2/B8）——先修读不懂的课最多进\"待用户确认\"，附原文提示。",
+  "properties": {
+    "course_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Course Id",
+      "type": "string"
+    },
+    "credits": {
+      "minimum": 0,
+      "title": "Credits",
+      "type": "number"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Description"
+    },
+    "official_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Official Url"
+    },
+    "prerequisite_note": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/LocalizedText"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "先修规则读不懂时的原文提示——判定归 Rules，这里只是提醒"
+    },
+    "reason": {
+      "$ref": "#/components/schemas/LocalizedText",
+      "description": "为什么推荐/为什么待确认——每门都有"
+    },
+    "reason_source": {
+      "description": "理由出处：AI 复筛产出，或模型不可用时的规则降级（如实自报）",
+      "enum": [
+        "model",
+        "rules"
+      ],
+      "title": "Reason Source",
+      "type": "string"
+    },
+    "skill_tags": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Skill Tags",
+      "type": "array"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "verdict": {
+      "enum": [
+        "recommended",
+        "needs_user_confirmation"
+      ],
+      "title": "Verdict",
+      "type": "string"
+    }
+  },
+  "required": [
+    "course_id",
+    "title",
+    "credits",
+    "verdict",
+    "reason",
+    "reason_source"
+  ],
+  "title": "CourseRecommendation",
+  "type": "object"
+}

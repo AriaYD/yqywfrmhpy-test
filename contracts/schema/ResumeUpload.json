@@ -1,0 +1,45 @@
+{
+  "$id": "https://campuspath.invalid/schema/ResumeUpload.json",
+  "additionalProperties": false,
+  "description": "Resume 上传（2026-07-31 用户需求 A）。markdown/纯文本直接进\n``content_text``；PDF 走 ``content_base64``，由服务端抽取文本。\n\n上传**不直接写档案**：A1 从文本提炼出候选变更、生成一条恒为 pending 的\nProfileUpdateProposal（B3），与现有档案冲突的条目标为 update 并带\nold_value——由学生逐项决定是否更新为新版本。",
+  "properties": {
+    "content_base64": {
+      "anyOf": [
+        {
+          "maxLength": 4000000,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "PDF 原文（base64）",
+      "title": "Content Base64"
+    },
+    "content_text": {
+      "anyOf": [
+        {
+          "maxLength": 100000,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Text"
+    },
+    "filename": {
+      "maxLength": 255,
+      "minLength": 1,
+      "title": "Filename",
+      "type": "string"
+    }
+  },
+  "required": [
+    "filename"
+  ],
+  "title": "ResumeUpload",
+  "type": "object"
+}

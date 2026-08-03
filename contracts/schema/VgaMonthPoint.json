@@ -1,0 +1,23 @@
+{
+  "$id": "https://campuspath.invalid/schema/VgaMonthPoint.json",
+  "additionalProperties": false,
+  "description": "北极星指标 VGA 的单月桶（Spec §17.1：VGA / Active Student / Month）。",
+  "properties": {
+    "count": {
+      "minimum": 0,
+      "title": "Count",
+      "type": "integer"
+    },
+    "month": {
+      "pattern": "^\\d{4}-(0[1-9]|1[0-2])$",
+      "title": "Month",
+      "type": "string"
+    }
+  },
+  "required": [
+    "month",
+    "count"
+  ],
+  "title": "VgaMonthPoint",
+  "type": "object"
+}

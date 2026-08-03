@@ -1,0 +1,198 @@
+{
+  "$defs": {
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    },
+    "RuleCategory": {
+      "description": "Spec §8.1 Rules & Constraint Engine 的职责范围。",
+      "enum": [
+        "eligibility",
+        "prerequisite",
+        "credit",
+        "deadline",
+        "capacity",
+        "protected_block",
+        "offering",
+        "schedule_conflict",
+        "context_pack",
+        "wellbeing_threshold"
+      ],
+      "title": "RuleCategory",
+      "type": "string"
+    },
+    "SourceRef": {
+      "additionalProperties": false,
+      "description": "指向某个实体的稳定引用，用于 ConstraintValidation 的 ``subject_ref``。",
+      "properties": {
+        "entity_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "entity_type": {
+          "title": "Entity Type",
+          "type": "string"
+        },
+        "entity_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entity Version"
+        }
+      },
+      "required": [
+        "entity_type",
+        "entity_id"
+      ],
+      "title": "SourceRef",
+      "type": "object"
+    },
+    "ValidationReason": {
+      "additionalProperties": false,
+      "description": "一条判定依据。``rule_id`` 必须能在 rule set 中查到，不能是模型生成的散文。",
+      "properties": {
+        "category": {
+          "$ref": "#/components/schemas/RuleCategory"
+        },
+        "expected": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "要求值，例如 '需 12 学分'",
+          "title": "Expected"
+        },
+        "message": {
+          "$ref": "#/components/schemas/LocalizedText"
+        },
+        "observed": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "实测值，例如 '已修 9 学分'",
+          "title": "Observed"
+        },
+        "rule_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "verdict": {
+          "$ref": "#/components/schemas/Verdict"
+        }
+      },
+      "required": [
+        "rule_id",
+        "category",
+        "verdict",
+        "message"
+      ],
+      "title": "ValidationReason",
+      "type": "object"
+    },
+    "Verdict": {
+      "enum": [
+        "satisfied",
+        "violated",
+        "needs_confirmation",
+        "not_applicable"
+      ],
+      "title": "Verdict",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/ConstraintValidation.json",
+  "additionalProperties": false,
+  "description": "Rules & Constraint Engine 每次校验的签发结果（Spec §14.2）。\n\n不可变：一旦签发就不能改判。改判必须重新签发一个新的 validation_id，\n否则审计链会断。",
+  "properties": {
+    "evaluated_at": {
+      "format": "date-time",
+      "title": "Evaluated At",
+      "type": "string"
+    },
+    "expires_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "超过该时间需重新校验（例如名额、截止日期类规则）",
+      "title": "Expires At"
+    },
+    "reasons": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/ValidationReason"
+      },
+      "title": "Reasons",
+      "type": "array"
+    },
+    "rule_set_version": {
+      "title": "Rule Set Version",
+      "type": "string"
+    },
+    "subject_ref": {
+      "$ref": "#/components/schemas/SourceRef"
+    },
+    "validation_id": {
+      "pattern": "^val_[0-9a-f]{32}$",
+      "title": "Validation Id",
+      "type": "string"
+    },
+    "verdict": {
+      "$ref": "#/components/schemas/Verdict"
+    }
+  },
+  "required": [
+    "validation_id",
+    "rule_set_version",
+    "subject_ref",
+    "verdict",
+    "evaluated_at"
+  ],
+  "title": "ConstraintValidation",
+  "type": "object"
+}

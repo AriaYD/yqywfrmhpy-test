@@ -1,0 +1,41 @@
+{
+  "$id": "https://campuspath.invalid/schema/GrowthTrajectoryPoint.json",
+  "additionalProperties": false,
+  "properties": {
+    "gaps_closed": {
+      "minimum": 0,
+      "title": "Gaps Closed",
+      "type": "integer"
+    },
+    "goal_confidence": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Goal Confidence",
+      "type": "number"
+    },
+    "new_confirmed_evidence": {
+      "minimum": 0,
+      "title": "New Confirmed Evidence",
+      "type": "integer"
+    },
+    "term": {
+      "pattern": "^\\d{4}-\\d{2}_(FALL|WINTER|SPRING|SUMMER)$",
+      "title": "Term",
+      "type": "string"
+    },
+    "verified_growth_actions": {
+      "minimum": 0,
+      "title": "Verified Growth Actions",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "term",
+    "gaps_closed",
+    "new_confirmed_evidence",
+    "goal_confidence",
+    "verified_growth_actions"
+  ],
+  "title": "GrowthTrajectoryPoint",
+  "type": "object"
+}

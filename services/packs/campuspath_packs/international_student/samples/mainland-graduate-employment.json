@@ -1,0 +1,93 @@
+{
+  "pack_status": {
+    "installed": true,
+    "applicable": true,
+    "consented": true,
+    "current": false
+  },
+  "eligibility_state": "needs_confirmation",
+  "headline_key": "additional_confirmation_needed",
+  "headline": "Additional confirmation is needed",
+  "jurisdiction": "CN-MAINLAND",
+  "pack_version": "0.1.0",
+  "last_verified_at": "2026-08-01",
+  "applicable_pack_ids": [
+    "international-student-base",
+    "international-student-cn-mainland"
+  ],
+  "applicable_rule_ids": [
+    "CN-GRAD-EMPLOYMENT-001"
+  ],
+  "constraints": [
+    "City/province and occupation requirements are not supplied by this national overlay."
+  ],
+  "missing_information": [],
+  "required_evidence": [
+    "actual_graduation_date",
+    "employer_sponsorship",
+    "offer_or_employment_plan",
+    "opportunity_location"
+  ],
+  "preparation_actions": [
+    {
+      "preparation_action_id": "PREP-CN-GRAD-001",
+      "category": "timeline",
+      "title": "Prepare a local graduate-employment check",
+      "description": "Collect graduation evidence and employer sponsorship information, then verify the intended city's current work-permit and residence requirements.",
+      "recommended_lead_time_days": 60,
+      "trigger_conditions": [
+        {
+          "field": "goal_type",
+          "operator": "equals",
+          "value": "graduate_employment"
+        }
+      ],
+      "mandatory": false,
+      "mandatory_source_id": null,
+      "source_ids": [
+        "CN-SC-FOREIGN-EMPLOYMENT",
+        "CN-NIA-GUIDE"
+      ]
+    }
+  ],
+  "support_items": [],
+  "source_ids": [
+    "CN-MOHRSS-GRADUATES",
+    "CN-NIA-GUIDE",
+    "CN-SC-FOREIGN-EMPLOYMENT"
+  ],
+  "source_links": [
+    {
+      "source_id": "CN-MOHRSS-GRADUATES",
+      "title": "Employment of Outstanding Foreign University Graduates",
+      "url": "https://www.mohrss.gov.cn/xxgk2020/fdzdgknr/zcfg/gfxwj/jy/201701/t20170111_264214.html",
+      "last_checked_at": "2026-08-01T00:00:00Z"
+    },
+    {
+      "source_id": "CN-NIA-GUIDE",
+      "title": "Guide for Foreign Businesspersons Working and Living in China",
+      "url": "https://www.nia.gov.cn/n741440/n741542/c1637910/part/1637927.pdf",
+      "last_checked_at": "2026-08-01T00:00:00Z"
+    },
+    {
+      "source_id": "CN-SC-FOREIGN-EMPLOYMENT",
+      "title": "Provisions on the Administration of Employment of Foreigners in China",
+      "url": "https://www.gov.cn/zhengce/2022-08/31/content_5711314.htm",
+      "last_checked_at": "2026-08-01T00:00:00Z"
+    }
+  ],
+  "pathway_impacts": [
+    {
+      "impact_id": "IMPACT-001",
+      "rule_ids": [
+        "CN-GRAD-EMPLOYMENT-001"
+      ],
+      "pathway_segment_id": "current-goal",
+      "impact_type": "add_preparation_action",
+      "summary": "Graduate employment requires checking the foreigner employment framework, work-permit route, and local implementation for the intended work location."
+    }
+  ],
+  "validation_id": "VAL-530BF7D796CE57C3A77F",
+  "review_required": true,
+  "evaluated_at": "2026-08-01T00:00:00Z"
+}

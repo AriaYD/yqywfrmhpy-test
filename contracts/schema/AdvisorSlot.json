@@ -1,0 +1,62 @@
+{
+  "$defs": {
+    "TimeRange": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "format": "date-time",
+          "title": "End",
+          "type": "string"
+        },
+        "start": {
+          "format": "date-time",
+          "title": "Start",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "TimeRange",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/AdvisorSlot.json",
+  "additionalProperties": false,
+  "description": "Advisor 的一个可约时段。**只报占用，不报占用者**——\n名录对学生可见，谁约了谁不是学生该看到的。\n\nR8-1：``blocked=True`` 表示 Advisor 标记了\"此段不在\"——\n学生端名录**物理上看不到**这样的时段（服务端按角色过滤），\nAdvisor 工作台看得到并可随时解除。",
+  "properties": {
+    "advisor_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Advisor Id",
+      "type": "string"
+    },
+    "blocked": {
+      "default": false,
+      "title": "Blocked",
+      "type": "boolean"
+    },
+    "booked": {
+      "default": false,
+      "title": "Booked",
+      "type": "boolean"
+    },
+    "slot_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Slot Id",
+      "type": "string"
+    },
+    "span": {
+      "$ref": "#/components/schemas/TimeRange"
+    }
+  },
+  "required": [
+    "slot_id",
+    "advisor_id",
+    "span"
+  ],
+  "title": "AdvisorSlot",
+  "type": "object"
+}

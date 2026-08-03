@@ -1,0 +1,46 @@
+{
+  "$defs": {
+    "RequirementCategory": {
+      "description": "出域时 ``MetricTuple.uncovered_requirement_categories`` 只携带这一层。\n\n它必须足够粗，粗到无法反推是哪位学生——所以是枚举而不是自由文本。",
+      "enum": [
+        "coursework",
+        "technical_skill",
+        "research_experience",
+        "industry_experience",
+        "project_portfolio",
+        "teamwork_evidence",
+        "communication",
+        "credential",
+        "language",
+        "network",
+        "eligibility_status"
+      ],
+      "title": "RequirementCategory",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/UnmetRequirementEntry.json",
+  "additionalProperties": false,
+  "description": "供给缺口榜的一行：这个要求类别，资源池里没有东西能覆盖。",
+  "properties": {
+    "category": {
+      "$ref": "#/components/schemas/RequirementCategory"
+    },
+    "covered_by_any_resource": {
+      "default": false,
+      "title": "Covered By Any Resource",
+      "type": "boolean"
+    },
+    "occurrences": {
+      "minimum": 5,
+      "title": "Occurrences",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "category",
+    "occurrences"
+  ],
+  "title": "UnmetRequirementEntry",
+  "type": "object"
+}

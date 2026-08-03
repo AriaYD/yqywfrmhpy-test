@@ -1,0 +1,52 @@
+[project]
+name = "campuspath-api"
+version = "1.0.0"
+description = "CampusPath API —— 履行 WP1 冻结的 /v1 契约"
+requires-python = ">=3.12"
+dependencies = [
+    "campuspath-contracts",
+    "campuspath-rules",
+    "campuspath-capacity",
+    "campuspath-wellbeing",
+    "campuspath-state",
+    "campuspath-action",
+    "pypdf>=5.0",
+    "campuspath-aggregation",
+    "campuspath-monitor",
+    "campuspath-publishing",
+    "campuspath-connector",
+    "campuspath-mock-campus",
+    "campuspath-seed",
+    "fastapi>=0.115",
+]
+
+# 这一层是**编排**，判定全在确定性服务里。它日后会调用 Agent（WP6），
+# 因此不是零 LLM 服务——但它调用的九个服务各自仍受零 LLM 扫描约束。
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "httpx>=0.27"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["campuspath_api"]
+
+[tool.uv.sources]
+campuspath-contracts = { path = "../../contracts", editable = true }
+campuspath-rules = { path = "../rules", editable = true }
+campuspath-capacity = { path = "../capacity", editable = true }
+campuspath-wellbeing = { path = "../wellbeing", editable = true }
+campuspath-state = { path = "../state", editable = true }
+campuspath-action = { path = "../action", editable = true }
+campuspath-aggregation = { path = "../aggregation", editable = true }
+campuspath-monitor = { path = "../monitor", editable = true }
+campuspath-publishing = { path = "../publishing", editable = true }
+campuspath-connector = { path = "../connector", editable = true }
+campuspath-mock-campus = { path = "../mock-campus", editable = true }
+campuspath-seed = { path = "../../seed", editable = true }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

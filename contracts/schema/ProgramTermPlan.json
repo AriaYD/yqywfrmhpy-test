@@ -1,0 +1,38 @@
+{
+  "$id": "https://campuspath.invalid/schema/ProgramTermPlan.json",
+  "additionalProperties": false,
+  "description": "R4-J（2026-07-31）：一个专业在某个学期的建议修读安排。\n\n数据来自官方 PDF 的课程清单 + 按先修链推断的学期排布（source_note 写明\n哪部分是官方、哪部分是推断——接入真实教务系统后由 SIS 数据整体替换）。",
+  "properties": {
+    "notes": {
+      "anyOf": [
+        {
+          "maxLength": 2000,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Notes"
+    },
+    "required": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Required",
+      "type": "array"
+    },
+    "term_key": {
+      "pattern": "^Y[1-4]_(FALL|SPRING)$",
+      "title": "Term Key",
+      "type": "string"
+    }
+  },
+  "required": [
+    "term_key"
+  ],
+  "title": "ProgramTermPlan",
+  "type": "object"
+}

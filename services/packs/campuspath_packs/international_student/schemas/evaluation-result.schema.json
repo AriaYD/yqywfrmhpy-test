@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://campuspath.example/schemas/evaluation-result.schema.json",
+  "title": "ContextPackEvaluationResult",
+  "type": "object",
+  "required": [
+    "pack_status", "eligibility_state", "headline_key", "headline", "jurisdiction",
+    "pack_version", "last_verified_at", "applicable_pack_ids", "applicable_rule_ids",
+    "constraints", "missing_information", "required_evidence", "preparation_actions",
+    "support_items", "source_ids", "source_links", "pathway_impacts", "validation_id",
+    "review_required", "evaluated_at"
+  ],
+  "properties": {
+    "pack_status": {
+      "type": "object",
+      "required": ["installed", "applicable", "consented", "current"],
+      "properties": {
+        "installed": {"type": "boolean"},
+        "applicable": {"type": "boolean"},
+        "consented": {"type": "boolean"},
+        "current": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "eligibility_state": {"enum": ["eligible_now", "future_eligible", "needs_confirmation", "ineligible_current_cycle"]},
+    "headline_key": {"type": "string", "minLength": 1},
+    "headline": {"type": "string", "minLength": 1},
+    "jurisdiction": {"type": ["string", "null"]},
+    "pack_version": {"type": ["string", "null"]},
+    "last_verified_at": {"type": ["string", "null"], "format": "date"},
+    "applicable_pack_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "applicable_rule_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "constraints": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "missing_information": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "required_evidence": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "preparation_actions": {"type": "array", "items": {"type": "object"}},
+    "support_items": {"type": "array", "items": {"type": "object"}},
+    "source_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "source_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "title", "url", "last_checked_at"],
+        "properties": {
+          "source_id": {"type": "string"},
+          "title": {"type": "string"},
+          "url": {"type": "string", "format": "uri"},
+          "last_checked_at": {"type": "string", "format": "date-time"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "pathway_impacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["impact_id", "rule_ids", "pathway_segment_id", "impact_type", "summary"],
+        "properties": {
+          "impact_id": {"type": "string"},
+          "rule_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "pathway_segment_id": {"type": "string", "minLength": 1},
+          "impact_type": {"enum": ["add_preparation_action", "add_confirmation"]},
+          "summary": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "validation_id": {"type": "string", "pattern": "^VAL-[A-F0-9]{20}$"},
+    "review_required": {"type": "boolean"},
+    "evaluated_at": {"type": "string", "format": "date-time"}
+  },
+  "additionalProperties": false
+}

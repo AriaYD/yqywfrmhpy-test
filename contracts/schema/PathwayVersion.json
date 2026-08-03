@@ -1,0 +1,574 @@
+{
+  "$defs": {
+    "CapacityBudget": {
+      "additionalProperties": false,
+      "description": "路径版本对容量的承诺。超出即 B1 违规，除非 ``explicit_overload_warning``。",
+      "properties": {
+        "discretionary_capacity_hours": {
+          "title": "Discretionary Capacity Hours",
+          "type": "number"
+        },
+        "explicit_overload_warning": {
+          "default": false,
+          "title": "Explicit Overload Warning",
+          "type": "boolean"
+        },
+        "period_end": {
+          "format": "date",
+          "title": "Period End",
+          "type": "string"
+        },
+        "period_start": {
+          "format": "date",
+          "title": "Period Start",
+          "type": "string"
+        },
+        "planned_hours": {
+          "minimum": 0,
+          "title": "Planned Hours",
+          "type": "number"
+        },
+        "reserved_buffer_hours": {
+          "minimum": 0,
+          "title": "Reserved Buffer Hours",
+          "type": "number"
+        }
+      },
+      "required": [
+        "period_start",
+        "period_end",
+        "discretionary_capacity_hours",
+        "planned_hours",
+        "reserved_buffer_hours"
+      ],
+      "title": "CapacityBudget",
+      "type": "object"
+    },
+    "CoursePlan": {
+      "additionalProperties": false,
+      "description": "A5 产出。三个变体由 S1 `ParallelAgent` 并行生成。",
+      "properties": {
+        "confidence": {
+          "default": 0.5,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "course_items": {
+          "items": {
+            "$ref": "#/components/schemas/CoursePlanItem"
+          },
+          "minItems": 1,
+          "title": "Course Items",
+          "type": "array"
+        },
+        "degree_value": {
+          "title": "Degree Value",
+          "type": "number"
+        },
+        "explanation": {
+          "$ref": "#/components/schemas/LocalizedText"
+        },
+        "gap_value": {
+          "title": "Gap Value",
+          "type": "number"
+        },
+        "goal_value": {
+          "description": "A5 的取舍分数。只有 A5 的输出允许出现分数",
+          "title": "Goal Value",
+          "type": "number"
+        },
+        "plan_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Plan Id",
+          "type": "string"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "term": {
+          "pattern": "^\\d{4}-\\d{2}_(FALL|WINTER|SPRING|SUMMER)$",
+          "title": "Term",
+          "type": "string"
+        },
+        "total_credits": {
+          "minimum": 0,
+          "title": "Total Credits",
+          "type": "number"
+        },
+        "validation_ids": {
+          "items": {
+            "pattern": "^val_[0-9a-f]{32}$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Validation Ids",
+          "type": "array"
+        },
+        "variant": {
+          "$ref": "#/components/schemas/CoursePlanVariant"
+        },
+        "workload_cost": {
+          "default": 0.0,
+          "title": "Workload Cost",
+          "type": "number"
+        }
+      },
+      "required": [
+        "plan_id",
+        "student_id",
+        "variant",
+        "term",
+        "course_items",
+        "total_credits",
+        "goal_value",
+        "degree_value",
+        "gap_value",
+        "explanation",
+        "validation_ids"
+      ],
+      "title": "CoursePlan",
+      "type": "object"
+    },
+    "CoursePlanItem": {
+      "additionalProperties": false,
+      "properties": {
+        "alternatives": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Alternatives",
+          "type": "array"
+        },
+        "course_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Course Id",
+          "type": "string"
+        },
+        "credits": {
+          "minimum": 0,
+          "title": "Credits",
+          "type": "number"
+        },
+        "offering_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Offering Id"
+        },
+        "rationale": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/LocalizedText"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "term": {
+          "pattern": "^\\d{4}-\\d{2}_(FALL|WINTER|SPRING|SUMMER)$",
+          "title": "Term",
+          "type": "string"
+        },
+        "validation_id": {
+          "description": "Rules 对该课程项的校验凭据；缺失即被 API 拒绝（Spec §8.9.3）",
+          "pattern": "^val_[0-9a-f]{32}$",
+          "title": "Validation Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "course_id",
+        "term",
+        "credits",
+        "validation_id"
+      ],
+      "title": "CoursePlanItem",
+      "type": "object"
+    },
+    "CoursePlanVariant": {
+      "description": "S1 ParallelAgent 的三套约束强度（Spec §8.1 表 S1）。",
+      "enum": [
+        "balanced",
+        "ambitious",
+        "low_load"
+      ],
+      "title": "CoursePlanVariant",
+      "type": "string"
+    },
+    "DateRange": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        },
+        "start": {
+          "format": "date",
+          "title": "Start",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start"
+      ],
+      "title": "DateRange",
+      "type": "object"
+    },
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    },
+    "Milestone": {
+      "additionalProperties": false,
+      "properties": {
+        "linked_goal_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Linked Goal Id"
+        },
+        "milestone_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Milestone Id",
+          "type": "string"
+        },
+        "plan_item_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Plan Item Ids",
+          "type": "array"
+        },
+        "target_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target Date"
+        },
+        "target_term": {
+          "anyOf": [
+            {
+              "pattern": "^\\d{4}-\\d{2}_(FALL|WINTER|SPRING|SUMMER)$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target Term"
+        },
+        "title": {
+          "$ref": "#/components/schemas/LocalizedText"
+        }
+      },
+      "required": [
+        "milestone_id",
+        "title"
+      ],
+      "title": "Milestone",
+      "type": "object"
+    },
+    "PlanItem": {
+      "additionalProperties": false,
+      "description": "A5 输出的最小单元。**每一个都必须携带 validation_id**（Spec §8.9.3）。",
+      "properties": {
+        "assumptions": {
+          "default": [],
+          "items": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "date_range": {
+          "$ref": "#/components/schemas/DateRange"
+        },
+        "dependencies": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "fallback": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/LocalizedText"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Spec §16.4：任何计划项都要标明失败后的 fallback"
+        },
+        "kind": {
+          "$ref": "#/components/schemas/PlanItemKind"
+        },
+        "milestone": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Milestone"
+        },
+        "plan_item_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Plan Item Id",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/components/schemas/PlanItemStatus",
+          "default": "proposed"
+        },
+        "subject_id": {
+          "description": "course_id / opportunity_id / action_id",
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Subject Id",
+          "type": "string"
+        },
+        "title": {
+          "$ref": "#/components/schemas/LocalizedText"
+        },
+        "validation_id": {
+          "pattern": "^val_[0-9a-f]{32}$",
+          "title": "Validation Id",
+          "type": "string"
+        },
+        "workload_hours": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "Workload Hours",
+          "type": "number"
+        }
+      },
+      "required": [
+        "plan_item_id",
+        "kind",
+        "subject_id",
+        "title",
+        "date_range",
+        "validation_id"
+      ],
+      "title": "PlanItem",
+      "type": "object"
+    },
+    "PlanItemKind": {
+      "enum": [
+        "course",
+        "opportunity",
+        "action",
+        "milestone"
+      ],
+      "title": "PlanItemKind",
+      "type": "string"
+    },
+    "PlanItemStatus": {
+      "enum": [
+        "proposed",
+        "accepted",
+        "in_progress",
+        "completed",
+        "skipped",
+        "blocked"
+      ],
+      "title": "PlanItemStatus",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/PathwayVersion.json",
+  "additionalProperties": false,
+  "description": "多时间尺度路径（D1 要求三个视图数据同源，因此三者都从这里派生）。",
+  "properties": {
+    "alternatives": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/LocalizedText"
+      },
+      "title": "Alternatives",
+      "type": "array"
+    },
+    "assumptions": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/LocalizedText"
+      },
+      "title": "Assumptions",
+      "type": "array"
+    },
+    "capacity_budgets": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/CapacityBudget"
+      },
+      "title": "Capacity Budgets",
+      "type": "array"
+    },
+    "course_plan": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/CoursePlan"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "horizons": {
+      "items": {
+        "enum": [
+          "next_two_weeks",
+          "this_term",
+          "long_term"
+        ],
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Horizons",
+      "type": "array"
+    },
+    "milestones": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/Milestone"
+      },
+      "title": "Milestones",
+      "type": "array"
+    },
+    "pathway_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Pathway Id",
+      "type": "string"
+    },
+    "plan_items": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/PlanItem"
+      },
+      "title": "Plan Items",
+      "type": "array"
+    },
+    "previous_version": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Previous Version"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "trigger": {
+      "description": "生成该版本的原因；初版为 'initial'",
+      "title": "Trigger",
+      "type": "string"
+    },
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "pathway_id",
+    "student_id",
+    "version",
+    "created_at",
+    "trigger",
+    "horizons"
+  ],
+  "title": "PathwayVersion",
+  "type": "object"
+}

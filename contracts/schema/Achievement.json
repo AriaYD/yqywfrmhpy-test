@@ -1,0 +1,117 @@
+{
+  "$defs": {
+    "VerificationStatus": {
+      "description": "Spec §8.2.3：不把上传文件自动当成学校认证。",
+      "enum": [
+        "self_reported",
+        "source_imported",
+        "institution_verified",
+        "expired",
+        "disputed"
+      ],
+      "title": "VerificationStatus",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/Achievement.json",
+  "additionalProperties": false,
+  "properties": {
+    "achievement_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Achievement Id",
+      "type": "string"
+    },
+    "achievement_type": {
+      "enum": [
+        "competition",
+        "award",
+        "scholarship",
+        "certificate",
+        "publication"
+      ],
+      "title": "Achievement Type",
+      "type": "string"
+    },
+    "evidence_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Evidence Ids",
+      "type": "array"
+    },
+    "expires_at": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expires At"
+    },
+    "issued_at": {
+      "format": "date",
+      "title": "Issued At",
+      "type": "string"
+    },
+    "issuer": {
+      "title": "Issuer",
+      "type": "string"
+    },
+    "level": {
+      "enum": [
+        "department",
+        "institution",
+        "regional",
+        "national",
+        "international"
+      ],
+      "title": "Level",
+      "type": "string"
+    },
+    "prize": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Prize"
+    },
+    "result": {
+      "title": "Result",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "verification_status": {
+      "$ref": "#/components/schemas/VerificationStatus",
+      "default": "self_reported"
+    }
+  },
+  "required": [
+    "achievement_id",
+    "student_id",
+    "achievement_type",
+    "issuer",
+    "level",
+    "result",
+    "issued_at"
+  ],
+  "title": "Achievement",
+  "type": "object"
+}

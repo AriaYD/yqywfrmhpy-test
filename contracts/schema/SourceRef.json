@@ -1,0 +1,35 @@
+{
+  "$id": "https://campuspath.invalid/schema/SourceRef.json",
+  "additionalProperties": false,
+  "description": "指向某个实体的稳定引用，用于 ConstraintValidation 的 ``subject_ref``。",
+  "properties": {
+    "entity_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "entity_type": {
+      "title": "Entity Type",
+      "type": "string"
+    },
+    "entity_version": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Entity Version"
+    }
+  },
+  "required": [
+    "entity_type",
+    "entity_id"
+  ],
+  "title": "SourceRef",
+  "type": "object"
+}

@@ -1,0 +1,160 @@
+{
+  "$defs": {
+    "AdvisorBookingStatus": {
+      "enum": [
+        "requested",
+        "confirmed",
+        "completed",
+        "cancelled",
+        "no_show"
+      ],
+      "title": "AdvisorBookingStatus",
+      "type": "string"
+    },
+    "AdvisorSummary": {
+      "additionalProperties": false,
+      "description": "Advisor 会后写给学生的几条关键建议。",
+      "properties": {
+        "booking_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Booking Id",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "key_advice": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 5,
+          "minItems": 1,
+          "title": "Key Advice",
+          "type": "array"
+        },
+        "summary_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Summary Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "summary_id",
+        "booking_id",
+        "key_advice",
+        "created_at"
+      ],
+      "title": "AdvisorSummary",
+      "type": "object"
+    },
+    "TimeRange": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "format": "date-time",
+          "title": "End",
+          "type": "string"
+        },
+        "start": {
+          "format": "date-time",
+          "title": "Start",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "TimeRange",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/AdvisorBooking.json",
+  "additionalProperties": false,
+  "description": "学生发起的 Advisor 预约。\n\n激活条件（Spec 用户裁定）：大一下学期起可用——服务端按年级把关，\nYear 1 上学期请求被拒时给出解释而不是静默失败。",
+  "properties": {
+    "advisor_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Advisor Id"
+    },
+    "booking_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Booking Id",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "requested_slot": {
+      "$ref": "#/components/schemas/TimeRange"
+    },
+    "slot_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Slot Id"
+    },
+    "status": {
+      "$ref": "#/components/schemas/AdvisorBookingStatus",
+      "default": "requested"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "summary": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/AdvisorSummary"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "topic": {
+      "description": "学生想讨论什么",
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Topic",
+      "type": "string"
+    }
+  },
+  "required": [
+    "booking_id",
+    "student_id",
+    "requested_slot",
+    "topic",
+    "created_at"
+  ],
+  "title": "AdvisorBooking",
+  "type": "object"
+}

@@ -1,0 +1,89 @@
+{
+  "$defs": {
+    "ProposalStatus": {
+      "enum": [
+        "pending",
+        "edited",
+        "confirmed",
+        "rejected"
+      ],
+      "title": "ProposalStatus",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/ProfileChangeEvent.json",
+  "additionalProperties": false,
+  "description": "append-only 变更事件（Spec §8.4 L1）。拒绝也要留事件，只是不写入 Profile。",
+  "properties": {
+    "actor": {
+      "enum": [
+        "student",
+        "authoritative_source",
+        "system"
+      ],
+      "title": "Actor",
+      "type": "string"
+    },
+    "changed_fields": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Changed Fields",
+      "type": "array"
+    },
+    "decision": {
+      "$ref": "#/components/schemas/ProposalStatus"
+    },
+    "event_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Event Id",
+      "type": "string"
+    },
+    "profile_version_after": {
+      "title": "Profile Version After",
+      "type": "integer"
+    },
+    "profile_version_before": {
+      "title": "Profile Version Before",
+      "type": "integer"
+    },
+    "proposal_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Proposal Id"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    }
+  },
+  "required": [
+    "event_id",
+    "student_id",
+    "profile_version_before",
+    "profile_version_after",
+    "actor",
+    "decision",
+    "timestamp"
+  ],
+  "title": "ProfileChangeEvent",
+  "type": "object"
+}

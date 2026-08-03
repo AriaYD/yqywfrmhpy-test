@@ -1,0 +1,2429 @@
+{
+  "$defs": {
+    "ActionEvent": {
+      "additionalProperties": false,
+      "description": "append-only 行动事件。VGA 与所有 BASELINE 指标都从这里聚合。",
+      "properties": {
+        "action_type": {
+          "$ref": "#/components/schemas/ActionType"
+        },
+        "approval_receipt_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Approval Receipt Id"
+        },
+        "event_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Event Id",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "plan_item_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Plan Item Id"
+        },
+        "result": {
+          "default": "succeeded",
+          "enum": [
+            "succeeded",
+            "failed",
+            "cancelled"
+          ],
+          "title": "Result",
+          "type": "string"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "subject_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Subject Id",
+          "type": "string"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "verified_growth": {
+          "default": false,
+          "description": "是否计入 VGA：需有 Evidence 或 Reflection 证明产生了价值（Spec §17.1）",
+          "title": "Verified Growth",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "event_id",
+        "student_id",
+        "action_type",
+        "subject_id",
+        "timestamp"
+      ],
+      "title": "ActionEvent",
+      "type": "object"
+    },
+    "ActionType": {
+      "enum": [
+        "apply",
+        "register",
+        "save",
+        "unsave",
+        "add_to_pathway",
+        "complete",
+        "decline",
+        "calendar_write",
+        "reflect"
+      ],
+      "title": "ActionType",
+      "type": "string"
+    },
+    "AvailabilityBlock": {
+      "additionalProperties": false,
+      "description": "一段被分类过的时间。只有起止、类型、来源——**没有内容**。",
+      "properties": {
+        "block_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Block Id",
+          "type": "string"
+        },
+        "detail_level": {
+          "$ref": "#/components/schemas/CalendarDetailLevel",
+          "default": "free_busy_only"
+        },
+        "privacy_level": {
+          "default": "opaque",
+          "enum": [
+            "opaque",
+            "student_defined"
+          ],
+          "title": "Privacy Level",
+          "type": "string"
+        },
+        "reachable": {
+          "default": true,
+          "description": "跨地点无法到达的空档不计入 Usable Free Time（Spec §16.6）",
+          "title": "Reachable",
+          "type": "boolean"
+        },
+        "reminder_minutes_before": {
+          "anyOf": [
+            {
+              "maximum": 10080,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "A（2026-07-31）：学生给自己视图里的行程设的提醒。只属于 CampusPath 视图，不回写权威日历",
+          "title": "Reminder Minutes Before"
+        },
+        "source": {
+          "$ref": "#/components/schemas/BlockSource"
+        },
+        "span": {
+          "$ref": "#/components/schemas/TimeRange"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "事件标题。**只有 detail_level 为 event_titles 时才允许有值**——学生没授权二级就带着标题的区块，在类型层构造不出来",
+          "title": "Title"
+        },
+        "type": {
+          "$ref": "#/components/schemas/AvailabilityType"
+        }
+      },
+      "required": [
+        "block_id",
+        "student_id",
+        "span",
+        "type",
+        "source"
+      ],
+      "title": "AvailabilityBlock",
+      "type": "object"
+    },
+    "AvailabilityType": {
+      "description": "Spec §16.6 的五类时段。",
+      "enum": [
+        "busy",
+        "free",
+        "protected",
+        "buffer",
+        "flexible"
+      ],
+      "title": "AvailabilityType",
+      "type": "string"
+    },
+    "BlockSource": {
+      "enum": [
+        "calendar_freebusy",
+        "student_defined",
+        "course_timetable",
+        "derived"
+      ],
+      "title": "BlockSource",
+      "type": "string"
+    },
+    "CalendarDetailLevel": {
+      "description": "采集层级。**两级，学生各自授权，默认只有第一级。**\n\n产品上的取舍：只知道忙/闲的系统只能说\"你没空了\"；知道标题才说得出\n\"这个周三的例会也许可以缺一次\"。后者是学生明确要的能力，所以它是\n一个**可选的第二级授权**，而不是默认打开、也不是永远不做。\n\n``AvailabilityBlock.title`` 只在 :attr:`EVENT_TITLES` 下才允许有值，\n由 ``_title_requires_grant`` 在类型层强制——\n\"没授权却带了标题\"因此构造不出来，不靠调用方记得过滤。",
+      "enum": [
+        "free_busy_only",
+        "event_titles"
+      ],
+      "title": "CalendarDetailLevel",
+      "type": "string"
+    },
+    "CapacitySnapshot": {
+      "additionalProperties": false,
+      "description": "Spec §16.6 的算术结果。纯计算，可单测到小数点。",
+      "properties": {
+        "buffer_ratio": {
+          "description": "未安排时间占 usable_free 的比例，可为负。**分母是 usable_free 而非 discretionary**——后者已经把 recovery_buffer 扣掉了，再用它当分母就等于同一份缓冲收两次费",
+          "title": "Buffer Ratio",
+          "type": "number"
+        },
+        "discretionary_capacity_hours": {
+          "description": "可为负：说明已经超载",
+          "title": "Discretionary Capacity Hours",
+          "type": "number"
+        },
+        "existing_flexible_hours": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "Existing Flexible Hours",
+          "type": "number"
+        },
+        "fixed_load_hours": {
+          "description": "课程、工作、通勤等固定负担",
+          "minimum": 0,
+          "title": "Fixed Load Hours",
+          "type": "number"
+        },
+        "overload_signal": {
+          "default": false,
+          "title": "Overload Signal",
+          "type": "boolean"
+        },
+        "period_end": {
+          "format": "date",
+          "title": "Period End",
+          "type": "string"
+        },
+        "period_start": {
+          "format": "date",
+          "title": "Period Start",
+          "type": "string"
+        },
+        "planned_load_hours": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "Planned Load Hours",
+          "type": "number"
+        },
+        "protected_time_hours": {
+          "description": "睡眠、用餐、恢复等保护区块",
+          "minimum": 0,
+          "title": "Protected Time Hours",
+          "type": "number"
+        },
+        "recovery_buffer_hours": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "Recovery Buffer Hours",
+          "type": "number"
+        },
+        "snapshot_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Snapshot Id",
+          "type": "string"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "transition_hours": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "Transition Hours",
+          "type": "number"
+        },
+        "usable_free_hours": {
+          "description": "已剔除碎片、深夜与不可达时段",
+          "minimum": 0,
+          "title": "Usable Free Hours",
+          "type": "number"
+        }
+      },
+      "required": [
+        "snapshot_id",
+        "student_id",
+        "period_start",
+        "period_end",
+        "fixed_load_hours",
+        "protected_time_hours",
+        "usable_free_hours",
+        "discretionary_capacity_hours",
+        "buffer_ratio"
+      ],
+      "title": "CapacitySnapshot",
+      "type": "object"
+    },
+    "ConsentRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "expires_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expires At"
+        },
+        "granted": {
+          "title": "Granted",
+          "type": "boolean"
+        },
+        "granted_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Granted At"
+        },
+        "receipt_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "同意回执，用于审计（B13）",
+          "title": "Receipt Id"
+        },
+        "revoked_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Revoked At"
+        },
+        "scope": {
+          "$ref": "#/components/schemas/ConsentScope"
+        }
+      },
+      "required": [
+        "scope",
+        "granted"
+      ],
+      "title": "ConsentRecord",
+      "type": "object"
+    },
+    "ConsentScope": {
+      "description": "Spec §13：每一类数据的读取都要有独立同意，不做打包授权。",
+      "enum": [
+        "sis_records",
+        "lms_records",
+        "calendar_freebusy",
+        "calendar_event_titles",
+        "calendar_write",
+        "self_reported_wellbeing",
+        "wellbeing_outreach",
+        "anonymous_aggregation",
+        "memory_retention",
+        "context_pack"
+      ],
+      "title": "ConsentScope",
+      "type": "string"
+    },
+    "CourseStatus": {
+      "enum": [
+        "planned",
+        "enrolled",
+        "completed",
+        "dropped",
+        "waitlisted"
+      ],
+      "title": "CourseStatus",
+      "type": "string"
+    },
+    "DateRange": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        },
+        "start": {
+          "format": "date",
+          "title": "Start",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start"
+      ],
+      "title": "DateRange",
+      "type": "object"
+    },
+    "DevelopmentMode": {
+      "additionalProperties": false,
+      "description": "Spec §14.3。学生可以同时属于多种模式，权重之和不强制为 1。",
+      "properties": {
+        "confidence": {
+          "default": 0.5,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "mode": {
+          "$ref": "#/components/schemas/DevelopmentModeType"
+        },
+        "weight": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "mode",
+        "weight"
+      ],
+      "title": "DevelopmentMode",
+      "type": "object"
+    },
+    "DevelopmentModeType": {
+      "enum": [
+        "employment",
+        "academia",
+        "entrepreneurship",
+        "personal_interest",
+        "exploration"
+      ],
+      "title": "DevelopmentModeType",
+      "type": "string"
+    },
+    "EnergyCost": {
+      "enum": [
+        "low",
+        "moderate",
+        "high",
+        "draining"
+      ],
+      "title": "EnergyCost",
+      "type": "string"
+    },
+    "EnergyProfile": {
+      "additionalProperties": false,
+      "description": "Spec §16.7。全部由学生显式设置，**不得从空白日历反推**（§16.8.2）。",
+      "properties": {
+        "max_parallel_commitments": {
+          "default": 2,
+          "maximum": 10,
+          "minimum": 1,
+          "title": "Max Parallel Commitments",
+          "type": "integer"
+        },
+        "min_buffer_ratio": {
+          "default": 0.2,
+          "description": "未安排缓冲下限，默认 20%（Spec §16.8）",
+          "maximum": 0.6,
+          "minimum": 0.0,
+          "title": "Min Buffer Ratio",
+          "type": "number"
+        },
+        "preferred_intensity": {
+          "$ref": "#/components/schemas/IntensityMode",
+          "default": "balanced"
+        },
+        "recovery_preference_defined": {
+          "default": false,
+          "description": "Spec §16.8.2：未定义恢复偏好时 recovery_absent 信号不得触发",
+          "title": "Recovery Preference Defined",
+          "type": "boolean"
+        },
+        "sleep_window_end": {
+          "anyOf": [
+            {
+              "pattern": "^\\d{2}:\\d{2}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sleep Window End"
+        },
+        "sleep_window_start": {
+          "anyOf": [
+            {
+              "pattern": "^\\d{2}:\\d{2}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "学生显式设置的睡眠保护窗口起点；None 表示未设置，此时 sleep_opportunity 信号不得触发",
+          "title": "Sleep Window Start"
+        },
+        "social_preference": {
+          "default": "mixed",
+          "enum": [
+            "solo",
+            "small_group",
+            "large_group",
+            "mixed"
+          ],
+          "title": "Social Preference",
+          "type": "string"
+        },
+        "weekly_discretionary_hours": {
+          "maximum": 80,
+          "minimum": 0,
+          "title": "Weekly Discretionary Hours",
+          "type": "number"
+        }
+      },
+      "required": [
+        "weekly_discretionary_hours"
+      ],
+      "title": "EnergyProfile",
+      "type": "object"
+    },
+    "EvidenceRecord": {
+      "additionalProperties": false,
+      "description": "Spec §8.2.3：Evidence 独立留存，不随 Profile 更新消失。",
+      "properties": {
+        "checksum": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Checksum"
+        },
+        "evidence_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "evidence_type": {
+          "enum": [
+            "certificate",
+            "transcript",
+            "artifact",
+            "link",
+            "award_letter",
+            "reference",
+            "screenshot",
+            "other"
+          ],
+          "title": "Evidence Type",
+          "type": "string"
+        },
+        "expires_at": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expires At"
+        },
+        "issuer": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Issuer"
+        },
+        "object_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Private Vault 中的对象引用，按 student_id 前缀隔离",
+          "title": "Object Ref"
+        },
+        "obtained_at": {
+          "format": "date",
+          "title": "Obtained At",
+          "type": "string"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "uri": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Uri"
+        },
+        "verification_status": {
+          "$ref": "#/components/schemas/VerificationStatus",
+          "default": "self_reported"
+        },
+        "visibility": {
+          "$ref": "#/components/schemas/Visibility",
+          "default": "private"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "student_id",
+        "evidence_type",
+        "source",
+        "obtained_at"
+      ],
+      "title": "EvidenceRecord",
+      "type": "object"
+    },
+    "ExperienceRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "experience_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Experience Id",
+          "type": "string"
+        },
+        "note_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Note Ids",
+          "type": "array"
+        },
+        "organization": {
+          "title": "Organization",
+          "type": "string"
+        },
+        "outcomes": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Outcomes",
+          "type": "array"
+        },
+        "period": {
+          "$ref": "#/components/schemas/DateRange"
+        },
+        "responsibilities": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Responsibilities",
+          "type": "array"
+        },
+        "role": {
+          "title": "Role",
+          "type": "string"
+        },
+        "skills": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Skills",
+          "type": "array"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/components/schemas/ExperienceType"
+        },
+        "verification_status": {
+          "$ref": "#/components/schemas/VerificationStatus",
+          "default": "self_reported"
+        }
+      },
+      "required": [
+        "experience_id",
+        "student_id",
+        "type",
+        "organization",
+        "role",
+        "period"
+      ],
+      "title": "ExperienceRecord",
+      "type": "object"
+    },
+    "ExperienceType": {
+      "enum": [
+        "internship",
+        "part_time",
+        "research",
+        "project",
+        "competition",
+        "club",
+        "volunteer",
+        "entrepreneurship",
+        "exchange",
+        "other"
+      ],
+      "title": "ExperienceType",
+      "type": "string"
+    },
+    "Goal": {
+      "additionalProperties": false,
+      "description": "一个目标 = **一个方向** + 学生在那个框架下写下的具体终点。\n\n``development_mode`` 是 Spec 明确针对的五类人群（就业 / 深造 / 创业 /\n探索中 / 发展个人特长）。它先于 ``target_name`` 存在，因为\"入职某公司\"\n与\"读某个博士项目\"在要求图上根本不是同一类东西——先定方向，\nRequirement Graph 才有框架可依。\n\n``exploration`` 是一等公民，不是\"还没想好\"的占位：Spec §16.1 明确\n\"暂时不确定\"是一种合法状态，系统不得逼学生先编一个目标出来。",
+      "properties": {
+        "alternatives": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Alternatives",
+          "type": "array"
+        },
+        "confidence": {
+          "default": 0.5,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "development_mode": {
+          "$ref": "#/components/schemas/DevelopmentModeType"
+        },
+        "goal_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Goal Id",
+          "type": "string"
+        },
+        "horizon": {
+          "$ref": "#/components/schemas/Horizon",
+          "default": "long_term"
+        },
+        "last_reviewed": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Last Reviewed"
+        },
+        "role": {
+          "$ref": "#/components/schemas/GoalRole"
+        },
+        "status": {
+          "$ref": "#/components/schemas/GoalStatus",
+          "default": "active"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "target_name": {
+          "maxLength": 200,
+          "title": "Target Name",
+          "type": "string"
+        },
+        "target_type": {
+          "enum": [
+            "role",
+            "industry",
+            "program",
+            "skill",
+            "exploration"
+          ],
+          "title": "Target Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "goal_id",
+        "student_id",
+        "role",
+        "development_mode",
+        "target_type",
+        "target_name",
+        "created_at"
+      ],
+      "title": "Goal",
+      "type": "object"
+    },
+    "GoalRole": {
+      "description": "G3：一个主目标 + 一个候选目标。",
+      "enum": [
+        "primary",
+        "candidate"
+      ],
+      "title": "GoalRole",
+      "type": "string"
+    },
+    "GoalStatus": {
+      "enum": [
+        "active",
+        "candidate",
+        "paused",
+        "achieved",
+        "abandoned"
+      ],
+      "title": "GoalStatus",
+      "type": "string"
+    },
+    "Horizon": {
+      "enum": [
+        "next_two_weeks",
+        "this_term",
+        "long_term"
+      ],
+      "title": "Horizon",
+      "type": "string"
+    },
+    "ImpactLevel": {
+      "description": "Spec §8.2.4：高影响推断不直接写入 Canonical Profile。",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "title": "ImpactLevel",
+      "type": "string"
+    },
+    "IntensityMode": {
+      "description": "学生选择的计划强度（Spec §16.7）。",
+      "enum": [
+        "gentle",
+        "balanced",
+        "sprint"
+      ],
+      "title": "IntensityMode",
+      "type": "string"
+    },
+    "InternationalStudentContext": {
+      "additionalProperties": false,
+      "description": "结构化国际学生上下文（用户裁定 F，2026-08-02：**不是**一个布尔开关）。\n\n存在即视为「我是国际生」已勾选；字段对齐 vendored Pack 的\nbase/questions.yaml（integration-contract：这些字段归 Student Profile 所有，\n政策规则归 Pack 所有）。institution / programme_level / expected_graduation\n不重复存——求值时从 StudentProfile 本体派生，一份事实一个出处。",
+      "properties": {
+        "employer_sponsorship_expected": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Employer Sponsorship Expected"
+        },
+        "intended_start_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Intended Start Date"
+        },
+        "intended_work_jurisdiction": {
+          "enum": [
+            "HK-SAR",
+            "CN-MAINLAND",
+            "other"
+          ],
+          "title": "Intended Work Jurisdiction",
+          "type": "string"
+        },
+        "language_evidence": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Language Evidence",
+          "type": "array"
+        },
+        "permission_category": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Permission Category",
+          "type": "string"
+        },
+        "permission_expiry_date": {
+          "format": "date",
+          "title": "Permission Expiry Date",
+          "type": "string"
+        },
+        "school_approval": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "School Approval"
+        },
+        "study_jurisdiction": {
+          "enum": [
+            "HK-SAR",
+            "CN-MAINLAND",
+            "other"
+          ],
+          "title": "Study Jurisdiction",
+          "type": "string"
+        },
+        "study_mode": {
+          "default": "full_time",
+          "enum": [
+            "full_time",
+            "part_time"
+          ],
+          "title": "Study Mode",
+          "type": "string"
+        },
+        "target_cities": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Target Cities",
+          "type": "array"
+        },
+        "updated_at": {
+          "format": "date-time",
+          "title": "Updated At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "study_jurisdiction",
+        "intended_work_jurisdiction",
+        "permission_category",
+        "permission_expiry_date",
+        "updated_at"
+      ],
+      "title": "InternationalStudentContext",
+      "type": "object"
+    },
+    "Locale": {
+      "description": "UI 双语要求（Plan §2）。契约层只承载 locale 标签，不承载文案。",
+      "enum": [
+        "zh-Hans",
+        "en"
+      ],
+      "title": "Locale",
+      "type": "string"
+    },
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    },
+    "MemoryEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "authority": {
+          "const": "advisory",
+          "default": "advisory",
+          "description": "记忆永远不是权威事实——权威在结构化数据库（Spec §8.4）",
+          "title": "Authority",
+          "type": "string"
+        },
+        "confidence": {
+          "default": 0.5,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "content": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Content",
+          "type": "string"
+        },
+        "memory_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Memory Id",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/components/schemas/MemoryOrigin"
+        },
+        "review_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Review At"
+        },
+        "source_event_id": {
+          "description": "Spec §8.6：每条记忆都要能回溯到一个事件。无来源的记忆不许写入",
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Source Event Id",
+          "type": "string"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "student_locked": {
+          "default": false,
+          "description": "学生锁定后系统不得修改或覆盖该条",
+          "title": "Student Locked",
+          "type": "boolean"
+        },
+        "superseded_by": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Superseded By"
+        },
+        "supersedes": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "用 supersedes 表达更新，不静默覆盖",
+          "title": "Supersedes"
+        },
+        "type": {
+          "$ref": "#/components/schemas/MemoryType"
+        },
+        "valid_from": {
+          "format": "date-time",
+          "title": "Valid From",
+          "type": "string"
+        },
+        "visibility": {
+          "$ref": "#/components/schemas/Visibility",
+          "default": "private"
+        }
+      },
+      "required": [
+        "memory_id",
+        "student_id",
+        "type",
+        "origin",
+        "content",
+        "source_event_id",
+        "valid_from"
+      ],
+      "title": "MemoryEntry",
+      "type": "object"
+    },
+    "MemoryOrigin": {
+      "description": "Spec §8.6：必须区分\"学生原话\"/\"系统推断\"/\"外部事实\"。",
+      "enum": [
+        "student_statement",
+        "system_inference",
+        "external_fact"
+      ],
+      "title": "MemoryOrigin",
+      "type": "string"
+    },
+    "MemoryType": {
+      "enum": [
+        "decision",
+        "preference",
+        "experience",
+        "rejection",
+        "energy_pattern",
+        "contact",
+        "domain_fact"
+      ],
+      "title": "MemoryType",
+      "type": "string"
+    },
+    "Note": {
+      "additionalProperties": false,
+      "description": "学生或 Agent 的上下文说明。``text`` 是原文，永不进入聚合通路（B4）。",
+      "properties": {
+        "author": {
+          "enum": [
+            "student",
+            "agent"
+          ],
+          "title": "Author",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "linked_entities": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Linked Entities",
+          "type": "array"
+        },
+        "note_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Note Id",
+          "type": "string"
+        },
+        "object_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Object Ref"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "text": {
+          "anyOf": [
+            {
+              "maxLength": 20000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Text"
+        },
+        "updated_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Updated At"
+        },
+        "visibility": {
+          "$ref": "#/components/schemas/Visibility",
+          "default": "private"
+        }
+      },
+      "required": [
+        "note_id",
+        "student_id",
+        "author",
+        "created_at"
+      ],
+      "title": "Note",
+      "type": "object"
+    },
+    "OutreachConsent": {
+      "additionalProperties": false,
+      "description": "Spec §14.2。没有有效同意就没有任何个体信息离开学生侧（B13）。",
+      "properties": {
+        "consent_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Consent Id",
+          "type": "string"
+        },
+        "expires_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expires At"
+        },
+        "granted_at": {
+          "format": "date-time",
+          "title": "Granted At",
+          "type": "string"
+        },
+        "purpose": {
+          "$ref": "#/components/schemas/OutreachPurpose",
+          "default": "non_urgent_wellbeing_checkin"
+        },
+        "recipient_role": {
+          "const": "counseling_wellbeing_queue",
+          "title": "Recipient Role",
+          "type": "string"
+        },
+        "revoked_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Revoked At"
+        },
+        "scope": {
+          "enum": [
+            "single_request",
+            "standing_opt_in"
+          ],
+          "title": "Scope",
+          "type": "string"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "consent_id",
+        "student_id",
+        "scope",
+        "recipient_role",
+        "granted_at"
+      ],
+      "title": "OutreachConsent",
+      "type": "object"
+    },
+    "OutreachPurpose": {
+      "enum": [
+        "non_urgent_wellbeing_checkin"
+      ],
+      "title": "OutreachPurpose",
+      "type": "string"
+    },
+    "ProfileUpdateProposal": {
+      "additionalProperties": false,
+      "description": "A1 的输出。``status`` 只能由学生动作推进，Agent 不得自行置为 confirmed。",
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "decided_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Decided At"
+        },
+        "evidence_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "impact": {
+          "$ref": "#/components/schemas/ImpactLevel",
+          "default": "low"
+        },
+        "proposal_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Proposal Id",
+          "type": "string"
+        },
+        "proposed_changes": {
+          "items": {
+            "$ref": "#/components/schemas/ProposedChange"
+          },
+          "minItems": 1,
+          "title": "Proposed Changes",
+          "type": "array"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "title": "Reason",
+          "type": "string"
+        },
+        "source_event_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Source Event Ids",
+          "type": "array"
+        },
+        "status": {
+          "$ref": "#/components/schemas/ProposalStatus",
+          "default": "pending"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "proposal_id",
+        "student_id",
+        "proposed_changes",
+        "reason",
+        "created_at"
+      ],
+      "title": "ProfileUpdateProposal",
+      "type": "object"
+    },
+    "ProposalStatus": {
+      "enum": [
+        "pending",
+        "edited",
+        "confirmed",
+        "rejected"
+      ],
+      "title": "ProposalStatus",
+      "type": "string"
+    },
+    "ProposedChange": {
+      "additionalProperties": false,
+      "properties": {
+        "entity_type": {
+          "enum": [
+            "experience",
+            "project",
+            "achievement",
+            "skill",
+            "interest",
+            "goal",
+            "constraint",
+            "energy_profile",
+            "education",
+            "certificate",
+            "language",
+            "honor"
+          ],
+          "title": "Entity Type",
+          "type": "string"
+        },
+        "field_path": {
+          "title": "Field Path",
+          "type": "string"
+        },
+        "new_value": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "New Value"
+        },
+        "old_value": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Old Value"
+        },
+        "operation": {
+          "enum": [
+            "add",
+            "update",
+            "remove"
+          ],
+          "title": "Operation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "entity_type",
+        "operation",
+        "field_path"
+      ],
+      "title": "ProposedChange",
+      "type": "object"
+    },
+    "ProposedSlot": {
+      "additionalProperties": false,
+      "properties": {
+        "conflicts": {
+          "default": [],
+          "items": {
+            "$ref": "#/components/schemas/ScheduleConflict"
+          },
+          "title": "Conflicts",
+          "type": "array"
+        },
+        "plan_item_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Plan Item Id",
+          "type": "string"
+        },
+        "span": {
+          "$ref": "#/components/schemas/TimeRange"
+        }
+      },
+      "required": [
+        "plan_item_id",
+        "span"
+      ],
+      "title": "ProposedSlot",
+      "type": "object"
+    },
+    "RecordSource": {
+      "enum": [
+        "sis",
+        "lms",
+        "student_reported",
+        "degree_audit"
+      ],
+      "title": "RecordSource",
+      "type": "string"
+    },
+    "Reflection": {
+      "additionalProperties": false,
+      "description": "学生私有。``private_text`` 永远不离开 Student Private Vault。",
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "energy_cost": {
+          "$ref": "#/components/schemas/EnergyCost",
+          "default": "moderate"
+        },
+        "fit_tag": {
+          "anyOf": [
+            {
+              "maxLength": 40,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fit Tag"
+        },
+        "goal_delta": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Goal Delta",
+          "type": "array"
+        },
+        "next_action": {
+          "anyOf": [
+            {
+              "maxLength": 1000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Next Action"
+        },
+        "personal_learning": {
+          "anyOf": [
+            {
+              "maxLength": 5000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Personal Learning"
+        },
+        "preference_delta": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Preference Delta",
+          "type": "array"
+        },
+        "private_text": {
+          "anyOf": [
+            {
+              "maxLength": 20000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "学生原文。类型层保证它没有任何通往 Aggregation 的路径（B4）",
+          "title": "Private Text"
+        },
+        "profile_candidate_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Profile Candidate Ids",
+          "type": "array"
+        },
+        "rating_content_depth": {
+          "anyOf": [
+            {
+              "maximum": 5,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rating Content Depth"
+        },
+        "rating_expectation_match": {
+          "anyOf": [
+            {
+              "maximum": 5,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rating Expectation Match"
+        },
+        "rating_organization": {
+          "anyOf": [
+            {
+              "maximum": 5,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rating Organization"
+        },
+        "rating_practical_value": {
+          "anyOf": [
+            {
+              "maximum": 5,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rating Practical Value"
+        },
+        "reflection_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Reflection Id",
+          "type": "string"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "subject_id": {
+          "description": "被反思的行动 / 活动 / 课程",
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Subject Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reflection_id",
+        "student_id",
+        "subject_id",
+        "created_at"
+      ],
+      "title": "Reflection",
+      "type": "object"
+    },
+    "ScheduleConflict": {
+      "additionalProperties": false,
+      "properties": {
+        "blocking": {
+          "description": "True 表示不得静默排程，必须显式警告或改期",
+          "title": "Blocking",
+          "type": "boolean"
+        },
+        "conflict_type": {
+          "enum": [
+            "protected_block",
+            "busy_overlap",
+            "exam",
+            "prerequisite_timing",
+            "capacity_exceeded",
+            "travel_infeasible"
+          ],
+          "title": "Conflict Type",
+          "type": "string"
+        },
+        "detail": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/LocalizedText"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "with_block_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "With Block Id"
+        }
+      },
+      "required": [
+        "conflict_type",
+        "blocking"
+      ],
+      "title": "ScheduleConflict",
+      "type": "object"
+    },
+    "ScheduleProposal": {
+      "additionalProperties": false,
+      "description": "A5 的排程预览。学生批准前不写任何日历（Spec §15.4 规则 8）。",
+      "properties": {
+        "assumptions": {
+          "default": [],
+          "items": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "calendar_action_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Calendar Action Ids",
+          "type": "array"
+        },
+        "plan_item_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Plan Item Ids",
+          "type": "array"
+        },
+        "proposal_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Proposal Id",
+          "type": "string"
+        },
+        "proposed_slots": {
+          "default": [],
+          "items": {
+            "$ref": "#/components/schemas/ProposedSlot"
+          },
+          "title": "Proposed Slots",
+          "type": "array"
+        },
+        "student_decision": {
+          "default": "pending",
+          "enum": [
+            "pending",
+            "approved",
+            "modified",
+            "rejected"
+          ],
+          "title": "Student Decision",
+          "type": "string"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "proposal_id",
+        "student_id"
+      ],
+      "title": "ScheduleProposal",
+      "type": "object"
+    },
+    "StudentConstraint": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "maxLength": 500,
+          "title": "Description",
+          "type": "string"
+        },
+        "hard": {
+          "default": false,
+          "description": "hard=True 时进入 Rules 硬约束",
+          "title": "Hard",
+          "type": "boolean"
+        },
+        "kind": {
+          "enum": [
+            "commute",
+            "caregiving",
+            "financial",
+            "accessibility",
+            "visa",
+            "other"
+          ],
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "description"
+      ],
+      "title": "StudentConstraint",
+      "type": "object"
+    },
+    "StudentCourseRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "course_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Course Id",
+          "type": "string"
+        },
+        "credits": {
+          "minimum": 0,
+          "title": "Credits",
+          "type": "number"
+        },
+        "grade": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "仅在学生授权 SIS_RECORDS 时填充；未授权时为 None 而非 'N/A'",
+          "title": "Grade"
+        },
+        "grade_scope": {
+          "default": "not_released",
+          "enum": [
+            "letter",
+            "pass_fail",
+            "audit",
+            "not_released",
+            "withheld"
+          ],
+          "title": "Grade Scope",
+          "type": "string"
+        },
+        "record_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Record Id",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/components/schemas/RecordSource"
+        },
+        "status": {
+          "$ref": "#/components/schemas/CourseStatus"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "term": {
+          "pattern": "^\\d{4}-\\d{2}_(FALL|WINTER|SPRING|SUMMER)$",
+          "title": "Term",
+          "type": "string"
+        },
+        "updated_at": {
+          "format": "date-time",
+          "title": "Updated At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "record_id",
+        "student_id",
+        "course_id",
+        "term",
+        "status",
+        "credits",
+        "source",
+        "updated_at"
+      ],
+      "title": "StudentCourseRecord",
+      "type": "object"
+    },
+    "StudentProfile": {
+      "additionalProperties": false,
+      "description": "L0 Canonical Profile（Spec §8.4）。只保存当前有效状态，历史在 Event Store。",
+      "properties": {
+        "candidate_goal_share": {
+          "default": 0.2,
+          "maximum": 0.5,
+          "minimum": 0.0,
+          "title": "Candidate Goal Share",
+          "type": "number"
+        },
+        "consent": {
+          "default": [],
+          "items": {
+            "$ref": "#/components/schemas/ConsentRecord"
+          },
+          "title": "Consent",
+          "type": "array"
+        },
+        "constraints": {
+          "default": [],
+          "items": {
+            "$ref": "#/components/schemas/StudentConstraint"
+          },
+          "title": "Constraints",
+          "type": "array"
+        },
+        "development_modes": {
+          "default": [],
+          "items": {
+            "$ref": "#/components/schemas/DevelopmentMode"
+          },
+          "title": "Development Modes",
+          "type": "array"
+        },
+        "energy_profile": {
+          "$ref": "#/components/schemas/EnergyProfile"
+        },
+        "expected_graduation": {
+          "format": "date",
+          "title": "Expected Graduation",
+          "type": "string"
+        },
+        "institution": {
+          "title": "Institution",
+          "type": "string"
+        },
+        "interests": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Interests",
+          "type": "array"
+        },
+        "intl_context": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/InternationalStudentContext"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "level": {
+          "enum": [
+            "undergraduate",
+            "postgraduate_taught",
+            "postgraduate_research"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "program_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Program Id",
+          "type": "string"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "updated_at": {
+          "format": "date-time",
+          "title": "Updated At",
+          "type": "string"
+        },
+        "version": {
+          "description": "每次确认写入 +1，与 ProfileChangeEvent 对应",
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        },
+        "year": {
+          "maximum": 8,
+          "minimum": 1,
+          "title": "Year",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "student_id",
+        "institution",
+        "program_id",
+        "level",
+        "year",
+        "expected_graduation",
+        "energy_profile",
+        "version",
+        "updated_at"
+      ],
+      "title": "StudentProfile",
+      "type": "object"
+    },
+    "TimeRange": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "format": "date-time",
+          "title": "End",
+          "type": "string"
+        },
+        "start": {
+          "format": "date-time",
+          "title": "Start",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "TimeRange",
+      "type": "object"
+    },
+    "VerificationStatus": {
+      "description": "Spec §8.2.3：不把上传文件自动当成学校认证。",
+      "enum": [
+        "self_reported",
+        "source_imported",
+        "institution_verified",
+        "expired",
+        "disputed"
+      ],
+      "title": "VerificationStatus",
+      "type": "string"
+    },
+    "Visibility": {
+      "enum": [
+        "private",
+        "shared_with_advisor",
+        "institution_visible"
+      ],
+      "title": "Visibility",
+      "type": "string"
+    },
+    "WellbeingReminderEvent": {
+      "additionalProperties": false,
+      "description": "两次提醒状态机的一条记录（Spec §14.2、§16.8.3）。",
+      "properties": {
+        "delivered_at": {
+          "format": "date-time",
+          "title": "Delivered At",
+          "type": "string"
+        },
+        "locale": {
+          "$ref": "#/components/schemas/Locale"
+        },
+        "low_load_mode": {
+          "default": false,
+          "title": "Low Load Mode",
+          "type": "boolean"
+        },
+        "reevaluate_after": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "第 1 次提醒后 24–72 小时再评估（Spec §16.8.3）",
+          "title": "Reevaluate After"
+        },
+        "reminder_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Reminder Id",
+          "type": "string"
+        },
+        "reminder_number": {
+          "enum": [
+            1,
+            2
+          ],
+          "title": "Reminder Number",
+          "type": "integer"
+        },
+        "signal_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Signal Ids",
+          "type": "array"
+        },
+        "snoozed_until": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Snoozed Until"
+        },
+        "student_action": {
+          "default": "none",
+          "enum": [
+            "none",
+            "acknowledged",
+            "switched_low_load",
+            "removed_tasks",
+            "snoozed",
+            "requested_contact",
+            "muted"
+          ],
+          "title": "Student Action",
+          "type": "string"
+        },
+        "student_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Student Id",
+          "type": "string"
+        },
+        "template_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Template Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reminder_id",
+        "student_id",
+        "signal_ids",
+        "reminder_number",
+        "template_id",
+        "locale",
+        "delivered_at"
+      ],
+      "title": "WellbeingReminderEvent",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/StudentDataExport.json",
+  "additionalProperties": false,
+  "description": "设置页「导出我的数据」（F01/F17）。只含**这个学生自己**可见域的记录。",
+  "properties": {
+    "actions": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/ActionEvent"
+      },
+      "title": "Actions",
+      "type": "array"
+    },
+    "availability": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/AvailabilityBlock"
+      },
+      "title": "Availability",
+      "type": "array"
+    },
+    "capacity_snapshots": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/CapacitySnapshot"
+      },
+      "title": "Capacity Snapshots",
+      "type": "array"
+    },
+    "consents_on_record": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/OutreachConsent"
+      },
+      "title": "Consents On Record",
+      "type": "array"
+    },
+    "course_records": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/StudentCourseRecord"
+      },
+      "title": "Course Records",
+      "type": "array"
+    },
+    "evidence": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/EvidenceRecord"
+      },
+      "title": "Evidence",
+      "type": "array"
+    },
+    "experiences": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/ExperienceRecord"
+      },
+      "title": "Experiences",
+      "type": "array"
+    },
+    "exported_at": {
+      "format": "date-time",
+      "title": "Exported At",
+      "type": "string"
+    },
+    "goals": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/Goal"
+      },
+      "title": "Goals",
+      "type": "array"
+    },
+    "memory_entries": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/MemoryEntry"
+      },
+      "title": "Memory Entries",
+      "type": "array"
+    },
+    "notes": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/Note"
+      },
+      "title": "Notes",
+      "type": "array"
+    },
+    "profile": {
+      "$ref": "#/components/schemas/StudentProfile"
+    },
+    "proposals": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/ProfileUpdateProposal"
+      },
+      "title": "Proposals",
+      "type": "array"
+    },
+    "reflections": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/Reflection"
+      },
+      "title": "Reflections",
+      "type": "array"
+    },
+    "reminders": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/WellbeingReminderEvent"
+      },
+      "title": "Reminders",
+      "type": "array"
+    },
+    "schedule_proposals": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/ScheduleProposal"
+      },
+      "title": "Schedule Proposals",
+      "type": "array"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "student_id",
+    "exported_at",
+    "profile"
+  ],
+  "title": "StudentDataExport",
+  "type": "object"
+}

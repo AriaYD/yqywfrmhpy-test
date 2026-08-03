@@ -1,0 +1,19 @@
+{
+  "$id": "https://campuspath.invalid/schema/AgentRuntimeCommand.json",
+  "additionalProperties": false,
+  "properties": {
+    "action": {
+      "enum": [
+        "start",
+        "stop"
+      ],
+      "title": "Action",
+      "type": "string"
+    }
+  },
+  "required": [
+    "action"
+  ],
+  "title": "AgentRuntimeCommand",
+  "type": "object"
+}

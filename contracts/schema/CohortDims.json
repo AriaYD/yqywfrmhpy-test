@@ -1,0 +1,43 @@
+{
+  "$defs": {
+    "DevelopmentModeType": {
+      "enum": [
+        "employment",
+        "academia",
+        "entrepreneurship",
+        "personal_interest",
+        "exploration"
+      ],
+      "title": "DevelopmentModeType",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/CohortDims.json",
+  "additionalProperties": false,
+  "description": "粗粒度分组维度。**只有这三项**——细到专业方向以下就可能反查到个人。\n\n三个字段都是**受约束类型**，不是自由文本。此前 ``school`` 与\n``development_mode`` 是裸 ``str``，于是\n``school=\"ENGG/COMP/AI-track/2024-intake/GPA3.7-3.8\"`` 完全合法——\n§17.1.2 要求\"仅粗粒度分组、不含专业方向以下的细分\"，\n而把细分塞进一个字符串既绕过了这条，也绕过了维度层数限制。",
+  "properties": {
+    "development_mode": {
+      "$ref": "#/components/schemas/DevelopmentModeType",
+      "description": "用枚举而非自由文本。枚举本来就存在，此前只是没接上"
+    },
+    "school": {
+      "description": "学院代码，例如 'ENGG'。限制成短代码，塞不下更细的分层",
+      "pattern": "^[A-Z]{2,6}$",
+      "title": "School",
+      "type": "string"
+    },
+    "year_level": {
+      "maximum": 8,
+      "minimum": 1,
+      "title": "Year Level",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "school",
+    "year_level",
+    "development_mode"
+  ],
+  "title": "CohortDims",
+  "type": "object"
+}

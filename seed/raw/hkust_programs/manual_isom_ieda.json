@@ -1,0 +1,263 @@
+[
+  {
+    "program_id": "ISOM",
+    "name": "Bachelor of Business Administration in Information Systems (BBA in IS)",
+    "school": "Department of Information Systems, Business Statistics and Operations Management (ISOM), School of Business and Management",
+    "normative_duration": "4 years",
+    "program_website": "https://isom.hkust.edu.hk/programs-n-courses/ug-programs/bba-in-is/overview",
+    "total_credits_required": 120,
+    "substituted_for": null,
+    "university_graduation_requirements": {
+      "total_credits_min": 120,
+      "common_core_required": true,
+      "english_language_requirement": true,
+      "legal_education_requirement": true,
+      "cga_academic_warning_threshold": 1.7,
+      "cga_academic_probation_threshold": 1.5,
+      "source_url": "https://registry.hkust.edu.hk/resource-library/academic-regulations-governing-ug-studies-2026-27",
+      "note": "Generic university-wide figure carried over from the existing COMP entry in programs.json; not independently re-verified against a BBA-IS-specific page during this transcription."
+    },
+    "requirement_groups": [
+      {
+        "group_name": "Required Course(s)",
+        "type": "required",
+        "credits_required": 10,
+        "courses_required": null,
+        "estimated_credits_sum": 13.0,
+        "has_or_logic": true,
+        "course_codes": [
+          "ISOM 3210",
+          "ISOM 3260",
+          "ISOM 3320",
+          "ISOM 3400"
+        ],
+        "notes": "ISOM 3210 (Information Systems Analysis and Design, 3cr) and ISOM 3260 (Database Design and Administration, 4cr) are both required. ISOM 3320 (Business Applications Development in Java) OR ISOM 3400 (Business Applications Development in Python), 3cr, is chosen based on which intro programming course (COMP 1022P vs COMP 1021) the student took.",
+        "source_url": "https://isom.hkust.edu.hk/sites/isom/files/2025-09/25-26is.pdf",
+        "scraped_at": "2026-08-01T00:00:00+00:00"
+      },
+      {
+        "group_name": "Financial Engineering Option - Required Course(s)",
+        "type": "option_required",
+        "credits_required": 3,
+        "courses_required": 1,
+        "estimated_credits_sum": 3.0,
+        "has_or_logic": false,
+        "course_codes": [
+          "IEDA 3330"
+        ],
+        "notes": "This option is defined under the IEDA/IEEM program page but explicitly lists ISOM 4530 as an eligible elective; included here for completeness since it touches ISOM course offerings. Optional add-on, CGA >= 3.0 required to enroll. Not part of the core BBA-IS major requirement.",
+        "source_url": "https://ugadmin.hkust.edu.hk/prog_crs/ug/202526/pdf/25-26ieem.pdf",
+        "scraped_at": "2026-08-01T00:00:00+00:00"
+      },
+      {
+        "group_name": "Information Systems Auditing Option - Required Course(s)",
+        "type": "option_required",
+        "credits_required": 6,
+        "courses_required": 2,
+        "estimated_credits_sum": 6.0,
+        "has_or_logic": false,
+        "course_codes": [
+          "ISOM 4100",
+          "ISOM 4300"
+        ],
+        "notes": "Optional add-on; students may opt to graduate with or without this option. Not part of the core BBA-IS major requirement.",
+        "source_url": "https://isom.hkust.edu.hk/sites/isom/files/2025-09/25-26is.pdf",
+        "scraped_at": "2026-08-01T00:00:00+00:00"
+      },
+      {
+        "group_name": "Business Analytics Option - Required Course(s)",
+        "type": "option_required",
+        "credits_required": 6,
+        "courses_required": 2,
+        "estimated_credits_sum": 6.0,
+        "has_or_logic": false,
+        "course_codes": [
+          "ISOM 3360",
+          "ISOM 3900"
+        ],
+        "notes": "Optional add-on; students may opt to graduate with or without this option. Not part of the core BBA-IS major requirement.",
+        "source_url": "https://isom.hkust.edu.hk/sites/isom/files/2025-09/25-26is.pdf",
+        "scraped_at": "2026-08-01T00:00:00+00:00"
+      }
+    ],
+    "source_urls": {
+      "program_page": "https://isom.hkust.edu.hk/programs-n-courses/ug-programs/bba-in-is/curriculum",
+      "major_requirements_pdf": "https://isom.hkust.edu.hk/sites/isom/files/2025-09/25-26is.pdf",
+      "school_requirements_pdf": null
+    },
+    "notes": "The 'Elective(s)' group (IS Electives: at least 3 ISOM courses totaling 10 credits, coded 3000-3499 or 4000-4499) is a rule-based range requirement, not a closed list of course codes -- the official PDF gives no enumerated list, so it was intentionally NOT written as a requirement_group. See manual_isom_ieda_notes.md for detail. total_credits_required and university_graduation_requirements are the generic university-wide baseline (same as other majors in programs.json), not confirmed on a BBA-IS-specific page.",
+    "provenance": {
+      "method": "manual_transcription",
+      "source_urls": [
+        "https://isom.hkust.edu.hk/sites/isom/files/2025-09/25-26is.pdf",
+        "https://isom.hkust.edu.hk/programs-n-courses/ug-programs/bba-in-is/curriculum",
+        "https://ugadmin.hkust.edu.hk/prog_crs/ug/202526/pdf/25-26ieem.pdf"
+      ],
+      "retrieved_at": "2026-08-01",
+      "note": "人工转录自官方公开页面，未经 PDF 校核"
+    }
+  },
+  {
+    "program_id": "IEDA",
+    "name": "Bachelor of Engineering in Industrial Engineering and Engineering Management (BEng in IEEM)",
+    "school": "Department of Industrial Engineering and Decision Analytics (IEDA), School of Engineering",
+    "normative_duration": "4 years",
+    "program_website": "https://ieda.hkust.edu.hk/eng/detail.php?catid=3&sid=64&tid=90",
+    "total_credits_required": 120,
+    "substituted_for": null,
+    "university_graduation_requirements": {
+      "total_credits_min": 120,
+      "common_core_required": true,
+      "english_language_requirement": true,
+      "legal_education_requirement": true,
+      "cga_academic_warning_threshold": 1.7,
+      "cga_academic_probation_threshold": 1.5,
+      "source_url": "https://registry.hkust.edu.hk/resource-library/academic-regulations-governing-ug-studies-2026-27",
+      "note": "Generic university-wide figure carried over from the existing COMP entry in programs.json; not independently re-verified against an IEEM-specific page during this transcription."
+    },
+    "requirement_groups": [
+      {
+        "group_name": "Engineering Fundamental Course(s)",
+        "type": "required",
+        "credits_required": null,
+        "courses_required": null,
+        "estimated_credits_sum": 44.0,
+        "has_or_logic": true,
+        "course_codes": [
+          "COMP 1023",
+          "COMP 2011",
+          "COMP 2012H",
+          "CHEM 1012",
+          "PHYS 1112",
+          "PHYS 1312",
+          "MATH 1013",
+          "MATH 1014",
+          "MATH 1020",
+          "MATH 1023",
+          "MATH 1024",
+          "MATH 2011",
+          "MATH 2111"
+        ],
+        "notes": "Sub-notes: [COMP 1023 OR COMP 2011 OR COMP 2012H, 3-5cr]; [CHEM 1012 OR PHYS 1112 OR PHYS 1312, 3cr]; [(MATH 1013 OR MATH 1023) AND (MATH 1014 OR MATH 1024)] OR [MATH 1020], 4-6cr; plus MATH 2011 and MATH 2111 both required outright.",
+        "source_url": "https://ugadmin.hkust.edu.hk/prog_crs/ug/202526/pdf/25-26ieem.pdf",
+        "scraped_at": "2026-08-01T00:00:00+00:00"
+      },
+      {
+        "group_name": "Required Course(s)",
+        "type": "required",
+        "credits_required": 36,
+        "courses_required": null,
+        "estimated_credits_sum": 45.0,
+        "has_or_logic": true,
+        "course_codes": [
+          "IEDA 1010",
+          "IEDA 1020",
+          "IEDA 1901",
+          "IEDA 2010",
+          "IEDA 2520",
+          "IEDA 2540",
+          "IEDA 3010",
+          "IEDA 3230",
+          "IEDA 3250",
+          "IEDA 3300",
+          "IEDA 4100",
+          "IEDA 4130",
+          "IEDA 4901",
+          "IEDA 4960",
+          "ECON 2103",
+          "ECON 2113"
+        ],
+        "notes": "IEDA 1010/1020/1901 are 0-credit. IEDA 4901 (Final Year Thesis) OR IEDA 4960 (IEEM Final Year Project), 6cr -- students in the Research Option must take IEDA 4901. ECON 2103 OR ECON 2113 (Microeconomics), 3cr.",
+        "source_url": "https://ugadmin.hkust.edu.hk/prog_crs/ug/202526/pdf/25-26ieem.pdf",
+        "scraped_at": "2026-08-01T00:00:00+00:00"
+      },
+      {
+        "group_name": "Elective(s)",
+        "type": "elective",
+        "credits_required": 21,
+        "courses_required": null,
+        "estimated_credits_sum": 34.0,
+        "has_or_logic": false,
+        "course_codes": [
+          "IEDA 2100",
+          "IEDA 2410",
+          "IEDA 3130",
+          "IEDA 3270",
+          "IEDA 3302",
+          "IEDA 3410",
+          "IEDA 3460",
+          "IEDA 3901",
+          "IEDA 4000",
+          "IEDA 4180",
+          "IEDA 4200",
+          "IEDA 4410"
+        ],
+        "notes": "'Industrial Engineering Electives, courses from the specified elective list', minimum 21 credits. IEDA 4000 (Special Topics) is 1-3cr (used 1 for the estimated sum, i.e. lower bound); all others are 3cr. Unlike the 2019-20 curriculum this list no longer splits into Engineering Management / Logistics Management / Other groups with a 15+6 credit split -- the 2025-26 cohort version is a single flat elective list.",
+        "source_url": "https://ugadmin.hkust.edu.hk/prog_crs/ug/202526/pdf/25-26ieem.pdf",
+        "scraped_at": "2026-08-01T00:00:00+00:00"
+      },
+      {
+        "group_name": "Financial Engineering Option - Required Course(s)",
+        "type": "option_required",
+        "credits_required": 3,
+        "courses_required": 1,
+        "estimated_credits_sum": 3.0,
+        "has_or_logic": false,
+        "course_codes": [
+          "IEDA 3330"
+        ],
+        "notes": "Optional add-on; requires CGA >= 3.0 to apply for enrollment. Not part of the core IEEM major requirement.",
+        "source_url": "https://ugadmin.hkust.edu.hk/prog_crs/ug/202526/pdf/25-26ieem.pdf",
+        "scraped_at": "2026-08-01T00:00:00+00:00"
+      },
+      {
+        "group_name": "Financial Engineering Option - Elective Course(s)",
+        "type": "option_elective",
+        "credits_required": 6,
+        "courses_required": 2,
+        "estimated_credits_sum": 13.0,
+        "has_or_logic": false,
+        "course_codes": [
+          "IEDA 3180",
+          "FINA 3103",
+          "ISOM 4530",
+          "RMBI 4210"
+        ],
+        "notes": "2 courses from the specified list, min 6 credits. ISOM 4530 is 4cr, the others are 3cr each.",
+        "source_url": "https://ugadmin.hkust.edu.hk/prog_crs/ug/202526/pdf/25-26ieem.pdf",
+        "scraped_at": "2026-08-01T00:00:00+00:00"
+      },
+      {
+        "group_name": "Research Option - Elective Course(s)",
+        "type": "option_elective",
+        "credits_required": 6,
+        "courses_required": 2,
+        "estimated_credits_sum": 9.0,
+        "has_or_logic": false,
+        "course_codes": [
+          "IEDA 4900",
+          "IEDA 5170",
+          "IEDA 5230"
+        ],
+        "notes": "IEEM Advanced Electives: 2 courses from the specified list (advisor approval required). Students in the Research Option must also take IEDA 4901 (already listed under core Required Course(s)). Note the 2019-20 curriculum additionally listed IEDA 5260, which no longer appears on the 2025-26 cohort PDF -- possibly discontinued or renumbered; not re-verified.",
+        "source_url": "https://ugadmin.hkust.edu.hk/prog_crs/ug/202526/pdf/25-26ieem.pdf",
+        "scraped_at": "2026-08-01T00:00:00+00:00"
+      }
+    ],
+    "source_urls": {
+      "program_page": "https://ieda.hkust.edu.hk/eng/detail.php?catid=3&sid=64&tid=90",
+      "major_requirements_pdf": "https://ugadmin.hkust.edu.hk/prog_crs/ug/202526/pdf/25-26ieem.pdf",
+      "school_requirements_pdf": null
+    },
+    "notes": "total_credits_required and university_graduation_requirements are the generic university-wide baseline (same as other majors in programs.json), not confirmed on an IEEM-specific page. The PDF program title uses 'IEEM' (Industrial Engineering and Engineering Management) even though the owning department is now named IEDA (Industrial Engineering and Decision Analytics) -- HKUST also separately offers a newer 'BEng in Decision Analytics' program under the same department, which was NOT transcribed here (out of scope for this task).",
+    "provenance": {
+      "method": "manual_transcription",
+      "source_urls": [
+        "https://ugadmin.hkust.edu.hk/prog_crs/ug/202526/pdf/25-26ieem.pdf",
+        "https://ieda.hkust.edu.hk/eng/detail.php?catid=3&sid=64&tid=90"
+      ],
+      "retrieved_at": "2026-08-01",
+      "note": "人工转录自官方公开页面，未经 PDF 校核"
+    }
+  }
+]

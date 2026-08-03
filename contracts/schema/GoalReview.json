@@ -1,0 +1,100 @@
+{
+  "$defs": {
+    "LocalizedText": {
+      "additionalProperties": false,
+      "description": "需要在 UI 展示的系统生成文案，两种语言都必须存在（Plan §2 UI 语言）。\n\n学生自己写的内容（Note、Reflection）**不用**这个类型——那是原文，不翻译。",
+      "properties": {
+        "en": {
+          "minLength": 1,
+          "title": "En",
+          "type": "string"
+        },
+        "zh_Hans": {
+          "minLength": 1,
+          "title": "Zh Hans",
+          "type": "string"
+        }
+      },
+      "required": [
+        "zh_Hans",
+        "en"
+      ],
+      "title": "LocalizedText",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/GoalReview.json",
+  "additionalProperties": false,
+  "description": "目标信心显著变化时由 A3 发起（Spec §16.9）。",
+  "properties": {
+    "comparison": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/LocalizedText"
+      },
+      "title": "Comparison",
+      "type": "array"
+    },
+    "confidence_after": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Confidence After",
+      "type": "number"
+    },
+    "confidence_before": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Confidence Before",
+      "type": "number"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "goal_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Goal Id",
+      "type": "string"
+    },
+    "recommended_action": {
+      "default": "keep",
+      "enum": [
+        "keep",
+        "swap_with_candidate",
+        "add_candidate",
+        "pause"
+      ],
+      "title": "Recommended Action",
+      "type": "string"
+    },
+    "review_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Review Id",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "trigger": {
+      "title": "Trigger",
+      "type": "string"
+    }
+  },
+  "required": [
+    "review_id",
+    "student_id",
+    "goal_id",
+    "trigger",
+    "confidence_before",
+    "confidence_after",
+    "created_at"
+  ],
+  "title": "GoalReview",
+  "type": "object"
+}

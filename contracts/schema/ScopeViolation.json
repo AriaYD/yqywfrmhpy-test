@@ -1,0 +1,70 @@
+{
+  "$id": "https://campuspath.invalid/schema/ScopeViolation.json",
+  "additionalProperties": false,
+  "description": "越权尝试的审计记录。B7 要求被拦截**且记录**，只拦不记不算通过。",
+  "properties": {
+    "attempted_category": {
+      "title": "Attempted Category",
+      "type": "string"
+    },
+    "attempted_organization_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Attempted Organization Id",
+      "type": "string"
+    },
+    "grant_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Grant Id"
+    },
+    "occurred_at": {
+      "format": "date-time",
+      "title": "Occurred At",
+      "type": "string"
+    },
+    "principal_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Principal Id",
+      "type": "string"
+    },
+    "reason": {
+      "enum": [
+        "no_grant",
+        "wrong_organization",
+        "category_not_allowed",
+        "grant_expired",
+        "direct_publish_not_allowed",
+        "role_not_granted"
+      ],
+      "title": "Reason",
+      "type": "string"
+    },
+    "violation_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Violation Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "violation_id",
+    "principal_id",
+    "attempted_organization_id",
+    "attempted_category",
+    "reason",
+    "occurred_at"
+  ],
+  "title": "ScopeViolation",
+  "type": "object"
+}

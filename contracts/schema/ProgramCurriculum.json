@@ -1,0 +1,231 @@
+{
+  "$defs": {
+    "ProgramRequirementGroup": {
+      "additionalProperties": false,
+      "description": "专业课程要求组（真实 HKUST ugprog/PDF 抓取，2026-07-31 用户需求 C/K）。\n\n抓不到的数字字段是 ``None``，**不编造**；``has_or_logic`` 表示组内课程\n存在择一逻辑（精确语义以 ``source_url`` 的官方 PDF 为准，D6.5：\n冲突时以来源原文为准）。",
+      "properties": {
+        "course_codes": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Course Codes",
+          "type": "array"
+        },
+        "courses_required": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Courses Required"
+        },
+        "credits_required": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Credits Required"
+        },
+        "estimated_credits_sum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Estimated Credits Sum"
+        },
+        "group_name": {
+          "title": "Group Name",
+          "type": "string"
+        },
+        "has_or_logic": {
+          "default": false,
+          "title": "Has Or Logic",
+          "type": "boolean"
+        },
+        "source_url": {
+          "title": "Source Url",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "required",
+            "elective",
+            "school_requirement",
+            "other"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "group_name",
+        "type",
+        "source_url"
+      ],
+      "title": "ProgramRequirementGroup",
+      "type": "object"
+    },
+    "ProgramTermPlan": {
+      "additionalProperties": false,
+      "description": "R4-J（2026-07-31）：一个专业在某个学期的建议修读安排。\n\n数据来自官方 PDF 的课程清单 + 按先修链推断的学期排布（source_note 写明\n哪部分是官方、哪部分是推断——接入真实教务系统后由 SIS 数据整体替换）。",
+      "properties": {
+        "notes": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        },
+        "required": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Required",
+          "type": "array"
+        },
+        "term_key": {
+          "pattern": "^Y[1-4]_(FALL|SPRING)$",
+          "title": "Term Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "term_key"
+      ],
+      "title": "ProgramTermPlan",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/ProgramCurriculum.json",
+  "additionalProperties": false,
+  "description": "一个本科专业的四年课程要求全貌（必修组/选修组/毕业要求）。",
+  "properties": {
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "normative_duration": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Normative Duration"
+    },
+    "program_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Program Id",
+      "type": "string"
+    },
+    "requirement_groups": {
+      "default": [],
+      "items": {
+        "$ref": "#/components/schemas/ProgramRequirementGroup"
+      },
+      "title": "Requirement Groups",
+      "type": "array"
+    },
+    "school": {
+      "title": "School",
+      "type": "string"
+    },
+    "source_urls": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Source Urls",
+      "type": "array"
+    },
+    "substituted_for": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "显式记录替代关系（如 BCB 替代 Biological Science）",
+      "title": "Substituted For"
+    },
+    "term_plan_note": {
+      "anyOf": [
+        {
+          "maxLength": 1000,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "学期排布的数据来源说明（官方/推断），如实呈现",
+      "title": "Term Plan Note"
+    },
+    "term_plans": {
+      "default": [],
+      "description": "按学期的建议修读安排（大一上→大四下，R4-J）",
+      "items": {
+        "$ref": "#/components/schemas/ProgramTermPlan"
+      },
+      "title": "Term Plans",
+      "type": "array"
+    },
+    "total_credits_required": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Total Credits Required"
+    },
+    "university_graduation_requirements": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "University Graduation Requirements",
+      "type": "array"
+    }
+  },
+  "required": [
+    "program_id",
+    "name",
+    "school"
+  ],
+  "title": "ProgramCurriculum",
+  "type": "object"
+}

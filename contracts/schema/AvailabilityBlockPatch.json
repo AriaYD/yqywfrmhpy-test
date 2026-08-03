@@ -1,0 +1,93 @@
+{
+  "$defs": {
+    "AvailabilityType": {
+      "description": "Spec §16.6 的五类时段。",
+      "enum": [
+        "busy",
+        "free",
+        "protected",
+        "buffer",
+        "flexible"
+      ],
+      "title": "AvailabilityType",
+      "type": "string"
+    },
+    "TimeRange": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "format": "date-time",
+          "title": "End",
+          "type": "string"
+        },
+        "start": {
+          "format": "date-time",
+          "title": "Start",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "TimeRange",
+      "type": "object"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/AvailabilityBlockPatch.json",
+  "additionalProperties": false,
+  "description": "A（2026-07-31）：学生在周日历上直接编辑一个时段。\n\n全部字段可选——只改动提供的那些；服务端把补丁套到原块上后\n**重新整体校验**，所以 B5 的标题授权约束照常生效，绕不过去。",
+  "properties": {
+    "reminder_minutes_before": {
+      "anyOf": [
+        {
+          "maximum": 10080,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reminder Minutes Before"
+    },
+    "span": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/TimeRange"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "title": {
+      "anyOf": [
+        {
+          "maxLength": 200,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Title"
+    },
+    "type": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/AvailabilityType"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "title": "AvailabilityBlockPatch",
+  "type": "object"
+}

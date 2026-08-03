@@ -1,0 +1,550 @@
+{
+  "role": "software-engineer",
+  "compiled_at": "2026-08-02",
+  "companies": [
+    {
+      "company": "Amazon",
+      "jd_title": "Software Development Engineer - 2026",
+      "official_url": "https://www.amazon.jobs/en/jobs/3119226/software-development-engineer-2026",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C01-L1",
+          "original_excerpt": "Currently enrolled in a Bachelor's degree or above in Computer Science, Computer Engineering, Data Science, Information Systems, or related STEM fields, OR have completed a Bachelor's or Graduate degree in specified fields.",
+          "points": [
+            {"point_id": "C01-L1-P1", "layer": "hard", "category": "education_degree", "summary_zh": "计算机科学/计算机工程/数据科学/信息系统或相关STEM专业本科及以上学历（在读或已毕业）", "summary_en": "Bachelor's degree or above (enrolled or completed) in CS/CE/Data Science/IS or related STEM field"}
+          ]
+        },
+        {
+          "line_id": "C01-L2",
+          "original_excerpt": "Expected graduation between October 2025 - September 2026, OR graduated within the last 24 months.",
+          "points": [
+            {"point_id": "C01-L2-P1", "layer": "constraint", "category": "availability_duration", "summary_zh": "毕业时间须在2025年10月至2026年9月之间，或过去24个月内已毕业", "summary_en": "Expected graduation Oct 2025-Sep 2026, or graduated within the last 24 months"}
+          ]
+        },
+        {
+          "line_id": "C01-L3",
+          "original_excerpt": "Demonstrated experience with at least one general-purpose programming language such as Java, Python, C++, C#, Go, Rust, or TypeScript.",
+          "points": [
+            {"point_id": "C01-L3-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "至少掌握一门通用编程语言（Java/Python/C++/C#/Go/Rust/TypeScript等）", "summary_en": "Demonstrated experience with at least one general-purpose language (Java, Python, C++, C#, Go, Rust, TypeScript)"}
+          ]
+        },
+        {
+          "line_id": "C01-L4",
+          "original_excerpt": "Demonstrated experience with one or more of the following: data structures implementation, basic algorithm development, or object-oriented design principles.",
+          "points": [
+            {"point_id": "C01-L4-P1", "layer": "hard", "category": "coursework", "summary_zh": "具备数据结构与基础算法实现经验", "summary_en": "Experience implementing data structures and basic algorithms"},
+            {"point_id": "C01-L4-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "掌握面向对象设计原则", "summary_en": "Experience with object-oriented design principles"}
+          ]
+        },
+        {
+          "line_id": "C01-L5",
+          "original_excerpt": "Previous technical internship(s) or demonstrated project experience is preferred.",
+          "points": [
+            {"point_id": "C01-L5-P1", "layer": "hard", "category": "internship", "summary_zh": "有相关技术实习经历者优先", "summary_en": "Previous technical internship(s) preferred"},
+            {"point_id": "C01-L5-P2", "layer": "hard", "category": "project_portfolio", "summary_zh": "有可展示的项目经验者优先", "summary_en": "Demonstrated project experience preferred"}
+          ]
+        },
+        {
+          "line_id": "C01-L6",
+          "original_excerpt": "Experience in one or more of the following: AI tools for development productivity, cloud platforms (preferably AWS), database systems (SQL and NoSQL), contributing to open-source projects, version control systems, or debugging and troubleshooting complex systems.",
+          "points": [
+            {"point_id": "C01-L6-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "熟悉AI辅助研发工具、云平台（优先AWS）、SQL/NoSQL数据库、版本控制及复杂系统调试排障", "summary_en": "Experience with AI dev-productivity tools, cloud platforms (preferably AWS), SQL/NoSQL databases, version control, or debugging complex systems"},
+            {"point_id": "C01-L6-P2", "layer": "hard", "category": "project_portfolio", "summary_zh": "有开源项目贡献经验者优先", "summary_en": "Experience contributing to open-source projects"}
+          ]
+        },
+        {
+          "line_id": "C01-L7",
+          "original_excerpt": "Strong problem-solving and analytical skills.",
+          "points": [
+            {"point_id": "C01-L7-P1", "layer": "soft", "category": "problem_solving", "summary_zh": "较强的问题解决与分析能力", "summary_en": "Strong problem-solving and analytical skills"}
+          ]
+        },
+        {
+          "line_id": "C01-L8",
+          "original_excerpt": "Excellent written and verbal communication skills.",
+          "points": [
+            {"point_id": "C01-L8-P1", "layer": "soft", "category": "communication", "summary_zh": "优秀的书面与口头沟通能力", "summary_en": "Excellent written and verbal communication skills"}
+          ]
+        },
+        {
+          "line_id": "C01-L9",
+          "original_excerpt": "Ability to learn and adapt to new technologies quickly.",
+          "points": [
+            {"point_id": "C01-L9-P1", "layer": "soft", "category": "learning_agility", "summary_zh": "能快速学习并适应新技术", "summary_en": "Ability to learn and adapt to new technologies quickly"}
+          ]
+        },
+        {
+          "line_id": "C01-L10",
+          "original_excerpt": "Basic understanding of software development lifecycle (SDLC).",
+          "points": [
+            {"point_id": "C01-L10-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "对软件开发生命周期（SDLC）有基本理解", "summary_en": "Basic understanding of the software development lifecycle (SDLC)"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 10, "lines_mapped": 10}
+    },
+    {
+      "company": "Jane Street",
+      "jd_title": "Software Engineer, Hong Kong",
+      "official_url": "https://www.janestreet.com/join-jane-street/position/4756741002/",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C02-L1",
+          "original_excerpt": "Top-notch programming skills.",
+          "points": [
+            {"point_id": "C02-L1-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "顶尖的编程能力", "summary_en": "Top-notch programming skills"}
+          ]
+        },
+        {
+          "line_id": "C02-L2",
+          "original_excerpt": "Deep experience with—and love for—technology, across a wide range of domains.",
+          "points": [
+            {"point_id": "C02-L2-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "在广泛技术领域具备深厚经验", "summary_en": "Deep hands-on experience with technology across diverse domains"},
+            {"point_id": "C02-L2-P2", "layer": "soft", "category": "learning_agility", "summary_zh": "对技术抱有热情/热爱，愿意跨领域探索", "summary_en": "Genuine passion/love for technology across diverse domains"}
+          ]
+        },
+        {
+          "line_id": "C02-L3",
+          "original_excerpt": "Strong interpersonal skills. Software engineering at Jane Street is highly collaborative.",
+          "points": [
+            {"point_id": "C02-L3-P1", "layer": "soft", "category": "communication", "summary_zh": "较强的人际沟通能力", "summary_en": "Strong interpersonal/communication skills"},
+            {"point_id": "C02-L3-P2", "layer": "soft", "category": "teamwork", "summary_zh": "适应高协作的工程文化，能与团队紧密配合", "summary_en": "Able to work well in the highly collaborative engineering culture"}
+          ]
+        },
+        {
+          "line_id": "C02-L4",
+          "original_excerpt": "We don't expect you to have experience with functional programming, OCaml, Python, or finance—we're happy to hire talented engineers and teach them what they need to know.",
+          "points": [
+            {"point_id": "C02-L4-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "无需事先具备函数式编程/OCaml/Python/金融背景，公司会培养所需技能", "summary_en": "No prior experience with functional programming, OCaml, Python, or finance required; the firm trains new hires"}
+          ]
+        },
+        {
+          "line_id": "C02-L5",
+          "original_excerpt": "Fluent in English.",
+          "points": [
+            {"point_id": "C02-L5-P1", "layer": "constraint", "category": "language", "summary_zh": "英语流利", "summary_en": "Fluent in English"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 5, "lines_mapped": 5}
+    },
+    {
+      "company": "Huawei",
+      "jd_title": "通用软件工程师（2026届校园招聘）",
+      "official_url": "https://www.nowcoder.com/jobs/detail/403740",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C03-L1",
+          "original_excerpt": "计算机、软件、通信、人工智能等相关专业本科及以上学历。",
+          "points": [
+            {"point_id": "C03-L1-P1", "layer": "hard", "category": "education_degree", "summary_zh": "计算机/软件/通信/人工智能等相关专业本科及以上学历", "summary_en": "Bachelor's degree or above in CS/Software/Telecom/AI or related fields"}
+          ]
+        },
+        {
+          "line_id": "C03-L2",
+          "original_excerpt": "热爱编程，基础扎实，熟悉掌握但不限JAVA/C++/Python/JS/HTML等编程语言中的一种或数种，有良好的编程习惯。",
+          "points": [
+            {"point_id": "C03-L2-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "掌握一种或数种编程语言（Java/C++/Python/JS/HTML等），编程基础扎实、习惯良好", "summary_en": "Proficiency in one or more languages (Java/C++/Python/JS/HTML), solid fundamentals and good coding habits"}
+          ]
+        },
+        {
+          "line_id": "C03-L3",
+          "original_excerpt": "具备独立工作能力和解决问题的能力、善于沟通，乐于合作，热衷新技术，善于总结分享，喜欢动手实践。",
+          "points": [
+            {"point_id": "C03-L3-P1", "layer": "soft", "category": "problem_solving", "summary_zh": "具备独立工作和解决问题的能力", "summary_en": "Able to work independently and solve problems"},
+            {"point_id": "C03-L3-P2", "layer": "soft", "category": "communication", "summary_zh": "善于沟通", "summary_en": "Good at communication"},
+            {"point_id": "C03-L3-P3", "layer": "soft", "category": "teamwork", "summary_zh": "乐于合作", "summary_en": "Willing and able to collaborate"},
+            {"point_id": "C03-L3-P4", "layer": "soft", "category": "learning_agility", "summary_zh": "热衷新技术，善于总结分享，喜欢动手实践", "summary_en": "Enthusiastic about new technology, good at sharing learnings, hands-on practitioner"}
+          ]
+        },
+        {
+          "line_id": "C03-L4",
+          "original_excerpt": "对数据结构、算法有一定了解。",
+          "points": [
+            {"point_id": "C03-L4-P1", "layer": "hard", "category": "coursework", "summary_zh": "对数据结构、算法有一定了解", "summary_en": "Basic understanding of data structures and algorithms"}
+          ]
+        },
+        {
+          "line_id": "C03-L5",
+          "original_excerpt": "熟悉TCP/IP协议及互联网常见应用和协议的原理。",
+          "points": [
+            {"point_id": "C03-L5-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "熟悉TCP/IP协议及常见互联网应用协议原理", "summary_en": "Familiar with TCP/IP and common internet application protocol principles"}
+          ]
+        },
+        {
+          "line_id": "C03-L6",
+          "original_excerpt": "有IT应用软件、互联网软件、IOS/安卓等相关产品开发经验，不满足于课堂所学，在校期间积极参加校内外软件编程大赛或积极参与编程开源社区组织。",
+          "points": [
+            {"point_id": "C03-L6-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "有IT应用软件/互联网软件/iOS/安卓等相关产品开发经验", "summary_en": "Experience developing IT/internet software or iOS/Android products"},
+            {"point_id": "C03-L6-P2", "layer": "hard", "category": "competition", "summary_zh": "在校期间积极参加校内外软件编程大赛", "summary_en": "Active participation in on/off-campus programming competitions"},
+            {"point_id": "C03-L6-P3", "layer": "hard", "category": "project_portfolio", "summary_zh": "积极参与编程开源社区组织", "summary_en": "Active participation in open-source community projects"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 6, "lines_mapped": 6}
+    },
+    {
+      "company": "ByteDance",
+      "jd_title": "后端开发工程师-国际电商（校园招聘）",
+      "official_url": "https://www.nowcoder.com/jobs/detail/254264",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C04-L1",
+          "original_excerpt": "2024届获得本科及以上学历，计算机相关专业优先。",
+          "points": [
+            {"point_id": "C04-L1-P1", "layer": "hard", "category": "education_degree", "summary_zh": "本科及以上学历，计算机相关专业优先", "summary_en": "Bachelor's degree or above, CS-related major preferred"},
+            {"point_id": "C04-L1-P2", "layer": "constraint", "category": "availability_duration", "summary_zh": "限定该届毕业生（毕业年份批次）投递", "summary_en": "Restricted to a specific graduation-year cohort"}
+          ]
+        },
+        {
+          "line_id": "C04-L2",
+          "original_excerpt": "热爱计算机科学和互联网技术，精通至少一门编程语言，包括但不限于：Java、C、C++、PHP、Python、Go。",
+          "points": [
+            {"point_id": "C04-L2-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "精通至少一门编程语言（Java/C/C++/PHP/Python/Go等）", "summary_en": "Proficient in at least one programming language (Java, C, C++, PHP, Python, Go, etc.)"}
+          ]
+        },
+        {
+          "line_id": "C04-L3",
+          "original_excerpt": "掌握扎实的计算机基础知识，深入理解数据结构、算法和操作系统知识。",
+          "points": [
+            {"point_id": "C04-L3-P1", "layer": "hard", "category": "coursework", "summary_zh": "计算机基础扎实，深入理解数据结构、算法与操作系统知识", "summary_en": "Solid CS fundamentals; deep understanding of data structures, algorithms, and operating systems"}
+          ]
+        },
+        {
+          "line_id": "C04-L4",
+          "original_excerpt": "有优秀的逻辑分析能力，能够对业务逻辑进行合理的抽象和拆分。",
+          "points": [
+            {"point_id": "C04-L4-P1", "layer": "soft", "category": "problem_solving", "summary_zh": "逻辑分析能力强，能对业务逻辑合理抽象拆分", "summary_en": "Strong logical/analytical skills; able to abstract and decompose business logic"}
+          ]
+        },
+        {
+          "line_id": "C04-L5",
+          "original_excerpt": "有强烈的求知欲，优秀的学习和沟通能力。",
+          "points": [
+            {"point_id": "C04-L5-P1", "layer": "soft", "category": "learning_agility", "summary_zh": "求知欲强，学习能力优秀", "summary_en": "Strong intellectual curiosity and learning ability"},
+            {"point_id": "C04-L5-P2", "layer": "soft", "category": "communication", "summary_zh": "沟通能力优秀", "summary_en": "Excellent communication skills"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 5, "lines_mapped": 5}
+    },
+    {
+      "company": "Alibaba",
+      "jd_title": "研发工程师JAVA（阿里巴巴集团校园招聘）",
+      "official_url": "https://www.nowcoder.com/jobs/detail/273573",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C05-L1",
+          "original_excerpt": "热爱编程，熟悉掌握但不限于JAVA/C/C++/PHP/NET等编程语言中的一种或几种。",
+          "points": [
+            {"point_id": "C05-L1-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "熟悉掌握一种或几种编程语言（Java/C/C++/PHP/.NET等）", "summary_en": "Proficient in one or more languages (Java, C, C++, PHP, .NET, etc.)"}
+          ]
+        },
+        {
+          "line_id": "C05-L2",
+          "original_excerpt": "熟悉网络编程和多线程编程，对TCP/IP，HTTP等网络协议有一定的理解。",
+          "points": [
+            {"point_id": "C05-L2-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "熟悉网络编程与多线程编程，理解TCP/IP、HTTP等协议", "summary_en": "Familiar with network and multithreaded programming; understands TCP/IP, HTTP protocols"}
+          ]
+        },
+        {
+          "line_id": "C05-L3",
+          "original_excerpt": "熟悉Unix/Linux/Win32环境下编程，熟练使用调试工具。",
+          "points": [
+            {"point_id": "C05-L3-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "熟悉Unix/Linux/Win32环境编程，熟练使用调试工具", "summary_en": "Familiar with Unix/Linux/Win32 programming environments; proficient with debugging tools"}
+          ]
+        },
+        {
+          "line_id": "C05-L4",
+          "original_excerpt": "热衷于数据库技术，能够熟练编写SQL脚本，参与过MySql或Oracle应用开发项目。",
+          "points": [
+            {"point_id": "C05-L4-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "热衷数据库技术，能熟练编写SQL脚本", "summary_en": "Strong interest in database tech; proficient writing SQL scripts"},
+            {"point_id": "C05-L4-P2", "layer": "hard", "category": "project_portfolio", "summary_zh": "参与过MySQL或Oracle应用开发项目", "summary_en": "Has participated in MySQL or Oracle application development projects"}
+          ]
+        },
+        {
+          "line_id": "C05-L5",
+          "original_excerpt": "对数据结构、算法有一定了解。",
+          "points": [
+            {"point_id": "C05-L5-P1", "layer": "hard", "category": "coursework", "summary_zh": "对数据结构、算法有一定了解", "summary_en": "Basic understanding of data structures and algorithms"}
+          ]
+        },
+        {
+          "line_id": "C05-L6",
+          "original_excerpt": "学习能力强，对新事物保有好奇心，有良好的沟通能力和团队协同能力。",
+          "points": [
+            {"point_id": "C05-L6-P1", "layer": "soft", "category": "learning_agility", "summary_zh": "学习能力强，对新事物保有好奇心", "summary_en": "Strong learning ability and curiosity about new things"},
+            {"point_id": "C05-L6-P2", "layer": "soft", "category": "communication", "summary_zh": "良好的沟通能力", "summary_en": "Good communication skills"},
+            {"point_id": "C05-L6-P3", "layer": "soft", "category": "teamwork", "summary_zh": "良好的团队协同能力", "summary_en": "Good team collaboration ability"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 6, "lines_mapped": 6}
+    },
+    {
+      "company": "Nvidia",
+      "jd_title": "Systems Software Engineer - New College Grad 2026",
+      "official_url": "https://builtin.com/job/systems-software-engineer-new-college-grad-2026/8023578",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C06-L1",
+          "original_excerpt": "Pursuing or recently completed a MS or PhD in Computer Science or Computer Engineering (or equivalent experience).",
+          "points": [
+            {"point_id": "C06-L1-P1", "layer": "hard", "category": "education_degree", "summary_zh": "在读或已获得计算机科学/计算机工程硕士或博士学位（或同等经验）", "summary_en": "Pursuing or recently completed an MS/PhD in CS or CE (or equivalent experience)"}
+          ]
+        },
+        {
+          "line_id": "C06-L2",
+          "original_excerpt": "Research or industry experience is highly preferred.",
+          "points": [
+            {"point_id": "C06-L2-P1", "layer": "hard", "category": "internship", "summary_zh": "有科研或行业实践经验者优先", "summary_en": "Research or industry experience highly preferred"}
+          ]
+        },
+        {
+          "line_id": "C06-L3",
+          "original_excerpt": "A track record of innovation, for example by the invention of computer algorithms.",
+          "points": [
+            {"point_id": "C06-L3-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "具有创新记录，如发明过计算机算法", "summary_en": "Track record of innovation, e.g. invention of computer algorithms"},
+            {"point_id": "C06-L3-P2", "layer": "soft", "category": "problem_solving", "summary_zh": "具备创新性解决问题的能力", "summary_en": "Demonstrated innovative problem-solving ability"}
+          ]
+        },
+        {
+          "line_id": "C06-L4",
+          "original_excerpt": "Experience in developing and delivering complex software solutions for enabling or improving semiconductor fabrication and design.",
+          "points": [
+            {"point_id": "C06-L4-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "有开发交付复杂软件方案的经验，用于半导体制造/设计相关场景", "summary_en": "Experience developing and delivering complex software solutions for semiconductor fabrication/design"}
+          ]
+        },
+        {
+          "line_id": "C06-L5",
+          "original_excerpt": "Deep understanding of technology and passionate about what you do.",
+          "points": [
+            {"point_id": "C06-L5-P1", "layer": "soft", "category": "learning_agility", "summary_zh": "对技术有深刻理解并热爱所做的工作", "summary_en": "Deep understanding of technology and passionate about the work"}
+          ]
+        },
+        {
+          "line_id": "C06-L6",
+          "original_excerpt": "Strong collaborative and interpersonal skills.",
+          "points": [
+            {"point_id": "C06-L6-P1", "layer": "soft", "category": "teamwork", "summary_zh": "较强的协作与人际交往能力", "summary_en": "Strong collaborative and interpersonal skills"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 6, "lines_mapped": 6}
+    },
+    {
+      "company": "Tencent",
+      "jd_title": "AW项目组-后端开发工程师（AI引擎方向）（腾讯校园招聘）",
+      "official_url": "https://jobs.niuqizp.com/job-vYs555NtZ.html",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C07-L1",
+          "original_excerpt": "计算机科学、软件工程、信息技术等相关专业，本科及以上学历。",
+          "points": [
+            {"point_id": "C07-L1-P1", "layer": "hard", "category": "education_degree", "summary_zh": "计算机科学/软件工程/信息技术等相关专业本科及以上学历", "summary_en": "Bachelor's degree or above in CS/Software Engineering/IT or related field"}
+          ]
+        },
+        {
+          "line_id": "C07-L2",
+          "original_excerpt": "精通至少一种主流后端语言（Go / C++ / Rust / Python / Java 等），具备扎实的算法与数据结构基础。",
+          "points": [
+            {"point_id": "C07-L2-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "精通至少一种主流后端语言（Go/C++/Rust/Python/Java等）", "summary_en": "Proficient in at least one mainstream backend language (Go, C++, Rust, Python, Java, etc.)"},
+            {"point_id": "C07-L2-P2", "layer": "hard", "category": "coursework", "summary_zh": "具备扎实的算法与数据结构基础", "summary_en": "Solid foundation in algorithms and data structures"}
+          ]
+        },
+        {
+          "line_id": "C07-L3",
+          "original_excerpt": "熟悉数据库，理解基本的数据模型和查询优化。",
+          "points": [
+            {"point_id": "C07-L3-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "熟悉数据库，理解基本数据模型和查询优化", "summary_en": "Familiar with databases; understands basic data models and query optimization"}
+          ]
+        },
+        {
+          "line_id": "C07-L4",
+          "original_excerpt": "熟悉软件工程原理、常用设计模式，代码规范清晰，有清晰的模块边界与团队协作意识。",
+          "points": [
+            {"point_id": "C07-L4-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "熟悉软件工程原理与常用设计模式，代码规范清晰、模块边界清晰", "summary_en": "Familiar with software engineering principles and common design patterns; writes clean, well-modularized code"},
+            {"point_id": "C07-L4-P2", "layer": "soft", "category": "teamwork", "summary_zh": "具备团队协作意识", "summary_en": "Team-collaboration mindset"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 4, "lines_mapped": 4}
+    },
+    {
+      "company": "Meituan",
+      "jd_title": "C端AI-Agent研发工程师-后端（美团招聘）",
+      "official_url": "https://jobs.niuqizp.com/job-vsU5LN5ta.html",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C08-L1",
+          "original_excerpt": "有多模态数据处理、Chatbot、智能体、生成式搜索应用等经验。",
+          "points": [
+            {"point_id": "C08-L1-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "有多模态数据处理、Chatbot、智能体、生成式搜索等应用经验", "summary_en": "Experience with multimodal data processing, chatbots, agents, or generative search applications"}
+          ]
+        },
+        {
+          "line_id": "C08-L2",
+          "original_excerpt": "理解LLM、Agent的核心原理，能够结合业务场景系统规划Agent应用场景，有完整的闭环实践经验。",
+          "points": [
+            {"point_id": "C08-L2-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "理解LLM、Agent核心原理，能结合业务场景规划Agent应用", "summary_en": "Understands core LLM/Agent principles; able to design agent applications for business scenarios"},
+            {"point_id": "C08-L2-P2", "layer": "hard", "category": "project_portfolio", "summary_zh": "有完整的Agent应用闭环实践经验", "summary_en": "Has end-to-end practical experience delivering agent applications"}
+          ]
+        },
+        {
+          "line_id": "C08-L3",
+          "original_excerpt": "有RAG项目参与经验，了解RAG相关技术，如chunking、embedding、混合搜索、重排序等。",
+          "points": [
+            {"point_id": "C08-L3-P1", "layer": "hard", "category": "project_portfolio", "summary_zh": "有RAG项目参与经验", "summary_en": "Has participated in RAG (retrieval-augmented generation) projects"},
+            {"point_id": "C08-L3-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "了解RAG相关技术（chunking、embedding、混合搜索、重排序等）", "summary_en": "Familiar with RAG techniques (chunking, embedding, hybrid search, reranking)"}
+          ]
+        },
+        {
+          "line_id": "C08-L4",
+          "original_excerpt": "熟练使用Java、Python等编程语言，具备良好的编程习惯和代码管理能力。",
+          "points": [
+            {"point_id": "C08-L4-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "熟练使用Java、Python等编程语言，编程习惯与代码管理能力良好", "summary_en": "Proficient in Java/Python; good coding habits and code-management skills"}
+          ]
+        },
+        {
+          "line_id": "C08-L5",
+          "original_excerpt": "对AI发展有坚定的信心、自驱力强、能够全情投入主动学习跟进新知识。",
+          "points": [
+            {"point_id": "C08-L5-P1", "layer": "soft", "category": "ownership", "summary_zh": "自驱力强，能够全情投入", "summary_en": "Strong self-drive and full commitment/ownership"},
+            {"point_id": "C08-L5-P2", "layer": "soft", "category": "learning_agility", "summary_zh": "主动学习并跟进新知识", "summary_en": "Proactively learns and keeps up with new knowledge"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 5, "lines_mapped": 5}
+    },
+    {
+      "company": "Google",
+      "jd_title": "Software Engineer, Compilers, Runtimes and Toolchains, Early Career",
+      "official_url": "https://www.google.com/about/careers/applications/jobs/results/111182182432547526",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C09-L1",
+          "original_excerpt": "Bachelor's degree or equivalent practical experience.",
+          "points": [
+            {"point_id": "C09-L1-P1", "layer": "hard", "category": "education_degree", "summary_zh": "本科学历或同等实践经验", "summary_en": "Bachelor's degree or equivalent practical experience"}
+          ]
+        },
+        {
+          "line_id": "C09-L2",
+          "original_excerpt": "1 year of experience with data structures or algorithms.",
+          "points": [
+            {"point_id": "C09-L2-P1", "layer": "hard", "category": "coursework", "summary_zh": "1年数据结构或算法相关经验", "summary_en": "1 year of experience with data structures or algorithms"}
+          ]
+        },
+        {
+          "line_id": "C09-L3",
+          "original_excerpt": "1 year of experience with software development using C++ and Python.",
+          "points": [
+            {"point_id": "C09-L3-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "1年使用C++和Python进行软件开发的经验", "summary_en": "1 year of software development experience using C++ and Python"}
+          ]
+        },
+        {
+          "line_id": "C09-L4",
+          "original_excerpt": "Fluent English communication abilities for stakeholder interaction.",
+          "points": [
+            {"point_id": "C09-L4-P1", "layer": "constraint", "category": "language", "summary_zh": "英语流利", "summary_en": "Fluent English proficiency"},
+            {"point_id": "C09-L4-P2", "layer": "soft", "category": "communication", "summary_zh": "能与利益相关方有效沟通", "summary_en": "Effective communication ability for stakeholder interaction"}
+          ]
+        },
+        {
+          "line_id": "C09-L5",
+          "original_excerpt": "Experience in writing and debugging software code.",
+          "points": [
+            {"point_id": "C09-L5-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "具备编写与调试代码的经验", "summary_en": "Experience writing and debugging software code"}
+          ]
+        },
+        {
+          "line_id": "C09-L6",
+          "original_excerpt": "Experience with one or more programming languages.",
+          "points": [
+            {"point_id": "C09-L6-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "掌握一种或多种编程语言", "summary_en": "Experience with one or more programming languages"}
+          ]
+        },
+        {
+          "line_id": "C09-L7",
+          "original_excerpt": "Experience with compilers or toolchains.",
+          "points": [
+            {"point_id": "C09-L7-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "具备编译器或工具链相关经验", "summary_en": "Experience with compilers or toolchains"}
+          ]
+        },
+        {
+          "line_id": "C09-L8",
+          "original_excerpt": "Experience with low level programming, Android, iOS, macOS, or operating systems.",
+          "points": [
+            {"point_id": "C09-L8-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "具备底层编程、Android/iOS/macOS或操作系统相关经验", "summary_en": "Experience with low-level programming, Android, iOS, macOS, or operating systems"}
+          ]
+        },
+        {
+          "line_id": "C09-L9",
+          "original_excerpt": "Familiarity with LLVM technology.",
+          "points": [
+            {"point_id": "C09-L9-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "熟悉LLVM相关技术", "summary_en": "Familiarity with LLVM technology"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 9, "lines_mapped": 9}
+    },
+    {
+      "company": "Baidu",
+      "jd_title": "基础平台研发工程师（2025校园招聘）",
+      "official_url": "https://www.nowcoder.com/feed/main/detail/a7650f33729f4613a30ce27de8214098",
+      "retrieved_at": "2026-08-02",
+      "requirement_lines": [
+        {
+          "line_id": "C10-L1",
+          "original_excerpt": "具备强烈的上进心和求知欲以及良好的沟通能力和团队合作精神。",
+          "points": [
+            {"point_id": "C10-L1-P1", "layer": "soft", "category": "learning_agility", "summary_zh": "上进心和求知欲强", "summary_en": "Strong drive and intellectual curiosity"},
+            {"point_id": "C10-L1-P2", "layer": "soft", "category": "communication", "summary_zh": "良好的沟通能力", "summary_en": "Good communication skills"},
+            {"point_id": "C10-L1-P3", "layer": "soft", "category": "teamwork", "summary_zh": "良好的团队合作精神", "summary_en": "Good team-spirit / collaboration"}
+          ]
+        },
+        {
+          "line_id": "C10-L2",
+          "original_excerpt": "对系统架构、分布式系统有浓厚兴趣，热衷于追求技术极致与创新。",
+          "points": [
+            {"point_id": "C10-L2-P1", "layer": "soft", "category": "learning_agility", "summary_zh": "对系统架构/分布式系统有浓厚兴趣，热衷技术极致与创新", "summary_en": "Strong interest in system architecture/distributed systems; pursues technical excellence and innovation"},
+            {"point_id": "C10-L2-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "关注系统架构与分布式系统方向", "summary_en": "Interest/orientation toward system architecture and distributed systems"}
+          ]
+        },
+        {
+          "line_id": "C10-L3",
+          "original_excerpt": "了解Linux/Unix操作系统原理、网络原理。",
+          "points": [
+            {"point_id": "C10-L3-P1", "layer": "hard", "category": "coursework", "summary_zh": "了解Linux/Unix操作系统原理与网络原理", "summary_en": "Understands Linux/Unix OS principles and networking fundamentals"}
+          ]
+        },
+        {
+          "line_id": "C10-L4",
+          "original_excerpt": "深刻理解数据结构和算法设计，掌握至少一门编程语言，包括但不限于Go、Java、C/C++、Python、Rust等。",
+          "points": [
+            {"point_id": "C10-L4-P1", "layer": "hard", "category": "coursework", "summary_zh": "深刻理解数据结构和算法设计", "summary_en": "Deep understanding of data structures and algorithm design"},
+            {"point_id": "C10-L4-P2", "layer": "hard", "category": "technical_skill", "summary_zh": "掌握至少一门编程语言（Go/Java/C/C++/Python/Rust等）", "summary_en": "Proficient in at least one programming language (Go, Java, C/C++, Python, Rust, etc.)"}
+          ]
+        },
+        {
+          "line_id": "C10-L5",
+          "original_excerpt": "熟悉云计算、云原生、可观测、大数据相关项目优先；有过大模型应用开发经验优先。",
+          "points": [
+            {"point_id": "C10-L5-P1", "layer": "hard", "category": "technical_skill", "summary_zh": "熟悉云计算/云原生/可观测性/大数据相关技术者优先", "summary_en": "Familiarity with cloud computing, cloud-native, observability, or big-data technology preferred"},
+            {"point_id": "C10-L5-P2", "layer": "hard", "category": "project_portfolio", "summary_zh": "有大模型应用开发经验者优先", "summary_en": "Prior experience developing large-model (LLM) applications preferred"}
+          ]
+        }
+      ],
+      "coverage": {"lines_total": 5, "lines_mapped": 5}
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "$defs": {
+    "ReplanTriggerType": {
+      "description": "Spec §16.9 的触发器清单。T5 要求注入 ≥ 10 类。",
+      "enum": [
+        "new_grade",
+        "course_enrolment_change",
+        "calendar_change",
+        "opportunity_change",
+        "activity_feedback",
+        "persistent_low_quality",
+        "goal_confidence_shift",
+        "weekly_overload",
+        "student_declined",
+        "profile_update_decided",
+        "new_approved_resource",
+        "student_added_opportunity"
+      ],
+      "title": "ReplanTriggerType",
+      "type": "string"
+    }
+  },
+  "$id": "https://campuspath.invalid/schema/ReplanRequest.json",
+  "additionalProperties": false,
+  "description": "\"有件事变了，会动到什么？\"——**只描述变化本身**。\n\n刻意不复用 ``ReplanTrigger`` 作请求体：那个模型里带着 ``affected_scope``，\n而 affected_scope 正是这次要算出来的东西。让调用方先填一个空的再由\n服务端覆盖，等于把\"谁负责算\"这件事说不清楚。",
+  "properties": {
+    "detected_at": {
+      "format": "date-time",
+      "title": "Detected At",
+      "type": "string"
+    },
+    "request_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Request Id"
+    },
+    "source": {
+      "description": "变了的那个东西的 id，例如 opportunity_id",
+      "title": "Source",
+      "type": "string"
+    },
+    "student_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Student Id",
+      "type": "string"
+    },
+    "trigger_type": {
+      "$ref": "#/components/schemas/ReplanTriggerType"
+    }
+  },
+  "required": [
+    "student_id",
+    "trigger_type",
+    "source",
+    "detected_at"
+  ],
+  "title": "ReplanRequest",
+  "type": "object"
+}
